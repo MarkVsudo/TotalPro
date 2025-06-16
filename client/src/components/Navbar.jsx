@@ -12,15 +12,7 @@ import {
   PopoverGroup,
   PopoverPanel,
 } from "@headlessui/react";
-import {
-  ArrowPathIcon,
-  Bars3Icon,
-  ChartPieIcon,
-  CursorArrowRaysIcon,
-  FingerPrintIcon,
-  SquaresPlusIcon,
-  XMarkIcon,
-} from "@heroicons/react/24/outline";
+import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import {
   ChevronDownIcon,
   PhoneIcon,
@@ -30,9 +22,9 @@ import NavLogoImg from "../assets/nav-logo.png";
 import { GiElectric } from "react-icons/gi";
 import { FaPeopleCarry } from "react-icons/fa";
 import { PiFanFill } from "react-icons/pi";
-import { PiWallFill } from "react-icons/pi";
 import { GiScrew } from "react-icons/gi";
 import { FaCartShopping } from "react-icons/fa6";
+import { useCart } from "../context/CartContext";
 
 const products = [
   {
@@ -68,6 +60,7 @@ const callsToAction = [
 
 export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const { openCart } = useCart();
 
   return (
     <header className="bg-white">
@@ -130,18 +123,6 @@ export default function Navbar() {
                   </div>
                 ))}
               </div>
-              {/* <div className="flex align-center justify-center divide-x divide-gray-900/5 bg-gray-50">
-                <a
-                  href="#"
-                  className="flex items-center justify-center gap-x-2.5 p-3 text-sm/6 font-semibold text-gray-900 hover:bg-gray-100 w-100"
-                >
-                  <PhoneIcon
-                    aria-hidden="true"
-                    className="size-5 flex-none text-gray-400"
-                  />
-                  Свържете се
-                </a>
-              </div> */}
             </PopoverPanel>
           </Popover>
 
@@ -156,9 +137,10 @@ export default function Navbar() {
           </a>
         </PopoverGroup>
         <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-          <a href="#" className="text-sm/6 font-semibold text-gray-900">
+          <button></button>
+          <button onClick={openCart} className="cursor-pointer">
             <FaCartShopping class="h-6 w-6" />
-          </a>
+          </button>
         </div>
       </nav>
       <Dialog

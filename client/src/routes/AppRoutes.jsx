@@ -1,11 +1,15 @@
 import { createBrowserRouter } from "react-router";
 import HomePage from "../pages/HomePage";
 import NotFoundPage from "../pages/NotFoundPage";
-
+import { CartProvider } from "../context/CartContext";
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <HomePage />,
+    element: (
+      <CartProvider>
+        <HomePage />
+      </CartProvider>
+    ),
   },
   {
     path: "*",
