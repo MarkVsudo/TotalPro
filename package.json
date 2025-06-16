@@ -20,5 +20,8 @@
   "homepage": "https://github.com/MarkVsudo/TotalPro#readme",
   "devDependencies": {
     "concurrently": "^9.1.2"
+  },
+  "dependencies": {
+    "react-router": "^7.6.2"
   }
 }
