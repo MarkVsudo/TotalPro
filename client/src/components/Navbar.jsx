@@ -32,6 +32,7 @@ import { FaPeopleCarry } from "react-icons/fa";
 import { PiFanFill } from "react-icons/pi";
 import { PiWallFill } from "react-icons/pi";
 import { GiScrew } from "react-icons/gi";
+import { FaCartShopping } from "react-icons/fa6";
 
 const products = [
   {
@@ -129,7 +130,7 @@ export default function Navbar() {
                   </div>
                 ))}
               </div>
-              <div className="flex align-center justify-center divide-x divide-gray-900/5 bg-gray-50">
+              {/* <div className="flex align-center justify-center divide-x divide-gray-900/5 bg-gray-50">
                 <a
                   href="#"
                   className="flex items-center justify-center gap-x-2.5 p-3 text-sm/6 font-semibold text-gray-900 hover:bg-gray-100 w-100"
@@ -140,7 +141,7 @@ export default function Navbar() {
                   />
                   Свържете се
                 </a>
-              </div>
+              </div> */}
             </PopoverPanel>
           </Popover>
 
@@ -156,8 +157,7 @@ export default function Navbar() {
         </PopoverGroup>
         <div className="hidden lg:flex lg:flex-1 lg:justify-end">
           <a href="#" className="text-sm/6 font-semibold text-gray-900">
-            <PhoneIcon class="h-6 w-6 text-gray-500" />
-            Log in <span aria-hidden="true">&rarr;</span>
+            <FaCartShopping class="h-6 w-6" />
           </a>
         </div>
       </nav>
