@@ -1,1 +1,13 @@
 @import "tailwindcss";
+
+:root {
+  /* Font Family */
+  --font-family: "Nunito", sans-serif;
+  /* Colours */
+  --light-beige: #F9F5EB;
+  --dark-beige: #E4DCCF;
+  --red: #EA5455;
+  --blue: #002B5B;
+  /* Box Shadow */
+  /* --box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25); */
+}
