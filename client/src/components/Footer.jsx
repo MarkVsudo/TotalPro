@@ -1,4 +1,5 @@
 import FooterLogo from "../assets/nav-logo.png";
+
 const Footer = () => {
   return (
     <footer className="py-8 px-4 sm:px-6 lg:px-8">
@@ -31,6 +32,7 @@ const Footer = () => {
           >
             Гипсокартон
           </a>
+          <span className="text-gray-400">·</span>
           <a
             href="#"
             className="text-gray-600 hover:text-gray-900 text-sm font-medium"

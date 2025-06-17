@@ -70,7 +70,7 @@ export default function Navbar() {
       >
         <div className="flex lg:flex-1">
           <a href="#" className="-m-1.5 p-1.5">
-            <span className="sr-only">Your Company</span>
+            <span className="sr-only">TotalPro</span>
             <img alt="" src={NavLogoImg} className="h-10 w-auto" />
           </a>
         </div>
@@ -132,7 +132,7 @@ export default function Navbar() {
           <a href="#" className="text-sm/6 font-semibold text-gray-900">
             Проекти
           </a>
-          <a href="#" className="text-sm/6 font-semibold text-gray-900">
+          <a href="#contact" className="text-sm/6 font-semibold text-gray-900 ">
             Контакти
           </a>
         </PopoverGroup>

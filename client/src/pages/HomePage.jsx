@@ -4,6 +4,7 @@ import TopBanner from "../components/TopBanner";
 import Cart from "../components/Cart";
 import AboutUsSection from "../components/AboutUsSection";
 import Footer from "../components/Footer";
+import ContactSection from "../components/ContactSection";
 const HomePage = () => {
   return (
     <>
@@ -12,6 +13,7 @@ const HomePage = () => {
       <Cart />
       <HeroSection />
       <AboutUsSection />
+      <ContactSection />
       <Footer />
     </>
   );
