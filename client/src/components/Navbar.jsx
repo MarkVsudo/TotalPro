@@ -139,7 +139,7 @@ export default function Navbar() {
         <div className="hidden lg:flex lg:flex-1 lg:justify-end">
           <button></button>
           <button onClick={openCart} className="cursor-pointer">
-            <FaCartShopping class="h-6 w-6" />
+            <FaCartShopping className="h-6 w-6" />
           </button>
         </div>
       </nav>
