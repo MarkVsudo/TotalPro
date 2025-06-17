@@ -5,6 +5,9 @@ import Cart from "../components/Cart";
 import AboutUsSection from "../components/AboutUsSection";
 import Footer from "../components/Footer";
 import ContactSection from "../components/ContactSection";
+import PartnersSection from "../components/PartnersSection";
+import NewsletterSection from "../components/NewsletterSection";
+import ServicesSection from "../components/ServicesSection";
 const HomePage = () => {
   return (
     <>
@@ -12,8 +15,11 @@ const HomePage = () => {
       <Navbar />
       <Cart />
       <HeroSection />
+      <ServicesSection />
+      <PartnersSection />
       <AboutUsSection />
       <ContactSection />
+      <NewsletterSection />
       <Footer />
     </>
   );
