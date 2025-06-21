@@ -37,7 +37,7 @@ const ServicesSection = () => {
   return (
     <section className="py-8 px-4 max-w-7xl mx-auto ">
       <div className="flex justify-center mb-8">
-        <h2 className="text-4xl font-bold text-gray-900 mb-4">
+        <h2 className="text-4xl font-bold mb-4 text-[#002B5B]">
           Услугите, които предлагаме
         </h2>
       </div>
