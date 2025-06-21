@@ -35,19 +35,24 @@ const services = [
 
 const ServicesSection = () => {
   return (
-    <section className="py-16 px-4 max-w-7xl mx-auto">
-      <h2 className="text-4xl font-bold text-gray-900 mb-4">
+    <section className="py-8 px-4 max-w-7xl mx-auto ">
+      <div className="flex justify-center mb-8">
+        <h2 className="text-4xl font-bold text-gray-900 mb-4">
+          Услугите, които предлагаме
+        </h2>
+      </div>
+      {/* <h2 className="text-4xl font-bold text-gray-900 mb-4">
         <span className="underline decoration-blue-800">
           Всичко на едно място
         </span>{" "}
         – професионални услуги за дома, офиса и всякакви обекти
-      </h2>
-      <p className="text-gray-500 max-w-2xl mb-12">
+      </h2> */}
+      {/* <p className="text-gray-500 max-w-2xl mb-12">
         Предлагаме пълен набор от услуги – от монтаж и демонтаж на климатици,
         електроинсталации и гипсокартон до хамалски услуги. Работим по частни
         домове, офиси, търговски обекти, бензиностанции и други сгради. Доверете
         се на нашия опит, качество и коректно отношение.
-      </p>
+      </p> */}
 
       <div className="grid md:grid-cols-2  gap-10">
         {services.map((service, index) => (
