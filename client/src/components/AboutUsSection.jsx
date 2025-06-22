@@ -3,7 +3,10 @@ import { FaHandshake, FaTools, FaPhoneAlt } from "react-icons/fa";
 import AboutUsImg from "../assets/about-us-img.svg";
 const AboutUsSection = () => {
   return (
-    <section className="bg-white py-20 px-6 sm:px-12 lg:px-24 text-[#002B5B]">
+    <section
+      id="about-us"
+      className="bg-white text-[#002B5B] py-8 px-4 max-w-7xl mx-auto"
+    >
       <div className="max-w-7xl mx-auto flex flex-col lg:flex-row gap-12 items-center">
         {/* Left Text Section */}
         <div className="lg:w-1/2">

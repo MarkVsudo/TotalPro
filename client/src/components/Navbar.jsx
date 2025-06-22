@@ -126,10 +126,10 @@ export default function Navbar() {
             </PopoverPanel>
           </Popover>
 
-          <a href="#" className="text-sm/6 font-semibold text-gray-900">
+          <a href="#about-us" className="text-sm/6 font-semibold text-gray-900">
             За нас
           </a>
-          <a href="#" className="text-sm/6 font-semibold text-gray-900">
+          <a href="#projects" className="text-sm/6 font-semibold text-gray-900">
             Проекти
           </a>
           <a href="#contact" className="text-sm/6 font-semibold text-gray-900 ">

@@ -8,6 +8,7 @@ import ContactSection from "../components/ContactSection";
 import PartnersSection from "../components/PartnersSection";
 import NewsletterSection from "../components/NewsletterSection";
 import ServicesSection from "../components/ServicesSection";
+import ProjectsSection from "../components/ProjectsSection";
 const HomePage = () => {
   return (
     <>
@@ -17,6 +18,7 @@ const HomePage = () => {
       <HeroSection />
       <ServicesSection />
       <PartnersSection />
+      <ProjectsSection />
       <AboutUsSection />
       <ContactSection />
       <NewsletterSection />
