@@ -1,14 +1,14 @@
-import Navbar from "../components/Navbar";
-import HeroSection from "../components/HeroSection";
-import TopBanner from "../components/TopBanner";
-import Cart from "../components/Cart";
-import AboutUsSection from "../components/AboutUsSection";
-import Footer from "../components/Footer";
-import ContactSection from "../components/ContactSection";
-import PartnersSection from "../components/PartnersSection";
-import NewsletterSection from "../components/NewsletterSection";
-import ServicesSection from "../components/ServicesSection";
-import ProjectsSection from "../components/ProjectsSection";
+import Navbar from "../components/shared/Navbar";
+import HeroSection from "../components/HomePageComponents/HeroSection";
+import TopBanner from "../components/shared/TopBanner";
+import Cart from "../components/shared/Cart";
+import AboutUsSection from "../components/HomePageComponents/AboutUsSection";
+import Footer from "../components/shared/Footer";
+import ContactSection from "../components/HomePageComponents/ContactSection";
+import PartnersSection from "../components/HomePageComponents/PartnersSection";
+import NewsletterSection from "../components/HomePageComponents/NewsletterSection";
+import ServicesSection from "../components/HomePageComponents/ServicesSection";
+import ProjectsSection from "../components/HomePageComponents/ProjectsSection";
 const HomePage = () => {
   return (
     <>

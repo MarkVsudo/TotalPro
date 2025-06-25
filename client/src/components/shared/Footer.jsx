@@ -1,4 +1,4 @@
-import FooterLogo from "../assets/nav-logo.png";
+import FooterLogo from "../../assets/nav-logo.png";
 
 const Footer = () => {
   return (

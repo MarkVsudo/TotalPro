@@ -1,6 +1,6 @@
 import React from "react";
-import DomatNaMechtiteImg from "../assets/domat_na_mechtite.png";
-import MrPizzaImg from "../assets/mr-pizza.png";
+import DomatNaMechtiteImg from "../../assets/domat_na_mechtite.png";
+import MrPizzaImg from "../../assets/mr-pizza.png";
 const PartnersSection = () => {
   return (
     <div className="py-24 sm:py-32">

@@ -18,13 +18,13 @@ import {
   PhoneIcon,
   PlayCircleIcon,
 } from "@heroicons/react/20/solid";
-import NavLogoImg from "../assets/nav-logo.png";
+import NavLogoImg from "../../assets/nav-logo.png";
 import { GiElectric } from "react-icons/gi";
 import { FaPeopleCarry } from "react-icons/fa";
 import { PiFanFill } from "react-icons/pi";
 import { GiScrew } from "react-icons/gi";
 import { FaCartShopping } from "react-icons/fa6";
-import { useCart } from "../context/CartContext";
+import { useCart } from "../../context/CartContext";
 
 const products = [
   {
