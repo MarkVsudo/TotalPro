@@ -2,12 +2,13 @@ import React from "react";
 import { FaHandshake, FaTools, FaPhoneAlt } from "react-icons/fa";
 import AboutUsImg from "../../assets/about-us-img.svg";
 const AboutUsSection = () => {
+  //
   return (
     <section
       id="about-us"
-      className="bg-white text-[#002B5B] py-8 px-4 max-w-7xl mx-auto"
+      className="bg-white text-[#002B5B] my-24 px-4 max-w-7xl mx-auto"
     >
-      <div className="max-w-7xl mx-auto flex flex-col lg:flex-row gap-12 items-center">
+      <div className="flex flex-col lg:flex-row gap-12 items-center">
         {/* Left Text Section */}
         <div className="lg:w-1/2">
           <h2 className="text-4xl font-bold mb-6">
@@ -53,7 +54,7 @@ const AboutUsSection = () => {
           <h4 className="mt-4 text-lg font-semibold">
             Коректност без компромис
           </h4>
-          <p className="mt-2 text-gray-600">
+          <p className="mt-2 text-gray-700">
             Ясни условия, точни срокове и отношение без излишни обещания – само
             реални резултати.
           </p>
@@ -67,7 +68,7 @@ const AboutUsSection = () => {
           <h4 className="mt-4 text-lg font-semibold">
             Опит и внимание към детайла
           </h4>
-          <p className="mt-2 text-gray-600">
+          <p className="mt-2 text-gray-700">
             Работим с утвърдени специалисти – от монтаж на климатици до
             електроинсталации и сухо строителство.
           </p>
@@ -79,7 +80,7 @@ const AboutUsSection = () => {
             <FaPhoneAlt className="w-6 h-6" />
           </div>
           <h4 className="mt-4 text-lg font-semibold">Винаги отзивчиви</h4>
-          <p className="mt-2 text-gray-600">
+          <p className="mt-2 text-gray-700">
             При нас няма автоматични гласове и „изчакайте на линия“. Реални хора
             – с истинско отношение.
           </p>

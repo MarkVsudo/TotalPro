@@ -3,14 +3,14 @@ import { AiOutlineBulb } from "react-icons/ai";
 
 const NewsletterSection = () => {
   return (
-    <div className="relative isolate overflow-hidden bg-[#002B5B] py-16 sm:py-24 lg:py-32">
+    <div className="my-12 bg-[#002B5B] py-16 sm:py-24 lg:py-32">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 lg:max-w-none lg:grid-cols-2">
           <div className="max-w-xl lg:max-w-lg">
-            <h2 className="text-4xl font-semibold tracking-tight text-white">
+            <h2 className="text-4xl font-bold tracking-tight text-white">
               Абонирай се за нашия бюлетин
             </h2>
-            <p className="mt-4 text-lg text-gray-300">
+            <p className="mt-4 text-lg text-gray-200">
               Получавай полезни съвети за дома, специални оферти и новини
               директно на имейла си.
             </p>
@@ -24,12 +24,13 @@ const NewsletterSection = () => {
                 type="email"
                 autoComplete="email"
                 required
-                className="min-w-0 flex-auto rounded-md bg-white/10 px-3.5 py-2 text-base text-white placeholder:text-gray-400 focus:outline focus:outline-2 focus:outline-[#0092FF]"
+                className="min-w-0 flex-auto rounded-md bg-white px-3.5 py-2  rounded-lg transition-colors"
                 placeholder="Въведи имейл адрес"
               />
+
               <button
                 type="submit"
-                className="flex-none rounded-md bg-[#0092FF] px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-[#007acc] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0092FF]"
+                className="flex-none rounded-md bg-white px-3.5 py-2.5 text-sm font-semibold text-[#002B5B] shadow-sm cursor-pointer"
               >
                 Абонирай се
               </button>
@@ -43,7 +44,7 @@ const NewsletterSection = () => {
               <dt className="mt-4 text-base font-semibold text-white">
                 Оферти и полезни съвети
               </dt>
-              <dd className="mt-2 text-base text-gray-300">
+              <dd className="mt-2 text-base text-gray-200">
                 Възползвай се от специални предложения и научи как да поддържаш
                 техниката си в изправност.
               </dd>
@@ -55,7 +56,7 @@ const NewsletterSection = () => {
               <dt className="mt-4 text-base font-semibold text-white">
                 Без спам
               </dt>
-              <dd className="mt-2 text-base text-gray-300">
+              <dd className="mt-2 text-base text-gray-200">
                 Изпращаме само важна и полезна информация. Отписването е лесно
                 по всяко време.
               </dd>

@@ -1,4 +1,4 @@
-import { PhoneIcon } from "@heroicons/react/20/solid";
+import { FiPhone } from "react-icons/fi";
 import { EnvelopeIcon } from "@heroicons/react/24/outline";
 
 export default function TopBanner() {
@@ -9,7 +9,7 @@ export default function TopBanner() {
     >
       <div className="flex flex-wrap items-center justify-center gap-x-8 gap-y-2">
         <div className="flex items-center gap-2 text-white">
-          <PhoneIcon className="w-5 h-5" />
+          <FiPhone className="w-5 h-5" />
           <a href="tel:+359888030123" className="font-semibold">
             +359 88 803 0123
           </a>

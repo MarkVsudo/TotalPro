@@ -13,11 +13,8 @@ import {
   PopoverPanel,
 } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
-import {
-  ChevronDownIcon,
-  PhoneIcon,
-  PlayCircleIcon,
-} from "@heroicons/react/20/solid";
+import { ChevronDownIcon, PlayCircleIcon } from "@heroicons/react/20/solid";
+import { FiPhone } from "react-icons/fi";
 import NavLogoImg from "../../assets/nav-logo.png";
 import { GiElectric } from "react-icons/gi";
 import { FaPeopleCarry } from "react-icons/fa";
@@ -55,7 +52,7 @@ const products = [
 
 const callsToAction = [
   { name: "Watch demo", href: "#", icon: PlayCircleIcon },
-  { name: "Свържете се", href: "#", icon: PhoneIcon },
+  { name: "Свържете се", href: "#", icon: FiPhone },
 ];
 
 export default function Navbar() {
@@ -78,7 +75,7 @@ export default function Navbar() {
           <button
             type="button"
             onClick={() => setMobileMenuOpen(true)}
-            className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700"
+            className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700 cursor-pointer"
           >
             <span className="sr-only">Open main menu</span>
             <Bars3Icon aria-hidden="true" className="size-6" />
@@ -107,7 +104,7 @@ export default function Navbar() {
                     <div className="flex size-11 flex-none items-center justify-center rounded-lg bg-gray-50 group-hover:bg-white">
                       <item.icon
                         aria-hidden="true"
-                        className="size-6 text-gray-600 group-hover:text-indigo-600 "
+                        className="size-6 text-gray-600 group-hover:text-[#002B5B] "
                       />
                     </div>
                     <div className="flex-auto">
@@ -162,7 +159,7 @@ export default function Navbar() {
             <button
               type="button"
               onClick={() => setMobileMenuOpen(false)}
-              className="-m-2.5 rounded-md p-2.5 text-gray-700"
+              className="-m-2.5 rounded-md p-2.5 text-gray-700 cursor-pointer"
             >
               <span className="sr-only">Close menu</span>
               <XMarkIcon aria-hidden="true" className="size-6" />

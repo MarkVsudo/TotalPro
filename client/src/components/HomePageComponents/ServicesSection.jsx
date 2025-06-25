@@ -35,33 +35,20 @@ const services = [
 
 const ServicesSection = () => {
   return (
-    <section className="py-8 px-4 max-w-7xl mx-auto ">
+    <section className="my-12 px-4 max-w-7xl mx-auto">
       <div className="flex justify-center mb-8">
         <h2 className="text-4xl font-bold mb-4 text-[#002B5B]">
           Услугите, които предлагаме
         </h2>
       </div>
-      {/* <h2 className="text-4xl font-bold text-gray-900 mb-4">
-        <span className="underline decoration-blue-800">
-          Всичко на едно място
-        </span>{" "}
-        – професионални услуги за дома, офиса и всякакви обекти
-      </h2> */}
-      {/* <p className="text-gray-500 max-w-2xl mb-12">
-        Предлагаме пълен набор от услуги – от монтаж и демонтаж на климатици,
-        електроинсталации и гипсокартон до хамалски услуги. Работим по частни
-        домове, офиси, търговски обекти, бензиностанции и други сгради. Доверете
-        се на нашия опит, качество и коректно отношение.
-      </p> */}
-
-      <div className="grid md:grid-cols-2  gap-10">
+      <div className="grid md:grid-cols-2 gap-10">
         {services.map((service, index) => (
           <div
             key={index}
-            className="group px-4 py-6 rounded-lg shadow-lg transition-all duration-300 transform hover:-translate-y-1 hover:shadow-2xl hover:bg-gradient-to-br hover:from-black-800 hover:to-indigo-900"
+            className="group px-4 py-6 rounded-lg shadow-lg transition-all duration-300 transform hover:-translate-y-1 hover:shadow-2xl hover:bg-gradient-to-br hover:from-[#002B5B] hover:to-blue-900"
             style={{ backgroundColor: "var(--blue)" }}
           >
-            <div className="bg-indigo-600 w-10 h-10 flex items-center justify-center rounded-lg mb-4">
+            <div className="bg-blue-900 w-10 h-10 flex items-center justify-center rounded-lg mb-4">
               {service.icon}
             </div>
             <h3 className="font-semibold text-lg text-white duration-300 mb-2">
@@ -83,22 +70,6 @@ const ServicesSection = () => {
               </span>
             </a>
           </div>
-
-          // <div key={index}>
-          //   <div className="bg-indigo-600 w-10 h-10 flex items-center justify-center rounded-lg mb-4">
-          //     {service.icon}
-          //   </div>
-          //   <h3 className="font-semibold text-lg text-gray-900 mb-2">
-          //     {service.title}
-          //   </h3>
-          //   <p className="text-gray-500 mb-4">{service.description}</p>
-          //   <a
-          //     href="#"
-          //     className="text-indigo-600 font-medium hover:underline inline-flex items-center gap-1"
-          //   >
-          //     {service.link} <span aria-hidden="true">→</span>
-          //   </a>
-          // </div>
         ))}
       </div>
     </section>

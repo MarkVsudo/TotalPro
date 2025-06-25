@@ -38,9 +38,10 @@ export default function ProjectsSection() {
 
   return (
     <section className="py-16 px-6 lg:px-12 bg-[#002B5B] mb-16">
-      <h2 className="text-3xl font-bold text-white mb-8 text-center">
+      <h2 className="text-center text-4xl font-bold text-white mb-8">
         Наши проекти
       </h2>
+
       <Swiper
         modules={[Navigation, Pagination]}
         navigation
@@ -77,7 +78,7 @@ export default function ProjectsSection() {
                   (activeIndex + images.length - 1) % images.length
                 )
               }
-              className="absolute left-4 text-white text-7xl focus:outline-none"
+              className="absolute left-4 text-white text-7xl focus:outline-none cursor-pointer"
             >
               ‹
             </button>
@@ -88,13 +89,13 @@ export default function ProjectsSection() {
             />
             <button
               onClick={() => setActiveIndex((activeIndex + 1) % images.length)}
-              className="absolute right-4 text-white text-7xl focus:outline-none"
+              className="absolute right-4 text-white text-7xl focus:outline-none cursor-pointer"
             >
               ›
             </button>
             <button
               onClick={() => setIsOpen(false)}
-              className="absolute top-4 right-4 text-white text-4xl focus:outline-none"
+              className="absolute top-4 right-4 text-white text-4xl focus:outline-none cursor-pointer"
             >
               ×
             </button>

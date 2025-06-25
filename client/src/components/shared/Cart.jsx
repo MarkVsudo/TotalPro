@@ -62,7 +62,7 @@ export default function Cart() {
                       <button
                         type="button"
                         onClick={closeCart}
-                        className="relative -m-2 p-2 text-gray-400 hover:text-gray-500"
+                        className="relative -m-2 p-2 text-gray-400 hover:text-gray-500 cursor-pointer"
                       >
                         <span className="absolute -inset-0.5" />
                         <span className="sr-only">Close panel</span>
@@ -107,7 +107,7 @@ export default function Cart() {
                                 <div className="flex">
                                   <button
                                     type="button"
-                                    className="font-medium text-indigo-600 hover:text-indigo-500"
+                                    className="font-medium text-[#002B5B] hover:text-blue-900 cursor-pointer"
                                   >
                                     Премахни
                                   </button>
@@ -136,7 +136,7 @@ export default function Cart() {
                   <div className="mt-6">
                     <a
                       href="#"
-                      className="flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-xs hover:bg-indigo-700"
+                      className="flex items-center justify-center rounded-lg border border-transparent bg-[#002B5B]  px-6 py-3 text-base font-medium text-white shadow-xs hover:bg-blue-900 transition-colors duration-200"
                     >
                       Завърши поръчката
                     </a>
@@ -147,7 +147,7 @@ export default function Cart() {
                       <button
                         type="button"
                         onClick={closeCart}
-                        className="font-medium text-indigo-600 hover:text-indigo-500"
+                        className="font-medium text-[#002B5B] hover:text-blue-900 cursor-pointer"
                       >
                         Продължи с пазаруването
                         <span aria-hidden="true"> &rarr;</span>

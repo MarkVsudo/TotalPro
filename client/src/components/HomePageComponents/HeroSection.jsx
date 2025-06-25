@@ -9,7 +9,7 @@ const HeroSection = () => {
           <h1 className="text-4xl sm:text-5xl font-bold text-white">
             Професионални услуги за вашите нужди
           </h1>
-          <p className="mt-6 text-lg text-gray-100 leading-relaxed">
+          <p className="mt-6 text-lg text-gray-200 leading-relaxed">
             Предлагаме пълен набор от услуги – от продажба, монтаж и поддръжка
             на климатици, през професионални електроинсталации, до хамалски
             услуги и изграждане на конструкции от гипсокартон. Разчитайте на нас
@@ -17,10 +17,7 @@ const HeroSection = () => {
           </p>
 
           <div className="mt-8 flex gap-4">
-            <button
-              className="bg-indigo-600 text-black-100 px-5 py-3 rounded-md font-medium shadow-md hover:bg-indigo-700 transition"
-              style={{ backgroundColor: "var(--light-beige)" }}
-            >
+            <button className="text-[#002B5B] bg-white px-5 py-3 rounded-md font-medium shadow-md cursor-pointer">
               Виж услугите
             </button>
             {/* <button className="text-gray-900 font-medium hover:underline">
