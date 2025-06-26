@@ -37,7 +37,7 @@ export default function ProjectsSection() {
   }, [isOpen]);
 
   return (
-    <section className="py-24 px-6 lg:px-12 bg-[#002B5B]">
+    <section id="projects" className="py-24 px-6 lg:px-12 bg-[#002B5B]">
       <h2 className="text-center text-4xl font-bold text-white mb-8">
         Наши проекти
       </h2>

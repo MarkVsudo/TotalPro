@@ -27,7 +27,7 @@ const products = [
   {
     name: "Климатици",
     description: "Продажба, монтаж и поддръжка на климатици",
-    href: "#",
+    href: "/air-conditioning",
     icon: PiFanFill,
   },
   {

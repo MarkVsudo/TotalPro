@@ -38,7 +38,10 @@ export default function ContactForm() {
   };
 
   return (
-    <div className="py-24 px-4 max-w-6xl mx-auto min-h-screenpx-4">
+    <section
+      id="contact"
+      className="py-24 px-4 max-w-6xl mx-auto min-h-screenpx-4"
+    >
       <div className="grid lg:grid-cols-2 gap-12 items-start">
         {/* Left Section - Contact Info */}
         <div className="bg-white p-8 rounded-lg shadow-sm">
@@ -228,6 +231,6 @@ export default function ContactForm() {
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 }
