@@ -2,7 +2,7 @@ import React from "react";
 
 const HeroSection = () => {
   return (
-    <div className="py-20" style={{ backgroundColor: "var(--blue)" }}>
+    <div className="py-24 bg-[#002B5B]">
       <div className="max-w-7xl mx-auto px-6 lg:px-8 grid grid-cols-1 md:grid-cols-2 items-center gap-12">
         {/* Left Content */}
         <div>
