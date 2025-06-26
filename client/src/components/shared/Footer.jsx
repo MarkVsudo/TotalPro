@@ -1,12 +1,13 @@
+import { Link } from "react-router-dom";
 import FooterLogo from "../../assets/nav-logo.png";
 
 const Footer = () => {
   return (
     <footer className="py-8 px-4 sm:px-6 lg:px-8">
       <div className="flex flex-col items-center justify-center max-w-7xl mx-auto gap-6">
-        <a href="/">
+        <Link to="/">
           <img alt="Footer logo" src={FooterLogo} className="h-10 w-auto" />
-        </a>
+        </Link>
         <div className="flex flex-wrap justify-center gap-6">
           <a
             href="#"

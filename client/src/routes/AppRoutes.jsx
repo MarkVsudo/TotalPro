@@ -2,7 +2,7 @@ import { createBrowserRouter } from "react-router";
 import HomePage from "../pages/HomePage";
 import NotFoundPage from "../pages/NotFoundPage";
 import AirConLayout from "../layout/AirConLayout";
-import AirConHomePage from "../pages/AirConPages/AirConHomePage";
+import AirConInfoPage from "../pages/AirConPages/AirConInfoPage";
 import AirConStorePage from "../pages/AirConPages/AirConStorePage";
 import { CartProvider } from "../context/CartContext";
 
@@ -24,12 +24,12 @@ const router = createBrowserRouter([
     ),
     children: [
       {
-        path: "home",
-        element: <AirConHomePage />,
-      },
-      {
         path: "store",
         element: <AirConStorePage />,
+      },
+      {
+        path: "info",
+        element: <AirConInfoPage />,
       },
     ],
   },
