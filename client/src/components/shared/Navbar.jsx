@@ -23,6 +23,11 @@ import { GiScrew } from "react-icons/gi";
 import { FaCartShopping } from "react-icons/fa6";
 import { useCart } from "../../context/CartContext";
 
+import { MdOutlinePlumbing } from "react-icons/md";
+import { BiSolidCctv } from "react-icons/bi";
+import { RiLayoutGridFill } from "react-icons/ri";
+import { RiSofaFill } from "react-icons/ri";
+
 const products = [
   {
     name: "Климатици",
@@ -47,6 +52,30 @@ const products = [
     description: "Окачени тавани, стени и прегради от гипсокартон",
     href: "#",
     icon: GiScrew,
+  },
+  {
+    name: "СОТ",
+    description: "Сигнализация и охранителни системи",
+    href: "#",
+    icon: BiSolidCctv,
+  },
+  {
+    name: "ВИК",
+    description: "Водоинсталационни и каналзационни работи",
+    href: "#",
+    icon: MdOutlinePlumbing,
+  },
+  {
+    name: "Плочкаджии",
+    description: "Полагане на плочки и керамични облицовки",
+    href: "#",
+    icon: RiLayoutGridFill,
+  },
+  {
+    name: "Мебели",
+    description: "Производство и инсталиране на мебели",
+    href: "#",
+    icon: RiSofaFill,
   },
 ];
 
