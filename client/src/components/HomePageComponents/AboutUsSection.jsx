@@ -1,6 +1,6 @@
 import React from "react";
 import { FaHandshake, FaTools, FaPhoneAlt } from "react-icons/fa";
-import AboutUsImg from "../../assets/about-us-img.svg";
+import AboutUsImg from "../../assets/about-us-img.png";
 const AboutUsSection = () => {
   //
   return (

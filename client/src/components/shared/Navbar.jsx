@@ -28,7 +28,7 @@ import { BiSolidCctv } from "react-icons/bi";
 import { RiLayoutGridFill } from "react-icons/ri";
 import { RiSofaFill } from "react-icons/ri";
 
-const products = [
+const services = [
   {
     name: "Климатици",
     description: "Продажба, монтаж и поддръжка на климатици",
@@ -38,43 +38,43 @@ const products = [
   {
     name: "Ел. инсталации",
     description: "Изграждане и ремонт на електроинсталации",
-    href: "#",
+    href: "/electric-installations",
     icon: GiElectric,
   },
   {
     name: "Хамалски услуги",
     description: "Преместване, транспорт и товаро-разтоварна дейност",
-    href: "#",
+    href: "/moving-services",
     icon: FaPeopleCarry,
   },
   {
     name: "Гипсокартон",
     description: "Окачени тавани, стени и прегради от гипсокартон",
-    href: "#",
+    href: "/drywall",
     icon: GiScrew,
   },
   {
     name: "СОТ",
     description: "Сигнализация и охранителни системи",
-    href: "#",
+    href: "/security-alarm-equipment",
     icon: BiSolidCctv,
   },
   {
     name: "ВИК",
-    description: "Водоинсталационни и каналзационни работи",
-    href: "#",
+    description: "Водоинсталационни и канализационни работи",
+    href: "/plumbing-services",
     icon: MdOutlinePlumbing,
   },
   {
     name: "Плочкаджии",
     description: "Полагане на плочки и керамични облицовки",
-    href: "#",
+    href: "/tiling-services",
     icon: RiLayoutGridFill,
   },
   {
     name: "Мебели",
     description: "Производство и инсталиране на мебели",
-    href: "#",
+    href: "/furniture",
     icon: RiSofaFill,
   },
 ];
@@ -122,10 +122,10 @@ export default function Navbar() {
 
             <PopoverPanel
               transition
-              className="absolute top-full -left-8 z-50 mt-3 w-screen max-w-md overflow-hidden rounded-3xl bg-white shadow-lg ring-1 ring-gray-900/5 transition data-closed:translate-y-1 data-closed:opacity-0 data-enter:duration-200 data-enter:ease-out data-leave:duration-150 data-leave:ease-in"
+              className="absolute top-full -left-8 z-50 mt-3 w-screen max-w-3xl overflow-hidden rounded-3xl bg-white shadow-lg ring-1 ring-gray-900/5 transition data-closed:translate-y-1 data-closed:opacity-0 data-enter:duration-200 data-enter:ease-out data-leave:duration-150 data-leave:ease-in"
             >
-              <div className="p-4">
-                {products.map((item) => (
+              <div className="p-4 grid grid-cols-2">
+                {services.map((item) => (
                   <div
                     key={item.name}
                     className="group relative flex items-center gap-x-6 rounded-lg p-4 text-sm/6 hover:bg-gray-50"
@@ -206,7 +206,7 @@ export default function Navbar() {
                     />
                   </DisclosureButton>
                   <DisclosurePanel className="mt-2 space-y-2">
-                    {[...products, ...callsToAction].map((item) => (
+                    {[...services, ...callsToAction].map((item) => (
                       <DisclosureButton
                         key={item.name}
                         as="a"
