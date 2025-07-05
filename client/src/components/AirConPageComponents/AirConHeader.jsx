@@ -4,7 +4,7 @@ import AirConInfoImg from "../../assets/air-con-info-img.png";
 const AirConHeader = () => {
   return (
     <div className="flex w-full">
-      <div className="flex justify-between items-center bg-[#002B5B] w-1/2 px-12">
+      <div className="custom-shape flex justify-between items-center bg-[#002B5B] w-1/2 pl-12 pr-24">
         <img
           alt="Aircon page header store image"
           src={AirConImg}
@@ -28,7 +28,9 @@ const AirConHeader = () => {
       <div className="flex justify-between items-center bg-white w-1/2 px-12">
         <div className="flex flex-col gap-6">
           <div className="flex flex-col gap-1">
-            <h1 className="font-bold text-4xl text-[#002B5B]">Информация</h1>
+            <h1 className="font-bold text-4xl text-[#002B5B]">
+              Услуги за климатици
+            </h1>
             <p className="text-[#002B5B]/85 text-lg">
               Информационна страница за услугите ни свързани с климатици
             </p>

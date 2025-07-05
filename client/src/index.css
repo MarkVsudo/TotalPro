@@ -45,3 +45,8 @@ html {
 .animate-scroll-down {
   animation: scroll-down 20s linear infinite;
 }
+
+/* Aircon page custom */
+.custom-shape {
+  clip-path: polygon(0 0, 100% 0, 90% 100%, 0% 100%);
+}
