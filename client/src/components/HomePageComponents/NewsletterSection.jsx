@@ -38,8 +38,8 @@ const NewsletterSection = () => {
           </div>
           <dl className="grid grid-cols-1 gap-x-8 gap-y-10 sm:grid-cols-2 lg:pt-2">
             <div className="flex flex-col items-start">
-              <div className="rounded-md bg-white/10 p-2 ring-1 ring-white/20">
-                <AiOutlineBulb className="size-6 text-white" />
+              <div className="bg-white text-[#002B5B] w-12 h-12 flex items-center justify-center rounded-xl">
+                <AiOutlineBulb className="size-6" />
               </div>
               <dt className="mt-4 text-base font-semibold text-white">
                 Оферти и полезни съвети
@@ -50,8 +50,8 @@ const NewsletterSection = () => {
               </dd>
             </div>
             <div className="flex flex-col items-start">
-              <div className="rounded-md bg-white/10 p-2 ring-1 ring-white/20">
-                <PiHandLight className="size-6 text-white" />
+              <div className="bg-white text-[#002B5B] w-12 h-12 flex items-center justify-center rounded-xl">
+                <PiHandLight className="size-6" />
               </div>
               <dt className="mt-4 text-base font-semibold text-white">
                 Без спам

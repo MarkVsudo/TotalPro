@@ -1,5 +1,8 @@
 import React from "react";
-import { FaHandshake, FaTools, FaPhoneAlt } from "react-icons/fa";
+import { FiPhone } from "react-icons/fi";
+import { VscTools } from "react-icons/vsc";
+import { FaRegHandshake } from "react-icons/fa6";
+
 import AboutUsImg from "../../assets/about-us-img.png";
 const AboutUsSection = () => {
   //
@@ -48,8 +51,8 @@ const AboutUsSection = () => {
       <div className="max-w-7xl mx-auto mt-20 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 text-left">
         {/* Feature 1 */}
         <div className="flex flex-col items-start">
-          <div className="p-4 bg-[#002B5B] text-white rounded-lg">
-            <FaHandshake className="w-6 h-6" />
+          <div className="bg-[#002B5B] text-white w-14 h-14 flex items-center justify-center rounded-lg">
+            <FaRegHandshake className="w-8 h-8" />
           </div>
           <h4 className="mt-4 text-lg font-semibold">
             Коректност без компромис
@@ -62,8 +65,8 @@ const AboutUsSection = () => {
 
         {/* Feature 2 */}
         <div className="flex flex-col items-start">
-          <div className="p-4 bg-[#002B5B] text-white rounded-lg">
-            <FaTools className="w-6 h-6" />
+          <div className="bg-[#002B5B] text-white w-14 h-14 flex items-center justify-center rounded-lg">
+            <VscTools className="w-7 h-7" />
           </div>
           <h4 className="mt-4 text-lg font-semibold">
             Опит и внимание към детайла
@@ -76,8 +79,8 @@ const AboutUsSection = () => {
 
         {/* Feature 3 */}
         <div className="flex flex-col items-start">
-          <div className="p-4 bg-[#002B5B] text-white rounded-lg">
-            <FaPhoneAlt className="w-6 h-6" />
+          <div className="bg-[#002B5B] text-white w-14 h-14 flex items-center justify-center rounded-lg">
+            <FiPhone className="w-7 h-7" />
           </div>
           <h4 className="mt-4 text-lg font-semibold">Винаги отзивчиви</h4>
           <p className="mt-2 text-gray-700">
