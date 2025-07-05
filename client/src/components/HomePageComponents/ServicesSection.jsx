@@ -78,9 +78,8 @@ const ServicesSection = () => {
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10">
         {/* Първите 6 услуги */}
         {services.slice(0, 6).map((service, index) => (
-          <Link to={service.link}>
+          <Link to={service.link} key={index}>
             <div
-              key={index}
               className="group h-full flex flex-col justify-between px-4 py-6 rounded-lg shadow-lg transition-all duration-300 transform hover:-translate-y-1 hover:shadow-2xl hover:bg-gradient-to-br hover:from-[#002B5B] hover:to-blue-900"
               style={{ backgroundColor: "var(--blue)" }}
             >
@@ -93,10 +92,7 @@ const ServicesSection = () => {
               <p className="text-gray-200 group-hover:text-gray-100 transition-colors duration-300 mb-4">
                 {service.description}
               </p>
-              <Link
-                to={service.link}
-                className="group text-gray-100 font-medium inline-flex items-center gap-1 transition-colors duration-300 group-hover:text-white"
-              >
+              <span className="group text-gray-100 font-medium inline-flex items-center gap-1 transition-colors duration-300 group-hover:text-white">
                 Виж повече
                 <span
                   aria-hidden="true"
@@ -104,7 +100,7 @@ const ServicesSection = () => {
                 >
                   →
                 </span>
-              </Link>
+              </span>
             </div>
           </Link>
         ))}
@@ -112,9 +108,8 @@ const ServicesSection = () => {
       {/* Последните 2 услуги */}
       <div className="py-10 flex gap-10 ">
         {services.slice(6).map((service, index) => (
-          <Link to={service.link}>
+          <Link to={service.link} key={index}>
             <div
-              key={index}
               className="group px-4 py-6 rounded-lg shadow-lg transition-all duration-300 transform hover:-translate-y-1 hover:shadow-2xl hover:bg-gradient-to-br hover:from-[#002B5B] hover:to-blue-900"
               style={{ backgroundColor: "var(--blue)" }}
             >
@@ -127,10 +122,7 @@ const ServicesSection = () => {
               <p className="text-gray-200 group-hover:text-gray-100 transition-colors duration-300 mb-4">
                 {service.description}
               </p>
-              <Link
-                to={service.link}
-                className="group text-gray-100 font-medium inline-flex items-center gap-1 transition-colors duration-300 group-hover:text-white"
-              >
+              <span className="group text-gray-100 font-medium inline-flex items-center gap-1 transition-colors duration-300 group-hover:text-white">
                 Виж повече
                 <span
                   aria-hidden="true"
@@ -138,7 +130,7 @@ const ServicesSection = () => {
                 >
                   →
                 </span>
-              </Link>
+              </span>
             </div>
           </Link>
         ))}
