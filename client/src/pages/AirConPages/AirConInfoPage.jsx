@@ -1,7 +1,12 @@
 import React from "react";
+import AirConHeader from "../../components/AirConPageComponents/AirConHeader";
 
 const AirConInfoPage = () => {
-  return <div>AirConInfoPage</div>;
+  return (
+    <>
+      <AirConHeader />
+    </>
+  );
 };
 
 export default AirConInfoPage;

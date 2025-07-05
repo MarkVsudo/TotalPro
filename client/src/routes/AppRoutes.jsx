@@ -30,7 +30,7 @@ const router = createBrowserRouter([
       </CartProvider>
     ),
     children: [
-      { path: "store", element: <AirConStorePage /> },
+      { index: true, element: <AirConStorePage /> },
       { path: "info", element: <AirConInfoPage /> },
     ],
   },
