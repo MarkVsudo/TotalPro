@@ -24,13 +24,12 @@ const NewsletterSection = () => {
                 type="email"
                 autoComplete="email"
                 required
-                className="min-w-0 flex-auto rounded-md bg-white px-3.5 py-2  rounded-lg transition-colors"
-                placeholder="Въведи имейл адрес"
+                className="w-full px-4 py-3 border bg-white border-[#002B5B] rounded-lg focus:border-blue-900 transition-colors"
+                placeholder="Въведете имейл адрес"
               />
-
               <button
                 type="submit"
-                className="flex-none rounded-md bg-white px-3.5 py-2.5 text-sm font-semibold text-[#002B5B] shadow-sm cursor-pointer"
+                className="flex-none rounded-md bg-white px-3.5 py-2.5 text-sm font-semibold text-[#002B5B] shadow-sm cursor-pointer hover:bg-gray-50 transition-colors"
               >
                 Абонирай се
               </button>

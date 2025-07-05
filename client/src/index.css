@@ -16,6 +16,8 @@ html {
   scroll-behavior: smooth;
 }
 
+/* Hero section animation */
+
 @keyframes scroll-up {
   0% {
     transform: translateY(0);
