@@ -60,7 +60,7 @@ const services = [
     icon: BiSolidCctv,
   },
   {
-    name: "ВИК",
+    name: "ВиК",
     description: "Водоинсталационни и канализационни работи",
     href: "/plumbing-services",
     icon: MdOutlinePlumbing,

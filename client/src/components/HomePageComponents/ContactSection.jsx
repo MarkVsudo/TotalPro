@@ -73,7 +73,7 @@ export default function ContactForm() {
                 <FiPhone className="w-5 h-5 text-white" />
               </div>
               <div>
-                <p className="font-medium text-gray-900">+359 88 803 0123</p>
+                <p className="font-medium text-gray-900">+359 88 930 3334</p>
                 <p className="text-gray-700">
                   Обаждайте се всеки ден 8:00 - 20:00
                 </p>

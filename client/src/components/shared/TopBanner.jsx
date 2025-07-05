@@ -10,8 +10,8 @@ export default function TopBanner() {
       <div className="flex flex-wrap items-center justify-center gap-x-8 gap-y-2">
         <div className="flex items-center gap-2 text-white">
           <FiPhone className="w-5 h-5" />
-          <a href="tel:+359888030123" className="font-semibold">
-            +359 88 803 0123
+          <a href="tel:+359889303334" className="font-semibold">
+            +359 88 930 3334
           </a>
         </div>
         <div className="flex items-center gap-2 text-white">
