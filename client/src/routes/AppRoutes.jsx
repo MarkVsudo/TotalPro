@@ -6,7 +6,7 @@ import ServicesLayout from "../layout/ServicesLayout";
 import { CartProvider } from "../context/CartContext";
 import MovingServicesPage from "../pages/MovingServicesPage";
 import TilingServicesPage from "../pages/TilingServicesPage";
-import AirConInfoPage from "../pages/AirConPages/AirConInfoPage";
+import AirConServicesPage from "../pages/AirConPages/AirConServicesPage";
 import PlumbingServicesPage from "../pages/PlumbingServicesPage";
 import AirConStorePage from "../pages/AirConPages/AirConStorePage";
 import ElectricInstallationsPage from "../pages/ElectricInstallationsPage";
@@ -31,7 +31,7 @@ const router = createBrowserRouter([
     ),
     children: [
       { index: true, element: <AirConStorePage /> },
-      { path: "info", element: <AirConInfoPage /> },
+      { path: "services", element: <AirConServicesPage /> },
     ],
   },
   {

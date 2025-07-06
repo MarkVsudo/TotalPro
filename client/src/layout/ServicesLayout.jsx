@@ -3,7 +3,7 @@ import TopBanner from "../components/shared/TopBanner";
 import Navbar from "../components/shared/Navbar";
 import Footer from "../components/shared/Footer";
 
-const AirConLayout = () => {
+const ServicesLayout = () => {
   return (
     <>
       <TopBanner />
@@ -14,4 +14,4 @@ const AirConLayout = () => {
   );
 };
 
-export default AirConLayout;
+export default ServicesLayout;

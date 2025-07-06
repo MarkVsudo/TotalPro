@@ -4,6 +4,7 @@ const AirConStorePage = () => {
   return (
     <>
       <AirConHeader />
+      <span>Store</span>
     </>
   );
 };

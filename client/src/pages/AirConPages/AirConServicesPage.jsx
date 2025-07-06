@@ -1,12 +1,13 @@
 import React from "react";
 import AirConHeader from "../../components/AirConPageComponents/AirConHeader";
 
-const AirConInfoPage = () => {
+const AirConServicesPage = () => {
   return (
     <>
       <AirConHeader />
+      <span>Services</span>
     </>
   );
 };
 
-export default AirConInfoPage;
+export default AirConServicesPage;
