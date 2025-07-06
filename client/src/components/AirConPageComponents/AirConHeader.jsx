@@ -24,7 +24,7 @@ const AirConHeader = () => {
       {/* Animated background shape */}
       <div
         className={`custom-shape-aircon-store absolute top-0 h-full w-1/2 bg-[#002B5B] z-0 transition-transform duration-500 ease-in-out ${
-          isStore ? "translate-x-0" : "translate-x-[200%]"
+          isStore ? "translate-x-0" : "-translate-x-full"
         }`}
       ></div>
 
