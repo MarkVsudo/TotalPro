@@ -6,9 +6,8 @@ const AirConStorePage = () => {
   return (
     <>
       <AirConHeader />
-      <div className="flex gap-10">
+      <div className="w-full flex gap-10 px-4 sm:px-6 lg:px-8 pt-8 sm:pt-12 pb-6">
         <AirConFilters />
-        <AirConProducts />
       </div>
     </>
   );
