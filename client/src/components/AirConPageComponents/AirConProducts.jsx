@@ -139,7 +139,7 @@ export default function AirConProducts() {
                 Купи
               </button> */}
             </div>
-            <div className="mt-4 flex flex-col gap-2">
+            <div className="flex flex-col gap-2">
               <div>
                 <h3 className="text-sm text-gray-700">{product.name}</h3>
               </div>

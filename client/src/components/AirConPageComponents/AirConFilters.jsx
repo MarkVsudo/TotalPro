@@ -25,6 +25,7 @@ import AirConProducts from "./AirConProducts";
 import { TfiLayoutGrid4 } from "react-icons/tfi";
 import { TfiLayoutGrid3 } from "react-icons/tfi";
 import { TfiLayoutGrid2 } from "react-icons/tfi";
+import AirConPagination from "./AirConPagination";
 
 const sortOptions = [
   { name: "Най-популярни", href: "#", current: true },
@@ -426,6 +427,7 @@ export default function AirConFilters() {
             {/* Product grid */}
             <div className="lg:col-span-3">
               <AirConProducts />
+              <AirConPagination />
             </div>
           </div>
         </section>
