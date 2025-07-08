@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
-
+import GreeImg from "../../assets/gree.png";
+import { IoBagAddOutline } from "react-icons/io5";
+import { Link } from "react-router-dom";
 const products = [
   {
     id: 1,
@@ -116,33 +118,58 @@ export default function AirConProducts() {
   return (
     <div className="bg-white grid gap-x-6 xl:gap-x-8 gap-y-10 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
       {products.map((product) => (
-        <div key={product.id} className="group relative">
-          <img
-            alt={product.imageAlt}
-            src={product.imageSrc}
-            className="aspect-square w-full rounded-md bg-gray-200 object-cover group-hover:opacity-75 lg:aspect-auto lg:h-80"
-          />
-          <div className="mt-4 flex flex-col justify-between">
-            <div>
-              <h3 className="text-sm text-gray-700">
-                <a href={product.href}>
-                  <span aria-hidden="true" className="absolute inset-0" />
-                  {product.name}
-                </a>
-              </h3>
+        <Link to={product.href} key={product.id}>
+          <div className="group relative">
+            <div className="relative">
+              <img
+                alt={product.imageAlt}
+                src={product.imageSrc}
+                className="aspect-square w-full rounded-md bg-gray-200 object-cover group-hover:opacity-75 lg:aspect-auto lg:h-80"
+              />
+              <img
+                alt="Aircon company"
+                src={GreeImg}
+                className="absolute top-0 left-0 h-12 w-12 object-contain"
+              />
+              {/* <button
+                type="button"
+                className="absolute bottom-0 flex justify-center items-center gap-x-2 w-full bg-[#002B5B] hover:bg-blue-900 text-white py-2 rounded-lg font-medium shadow-md cursor-pointer transition-colors"
+              >
+                <IoBagAddOutline className="h-5 w-5" />
+                Купи
+              </button> */}
             </div>
-            <div className="flex gap-2 items-center">
-              <p className="text-sm font-medium text-gray-900">
-                {product.price}лв.
-              </p>
-              <p className="text-sm text-gray-500">
-                {convertedPrices[product.id]
-                  ? `€${convertedPrices[product.id]}`
-                  : "Loading..."}
-              </p>
+            <div className="mt-4 flex flex-col gap-2">
+              <div>
+                <h3 className="text-sm text-gray-700">{product.name}</h3>
+              </div>
+              <div className="flex gap-2 items-center">
+                <p className="text-sm font-medium text-gray-900">
+                  {product.price}лв.
+                </p>
+                <p className="text-sm text-gray-500">
+                  {convertedPrices[product.id]
+                    ? `€${convertedPrices[product.id]}`
+                    : "Loading..."}
+                </p>
+              </div>
+              {/* <button
+                type="button"
+                className="flex items-center gap-x-2 w-fit bg-[#002B5B] hover:bg-blue-900 text-white px-4 py-2 rounded-lg font-medium shadow-md cursor-pointer transition-colors"
+              >
+                <IoBagAddOutline className="h-5 w-5" />
+                Купи
+              </button> */}
+              <button
+                type="button"
+                className="flex justify-center items-center gap-x-2 w-full bg-[#002B5B] hover:bg-blue-900 text-white py-2 rounded-lg font-medium shadow-md cursor-pointer transition-colors"
+              >
+                <IoBagAddOutline className="h-5 w-5" />
+                Купи
+              </button>
             </div>
           </div>
-        </div>
+        </Link>
       ))}
     </div>
   );
