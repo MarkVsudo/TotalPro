@@ -21,8 +21,7 @@ export default function AirConPagination() {
       <div className="hidden sm:flex sm:flex-1 sm:items-center sm:justify-between">
         <div>
           <p className="text-sm text-gray-700">
-            Показани са <span className="font-medium">от 1</span> до{" "}
-            <span className="font-medium">12</span> от{" "}
+            Показани са <span className="font-medium">1-12</span> от{" "}
             <span className="font-medium">97</span> резултата
           </p>
         </div>
@@ -42,7 +41,7 @@ export default function AirConPagination() {
             <a
               href="#"
               aria-current="page"
-              className="relative z-10 inline-flex items-center bg-blue-600 px-4 py-2 text-sm font-semibold text-white focus:z-20 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
+              className="relative z-10 inline-flex items-center bg-[#002B5B] px-4 py-2 text-sm font-semibold text-white focus:z-20 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#002B5B]"
             >
               1
             </a>
