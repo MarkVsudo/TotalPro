@@ -2,7 +2,7 @@ import { createBrowserRouter } from "react-router";
 import HomePage from "../pages/HomePage";
 import DrywallPage from "../pages/DrywallPage";
 import NotFoundPage from "../pages/NotFoundPage";
-import ServicesLayout from "../layout/ServicesLayout";
+import MainLayout from "../layout/MainLayout";
 import { CartProvider } from "../context/CartContext";
 import MovingServicesPage from "../pages/MovingServicesPage";
 import TilingServicesPage from "../pages/TilingServicesPage";
@@ -26,7 +26,7 @@ const router = createBrowserRouter([
     path: "/air-conditioning",
     element: (
       <CartProvider>
-        <ServicesLayout />
+        <MainLayout />
       </CartProvider>
     ),
     children: [
@@ -38,7 +38,7 @@ const router = createBrowserRouter([
     path: "/electric-installations",
     element: (
       <CartProvider>
-        <ServicesLayout />
+        <MainLayout />
       </CartProvider>
     ),
     children: [{ index: true, element: <ElectricInstallationsPage /> }],
@@ -47,7 +47,7 @@ const router = createBrowserRouter([
     path: "/moving-services",
     element: (
       <CartProvider>
-        <ServicesLayout />
+        <MainLayout />
       </CartProvider>
     ),
     children: [{ index: true, element: <MovingServicesPage /> }],
@@ -56,7 +56,7 @@ const router = createBrowserRouter([
     path: "/drywall",
     element: (
       <CartProvider>
-        <ServicesLayout />
+        <MainLayout />
       </CartProvider>
     ),
     children: [{ index: true, element: <DrywallPage /> }],
@@ -65,7 +65,7 @@ const router = createBrowserRouter([
     path: "/security-alarm-equipment",
     element: (
       <CartProvider>
-        <ServicesLayout />
+        <MainLayout />
       </CartProvider>
     ),
     children: [{ index: true, element: <SecurityAlarmEquipmentPage /> }],
@@ -74,7 +74,7 @@ const router = createBrowserRouter([
     path: "/plumbing-services",
     element: (
       <CartProvider>
-        <ServicesLayout />
+        <MainLayout />
       </CartProvider>
     ),
     children: [{ index: true, element: <PlumbingServicesPage /> }],
@@ -83,7 +83,7 @@ const router = createBrowserRouter([
     path: "/tiling-services",
     element: (
       <CartProvider>
-        <ServicesLayout />
+        <MainLayout />
       </CartProvider>
     ),
     children: [{ index: true, element: <TilingServicesPage /> }],
@@ -92,7 +92,7 @@ const router = createBrowserRouter([
     path: "/furniture",
     element: (
       <CartProvider>
-        <ServicesLayout />
+        <MainLayout />
       </CartProvider>
     ),
     children: [{ index: true, element: <FurnitureInstallationPage /> }],

@@ -83,7 +83,7 @@ const Footer = () => {
         <div className="flex flex-col text-center text-gray-500 text-xs gap-2">
           <p>© 2025 TotalPro ЕООД. Всички права са запазени.</p>
           <a href="https://github.com/MarkVsudo" target="_blank">
-            Developed by <span className="text-[#002B5B]">Mark Veskov</span>
+            Разработено от <span className="text-[#002B5B]">Марк Весков</span>
           </a>
         </div>
       </div>
