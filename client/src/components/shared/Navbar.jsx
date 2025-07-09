@@ -1,5 +1,6 @@
 "use client";
 import { Link } from "react-router-dom";
+import { HashLink } from "react-router-hash-link";
 import { useState } from "react";
 import {
   Dialog,
@@ -152,15 +153,24 @@ export default function Navbar() {
             </PopoverPanel>
           </Popover>
 
-          <a href="#about-us" className="text-sm/6 font-semibold text-gray-900">
-            За нас
-          </a>
-          <a href="#projects" className="text-sm/6 font-semibold text-gray-900">
+          <HashLink
+            to="/#projects"
+            className="text-sm/6 font-semibold text-gray-900"
+          >
             Проекти
-          </a>
-          <a href="#contact" className="text-sm/6 font-semibold text-gray-900 ">
+          </HashLink>
+          <HashLink
+            to="/#about-us"
+            className="text-sm/6 font-semibold text-gray-900"
+          >
+            За нас
+          </HashLink>
+          <HashLink
+            to="/#contact"
+            className="text-sm/6 font-semibold text-gray-900 "
+          >
             Контакти
-          </a>
+          </HashLink>
         </PopoverGroup>
         <div className="hidden lg:flex lg:flex-1 lg:justify-end">
           <button></button>

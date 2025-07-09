@@ -1,5 +1,4 @@
-import React from "react";
-
+import { HashLink } from "react-router-hash-link";
 const images = [
   {
     src: "https://www.socool.sg/wp-content/uploads/2023/12/aircon-installation-cost-and-services-in-singapore.webp",
@@ -55,9 +54,12 @@ const HeroSection = () => {
           </p>
 
           <div className="mt-8 flex gap-4">
-            <button className="text-[#002B5B] bg-white px-5 py-3 rounded-md font-medium shadow-md cursor-pointer hover:bg-gray-50 transition-colors">
+            <HashLink
+              to="/#services"
+              className="text-[#002B5B] bg-white px-5 py-3 rounded-md font-medium shadow-md cursor-pointer hover:bg-gray-50 transition-colors"
+            >
               Виж услугите
-            </button>
+            </HashLink>
           </div>
         </div>
 
