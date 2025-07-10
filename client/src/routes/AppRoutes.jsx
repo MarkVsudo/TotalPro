@@ -12,6 +12,7 @@ import AirConStorePage from "../pages/AirConPages/AirConStorePage";
 import ElectricInstallationsPage from "../pages/ElectricInstallationsPage";
 import FurnitureInstallationPage from "../pages/FurnitureInstallationPage";
 import SecurityAlarmEquipmentPage from "../pages/SecurityAlarmEquipmentPage";
+import AirConProductPage from "../pages/AirConPages/AirConProductPage";
 
 const router = createBrowserRouter([
   {
@@ -33,6 +34,7 @@ const router = createBrowserRouter([
     children: [
       { index: true, element: <AirConStorePage /> },
       { path: "services", element: <AirConServicesPage /> },
+      { path: ":id", element: <AirConProductPage /> },
     ],
   },
   {

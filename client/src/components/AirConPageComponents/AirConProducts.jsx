@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
-import GreeImg from "../../assets/gree.png";
-import { IoBagAddOutline } from "react-icons/io5";
 import { Link } from "react-router-dom";
+import { IoBagAddOutline } from "react-icons/io5";
+import GreeImg from "../../assets/gree.png";
+
 const products = [
   {
     id: 1,
     name: "Инверторен климатик GREE GWH12AGB-K6DNA1A",
-    href: "#",
+    href: "/air-conditioning/1",
     imageSrc:
       "https://s13emagst.akamaized.net/products/51341/51340887/images/res_3e66bc9d6cc52e08893e83a35a3a34c6.jpg?width=720&height=720&hash=27943222B1A3109C842327FF1C6C6645",
     imageAlt: "Вътрешно тяло снимка",
