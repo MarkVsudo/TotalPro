@@ -1,3 +1,5 @@
+import { IoBagAddOutline } from "react-icons/io5";
+
 import productImg1 from "../../assets/air-con-product-img-1.jpeg";
 import productImg2 from "../../assets/air-con-product-img-2.jpeg";
 import productImg3 from "../../assets/air-con-product-img-3.jpeg";
@@ -79,11 +81,19 @@ const AirConProductPage = () => {
             контрол. Екологичният хладилен агент R32 допринася за по-ниско
             въздействие върху околната среда.
           </p>
+
+          <button
+            type="button"
+            className="flex justify-center items-center gap-x-2 w-fit bg-[#002B5B] hover:bg-blue-900 text-white py-2 px-6 rounded-lg font-medium shadow-md cursor-pointer transition-colors"
+          >
+            <IoBagAddOutline className="h-5 w-5" />
+            Купи
+          </button>
         </div>
       </div>
       <div className="flex gap-8 w-full">
         {/* Аксесоари */}
-        <div className="w-[70%]">
+        <div className="w-[40%]">
           <h2 className="text-xl font-semibold mb-4">
             Аксесоари към климатика
           </h2>
@@ -106,7 +116,7 @@ const AirConProductPage = () => {
             ))}
           </div>
         </div>
-        <table className="table-auto w-full mt-6 text-sm border border-gray-300">
+        <table className="table-auto w-[60%] mt-6 text-sm border border-gray-300">
           <tbody>
             {[
               ["За помещения (кв.м.)", "от 10 до 15 кв.м."],
@@ -150,13 +160,6 @@ const AirConProductPage = () => {
             ))}
           </tbody>
         </table>
-      </div>
-
-      {/* Поръчка или запитване */}
-      <div className="flex justify-center mt-10">
-        <button className="bg-green-600 text-white text-lg font-semibold px-8 py-3 rounded-lg shadow hover:bg-green-700 transition">
-          Поръчай сега
-        </button>
       </div>
     </div>
   );

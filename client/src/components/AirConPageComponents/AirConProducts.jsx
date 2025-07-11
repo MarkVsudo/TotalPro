@@ -132,13 +132,6 @@ export default function AirConProducts() {
                 src={GreeImg}
                 className="absolute top-0 left-0 h-12 w-12 object-contain"
               />
-              {/* <button
-                type="button"
-                className="absolute bottom-0 flex justify-center items-center gap-x-2 w-full bg-[#002B5B] hover:bg-blue-900 text-white py-2 rounded-lg font-medium shadow-md cursor-pointer transition-colors"
-              >
-                <IoBagAddOutline className="h-5 w-5" />
-                Купи
-              </button> */}
             </div>
             <div className="flex flex-col gap-2">
               <div>
@@ -154,13 +147,6 @@ export default function AirConProducts() {
                     : "Loading..."}
                 </p>
               </div>
-              {/* <button
-                type="button"
-                className="flex items-center gap-x-2 w-fit bg-[#002B5B] hover:bg-blue-900 text-white px-4 py-2 rounded-lg font-medium shadow-md cursor-pointer transition-colors"
-              >
-                <IoBagAddOutline className="h-5 w-5" />
-                Купи
-              </button> */}
               <button
                 type="button"
                 className="flex justify-center items-center gap-x-2 w-full bg-[#002B5B] hover:bg-blue-900 text-white py-2 rounded-lg font-medium shadow-md cursor-pointer transition-colors"

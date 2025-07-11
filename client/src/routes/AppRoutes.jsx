@@ -1,4 +1,5 @@
-import { createBrowserRouter } from "react-router";
+// router.jsx
+import { createBrowserRouter } from "react-router-dom";
 import HomePage from "../pages/HomePage";
 import DrywallPage from "../pages/DrywallPage";
 import NotFoundPage from "../pages/NotFoundPage";
@@ -13,6 +14,9 @@ import ElectricInstallationsPage from "../pages/ElectricInstallationsPage";
 import FurnitureInstallationPage from "../pages/FurnitureInstallationPage";
 import SecurityAlarmEquipmentPage from "../pages/SecurityAlarmEquipmentPage";
 import AirConProductPage from "../pages/AirConPages/AirConProductPage";
+import AnimatedPage from "../pages/AnimatedPage";
+
+const withAnimation = (component) => <AnimatedPage>{component}</AnimatedPage>;
 
 const router = createBrowserRouter([
   {
@@ -22,7 +26,7 @@ const router = createBrowserRouter([
         <MainLayout />
       </CartProvider>
     ),
-    children: [{ index: true, element: <HomePage /> }],
+    children: [{ index: true, element: withAnimation(<HomePage />) }],
   },
   {
     path: "/air-conditioning",
@@ -32,9 +36,9 @@ const router = createBrowserRouter([
       </CartProvider>
     ),
     children: [
-      { index: true, element: <AirConStorePage /> },
-      { path: "services", element: <AirConServicesPage /> },
-      { path: ":id", element: <AirConProductPage /> },
+      { index: true, element: withAnimation(<AirConStorePage />) },
+      { path: "services", element: withAnimation(<AirConServicesPage />) },
+      { path: ":id", element: withAnimation(<AirConProductPage />) },
     ],
   },
   {
@@ -44,7 +48,9 @@ const router = createBrowserRouter([
         <MainLayout />
       </CartProvider>
     ),
-    children: [{ index: true, element: <ElectricInstallationsPage /> }],
+    children: [
+      { index: true, element: withAnimation(<ElectricInstallationsPage />) },
+    ],
   },
   {
     path: "/moving-services",
@@ -53,7 +59,7 @@ const router = createBrowserRouter([
         <MainLayout />
       </CartProvider>
     ),
-    children: [{ index: true, element: <MovingServicesPage /> }],
+    children: [{ index: true, element: withAnimation(<MovingServicesPage />) }],
   },
   {
     path: "/drywall",
@@ -62,7 +68,7 @@ const router = createBrowserRouter([
         <MainLayout />
       </CartProvider>
     ),
-    children: [{ index: true, element: <DrywallPage /> }],
+    children: [{ index: true, element: withAnimation(<DrywallPage />) }],
   },
   {
     path: "/security-alarm-equipment",
@@ -71,7 +77,9 @@ const router = createBrowserRouter([
         <MainLayout />
       </CartProvider>
     ),
-    children: [{ index: true, element: <SecurityAlarmEquipmentPage /> }],
+    children: [
+      { index: true, element: withAnimation(<SecurityAlarmEquipmentPage />) },
+    ],
   },
   {
     path: "/plumbing-services",
@@ -80,7 +88,9 @@ const router = createBrowserRouter([
         <MainLayout />
       </CartProvider>
     ),
-    children: [{ index: true, element: <PlumbingServicesPage /> }],
+    children: [
+      { index: true, element: withAnimation(<PlumbingServicesPage />) },
+    ],
   },
   {
     path: "/tiling-services",
@@ -89,7 +99,7 @@ const router = createBrowserRouter([
         <MainLayout />
       </CartProvider>
     ),
-    children: [{ index: true, element: <TilingServicesPage /> }],
+    children: [{ index: true, element: withAnimation(<TilingServicesPage />) }],
   },
   {
     path: "/furniture",
@@ -98,11 +108,13 @@ const router = createBrowserRouter([
         <MainLayout />
       </CartProvider>
     ),
-    children: [{ index: true, element: <FurnitureInstallationPage /> }],
+    children: [
+      { index: true, element: withAnimation(<FurnitureInstallationPage />) },
+    ],
   },
   {
     path: "*",
-    element: <NotFoundPage />,
+    element: withAnimation(<NotFoundPage />),
   },
 ]);
 
