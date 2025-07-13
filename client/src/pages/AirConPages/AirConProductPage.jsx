@@ -42,7 +42,7 @@ const accessories = [
     id: 2,
     name: "Комплект PVC кондензна вана + нагревател",
     href: "#",
-    imageSrc: accessoryImg2,
+    imageSrc: accessoryImg3,
     imageAlt: "Вътрешно тяло снимка",
     price: "100.00",
   },
@@ -50,7 +50,7 @@ const accessories = [
     id: 3,
     name: "Комплект антивибрационни тампони (4 бр.)",
     href: "#",
-    imageSrc: accessoryImg3,
+    imageSrc: accessoryImg2,
     imageAlt: "Вътрешно тяло снимка",
     price: "30.00",
   },
@@ -157,7 +157,7 @@ const AirConProductPage = () => {
             </Link>
             <span className="mx-1 sm:mx-2">/</span>
             <span className="text-[#002B5B] break-all">
-              GREE GWH12AGB-K6DNA1A
+              GREE PULAR GWH12AGB-K6DNA1A
             </span>
           </div>
         </nav>
@@ -198,7 +198,7 @@ const AirConProductPage = () => {
           <div className="w-full lg:w-[45%] space-y-4 lg:space-y-6">
             <div>
               <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold text-[#002B5B] mb-2">
-                Инверторен климатик GREE GWH12AGB-K6DNA1A
+                Инверторен климатик GREE PULAR GWH12AGB-K6DNA1A
               </h1>
               <p className="text-base lg:text-lg text-gray-600 mb-4">
                 12000BTU, Клас A+++
@@ -366,7 +366,7 @@ const AirConProductPage = () => {
 
           <div className="grid grid-cols-1 gap-x-4 lg:gap-x-8">
             {specifications
-              .slice(0, showSpecs ? specifications.length : 8)
+              .slice(0, showSpecs ? specifications.length : 6)
               .map(([label, value], i) => (
                 <div
                   key={i}

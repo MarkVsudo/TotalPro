@@ -83,7 +83,7 @@ const AirConHeader = () => {
                 isStore ? "text-[#002B5B]" : "text-white"
               } transition-colors`}
             >
-              Услуги за климатици
+              Монтаж и профилактика
             </h1>
             <p
               className={`${

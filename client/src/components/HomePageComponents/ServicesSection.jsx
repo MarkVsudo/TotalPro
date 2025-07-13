@@ -74,7 +74,7 @@ const ServicesSection = () => {
                 {service.title}
               </h3>
               <p className="text-gray-700 mb-4">{service.description}</p>
-              <span className="group text-[#002B5B] font-medium inline-flex items-center gap-1 duration-300">
+              <button className="group text-[#002B5B] border-[#002B5B] border-2 px-4 py-2 rounded-md font-medium text-lg inline-flex items-center gap-1 duration-300 mt-auto cursor-pointer">
                 Виж повече
                 <span
                   aria-hidden="true"
@@ -82,7 +82,7 @@ const ServicesSection = () => {
                 >
                   →
                 </span>
-              </span>
+              </button>
             </div>
           </Link>
         ))}
