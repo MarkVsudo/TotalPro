@@ -152,7 +152,7 @@ export default function AirConProducts() {
                 className="flex justify-center items-center gap-x-2 w-full bg-[#002B5B] hover:bg-blue-900 text-white py-2 rounded-lg font-medium shadow-md cursor-pointer transition-colors"
               >
                 <IoBagAddOutline className="h-5 w-5" />
-                Купи
+                Добави
               </button>
             </div>
           </div>
