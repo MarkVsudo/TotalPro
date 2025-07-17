@@ -1,0 +1,5 @@
+- Responsive design
+- Cart functionality
+- Admin panel
+- All service pages
+- Products page functionality

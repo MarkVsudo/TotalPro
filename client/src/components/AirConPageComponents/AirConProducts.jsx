@@ -132,6 +132,9 @@ export default function AirConProducts() {
                 src={GreeImg}
                 className="absolute top-0 left-0 h-12 w-12 object-contain"
               />
+              <div className="absolute top-0 right-0 bg-green-200 text-green-900 px-2 rounded-md">
+                -5% намаление
+              </div>
             </div>
             <div className="flex flex-col gap-2">
               <div>

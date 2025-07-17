@@ -85,7 +85,7 @@ export default function ContactForm() {
                 <EnvelopeIcon className="w-5 h-5 text-white" />
               </div>
               <div>
-                <p className="font-medium text-gray-900">totalpro@mail.bg</p>
+                <p className="font-medium text-gray-900">total.pro@mail.bg</p>
                 <p className="text-gray-700">Отговаряме в рамките на 2 часа</p>
               </div>
             </div>

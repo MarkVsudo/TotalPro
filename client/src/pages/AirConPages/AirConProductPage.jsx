@@ -166,7 +166,7 @@ const AirConProductPage = () => {
         <div className="w-full flex flex-col lg:flex-row gap-6 lg:gap-12 mb-8 lg:mb-16">
           {/* Product Images */}
           <div className="w-full lg:w-[55%] space-y-3 lg:space-y-4">
-            <div className="rounded-xl lg:rounded-2xl overflow-hidden bg-white shadow-lg flex justify-center items-center aspect-square lg:aspect-auto lg:h-auto">
+            <div className="rounded-xl lg:rounded-2xl overflow-hidden bg-white shadow-md flex justify-center items-center aspect-square lg:aspect-auto lg:h-auto border border-gray-200">
               <img
                 src={productImgs[selectedImage]}
                 alt="Main product"
@@ -178,9 +178,9 @@ const AirConProductPage = () => {
                 <button
                   key={index}
                   onClick={() => setSelectedImage(index)}
-                  className={`flex-shrink-0 w-16 h-16 lg:w-20 lg:h-20 rounded-lg overflow-hidden border-2 transition-all duration-200 ${
+                  className={`flex-shrink-0 w-16 h-16 lg:w-20 lg:h-20 rounded-lg overflow-hidden border transition-all duration-200 ${
                     selectedImage === index
-                      ? "border-blue-900"
+                      ? "border-[#002B5B] border-2"
                       : "border-gray-200 hover:border-gray-300"
                   }`}
                 >
@@ -195,7 +195,7 @@ const AirConProductPage = () => {
           </div>
 
           {/* Product Details */}
-          <div className="w-full lg:w-[45%] space-y-4 lg:space-y-6">
+          <div className="w-full lg:w-[45%] space-y-4 lg:space-y-6 ">
             <div>
               <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold text-[#002B5B] mb-2">
                 Инверторен климатик GREE PULAR GWH12AGB-K6DNA1A
@@ -218,7 +218,7 @@ const AirConProductPage = () => {
                 </div>
               </div>
 
-              <div className="bg-white rounded-xl p-4 sm:p-6 shadow-sm border border-gray-200">
+              <div className="bg-white rounded-xl p-4 sm:p-6 shadow-md border border-gray-200">
                 <div className="flex flex-col sm:flex-row sm:items-baseline gap-2 sm:gap-3 mb-4">
                   <span className="text-2xl sm:text-3xl lg:text-4xl font-bold text-[#002B5B]">
                     {totalPrice.toFixed(2)} лв.
@@ -311,21 +311,21 @@ const AirConProductPage = () => {
 
             {/* Features */}
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
-              <div className="bg-white p-3 sm:p-4 rounded-xl shadow-sm border border-[#002B5B] text-center">
+              <div className="bg-white p-3 sm:p-4 rounded-xl shadow-md border border-[#002B5B] text-center">
                 <FaTruck className="w-6 h-6 sm:w-8 sm:h-8 text-[#002B5B] mx-auto mb-2" />
                 <div className="text-xs sm:text-sm font-medium text-gray-900">
                   Безплатна доставка
                 </div>
                 <div className="text-xs text-gray-600">над 1200 лв.</div>
               </div>
-              <div className="bg-white p-3 sm:p-4 rounded-xl shadow-sm border border-[#002B5B] text-center">
+              <div className="bg-white p-3 sm:p-4 rounded-xl shadow-md border border-[#002B5B] text-center">
                 <FaShieldAlt className="w-6 h-6 sm:w-8 sm:h-8 text-[#002B5B] mx-auto mb-2" />
                 <div className="text-xs sm:text-sm font-medium text-gray-900">
                   Гаранция
                 </div>
                 <div className="text-xs text-gray-600">60 месеца</div>
               </div>
-              <div className="bg-white p-3 sm:p-4 rounded-xl shadow-sm border border-[#002B5B] text-center">
+              <div className="bg-white p-3 sm:p-4 rounded-xl shadow-md border border-[#002B5B] text-center">
                 <VscTools className="w-6 h-6 sm:w-8 sm:h-8 text-[#002B5B] mx-auto mb-2" />
                 <div className="text-xs sm:text-sm font-medium text-gray-900">
                   Монтаж
@@ -337,7 +337,7 @@ const AirConProductPage = () => {
         </div>
 
         {/* Product Description */}
-        <div className="bg-white rounded-xl lg:rounded-2xl p-4 sm:p-6 lg:p-8 shadow-sm border border-gray-200 mb-8 lg:mb-16">
+        <div className="bg-white rounded-xl lg:rounded-2xl p-4 sm:p-6 lg:p-8 shadow-md border border-gray-200 mb-8 lg:mb-16">
           <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-3 sm:mb-4">
             Описание на продукта
           </h2>
@@ -351,7 +351,7 @@ const AirConProductPage = () => {
         </div>
 
         {/* Specifications */}
-        <div className="bg-white rounded-xl lg:rounded-2xl p-4 sm:p-6 lg:p-8 shadow-sm border border-gray-200 mb-8 lg:mb-16">
+        <div className="bg-white rounded-xl lg:rounded-2xl p-4 sm:p-6 lg:p-8 shadow-md border border-gray-200 mb-8 lg:mb-16">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 sm:gap-0 mb-4 sm:mb-6">
             <h2 className="text-xl sm:text-2xl font-bold text-gray-900">
               Технически характеристики
@@ -384,7 +384,7 @@ const AirConProductPage = () => {
         </div>
 
         {/* Accessories */}
-        <div className="bg-white rounded-xl lg:rounded-2xl p-4 sm:p-6 lg:p-8 shadow-sm border border-gray-200">
+        <div className="bg-white rounded-xl lg:rounded-2xl p-4 sm:p-6 lg:p-8 shadow-md border border-gray-200">
           <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-6 sm:mb-8">
             Допълнителни аксесоари
           </h2>
