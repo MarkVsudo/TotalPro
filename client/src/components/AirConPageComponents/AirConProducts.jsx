@@ -120,12 +120,13 @@ export default function AirConProducts() {
     <div className="bg-white grid gap-x-6 xl:gap-x-8 gap-y-10 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
       {products.map((product) => (
         <Link to={product.href} key={product.id}>
-          <div className="group relative">
-            <div className="relative">
+          <div className="group relative h-full flex flex-col">
+            <div className="relative overflow-hidden ">
               <img
                 alt={product.imageAlt}
                 src={product.imageSrc}
-                className="aspect-square w-full rounded-md bg-gray-200 object-cover group-hover:opacity-75 lg:aspect-auto lg:h-80"
+                className="aspect-square w-full rounded-md object-contain group-hover:brightness-102
+                      group-hover:scale-105 lg:aspect-auto lg:h-80 transition-all"
               />
               <img
                 alt="Aircon company"
@@ -136,7 +137,7 @@ export default function AirConProducts() {
                 -5% намаление
               </div>
             </div>
-            <div className="flex flex-col gap-2">
+            <div className="flex flex-col gap-2 flex-grow">
               <div>
                 <h3 className="text-sm text-gray-700">{product.name}</h3>
               </div>
@@ -152,7 +153,7 @@ export default function AirConProducts() {
               </div>
               <button
                 type="button"
-                className="flex justify-center items-center gap-x-2 w-full bg-[#002B5B] hover:bg-blue-900 text-white py-2 rounded-lg font-medium shadow-md cursor-pointer transition-colors"
+                className="flex justify-center items-center gap-x-2 w-full bg-[#002B5B] hover:bg-blue-900 text-white py-2 rounded-lg font-medium shadow-md cursor-pointer transition-colors mt-auto"
               >
                 <IoBagAddOutline className="h-5 w-5" />
                 Добави

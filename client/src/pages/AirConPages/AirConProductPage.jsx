@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { VscTools } from "react-icons/vsc";
+import { FaTools } from "react-icons/fa";
+
 import { IoBagAddOutline, IoShareSocialOutline } from "react-icons/io5";
 import { FaCheckCircle, FaShieldAlt, FaStar, FaTruck } from "react-icons/fa";
 
@@ -178,9 +179,9 @@ const AirConProductPage = () => {
                 <button
                   key={index}
                   onClick={() => setSelectedImage(index)}
-                  className={`flex-shrink-0 w-16 h-16 lg:w-20 lg:h-20 rounded-lg overflow-hidden border transition-all duration-200 ${
+                  className={`flex-shrink-0 w-16 h-16 lg:w-20 lg:h-20 rounded-lg overflow-hidden border transition-all duration-200 cursor-pointer ${
                     selectedImage === index
-                      ? "border-[#002B5B] border-2"
+                      ? "border-[#002B5B]"
                       : "border-gray-200 hover:border-gray-300"
                   }`}
                 >
@@ -281,7 +282,7 @@ const AirConProductPage = () => {
                         />
                       </svg>
                     </div>
-                    <VscTools className="w-4 h-4 text-gray-600 flex-shrink-0" />
+                    <FaTools className="w-4 h-4 text-gray-600 flex-shrink-0" />
                     <span className="font-medium text-[#002B5B] flex-1">
                       С монтаж
                     </span>
@@ -301,7 +302,7 @@ const AirConProductPage = () => {
                       </span>
                       <span className="sm:hidden">Добави</span>
                     </button>
-                    <button className="p-2 sm:p-4 border border-gray-300 rounded-xl hover:border-gray-400 transition-colors">
+                    <button className="p-2 sm:p-4 border border-gray-300 rounded-xl hover:border-gray-400 shadow-md transition-colors cursor-pointer">
                       <IoShareSocialOutline className="w-4 h-4 sm:w-5 sm:h-5 text-gray-600" />
                     </button>
                   </div>
@@ -311,22 +312,22 @@ const AirConProductPage = () => {
 
             {/* Features */}
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
-              <div className="bg-white p-3 sm:p-4 rounded-xl shadow-md border border-[#002B5B] text-center">
+              <div className="bg-white p-3 sm:p-4 rounded-xl shadow-md border border-gray-200 text-center">
                 <FaTruck className="w-6 h-6 sm:w-8 sm:h-8 text-[#002B5B] mx-auto mb-2" />
                 <div className="text-xs sm:text-sm font-medium text-gray-900">
                   Безплатна доставка
                 </div>
                 <div className="text-xs text-gray-600">над 1200 лв.</div>
               </div>
-              <div className="bg-white p-3 sm:p-4 rounded-xl shadow-md border border-[#002B5B] text-center">
+              <div className="bg-white p-3 sm:p-4 rounded-xl shadow-md border border-gray-200 text-center">
                 <FaShieldAlt className="w-6 h-6 sm:w-8 sm:h-8 text-[#002B5B] mx-auto mb-2" />
                 <div className="text-xs sm:text-sm font-medium text-gray-900">
                   Гаранция
                 </div>
                 <div className="text-xs text-gray-600">60 месеца</div>
               </div>
-              <div className="bg-white p-3 sm:p-4 rounded-xl shadow-md border border-[#002B5B] text-center">
-                <VscTools className="w-6 h-6 sm:w-8 sm:h-8 text-[#002B5B] mx-auto mb-2" />
+              <div className="bg-white p-3 sm:p-4 rounded-xl shadow-md border border-gray-200 text-center">
+                <FaTools className="w-6 h-6 sm:w-8 sm:h-8 text-[#002B5B] mx-auto mb-2" />
                 <div className="text-xs sm:text-sm font-medium text-gray-900">
                   Монтаж
                 </div>
@@ -388,37 +389,47 @@ const AirConProductPage = () => {
           <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-6 sm:mb-8">
             Допълнителни аксесоари
           </h2>
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 sm:gap-6">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 sm:gap-6 ">
             {accessories.map((accessory) => (
-              <div key={accessory.id} className="group flex flex-col">
-                <div className="bg-gray-50 rounded-xl overflow-hidden mb-3 sm:mb-4 aspect-square">
-                  <img
-                    src={accessory.imageSrc}
-                    alt={accessory.imageAlt}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                  />
+              <Link to={accessory.href} key={accessory.id}>
+                <div className="group relative h-full flex flex-col ">
+                  <div className="relative overflow-hidden ">
+                    <img
+                      alt={accessory.imageAlt}
+                      src={accessory.imageSrc}
+                      className="aspect-square w-full rounded-md object-contain group-hover:brightness-102
+                      group-hover:scale-105 lg:aspect-auto lg:h-80 transition-all"
+                    />
+                    <div className="absolute top-0 right-0 bg-green-200 text-green-900 px-2 rounded-md">
+                      -5% намаление
+                    </div>
+                  </div>
+                  <div className="flex flex-col gap-2 flex-grow">
+                    <div>
+                      <h3 className="text-sm text-gray-700">
+                        {accessory.name}
+                      </h3>
+                    </div>
+                    <div className="flex gap-2 items-center">
+                      <p className="text-sm font-medium text-gray-900">
+                        {accessory.price}лв.
+                      </p>
+                      <p className="text-sm text-gray-500">
+                        {convertedPrices[accessory.id]
+                          ? `€${convertedPrices[accessory.id]}`
+                          : "Loading..."}
+                      </p>
+                    </div>
+                    <button
+                      type="button"
+                      className="flex justify-center items-center gap-x-2 w-full bg-[#002B5B] hover:bg-blue-900 text-white py-2 rounded-lg font-medium shadow-md cursor-pointer transition-colors mt-auto"
+                    >
+                      <IoBagAddOutline className="h-5 w-5" />
+                      Добави
+                    </button>
+                  </div>
                 </div>
-                <h3 className="font-medium text-gray-900 mb-2 text-xs sm:text-sm leading-tight">
-                  {accessory.name}
-                </h3>
-                <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2 mb-3">
-                  <span className="font-bold text-gray-900 text-sm sm:text-base">
-                    {accessory.price} лв.
-                  </span>
-                  <span className="text-xs sm:text-sm text-gray-500">
-                    {convertedPrices[accessory.id]
-                      ? `€${convertedPrices[accessory.id]}`
-                      : "..."}
-                  </span>
-                </div>
-                <button
-                  type="button"
-                  className="flex justify-center items-center mt-auto gap-x-1 sm:gap-x-2 w-full bg-[#002B5B] hover:bg-blue-900 text-white py-2 rounded-lg font-medium shadow-md cursor-pointer transition-colors text-xs sm:text-sm"
-                >
-                  <IoBagAddOutline className="h-3 w-3 sm:h-4 sm:w-4" />
-                  <span>Добави</span>
-                </button>
-              </div>
+              </Link>
             ))}
           </div>
         </div>
