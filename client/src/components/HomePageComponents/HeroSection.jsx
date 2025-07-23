@@ -39,7 +39,14 @@ const rightImages = images.slice(4, 8);
 
 const HeroSection = () => {
   return (
-    <div className="bg-[#002B5B] overflow-hidden">
+    <div
+      className=" overflow-hidden"
+      // bg-gradient-to-br from-[#002B5B] via-[#003d7a] to-[#004c96]
+      style={{
+        background:
+          "linear-gradient(135deg, #002B5B 0%, #003d7a 50%, #002B5B 100%)",
+      }}
+    >
       <div className="relative max-w-7xl mx-auto px-6 lg:px-8 grid grid-cols-1 md:grid-cols-2 items-center gap-12">
         <div className="py-24">
           <h1 className="text-4xl sm:text-5xl font-bold text-white">
