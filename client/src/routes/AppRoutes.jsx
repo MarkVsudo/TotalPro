@@ -11,7 +11,7 @@ import AirConServicesPage from "../pages/AirConPages/AirConServicesPage";
 import PlumbingServicesPage from "../pages/PlumbingServicesPage";
 import AirConStorePage from "../pages/AirConPages/AirConStorePage";
 import ElectricInstallationsPage from "../pages/ElectricInstallationsPage";
-import FurnitureInstallationPage from "../pages/FurnitureInstallationPage";
+import FurnitureServicesPage from "../pages/FurnitureServicesPage";
 import SecurityAlarmEquipmentPage from "../pages/SecurityAlarmEquipmentPage";
 import AirConProductPage from "../pages/AirConPages/AirConProductPage";
 import AnimatedPage from "../pages/AnimatedPage";
@@ -109,7 +109,7 @@ const router = createBrowserRouter([
       </CartProvider>
     ),
     children: [
-      { index: true, element: withAnimation(<FurnitureInstallationPage />) },
+      { index: true, element: withAnimation(<FurnitureServicesPage />) },
     ],
   },
   {
