@@ -20,6 +20,12 @@ import {
   FaPhone,
   FaMapMarkerAlt,
   FaEnvelope,
+  FaHandsHelping,
+  FaBoxOpen,
+  FaArrowsAlt,
+  FaClipboardList,
+  FaHardHat,
+  FaHandPaper,
 } from "react-icons/fa";
 import { HashLink } from "react-router-hash-link";
 
@@ -44,7 +50,7 @@ const MovingServicesPage = () => {
         "Преместване и организация на складови помещения и промишлени обекти.",
     },
     {
-      icon: <FaBoxes className="text-3xl text-[#002B5B]" />,
+      icon: <FaBoxOpen className="text-3xl text-[#002B5B]" />,
       title: "Опаковане и разопаковане",
       description:
         "Професионално опаковане с качествени материали за максимална защита.",
@@ -62,7 +68,7 @@ const MovingServicesPage = () => {
         "Товарене и разтоварване на стоки, материали и оборудване с професионална техника.",
     },
     {
-      icon: <FaHammer className="text-3xl text-[#002B5B]" />,
+      icon: <FaTools className="text-3xl text-[#002B5B]" />,
       title: "Демонтаж и монтаж",
       description:
         "Разглобяване и сглобяване на мебели, кухни, гардероби и други обзавеждания.",
@@ -74,7 +80,7 @@ const MovingServicesPage = () => {
         "Комплексно почистване на старото и новото помещение след завършване на преместването.",
     },
     {
-      icon: <FaCalendarAlt className="text-3xl text-[#002B5B]" />,
+      icon: <FaClock className="text-3xl text-[#002B5B]" />,
       title: "Спешни премествания",
       description:
         "Бързо реагиране при спешни случаи - преместване в рамките на 24 часа.",
@@ -93,12 +99,12 @@ const MovingServicesPage = () => {
       description: "Точност и спазване на договорените срокове",
     },
     {
-      icon: <FaUsers className="text-2xl text-[#002B5B]" />,
+      icon: <FaHandsHelping className="text-2xl text-[#002B5B]" />,
       title: "Опитен екип",
       description: "Професионални хамали с богат опит в областта",
     },
     {
-      icon: <FaTools className="text-2xl text-[#002B5B]" />,
+      icon: <FaTruck className="text-2xl text-[#002B5B]" />,
       title: "Професионално оборудване",
       description: "Модерни инструменти и техника за безопасен товар",
     },
@@ -117,21 +123,21 @@ const MovingServicesPage = () => {
       title: "Планиране и подготовка",
       description:
         "Съставяме детайлен план и подготвяме необходимите материали",
-      icon: FaMapMarkerAlt,
+      icon: FaClipboardList,
     },
     {
       step: "03",
       title: "Изпълнение",
       description:
         "Нашият опитен екип извършва преместването професионално и внимателно",
-      icon: FaHammer,
+      icon: FaHandsHelping,
     },
     {
       step: "04",
       title: "Завършване",
       description:
         "Проверяваме всички детайли и се увериваме, че сте напълно удовлетворени",
-      icon: FaShieldAlt,
+      icon: FaCheckCircle,
     },
   ];
 
@@ -158,15 +164,15 @@ const MovingServicesPage = () => {
             </p>
             <div className="flex flex-wrap justify-center gap-4 text-sm mb-8">
               <div className="flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full">
-                <FaCheckCircle />
+                <FaShieldAlt />
                 <span>Лицензирани и застраховани</span>
               </div>
               <div className="flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full">
-                <FaStar />
+                <FaTruck />
                 <span>12+ години опит</span>
               </div>
               <div className="flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full">
-                <FaUsers />
+                <FaHandsHelping />
                 <span>Обучен екип</span>
               </div>
             </div>
