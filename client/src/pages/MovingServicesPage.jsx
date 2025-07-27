@@ -21,6 +21,7 @@ import {
   FaMapMarkerAlt,
   FaEnvelope,
 } from "react-icons/fa";
+import { HashLink } from "react-router-hash-link";
 
 const MovingServicesPage = () => {
   const services = [
@@ -109,24 +110,28 @@ const MovingServicesPage = () => {
       title: "Безплатна консултация",
       description:
         "Свържете се с нас за безплатна оценка и консултация за вашия проект",
+      icon: FaPhone,
     },
     {
       step: "02",
       title: "Планиране и подготовка",
       description:
         "Съставяме детайлен план и подготвяме необходимите материали",
+      icon: FaMapMarkerAlt,
     },
     {
       step: "03",
       title: "Изпълнение",
       description:
         "Нашият опитен екип извършва преместването професионално и внимателно",
+      icon: FaHammer,
     },
     {
       step: "04",
       title: "Завършване",
       description:
         "Проверяваме всички детайли и се увериваме, че сте напълно удовлетворени",
+      icon: FaShieldAlt,
     },
   ];
 
@@ -142,10 +147,7 @@ const MovingServicesPage = () => {
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
-            <FaTruck
-              className="text-6xl mx-auto mb-6"
-              style={{ color: "rgba(255,255,255,0.3)" }}
-            />
+            <FaTruck className="text-6xl mx-auto mb-6 text-blue-200" />
             <h1 className="text-5xl font-bold mb-6 leading-tight">
               Професионални хамалски услуги
             </h1>
@@ -168,13 +170,14 @@ const MovingServicesPage = () => {
                 <span>Обучен екип</span>
               </div>
             </div>
-            <button
-              className="bg-white text-white px-10 py-5 rounded-xl font-semibold text-lg hover:bg-gray-100 transition-all duration-300 transform hover:scale-105 shadow-2xl flex items-center gap-3 mx-auto group mb-4"
+            <HashLink
+              to="/#contact"
+              className="bg-white text-white w-max px-10 py-5 rounded-xl font-semibold text-lg hover:bg-gray-100 transition-all duration-300 transform hover:scale-105 shadow-2xl flex items-center gap-3 mx-auto group mb-4"
               style={{ color: "#002B5B" }}
             >
               <FaPhoneAlt className="group-hover:animate-pulse" />
               Получете безплатна оценка
-            </button>
+            </HashLink>
 
             <p className="text-sm opacity-75">
               Свържете се с нас днес за персонализирана оферта
@@ -184,7 +187,7 @@ const MovingServicesPage = () => {
       </div>
 
       {/* Services Section */}
-      <div className="py-16">
+      <div className="py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-4xl font-bold text-gray-900 mb-4">
@@ -198,20 +201,6 @@ const MovingServicesPage = () => {
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {services.map((service, index) => (
-              // <div
-              //   key={index}
-              //   className="p-8 rounded-xl hover:shadow-lg transition-all duration-300 hover:-translate-y-1 group"
-              // >
-              //   <div className="mb-4 group-hover:scale-110 transition-transform duration-300">
-              //     {service.icon}
-              //   </div>
-              //   <h3 className="text-xl font-semibold text-gray-900 mb-3">
-              //     {service.title}
-              //   </h3>
-              //   <p className="text-gray-600 leading-relaxed">
-              //     {service.description}
-              //   </p>
-              // </div>
               <div
                 key={index}
                 className="p-6 border border-[#002B5B] rounded-2xl shadow-md bg-white hover:shadow-lg transition duration-300 flex flex-col items-center text-center"
@@ -228,7 +217,7 @@ const MovingServicesPage = () => {
       </div>
 
       {/* Features Section */}
-      <div className="py-16">
+      <div className="py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-4xl font-bold text-gray-900 mb-4">
@@ -242,7 +231,7 @@ const MovingServicesPage = () => {
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             {features.map((feature, index) => (
               <div key={index} className="text-center group ">
-                <div className="bg-white p-6 rounded-full border border-[#002B5B] w-20 h-20 mx-auto mb-4 flex items-center justify-center shadow-lg group-hover:shadow-xl transition-shadow duration-300">
+                <div className="bg-white p-6 rounded-full border border-[#002B5B] w-20 h-20 mx-auto mb-4 flex items-center justify-center shadow-lg group-hover:scale-110 transition-all duration-300">
                   {feature.icon}
                 </div>
                 <h3 className="text-lg font-semibold text-gray-900 mb-2">
@@ -258,7 +247,7 @@ const MovingServicesPage = () => {
       </div>
 
       {/* Process Section */}
-      <section className="py-20 px-4 bg-white">
+      <section className="py-20">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-bold text-[#002B5B] mb-6">
@@ -271,35 +260,10 @@ const MovingServicesPage = () => {
           </div>
 
           <div className="grid md:grid-cols-4 gap-8">
-            {[
-              {
-                step: "01",
-                title: "Консултация",
-                desc: "Безплатен оглед и консултация за вашия проект",
-                icon: FaPhone,
-              },
-              {
-                step: "02",
-                title: "Планиране",
-                desc: "Детайлно планиране и изготвяне на оферта",
-                icon: FaMapMarkerAlt,
-              },
-              {
-                step: "03",
-                title: "Изпълнение",
-                desc: "Професионално изпълнение със сертифицирани материали",
-                icon: FaHammer,
-              },
-              {
-                step: "04",
-                title: "Предаване",
-                desc: "Контрол на качеството и предаване на обекта",
-                icon: FaShieldAlt,
-              },
-            ].map((item, index) => (
-              <div key={index} className="text-center group">
+            {process.map((item, index) => (
+              <div key={index} className="text-center group ">
                 <div className="relative mb-6">
-                  <div className="w-20 h-20 bg-[#002B5B] rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
+                  <div className="w-20 h-20 bg-[#002B5B] shadow-lg rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-all duration-300">
                     <item.icon className="text-white" size={32} />
                   </div>
                   <div className="absolute -top-2 -right-2 w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center text-white font-bold text-sm">
@@ -309,123 +273,16 @@ const MovingServicesPage = () => {
                 <h3 className="text-xl font-bold text-[#002B5B] mb-3">
                   {item.title}
                 </h3>
-                <p className="text-gray-600">{item.desc}</p>
+                <p className="text-gray-600">{item.description}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Combined CTA Section */}
-      {/* <div
-        className="py-20 text-white relative overflow-hidden"
-        style={{
-          background:
-            "linear-gradient(135deg, #002B5B 0%, #003d7a 50%, #002B5B 100%)",
-        }}
-      >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-          <div className="text-center mb-12">
-            <h2 className="text-5xl font-bold mb-6 leading-tight">
-              Готови за вашето преместване?
-            </h2>
-            <p className="text-xl mb-8 opacity-90 leading-relaxed max-w-3xl mx-auto">
-              Получете безплатна оценка днес! Нашият екип е готов да направи
-              вашето преместване лесно и безстресово.
-            </p>
-          </div>
-
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div className="text-center lg:text-left">
-              <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 mb-8">
-                <div className="grid grid-cols-3 gap-6 text-center">
-                  <div>
-                    <div
-                      className="text-4xl font-bold mb-2"
-                      style={{ color: "rgba(255,255,255,0.9)" }}
-                    >
-                      А+
-                    </div>
-                    <div className="text-sm opacity-80">Качество</div>
-                  </div>
-                  <div>
-                    <div
-                      className="text-4xl font-bold mb-2"
-                      style={{ color: "rgba(255,255,255,0.9)" }}
-                    >
-                      100%
-                    </div>
-                    <div className="text-sm opacity-80">Гаранция</div>
-                  </div>
-                  <div>
-                    <div
-                      className="text-4xl font-bold mb-2"
-                      style={{ color: "rgba(255,255,255,0.9)" }}
-                    >
-                      500+
-                    </div>
-                    <div className="text-sm opacity-80">Доволни клиенти</div>
-                  </div>
-                </div>
-              </div>
-
-              <button
-                className="bg-white text-white px-10 py-5 rounded-xl font-semibold text-lg hover:bg-gray-100 transition-all duration-300 transform hover:scale-105 shadow-2xl flex items-center gap-3 mx-auto lg:mx-0 group mb-4"
-                style={{ color: "#002B5B" }}
-              >
-                <FaPhoneAlt className="group-hover:animate-pulse" />
-                Получете безплатна оценка
-              </button>
-
-              <p className="text-sm opacity-75">
-                Свържете се с нас днес за персонализирана оферта
-              </p>
-            </div>
-
-            <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8">
-              <div className="mb-6">
-                <FaPhoneAlt className="text-4xl mx-auto lg:mx-0 mb-4 opacity-90" />
-                <h3 className="text-2xl font-bold mb-4 text-center lg:text-left">
-                  Безплатна консултация и оценка
-                </h3>
-                <p className="opacity-90 leading-relaxed mb-6 text-center lg:text-left">
-                  Всеки проект е уникален, затова предлагаме индивидуален подход
-                  към всеки клиент. Получете детайлна оферта, адаптирана към
-                  вашите нужди.
-                </p>
-              </div>
-
-              <div className="grid sm:grid-cols-2 gap-4 mb-6">
-                <div className="flex items-center gap-3">
-                  <FaCheckCircle className="text-green-400 text-lg flex-shrink-0" />
-                  <span className="text-sm">Безплатен оглед на място</span>
-                </div>
-                <div className="flex items-center gap-3">
-                  <FaCheckCircle className="text-green-400 text-lg flex-shrink-0" />
-                  <span className="text-sm">Детайлна писмена оферта</span>
-                </div>
-                <div className="flex items-center gap-3">
-                  <FaCheckCircle className="text-green-400 text-lg flex-shrink-0" />
-                  <span className="text-sm">Консултация за оптимизация</span>
-                </div>
-                <div className="flex items-center gap-3">
-                  <FaCheckCircle className="text-green-400 text-lg flex-shrink-0" />
-                  <span className="text-sm">Никакви скрити такси</span>
-                </div>
-              </div>
-
-              <div className="bg-white/20 backdrop-blur-sm p-4 rounded-xl text-center">
-                <div className="text-sm opacity-80 mb-1">Работно време:</div>
-                <div className="font-semibold text-lg">Пн-Нд: 8:00 - 22:00</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div> */}
-
       {/* Contact Section */}
       <section
-        className="py-20 px-4 text-white"
+        className="py-20 text-white"
         style={{
           background:
             "linear-gradient(135deg, #002B5B 0%, #003d7a 50%, #002B5B 100%)",
@@ -458,13 +315,14 @@ const MovingServicesPage = () => {
             </div>
           </div>
 
-          <button
-            className="bg-white text-white px-10 py-5 rounded-xl font-semibold text-lg hover:bg-gray-100 transition-all duration-300 transform hover:scale-105 shadow-2xl flex items-center gap-3 mx-auto group mb-4"
+          <HashLink
+            to="/#contact"
+            className="bg-white text-white px-10 py-5 w-max rounded-xl font-semibold text-lg hover:bg-gray-100 transition-all duration-300 transform hover:scale-105 shadow-2xl flex items-center gap-3 mx-auto group mb-4"
             style={{ color: "#002B5B" }}
           >
             <FaPhoneAlt className="group-hover:animate-pulse" />
             Получете безплатна оценка
-          </button>
+          </HashLink>
 
           <p className="text-sm opacity-75">
             Свържете се с нас днес за персонализирана оферта
