@@ -1,95 +1,25 @@
 import AirConHeader from "../../components/AirConPageComponents/AirConHeader";
 import AirConInstallation from "../../components/AirConPageComponents/AirConInstallation";
 import AirConMaintenance from "../../components/AirConPageComponents/AirConMaintenance";
-import AirConExtraServices from "../../components/AirConPageComponents/AirConExtraServices";
+import AirConServices from "../../components/AirConPageComponents/AirConServices";
 
-// const AirConServicesPage = () => {
-//   return (
-//     <>
-//       <AirConHeader />
-//       <AirConMaintenance />
-//       <AirConInstallation />
-//       <AirConExtraServices />
-//     </>
-//   );
-// };
-
-// export default AirConServicesPage;
-
-import React from "react";
 import {
   FaSnowflake,
-  FaThermometerHalf,
   FaShieldAlt,
   FaClock,
-  FaUsers,
-  FaTools,
-  FaHome,
-  FaBuilding,
-  FaWarehouse,
   FaPhoneAlt,
   FaCheckCircle,
-  FaStar,
-  FaWrench,
-  FaCog,
-  FaHammer,
-  FaBroom,
-  FaCalendarAlt,
   FaPhone,
   FaMapMarkerAlt,
   FaEnvelope,
   FaHandsHelping,
-  FaWind,
-  FaArrowsAlt,
   FaClipboardList,
-  FaHardHat,
-  FaHandPaper,
-  FaFilter,
-  FaTemperatureLow,
 } from "react-icons/fa";
+import { LuAirVent } from "react-icons/lu";
+
 import { HashLink } from "react-router-hash-link";
 
 const AirConditioningPage = () => {
-  const services = [
-    {
-      icon: <FaSnowflake className="text-3xl text-[#002B5B]" />,
-      title: "Монтаж на климатици",
-      description:
-        "Професионален монтаж на климатични инсталации за дома и офиса с гарантирано качество.",
-    },
-    {
-      icon: <FaFilter className="text-3xl text-[#002B5B]" />,
-      title: "Почистване на филтри",
-      description:
-        "Професионално почистване и смяна на филтри за оптимална работа на климатика.",
-    },
-    {
-      icon: <FaWrench className="text-3xl text-[#002B5B]" />,
-      title: "Ремонт на климатици",
-      description:
-        "Бърз и качествен ремонт на всички видове климатични инсталации и системи.",
-    },
-    {
-      icon: <FaBuilding className="text-3xl text-[#002B5B]" />,
-      title: "Офис климатизация",
-      description:
-        "Монтаж и обслужване на климатични системи в офиси и търговски обекти.",
-    },
-    {
-      icon: <FaHome className="text-3xl text-[#002B5B]" />,
-      title: "Домашна климатизация",
-      description:
-        "Климатизация на жилищни помещения - апартаменти, къщи и вили.",
-    },
-
-    {
-      icon: <FaThermometerHalf className="text-3xl text-[#002B5B]" />,
-      title: "Диагностика",
-      description:
-        "Професионална диагностика и проверка на ефективността на климатичните системи.",
-    },
-  ];
-
   const features = [
     {
       icon: <FaShieldAlt className="text-2xl text-[#002B5B]" />,
@@ -155,7 +85,7 @@ const AirConditioningPage = () => {
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
-            <FaSnowflake className="text-6xl mx-auto mb-6 text-white/80" />
+            <LuAirVent className="text-6xl mx-auto mb-6 text-white/80" />
             <h1 className="text-5xl font-bold mb-6 leading-tight">
               Професионални услуги за климатици
             </h1>
@@ -194,40 +124,10 @@ const AirConditioningPage = () => {
         </div>
       </div>
       {/* Services Section */}
-      <div className="py-16 md:py-20 lg:py-24">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold text-[#002B5B] mb-6">
-              Нашите услуги
-            </h2>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              Предлагаме пълен спектър от услуги за климатични системи,
-              адаптирани към вашите потребности
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {services.map((service, index) => (
-              <div
-                key={index}
-                className="p-6 border border-[#002B5B] rounded-2xl shadow-md bg-white hover:shadow-lg hover:-translate-y-1 transition-all duration-300 flex flex-col items-center text-center group"
-              >
-                <div className="mb-4 group-hover:scale-110 transition-transform duration-300">
-                  {service.icon}
-                </div>
-                <h3 className="text-xl font-bold text-[#002B5B] mb-3">
-                  {service.title}
-                </h3>
-                <p className="text-gray-600 leading-relaxed">
-                  {service.description}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-      <AirConExtraServices />
+      <AirConServices />
+      {/* Aircon maintenance */}
       <AirConMaintenance />
+      {/* Aircon installation */}
       <AirConInstallation />
       {/* Features Section */}
       <div className="py-16 md:py-20 lg:py-24">
