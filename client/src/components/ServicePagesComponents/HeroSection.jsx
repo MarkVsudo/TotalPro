@@ -1,3 +1,6 @@
+import { HashLink } from "react-router-hash-link";
+import { FaPhoneAlt } from "react-icons/fa";
+
 const HeroSection = ({
   MainIcon,
   title,
