@@ -23,9 +23,13 @@ const AirConHeader = () => {
     <div className="relative flex w-full overflow-hidden">
       {/* Animated background shape */}
       <div
-        className={`custom-shape-aircon-store absolute top-0 h-full w-1/2 bg-[#002B5B] z-0 transition-transform duration-500 ease-in-out ${
+        className={`custom-shape-aircon-store absolute top-0 h-full w-1/2 z-0 transition-transform duration-500 ease-in-out ${
           isStore ? "translate-x-0" : "-translate-x-full"
         }`}
+        style={{
+          background:
+            "linear-gradient(135deg, #002B5B 0%, #003d7a 50%, #002B5B 100%)",
+        }}
       ></div>
 
       {/* Left content - always visible */}
@@ -69,9 +73,13 @@ const AirConHeader = () => {
       {/* Animated background shape */}
       <div
         className={`custom-shape-aircon-services absolute top-0 right-0 h-full w-[calc(50%+6rem)]
-        bg-[#002B5B] z-0 transition-transform duration-500 ease-in-out ${
-          isStore ? "translate-x-full" : "translate-x-0"
-        }`}
+         z-0 transition-transform duration-500 ease-in-out ${
+           isStore ? "translate-x-full" : "translate-x-0"
+         }`}
+        style={{
+          background:
+            "linear-gradient(135deg, #002B5B 0%, #003d7a 50%, #002B5B 100%)",
+        }}
       ></div>
 
       {/* Right content - always visible */}

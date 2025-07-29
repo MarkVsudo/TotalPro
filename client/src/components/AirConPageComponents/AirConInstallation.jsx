@@ -1,4 +1,3 @@
-import { HashLink } from "react-router-hash-link";
 const AirConInstallation = () => {
   return (
     <div className="flex flex-col justify-center items-center text-center px-4 py-12 max-w-7xl mx-auto">
@@ -6,7 +5,7 @@ const AirConInstallation = () => {
         <h1 className="text-4xl font-bold text-[#002B5B] mb-4">
           Монтаж на климатици
         </h1>
-        <p className="text-lg text-[#002B5B]">
+        <p className="text-xl text-gray-600 max-w-5xl mx-auto">
           Предлагаме професионален монтаж на климатици на конкурентни цени, в
           зависимост от мощността на уреда (BTU). Всеки монтаж включва
           необходимите стандартни услуги и консумативи.
@@ -49,15 +48,6 @@ const AirConInstallation = () => {
             <li>✔ Тестване на машината</li>
             <li>✔ Кратък инструктаж на клиента за употреба</li>
           </ul>
-
-          <div className="mt-10 text-center">
-            <HashLink
-              to="/#contact"
-              className="bg-[#002B5B] hover:bg-blue-900 text-white px-6 py-3 rounded-xl font-semibold shadow-md transition"
-            >
-              Отправи запитване за монтаж
-            </HashLink>
-          </div>
         </div>
       </div>
     </div>

@@ -1,5 +1,3 @@
-import { HashLink } from "react-router-hash-link";
-
 const AirConMaintenance = () => {
   return (
     <div className="flex flex-col justify-center items-center text-center px-4 py-12 max-w-7xl mx-auto">
@@ -7,7 +5,7 @@ const AirConMaintenance = () => {
         <h1 className="text-4xl font-bold text-[#002B5B] mb-4">
           Профилактика на климатици
         </h1>
-        <p className="text-lg text-[#002B5B]">
+        <p className="text-xl text-gray-600 max-w-5xl mx-auto">
           Поддържайте климатика си в оптимално състояние с нашата професионална
           профилактика. Редовната грижа подобрява ефективността, удължава живота
           на уреда и гарантира по-чист въздух у дома.
@@ -45,15 +43,6 @@ const AirConMaintenance = () => {
             <li>✔ Тестване за нормална работа в различни режими</li>
             <li>✔ Съвети и препоръки за правилна експлоатация</li>
           </ul>
-
-          <div className="mt-10 text-center">
-            <HashLink
-              to="/#contact"
-              className="bg-[#002B5B] hover:bg-blue-900 text-white px-6 py-3 rounded-xl font-semibold shadow-md transition"
-            >
-              Отправи запитване за профилактика
-            </HashLink>
-          </div>
         </div>
       </div>
     </div>
