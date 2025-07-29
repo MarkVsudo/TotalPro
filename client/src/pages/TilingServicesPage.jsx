@@ -311,12 +311,16 @@ const TilingServicesPage = () => {
             <div className="flex flex-col items-center">
               <FaPhone className="mb-4 text-white/80" size={48} />
               <h3 className="text-xl font-bold mb-2">Телефон</h3>
-              <p className="text-white/80">+359 88 123 4567</p>
+              <p className="text-white/80">
+                <a href="tel:+359889303334">+359 88 930 3334</a>
+              </p>
             </div>
             <div className="flex flex-col items-center">
               <FaEnvelope className="mb-4 text-white/80" size={48} />
               <h3 className="text-xl font-bold mb-2">Email</h3>
-              <p className="text-white/80">info@plochki-pro.bg</p>
+              <p className="text-white/80">
+                <a href="mailto:total.pro@mail.bg">total.pro@mail.bg</a>
+              </p>
             </div>
             <div className="flex flex-col items-center">
               <FaMapMarkerAlt className="mb-4 text-white/80" size={48} />
@@ -324,7 +328,6 @@ const TilingServicesPage = () => {
               <p className="text-white/80">София, България</p>
             </div>
           </div>
-
           <HashLink
             to="/#contact"
             className="bg-white text-white px-10 py-5 w-max rounded-xl font-semibold text-lg transition-all duration-300 transform hover:scale-105 shadow-2xl flex items-center gap-3 mx-auto group mb-4"
