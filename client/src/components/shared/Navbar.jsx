@@ -1,7 +1,20 @@
-"use client";
+import { useState } from "react";
+
 import { Link } from "react-router-dom";
 import { HashLink } from "react-router-hash-link";
-import { useState } from "react";
+
+import { FiPhone } from "react-icons/fi";
+import { GiScrew } from "react-icons/gi";
+import { PiFanFill } from "react-icons/pi";
+import { GiElectric } from "react-icons/gi";
+import { RiSofaFill } from "react-icons/ri";
+import { BiSolidCctv } from "react-icons/bi";
+import { FaPeopleCarry } from "react-icons/fa";
+import { FaCartShopping } from "react-icons/fa6";
+import { RiLayoutGridFill } from "react-icons/ri";
+import { MdOutlinePlumbing } from "react-icons/md";
+import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
+import { ChevronDownIcon, PlayCircleIcon } from "@heroicons/react/20/solid";
 import {
   Dialog,
   DialogPanel,
@@ -13,21 +26,9 @@ import {
   PopoverGroup,
   PopoverPanel,
 } from "@headlessui/react";
-import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
-import { ChevronDownIcon, PlayCircleIcon } from "@heroicons/react/20/solid";
-import { FiPhone } from "react-icons/fi";
-import NavLogoImg from "../../assets/nav-logo.png";
-import { GiElectric } from "react-icons/gi";
-import { FaPeopleCarry } from "react-icons/fa";
-import { PiFanFill } from "react-icons/pi";
-import { GiScrew } from "react-icons/gi";
-import { FaCartShopping } from "react-icons/fa6";
-import { useCart } from "../../context/CartContext";
 
-import { MdOutlinePlumbing } from "react-icons/md";
-import { BiSolidCctv } from "react-icons/bi";
-import { RiLayoutGridFill } from "react-icons/ri";
-import { RiSofaFill } from "react-icons/ri";
+import NavLogoImg from "../../assets/nav-logo.png";
+import { useCart } from "../../context/CartContext";
 
 const services = [
   {

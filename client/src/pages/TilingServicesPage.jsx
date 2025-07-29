@@ -1,6 +1,5 @@
 import React from "react";
 import {
-  FaThLarge,
   FaBath,
   FaRulerCombined,
   FaClock,
@@ -18,6 +17,7 @@ import {
   FaPhone,
   FaDraftingCompass,
 } from "react-icons/fa";
+import { RiLayoutGridFill } from "react-icons/ri";
 
 import HeroSection from "../components/ServicePagesComponents/HeroSection";
 import ServicesSection from "../components/ServicePagesComponents/ServicesSection";
@@ -57,7 +57,7 @@ const TilingServicesPage = () => {
         "Облицовка на басейни, джакузита и спа центрове със специализирани материали.",
     },
     {
-      icon: <FaThLarge className="text-3xl text-[#002B5B]" />,
+      icon: <RiLayoutGridFill className="text-3xl text-[#002B5B]" />,
       title: "Подови настилки",
       description:
         "Полагане на подови плочки, гранитогрес и други видове твърди настилки.",
@@ -139,7 +139,7 @@ const TilingServicesPage = () => {
     <div className="min-h-screen">
       {/* Hero Section */}
       <HeroSection
-        MainIcon={FaThLarge}
+        MainIcon={RiLayoutGridFill}
         title="Професионални плочкаджийски услуги"
         description="Превърнете вашите пространства в произведения на изкуството!
         Предлагаме комплексни плочкаджийски услуги с безупречно качество и

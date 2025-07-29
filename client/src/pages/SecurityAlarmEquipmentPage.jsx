@@ -18,6 +18,7 @@ import {
   FaPhone,
   FaDesktop,
 } from "react-icons/fa";
+import { BiSolidCctv } from "react-icons/bi";
 
 import HeroSection from "../components/ServicePagesComponents/HeroSection";
 import ServicesSection from "../components/ServicePagesComponents/ServicesSection";
@@ -144,7 +145,7 @@ const SecurityAlarmEquipmentPage = () => {
     <div className="min-h-screen">
       {/* Hero Section */}
       <HeroSection
-        MainIcon={FaShieldAlt}
+        MainIcon={BiSolidCctv}
         title="Професионални СОТ услуги"
         description="Защитете вашия дом или бизнес с най-модерните сигнализации и
         охранителни технологии! Предлагаме комплексни решения за сигурност

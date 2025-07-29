@@ -1,6 +1,5 @@
 import React from "react";
 import {
-  FaCouch,
   FaHammer,
   FaBed,
   FaClock,
@@ -20,6 +19,7 @@ import {
   FaDraftingCompass,
   FaCog,
 } from "react-icons/fa";
+import { RiSofaFill } from "react-icons/ri";
 import HeroSection from "../components/ServicePagesComponents/HeroSection";
 import ServicesSection from "../components/ServicePagesComponents/ServicesSection";
 import FeaturesSection from "../components/ServicePagesComponents/FeaturesSection";
@@ -140,7 +140,7 @@ const FurnitureServicesPage = () => {
     <div className="min-h-screen">
       {/* Hero Section */}
       <HeroSection
-        MainIcon={FaCouch}
+        MainIcon={RiSofaFill}
         title="Производство и инсталиране на мебели"
         description="Създаваме мебели, които съчетават функционалност с красота! От
         идеята до финалното изпълнение - предлагаме комплексни мебелни

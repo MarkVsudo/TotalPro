@@ -15,6 +15,7 @@ import {
   FaHandsHelping,
   FaBoxOpen,
   FaClipboardList,
+  FaPeopleCarry,
 } from "react-icons/fa";
 import HeroSection from "../components/ServicePagesComponents/HeroSection";
 import ServicesSection from "../components/ServicePagesComponents/ServicesSection";
@@ -138,7 +139,7 @@ const MovingServicesPage = () => {
     <div className="min-h-screen">
       {/* Hero Section */}
       <HeroSection
-        MainIcon={FaTruck}
+        MainIcon={FaPeopleCarry}
         title="Професионални хамалски услуги"
         description="Вашето преместване е в сигурни ръце! Предлагаме комплексни
         хамалски услуги с гарантирано качество и професионализъм във всеки
