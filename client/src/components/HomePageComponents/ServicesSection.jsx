@@ -60,20 +60,27 @@ const services = [
 
 const ServicesSection = () => {
   return (
-    <section id="services" className="py-12 px-4 max-w-7xl mx-auto text-center">
+    <section id="services" className="my-24 px-4 max-w-7xl mx-auto text-center">
       <h2 className="text-4xl font-bold text-[#002B5B] mb-12">
         Услугите, които предлагаме
       </h2>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
         {services.map((service, index) => (
           <Link to={service.link} key={index}>
-            <div className="group p-6 border border-[#002B5B] rounded-2xl shadow-md bg-white hover:shadow-lg transition duration-300 flex flex-col items-center text-center h-full">
-              {service.icon}
-              <h3 className="text-xl font-semibold text-[#002B5B] mb-2">
+            <div
+              key={index}
+              className="p-6 border border-[#002B5B] rounded-2xl shadow-md bg-white hover:shadow-lg hover:-translate-y-1 transition-all duration-300 flex flex-col items-center text-center group h-full"
+            >
+              <div className="mb-4 group-hover:scale-110 transition-transform duration-300">
+                {service.icon}
+              </div>
+              <h3 className="text-xl font-bold text-[#002B5B] mb-3">
                 {service.title}
               </h3>
-              <p className="text-gray-700 mb-4">{service.description}</p>
+              <p className="text-gray-600 leading-relaxed mb-3">
+                {service.description}
+              </p>
               <button className="group text-[#002B5B] border-[#002B5B] border-2 px-4 py-2 rounded-md font-medium text-lg inline-flex items-center gap-1 duration-300 mt-auto cursor-pointer">
                 Виж повече
                 <span

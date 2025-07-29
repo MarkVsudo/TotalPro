@@ -9,7 +9,7 @@ const AboutUsSection = () => {
   return (
     <section
       id="about-us"
-      className="bg-white text-[#002B5B] px-4 py-24 max-w-7xl mx-auto"
+      className="bg-white text-[#002B5B] my-24 px-4 max-w-7xl mx-auto"
     >
       <div className="flex flex-col lg:flex-row gap-12 items-center">
         {/* Left Text Section */}

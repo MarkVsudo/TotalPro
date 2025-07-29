@@ -3,7 +3,7 @@ import DomatNaMechtiteImg from "../../assets/domat_na_mechtite.png";
 import MrPizzaImg from "../../assets/mr-pizza.png";
 const PartnersSection = () => {
   return (
-    <div className="py-24 px-4 max-w-7xl mx-auto">
+    <div className="my-24 px-4 max-w-7xl mx-auto">
       <h2 className="text-center text-4xl mb-8 font-bold text-[#002B5B]">
         Фирми, които ни се довериха
       </h2>

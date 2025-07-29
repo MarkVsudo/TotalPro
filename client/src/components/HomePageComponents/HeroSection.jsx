@@ -40,8 +40,7 @@ const rightImages = images.slice(4, 8);
 const HeroSection = () => {
   return (
     <div
-      className=" overflow-hidden"
-      // bg-gradient-to-br from-[#002B5B] via-[#003d7a] to-[#004c96]
+      className="overflow-hidden"
       style={{
         background:
           "linear-gradient(135deg, #002B5B 0%, #003d7a 50%, #002B5B 100%)",

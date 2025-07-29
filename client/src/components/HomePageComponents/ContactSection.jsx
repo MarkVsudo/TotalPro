@@ -38,10 +38,7 @@ export default function ContactForm() {
   };
 
   return (
-    <section
-      id="contact"
-      className="py-24 px-4 max-w-6xl mx-auto min-h-screenpx-4"
-    >
+    <section id="contact" className="my-24 px-4 max-w-7xl mx-auto">
       <div className="grid lg:grid-cols-2 gap-12 items-start">
         {/* Left Section - Contact Info */}
         <div className="bg-white p-8 rounded-lg shadow-sm">
