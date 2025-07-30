@@ -1,9 +1,14 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import { FaTools } from "react-icons/fa";
 
+import { Link } from "react-router-dom";
+
+import { FaTools } from "react-icons/fa";
 import { IoBagAddOutline, IoShareSocialOutline } from "react-icons/io5";
 import { FaCheckCircle, FaShieldAlt, FaStar, FaTruck } from "react-icons/fa";
+import {
+  MdOutlineArrowBackIos,
+  MdOutlineArrowForwardIos,
+} from "react-icons/md";
 
 import productImg5 from "../../assets/air-con-product-img-5.png";
 import productImg1 from "../../assets/air-con-product-img-1.jpeg";
@@ -167,14 +172,38 @@ const AirConProductPage = () => {
         <div className="w-full flex flex-col lg:flex-row gap-6 lg:gap-12 mb-8 lg:mb-16">
           {/* Product Images */}
           <div className="w-full lg:w-[55%] space-y-3 lg:space-y-4">
-            <div className="rounded-xl lg:rounded-2xl overflow-hidden bg-white shadow-md flex justify-center items-center aspect-square lg:aspect-auto lg:h-auto border border-gray-200">
+            <div className="relative rounded-xl lg:rounded-2xl overflow-hidden bg-white shadow-md flex justify-center items-center aspect-square lg:aspect-auto lg:h-auto border border-gray-200">
+              <button
+                onClick={() =>
+                  setSelectedImage(
+                    selectedImage === 0
+                      ? productImgs.length - 1
+                      : selectedImage - 1
+                  )
+                }
+                className="custom-prev cursor-pointer absolute left-2 top-1/2 -translate-y-1/2 z-10 text-[#002B5B] p-4 rounded-full hover:scale-120 transition-all"
+              >
+                <MdOutlineArrowBackIos size={24} />
+              </button>
               <img
                 src={productImgs[selectedImage]}
                 alt="Main product"
                 className="w-full h-full lg:w-150 lg:h-150 object-contain p-4"
               />
+              <button
+                onClick={() =>
+                  setSelectedImage(
+                    selectedImage === productImgs.length - 1
+                      ? 0
+                      : selectedImage + 1
+                  )
+                }
+                className="custom-next cursor-pointer absolute right-2 top-1/2 -translate-y-1/2 z-10 text-[#002B5B] p-4 rounded-full hover:scale-120 transition-all"
+              >
+                <MdOutlineArrowForwardIos size={24} />
+              </button>
             </div>
-            <div className="flex gap-2 lg:gap-3 overflow-x-auto pb-2">
+            <div className=" flex gap-2 lg:gap-3 overflow-x-auto pb-2">
               {productImgs.map((img, index) => (
                 <button
                   key={index}

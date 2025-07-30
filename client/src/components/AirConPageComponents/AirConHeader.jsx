@@ -28,7 +28,7 @@ const AirConHeader = () => {
         }`}
         style={{
           background:
-            "linear-gradient(135deg, #002B5B 0%, #003d7a 50%, #002B5B 100%)",
+            "linear-gradient(135deg, #002B5B 25%, #003d7a 125%, #002B5B 150%)",
         }}
       ></div>
 
@@ -78,7 +78,7 @@ const AirConHeader = () => {
          }`}
         style={{
           background:
-            "linear-gradient(135deg, #002B5B 0%, #003d7a 50%, #002B5B 100%)",
+            "linear-gradient(135deg, #002B5B -50%, #003d7a 50%, #002B5B 150%)",
         }}
       ></div>
 
