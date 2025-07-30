@@ -54,3 +54,19 @@ html {
 .custom-shape-aircon-services {
   clip-path: polygon(0 100%, 10% 0, 100% 0%, 100% 100%);
 }
+
+/* Product page swiper */
+.thumbs-swiper .swiper-slide {
+  cursor: pointer;
+  opacity: 0.6;
+  transition: opacity 0.3s ease;
+}
+
+.thumbs-swiper .swiper-slide-thumb-active {
+  opacity: 1;
+}
+
+.thumbs-swiper .swiper-slide-thumb-active img {
+  border: 2px solid #002b5b;
+  box-shadow: 0 2px 8px rgba(0, 43, 91, 0.3);
+}

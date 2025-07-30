@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 import { FaTools } from "react-icons/fa";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { FreeMode, Navigation, Thumbs } from "swiper/modules";
 import { IoBagAddOutline, IoShareSocialOutline } from "react-icons/io5";
 import { FaCheckCircle, FaShieldAlt, FaStar, FaTruck } from "react-icons/fa";
 import {
@@ -23,6 +25,11 @@ import accessoryImg2 from "../../assets/air-con-accessory-img-2.jpg";
 import accessoryImg3 from "../../assets/air-con-accessory-img-3.jpg";
 import accessoryImg4 from "../../assets/air-con-accessory-img-4.jpg";
 import accessoryImg5 from "../../assets/air-con-accessory-img-5.jpg";
+
+import "swiper/css";
+import "swiper/css/thumbs";
+import "swiper/css/free-mode";
+import "swiper/css/navigation";
 
 const productImgs = [
   productImg1,
@@ -94,6 +101,7 @@ const convert = async (from, to, amount) => {
 const AirConProductPage = () => {
   const [convertedPrices, setConvertedPrices] = useState({});
   const [selectedImage, setSelectedImage] = useState(0);
+  const [thumbsSwiper, setThumbsSwiper] = useState(null);
   const [showSpecs, setShowSpecs] = useState(false);
   const [includeInstallation, setIncludeInstallation] = useState(false);
 
@@ -170,57 +178,83 @@ const AirConProductPage = () => {
 
         {/* Main Product Section */}
         <div className="w-full flex flex-col lg:flex-row gap-6 lg:gap-12 mb-8 lg:mb-16">
-          {/* Product Images */}
+          {/* Product Images with Swiper */}
           <div className="w-full lg:w-[55%] space-y-3 lg:space-y-4">
-            <div className="relative rounded-xl lg:rounded-2xl overflow-hidden bg-white shadow-md flex justify-center items-center aspect-square lg:aspect-auto lg:h-auto border border-gray-200">
-              <button
-                onClick={() =>
-                  setSelectedImage(
-                    selectedImage === 0
-                      ? productImgs.length - 1
-                      : selectedImage - 1
-                  )
-                }
-                className="custom-prev cursor-pointer absolute left-2 top-1/2 -translate-y-1/2 z-10 text-[#002B5B] p-4 rounded-full hover:scale-120 transition-all"
+            {/* Main Swiper */}
+            <div className="rounded-xl lg:rounded-2xl overflow-hidden bg-white shadow-md border border-gray-200">
+              <Swiper
+                className="product-swiper aspect-square lg:aspect-auto lg:h-130"
+                spaceBetween={10}
+                loop={true}
+                navigation={{
+                  prevEl: ".custom-prev",
+                  nextEl: ".custom-next",
+                }}
+                thumbs={{
+                  swiper:
+                    thumbsSwiper && !thumbsSwiper.destroyed
+                      ? thumbsSwiper
+                      : null,
+                }}
+                modules={[FreeMode, Navigation, Thumbs]}
               >
-                <MdOutlineArrowBackIos size={24} />
-              </button>
-              <img
-                src={productImgs[selectedImage]}
-                alt="Main product"
-                className="w-full h-full lg:w-150 lg:h-150 object-contain p-4"
-              />
-              <button
-                onClick={() =>
-                  setSelectedImage(
-                    selectedImage === productImgs.length - 1
-                      ? 0
-                      : selectedImage + 1
-                  )
-                }
-                className="custom-next cursor-pointer absolute right-2 top-1/2 -translate-y-1/2 z-10 text-[#002B5B] p-4 rounded-full hover:scale-120 transition-all"
-              >
-                <MdOutlineArrowForwardIos size={24} />
-              </button>
-            </div>
-            <div className=" flex gap-2 lg:gap-3 overflow-x-auto pb-2">
-              {productImgs.map((img, index) => (
-                <button
-                  key={index}
-                  onClick={() => setSelectedImage(index)}
-                  className={`flex-shrink-0 w-16 h-16 lg:w-20 lg:h-20 rounded-lg overflow-hidden border transition-all duration-200 cursor-pointer ${
-                    selectedImage === index
-                      ? "border-[#002B5B]"
-                      : "border-gray-200 hover:border-gray-300"
-                  }`}
-                >
-                  <img
-                    src={img}
-                    alt={`Product view ${index + 1}`}
-                    className="w-full h-full object-contain"
-                  />
+                {productImgs.map((img, index) => (
+                  <SwiperSlide
+                    key={index}
+                    className="flex justify-center items-center p-4"
+                  >
+                    <img
+                      src={img}
+                      alt={`Product view ${index + 1}`}
+                      className="w-full h-full object-contain max-h-130"
+                    />
+                  </SwiperSlide>
+                ))}
+
+                {/* Custom Navigation Buttons */}
+                <button className="custom-prev cursor-pointer absolute left-2 top-1/2 -translate-y-1/2 z-10 text-[#002B5B] p-4 rounded-full hover:scale-125 transition-all">
+                  <MdOutlineArrowBackIos size={24} />
                 </button>
-              ))}
+                <button className="custom-next cursor-pointer absolute right-2 top-1/2 -translate-y-1/2 z-10 text-[#002B5B] p-4 rounded-full hover:scale-125 transition-all">
+                  <MdOutlineArrowForwardIos size={24} />
+                </button>
+              </Swiper>
+            </div>
+
+            {/* Thumbnail Swiper */}
+            <div className="px-2">
+              <Swiper
+                className="thumbs-swiper"
+                onSwiper={setThumbsSwiper}
+                spaceBetween={10}
+                slidesPerView={4}
+                freeMode={true}
+                watchSlidesProgress={true}
+                modules={[FreeMode, Navigation, Thumbs]}
+                breakpoints={{
+                  640: {
+                    slidesPerView: 5,
+                  },
+                  768: {
+                    slidesPerView: 6,
+                  },
+                  1024: {
+                    slidesPerView: 8,
+                  },
+                }}
+              >
+                {productImgs.map((img, index) => (
+                  <SwiperSlide key={index}>
+                    <div className="w-full h-16 lg:h-20">
+                      <img
+                        src={img}
+                        alt={`Thumbnail ${index + 1}`}
+                        className="w-full h-full object-contain rounded-lg"
+                      />
+                    </div>
+                  </SwiperSlide>
+                ))}
+              </Swiper>
             </div>
           </div>
 
