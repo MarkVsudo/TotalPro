@@ -2,7 +2,8 @@ import { useState } from "react";
 import { FiPhone } from "react-icons/fi";
 import { EnvelopeIcon } from "@heroicons/react/24/outline";
 import { FiMapPin } from "react-icons/fi";
-
+import { useEffect } from "react";
+import axios from 'axios'
 export default function ContactForm() {
   const [formData, setFormData] = useState({
     firstName: "",
@@ -33,9 +34,14 @@ export default function ContactForm() {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("Form submitted:", formData);
-    // Here you would typically send the data to your server
-    alert("Съобщението е изпратено успешно!");
+    axios({
+      method: 'post',
+      url: '/api/mailer/send',
+      data: formData
+    });
   };
+
+  
 
   return (
     <section id="contact" className="my-24 px-4 max-w-7xl mx-auto">
