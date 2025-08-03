@@ -380,7 +380,7 @@ const AirConProductPage = () => {
                 <div className="text-xs sm:text-sm font-medium text-gray-900">
                   Безплатна доставка
                 </div>
-                <div className="text-xs text-gray-600">над 1200 лв.</div>
+                <div className="text-xs text-gray-600">за София</div>
               </div>
               <div className="bg-white p-3 sm:p-4 rounded-xl shadow-md border border-gray-200 text-center">
                 <FaShieldAlt className="w-6 h-6 sm:w-8 sm:h-8 text-[#002B5B] mx-auto mb-2" />
