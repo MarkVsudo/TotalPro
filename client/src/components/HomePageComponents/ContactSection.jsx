@@ -2,7 +2,6 @@ import { useState } from "react";
 import { FiPhone } from "react-icons/fi";
 import { EnvelopeIcon } from "@heroicons/react/24/outline";
 import { FiMapPin } from "react-icons/fi";
-import { useEffect } from "react";
 import axios from 'axios'
 export default function ContactForm() {
   const [formData, setFormData] = useState({

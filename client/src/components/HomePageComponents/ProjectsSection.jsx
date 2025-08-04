@@ -10,7 +10,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 
-const images = [
+const media = [
   "src/assets/projects/project-img-4.jpg",
   "src/assets/projects/project-img-6.jpg",
   "src/assets/projects/project-img-10.jpg",
@@ -41,6 +41,21 @@ const images = [
   "src/assets/projects/project-img-30.jpg",
   "src/assets/projects/project-img-31.jpg",
   "src/assets/projects/project-img-32.jpg",
+  "src/assets/projects/project-img-33.jpg",
+  "src/assets/projects/project-img-34.jpg",
+  "src/assets/projects/project-img-35.jpg",
+  "src/assets/projects/project-img-36.jpg",
+  "src/assets/projects/project-img-37.jpg",
+  "src/assets/projects/project-img-38.jpg",
+  "src/assets/projects/project-img-39.jpg",
+  "src/assets/projects/project-img-40.jpg",
+  "src/assets/projects/project-img-41.jpg",
+  "src/assets/projects/project-vid-1.mp4",
+  "src/assets/projects/project-vid-2.mp4",
+  "src/assets/projects/project-vid-3.mp4",
+  "src/assets/projects/project-vid-4.mp4",
+  "src/assets/projects/project-vid-5.mp4",
+  "src/assets/projects/project-vid-6.mp4",
 ];
 
 export default function ProjectsSection() {
@@ -52,10 +67,10 @@ export default function ProjectsSection() {
 
     const handleKeyDown = (e) => {
       if (e.key === "ArrowRight") {
-        setSelectedImgIndx((prev) => (prev + 1) % images.length);
+        setSelectedImgIndx((prev) => (prev + 1) % media.length);
       } else if (e.key === "ArrowLeft") {
         setSelectedImgIndx(
-          (prev) => (prev - 1 + images.length) % images.length
+          (prev) => (prev - 1 + media.length) % media.length
         );
       }
     };
@@ -75,16 +90,17 @@ export default function ProjectsSection() {
             modules={[Navigation]}
             spaceBetween={30}
             slidesPerView={1}
+            loop={true}
             breakpoints={{
               640: { slidesPerView: 2 },
-              1024: { slidesPerView: 3 },
+              1024: { slidesPerView: 4 },
             }}
             navigation={{
               nextEl: ".custom-next",
               prevEl: ".custom-prev",
             }}
           >
-            {images.map((image, index) => (
+            {media.map((medium, index) => (
               <SwiperSlide key={index}>
                 <div
                   onClick={() => {
@@ -93,11 +109,13 @@ export default function ProjectsSection() {
                   }}
                   className="relative overflow-hidden rounded-lg shadow-lg h-100"
                 >
-                  <img
-                    src={image}
-                    alt={`Project ${index + 1}`}
-                    className="object-cover w-full h-full transition-transform duration-300 hover:scale-105"
-                  />
+               
+                  {medium.slice(-3) === 'mp4' 
+                    ? (<video src={medium} autoPlay muted loop alt={`Project media ${index + 1}`} className="object-cover w-full h-full transition-transform duration-300 hover:scale-105"  
+                    />) 
+                    : (<img src={medium}
+                        alt={`Project media ${index + 1}`}
+                        className="object-cover w-full h-full transition-transform duration-300 hover:scale-105"/>)}
                 </div>
               </SwiperSlide>
             ))}
@@ -121,17 +139,30 @@ export default function ProjectsSection() {
               <div className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
                 <DialogPanel className="relative transform  rounded-lg bg-white text-left shadow-xl sm:my-8 sm:w-full sm:max-w-lg">
                   <div className="relative">
-                    <img
-                      src={images[selectedImgIndx]}
-                      alt={`Project ${selectedImgIndx + 1}`}
-                      className="w-full h-auto"
-                    />
+                  {media[selectedImgIndx].slice(-3) === 'mp4' 
+  ? (
+    <video 
+      src={media[selectedImgIndx]} 
+      autoPlay 
+      muted 
+      loop
+      className="w-full h-auto max-h-170 object-cover rounded-lg"
+    />
+  ) 
+  : (
+    <img
+      src={media[selectedImgIndx]}
+      alt={`Project ${selectedImgIndx + 1}`}
+      className="w-full h-auto rounded-lg"
+    />
+  )
+}
 
                     <button
                       onClick={(e) => {
                         e.stopPropagation();
                         setSelectedImgIndx(
-                          (prev) => (prev - 1 + images.length) % images.length
+                          (prev) => (prev - 1 + media.length) % media.length
                         );
                       }}
                       className="custom-prev cursor-pointer absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-white bg-opacity-50 text-[#002B5B] p-4 rounded-full hover:bg-opacity-75 transition-all -ml-6"
@@ -142,7 +173,7 @@ export default function ProjectsSection() {
                       onClick={(e) => {
                         e.stopPropagation();
                         setSelectedImgIndx(
-                          (prev) => (prev + 1) % images.length
+                          (prev) => (prev + 1) % media.length
                         );
                       }}
                       className="custom-prev cursor-pointer absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-white bg-opacity-50 text-[#002B5B] p-4 rounded-full hover:bg-opacity-75 transition-all -mr-6"
