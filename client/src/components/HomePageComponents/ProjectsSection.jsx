@@ -107,7 +107,7 @@ export default function ProjectsSection() {
                     setOpen(true);
                     setSelectedImgIndx(index);
                   }}
-                  className="relative overflow-hidden rounded-lg shadow-lg h-100"
+                  className="relative overflow-hidden rounded-lg shadow-lg h-120"
                 >
                
                   {medium.slice(-3) === 'mp4' 
