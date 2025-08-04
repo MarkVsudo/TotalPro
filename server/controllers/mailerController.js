@@ -8,11 +8,10 @@ export const handleSendEmail = async (req, res) => {
     }
     
     try {
-      // Pass the entire form data object
       const info = await sendTestEmail({ firstName, lastName, email, phone, message });
       res.status(200).json({ message: 'Email sent', info });
     } catch (err) {
-      console.error('Email error:', err); // Add logging
+      console.error('Email error:', err); 
       res.status(500).json({ error: 'Failed to send email' });
     }
 }
