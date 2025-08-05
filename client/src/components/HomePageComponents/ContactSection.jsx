@@ -3,6 +3,7 @@ import { FiPhone } from "react-icons/fi";
 import { EnvelopeIcon } from "@heroicons/react/24/outline";
 import { FiMapPin } from "react-icons/fi";
 import axios from 'axios'
+import Alert from "../shared/Alert";
 export default function ContactForm() {
   const [formData, setFormData] = useState({
     firstName: "",
@@ -44,6 +45,7 @@ export default function ContactForm() {
 
   return (
     <section id="contact" className="my-24 px-4 max-w-7xl mx-auto">
+      <Alert/>
       <div className="grid lg:grid-cols-2 gap-12 items-start">
         {/* Left Section - Contact Info */}
         <div className="bg-white p-8 rounded-lg shadow-sm">
