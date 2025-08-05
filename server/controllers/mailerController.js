@@ -1,6 +1,6 @@
-import { sendTestEmail } from '../services/mailerService.js';
+import { sendContactFormEmail } from '../services/mailerService.js';
 
-export const handleSendEmail = async (req, res) => {
+export const handleContactFormEmail = async (req, res) => {
     const { firstName, lastName, email, phone, message } = req.body;
     
     if (!email) {
@@ -8,7 +8,7 @@ export const handleSendEmail = async (req, res) => {
     }
     
     try {
-      const info = await sendTestEmail({ firstName, lastName, email, phone, message });
+      const info = await sendContactFormEmail({ firstName, lastName, email, phone, message });
       res.status(200).json({ message: 'Email sent', info });
     } catch (err) {
       console.error('Email error:', err); 

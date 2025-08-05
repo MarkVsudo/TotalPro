@@ -11,14 +11,24 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 
 const media = [
-  "src/assets/projects/project-img-4.jpg",
+  "src/assets/projects/project-vid-7.mp4",
   "src/assets/projects/project-img-6.jpg",
   "src/assets/projects/project-img-10.jpg",
+  "src/assets/projects/project-vid-8.mp4",
+  "src/assets/projects/project-vid-5.mp4",
   "src/assets/projects/project-img-3.jpg",
+  "src/assets/projects/project-img-40.jpg",
+  "src/assets/projects/project-img-37.jpg",
+  "src/assets/projects/project-img-36.jpg",
+  "src/assets/projects/project-img-24.jpg",
+  "src/assets/projects/project-vid-1.mp4",
   "src/assets/projects/project-img-7.jpg",
   "src/assets/projects/project-img-1.jpg",
+  "src/assets/projects/project-vid-3.mp4",
+  "src/assets/projects/project-vid-4.mp4",
+  "src/assets/projects/project-vid-6.mp4",
   "src/assets/projects/project-img-5.jpg",
-  "src/assets/projects/project-img-2.jpg",
+  "src/assets/projects/project-vid-2.mp4",
   "src/assets/projects/project-img-8.jpg",
   "src/assets/projects/project-img-9.jpg",
   "src/assets/projects/project-img-12.jpg",
@@ -44,18 +54,11 @@ const media = [
   "src/assets/projects/project-img-33.jpg",
   "src/assets/projects/project-img-34.jpg",
   "src/assets/projects/project-img-35.jpg",
-  "src/assets/projects/project-img-36.jpg",
-  "src/assets/projects/project-img-37.jpg",
   "src/assets/projects/project-img-38.jpg",
   "src/assets/projects/project-img-39.jpg",
-  "src/assets/projects/project-img-40.jpg",
-  "src/assets/projects/project-img-41.jpg",
-  "src/assets/projects/project-vid-1.mp4",
-  "src/assets/projects/project-vid-2.mp4",
-  "src/assets/projects/project-vid-3.mp4",
-  "src/assets/projects/project-vid-4.mp4",
-  "src/assets/projects/project-vid-5.mp4",
-  "src/assets/projects/project-vid-6.mp4",
+  "src/assets/projects/project-vid-9.mp4",
+
+  
 ];
 
 export default function ProjectsSection() {
