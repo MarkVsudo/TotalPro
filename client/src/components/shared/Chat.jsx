@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
-import { IoSend, IoHappyOutline, IoClose, IoHome } from "react-icons/io5";
-import { RiRobotFill, RiUser3Fill } from "react-icons/ri";
+import { IoSend, IoClose, IoHome } from "react-icons/io5";
+import { RiUser3Fill } from "react-icons/ri";
 import { BsChatDots } from "react-icons/bs";
 import { HashLink } from "react-router-hash-link";
 import { GrUserWorker } from "react-icons/gr";
@@ -31,6 +31,17 @@ const Chat = () => {
   const [currentService, setCurrentService] = useState(null);
   const [showServices, setShowServices] = useState(true);
   const [isOpen, setIsOpen] = useState(false);
+  const [scrollY, setScrollY] = useState(window.scrollY);
+  useEffect(() => {
+    function handleScroll() {
+      setScrollY(window.scrollY);
+    }
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   const messagesEndRef = useRef(null);
 
   const services = [
@@ -322,7 +333,9 @@ const Chat = () => {
       <button
         type="button"
         onClick={() => setIsOpen(!isOpen)}
-        className="fixed left-0 bottom-0 w-fit bg-[#002B5B] hover:bg-blue-900  text-white py-3 px-5 rounded-lg font-medium shadow-md transition-colors cursor-pointer"
+        className={`fixed ${
+          scrollY > 300 ? "bottom-20" : "bottom-5"
+        } right-5 z-50 flex justify-center items-center bg-[#002B5B] text-white w-[3rem] h-[3rem] rounded-full shadow-md text-2xl hover:bg-blue-900 cursor-pointer transition-all duration-300 ease-in-out`}
       >
         <BsChatDots />
       </button>
@@ -334,26 +347,26 @@ const Chat = () => {
         {/* Header */}
         <div className="bg-white shadow-lg border-b border-gray-200">
           <div className="flex items-center justify-between p-4">
-            <div className="flex items-center space-x-3">
-              <div
-                className="w-10 h-10 rounded-full flex items-center justify-center text-white"
-                style={{ backgroundColor: "#002B5B" }}
-              >
-                <RiRobotFill size={20} />
-              </div>
-              <div>
-                <h1 className="text-lg font-semibold text-gray-800">
-                  Помощник за услуги
-                </h1>
-                <p className="text-sm text-gray-500">Онлайн помощ</p>
-              </div>
-            </div>
             <button
               onClick={resetChat}
               className="p-2 rounded-full hover:bg-gray-100 transition-colors"
               title="Начало"
             >
               <IoHome size={20} style={{ color: "#002B5B" }} />
+            </button>
+            <div className="flex items-center">
+              <div>
+                <h1 className="text-lg font-semibold text-gray-800">
+                  Помощник за услуги
+                </h1>
+              </div>
+            </div>
+            <button
+              onClick={() => setIsOpen(false)}
+              className="p-2 rounded-full hover:bg-gray-100 transition-colors"
+              title="Изход"
+            >
+              <IoClose size={20} style={{ color: "#002B5B" }} />
             </button>
           </div>
         </div>
@@ -417,7 +430,7 @@ const Chat = () => {
                     {message.sender === "user" ? (
                       <RiUser3Fill size={16} />
                     ) : (
-                      <RiRobotFill size={16} />
+                      <GrUserWorker size={16} />
                     )}
                   </div>
 
@@ -497,7 +510,7 @@ const Chat = () => {
             <div className="flex justify-start animate-fade-in">
               <div className="flex items-end space-x-2">
                 <div className="w-8 h-8 rounded-full bg-gray-500 flex items-center justify-center text-white mr-2">
-                  <RiRobotFill size={16} />
+                  <GrUserWorker size={16} />
                 </div>
                 <div className="bg-white rounded-2xl rounded-bl-md px-4 py-3 shadow-md border">
                   <div className="flex space-x-1">
