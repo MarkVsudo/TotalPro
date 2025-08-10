@@ -2,8 +2,9 @@ import { useState } from "react";
 import { FiPhone } from "react-icons/fi";
 import { EnvelopeIcon } from "@heroicons/react/24/outline";
 import { FiMapPin } from "react-icons/fi";
-import axios from 'axios'
-import Alert from "../shared/Alert";
+import axios from "axios";
+import SucessAlert from "../shared/SucessAlert";
+import ErrorAlert from "../shared/ErrorAlert";
 export default function ContactForm() {
   const [formData, setFormData] = useState({
     firstName: "",
@@ -35,17 +36,16 @@ export default function ContactForm() {
     e.preventDefault();
     console.log("Form submitted:", formData);
     axios({
-      method: 'post',
-      url: '/api/mailer/send',
-      data: formData
+      method: "post",
+      url: "/api/mailer/send",
+      data: formData,
     });
   };
 
-  
-
   return (
     <section id="contact" className="my-24 px-4 max-w-7xl mx-auto">
-      <Alert/>
+      <SucessAlert text="Имейлът е изпратен успешно." />
+      <ErrorAlert text="Имаше грешка при изпращането на имейл." />
       <div className="grid lg:grid-cols-2 gap-12 items-start">
         {/* Left Section - Contact Info */}
         <div className="bg-white p-8 rounded-lg shadow-sm">
