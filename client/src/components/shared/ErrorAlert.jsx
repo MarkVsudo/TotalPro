@@ -16,8 +16,8 @@ const ErrorAlert = ({ text }) => {
 
   return (
     <div
-      className={`fixed bottom-10 right-20 z-999 transition duration-300 bg-red-50 border border-red-200 text-sm text-red-800 rounded-lg p-4 ${
-        isRemoving ? "translate-x-5 opacity-0" : ""
+      className={`fixed bottom-5 right-1/2 translate-x-1/2 z-999 transition duration-300 bg-red-50 border border-red-200 text-sm text-red-800 rounded-lg p-4 ${
+        isRemoving ? "translate-y-5 opacity-0" : ""
       }`}
       role="alert"
     >

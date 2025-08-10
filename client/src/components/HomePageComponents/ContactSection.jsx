@@ -1,11 +1,17 @@
 import { useState } from "react";
-import { FiPhone } from "react-icons/fi";
-import { EnvelopeIcon } from "@heroicons/react/24/outline";
-import { FiMapPin } from "react-icons/fi";
+
 import axios from "axios";
-import SucessAlert from "../shared/SucessAlert";
+
+import { FiPhone } from "react-icons/fi";
+import { FiMapPin } from "react-icons/fi";
+import { EnvelopeIcon } from "@heroicons/react/24/outline";
+
 import ErrorAlert from "../shared/ErrorAlert";
+import SucessAlert from "../shared/SucessAlert";
+
 export default function ContactForm() {
+  const [isSuccess, setIsSuccess] = useState(null);
+
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -32,20 +38,25 @@ export default function ContactForm() {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Form submitted:", formData);
-    axios({
-      method: "post",
-      url: "/api/mailer/send",
-      data: formData,
-    });
+    try {
+      await axios.post("/api/mailer/send", formData);
+      setIsSuccess(true);
+    } catch (err) {
+      console.error("Error sending email:", err);
+
+      setIsSuccess(false);
+    }
   };
 
   return (
     <section id="contact" className="my-24 px-4 max-w-7xl mx-auto">
-      <SucessAlert text="Имейлът е изпратен успешно." />
-      <ErrorAlert text="Имаше грешка при изпращането на имейл." />
+      {isSuccess === true && <SucessAlert text="Имейлът е изпратен успешно." />}
+      {isSuccess === false && (
+        <ErrorAlert text="Имаше грешка при изпращането на имейл." />
+      )}
+
       <div className="grid lg:grid-cols-2 gap-12 items-start">
         {/* Left Section - Contact Info */}
         <div className="bg-white p-8 rounded-lg shadow-sm">

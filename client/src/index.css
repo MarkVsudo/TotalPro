@@ -100,3 +100,20 @@ html {
 .arrow-container> :nth-child(3) {
   animation-delay: -0.4s;
 }
+
+/* Chat bot */
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.3s ease-out;
+}
