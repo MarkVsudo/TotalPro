@@ -17,15 +17,15 @@ const HeroSection = ({
           "linear-gradient(135deg, #002B5B 0%, #003d7a 50%, #002B5B 100%)",
       }}
     >
-      <div className="absolute flex flex-col items-center justify-center top-40 left-70">
-        <IoIosArrowDown size={64} className="arrow-1 absolute top-0"/> 
-        <IoIosArrowDown size={80} className="arrow-2 absolute top-10"/> 
-        <IoIosArrowDown size={94} className="arrow-3 absolute top-20"/> 
+      <div className="arrow-container absolute flex flex-col items-center justify-center top-40 left-70">
+        <IoIosArrowDown size={64} className="arrow-1 absolute top-0" />
+        <IoIosArrowDown size={80} className="arrow-2 absolute top-10" />
+        <IoIosArrowDown size={94} className="arrow-3 absolute top-20" />
       </div>
-      <div className="absolute flex flex-col items-center justify-center top-40 right-70">
-        <IoIosArrowDown size={64} className="arrow-1 absolute top-0"/> 
-        <IoIosArrowDown size={80} className="arrow-2 absolute top-10"/> 
-        <IoIosArrowDown size={94} className="arrow-3 absolute top-20"/> 
+      <div className="arrow-container absolute flex flex-col items-center justify-center top-40 right-70">
+        <IoIosArrowDown size={64} className="arrow-1 absolute top-0" />
+        <IoIosArrowDown size={80} className="arrow-2 absolute top-10" />
+        <IoIosArrowDown size={94} className="arrow-3 absolute top-20" />
       </div>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center">
