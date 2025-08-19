@@ -1,26 +1,25 @@
-import React, { useState, useRef, useEffect } from "react";
-import { IoSend, IoClose, IoHome } from "react-icons/io5";
-import { RiUser3Fill } from "react-icons/ri";
-import { BsChatDots } from "react-icons/bs";
-import { HashLink } from "react-router-hash-link";
-import { GrUserWorker } from "react-icons/gr";
+import React, { useEffect, useRef, useState } from "react";
 
-import {
-  FaSnowflake,
-  FaBolt,
-  FaBox,
-  FaHammer,
-  FaShieldAlt,
-  FaWrench,
-  FaTh,
-  FaCouch,
-} from "react-icons/fa";
+import { HashLink } from "react-router-hash-link";
+
+import { GiScrew } from "react-icons/gi";
+import { PiFanFill } from "react-icons/pi";
+import { BsChatDots } from "react-icons/bs";
+import { GiElectric } from "react-icons/gi";
+import { RiSofaFill } from "react-icons/ri";
+import { RiUser3Fill } from "react-icons/ri";
+import { BiSolidCctv } from "react-icons/bi";
+import { GrUserWorker } from "react-icons/gr";
+import { FaPeopleCarry } from "react-icons/fa";
+import { RiLayoutGridFill } from "react-icons/ri";
+import { MdOutlinePlumbing } from "react-icons/md";
+import { IoClose, IoHome, IoSend } from "react-icons/io5";
 
 const Chat = () => {
   const [messages, setMessages] = useState([
     {
       id: 1,
-      text: "Здравейте! Добре дошли в нашия чат за поддръжка. Как мога да ви помогна днес?",
+      text: "Здравейте! Добре дошли в нашия чат. Как мога да Ви помогна днес?",
       sender: "bot",
       timestamp: new Date(Date.now() - 30000),
     },
@@ -45,33 +44,29 @@ const Chat = () => {
   const messagesEndRef = useRef(null);
 
   const services = [
-    { id: "klimatici", name: "Климатици", icon: FaSnowflake, color: "#00BFFF" },
+    { id: "klimatici", name: "Климатици", icon: PiFanFill },
     {
       id: "elektro",
-      name: "Електроинсталации",
-      icon: FaBolt,
-      color: "#FFD700",
+      name: "Ел. инсталации",
+      icon: GiElectric,
     },
-    { id: "hamalski", name: "Хамалски услуги", icon: FaBox, color: "#FF6B35" },
+    { id: "hamalski", name: "Хамалски услуги", icon: FaPeopleCarry },
     {
       id: "gipsokarton",
       name: "Гипсокартон",
-      icon: FaHammer,
-      color: "#8B4513",
+      icon: GiScrew,
     },
-    { id: "sot", name: "СОТ и охрана", icon: FaShieldAlt, color: "#DC143C" },
-    { id: "vik", name: "ВиК услуги", icon: FaWrench, color: "#4169E1" },
+    { id: "sot", name: "СОТ и охрана", icon: BiSolidCctv },
+    { id: "vik", name: "ВиК услуги", icon: MdOutlinePlumbing },
     {
       id: "plochki",
-      name: "Плочкаджийски услуги",
-      icon: FaTh,
-      color: "#32CD32",
+      name: "Плочкаджии",
+      icon: RiLayoutGridFill,
     },
     {
       id: "mebeli",
-      name: "Мебели по поръчка",
-      icon: FaCouch,
-      color: "#9932CC",
+      name: "Мебели",
+      icon: RiSofaFill,
     },
   ];
 
@@ -298,7 +293,7 @@ const Chat = () => {
     setTimeout(() => {
       const botMessage = {
         id: Date.now() + 1,
-        text: "Благодаря за въпроса! За по-детайлна информация и безплатна оглед, моля свържете се директно с нашия екип.",
+        text: "Благодаря за въпроса! За по-детайлна информация и безплатен оглед, моля свържете се директно с нашия екип.",
         sender: "bot",
         timestamp: new Date(),
         showContactOption: true,
@@ -314,7 +309,7 @@ const Chat = () => {
     setMessages([
       {
         id: 1,
-        text: "Здравейте! Добре дошли в нашия чат за поддръжка. Как мога да ви помогна днес?",
+        text: "Здравейте! Добре дошли в нашия чат. Как мога да Ви помогна днес?",
         sender: "bot",
         timestamp: new Date(),
       },
@@ -345,7 +340,7 @@ const Chat = () => {
         } right-0 bottom-0 max-w-96 flex flex-col h-screen bg-gradient-to-br from-blue-50 to-white transition-all`}
       >
         {/* Header */}
-        <div className="bg-white shadow-lg border-b border-gray-200">
+        <div className="bg-white shadow-lg border-b border-[#002B5B]">
           <div className="flex items-center justify-between p-4">
             <button
               onClick={resetChat}
@@ -375,7 +370,7 @@ const Chat = () => {
         <div className="flex-1 overflow-y-auto p-4 space-y-4">
           {/* Services Menu */}
           {showServices && (
-            <div className="bg-white rounded-lg shadow-md p-4 border animate-fade-in">
+            <div className="bg-white rounded-lg shadow-md p-4 border border-[#002B5B] animate-fade-in">
               <h3
                 className="text-lg font-semibold mb-3"
                 style={{ color: "#002B5B" }}
@@ -389,11 +384,11 @@ const Chat = () => {
                     <button
                       key={service.id}
                       onClick={() => handleServiceSelect(service)}
-                      className="flex items-center space-x-2 p-3 rounded-lg border-2 border-gray-200 hover:border-blue-300 transition-all duration-200 hover:shadow-md"
+                      className="flex flex-col items-center space-x-2 p-3 rounded-lg border border-[#002B5B] transition-all duration-200  text-[#002B5B] group hover:shadow-md hover:-translate-y-1"
                     >
                       <IconComponent
                         size={20}
-                        style={{ color: service.color }}
+                        className="group-hover:scale-110 transition-transform duration-300"
                       />
                       <span className="text-sm font-medium text-gray-700">
                         {service.name}
@@ -462,13 +457,13 @@ const Chat = () => {
 
               {/* Questions for current service */}
               {message.showQuestions && currentService && (
-                <div className="bg-white rounded-lg shadow-md p-4 border ml-10 animate-fade-in">
+                <div className="bg-white rounded-lg shadow-md p-4 border border-[#002B5B] ml-10 animate-fade-in">
                   <div className="space-y-2">
                     {serviceQuestions[currentService.id]?.map((item, index) => (
                       <button
                         key={index}
                         onClick={() => handleQuestionSelect(item.q, item.a)}
-                        className="w-full text-left p-3 rounded-lg bg-gray-50 hover:bg-blue-50 transition-colors border border-gray-200 hover:border-blue-300"
+                        className="w-full text-left p-3 rounded-lg bg-gray-50 hover:bg-blue-50 transition-colors border border-[#002B5B] hover:border-blue-300"
                       >
                         <span className="text-sm text-gray-700">{item.q}</span>
                       </button>
@@ -479,7 +474,7 @@ const Chat = () => {
 
               {/* Contact Option */}
               {message.showContactOption && (
-                <div className="bg-gradient-to-r from-blue-50 to-white rounded-lg shadow-md p-4 border ml-10 animate-fade-in">
+                <div className="bg-gradient-to-r from-blue-50 to-white rounded-lg shadow-md p-4 border border-[#002B5B] ml-10 animate-fade-in">
                   <p className="text-sm text-gray-600 mb-3">
                     Не намерихте отговора, който търсите?
                   </p>
@@ -533,7 +528,7 @@ const Chat = () => {
         </div>
 
         {/* Input Area */}
-        <div className="bg-white border-t border-gray-200 p-4">
+        <div className="bg-white border-t border-[#002B5B] p-4">
           <div className="flex items-center space-x-3">
             <div className="flex-1 relative">
               <input
@@ -542,7 +537,7 @@ const Chat = () => {
                 onChange={(e) => setNewMessage(e.target.value)}
                 onKeyPress={(e) => e.key === "Enter" && handleSendMessage(e)}
                 placeholder="Напишете вашия въпрос..."
-                className="w-full px-4 py-3 bg-gray-50 rounded-full border border-gray-200 focus:outline-none focus:ring-2 focus:border-transparent transition-all"
+                className="w-full px-4 py-3 bg-gray-50 rounded-full border border-[#002B5B] focus:outline-none focus:ring-2 focus:border-transparent transition-all"
                 style={{ focusRing: "2px solid #002B5B" }}
                 onFocus={(e) =>
                   (e.target.style.boxShadow = "0 0 0 2px #002B5B")
@@ -555,11 +550,13 @@ const Chat = () => {
               type="button"
               onClick={handleSendMessage}
               disabled={!newMessage.trim()}
-              className="w-12 h-12 rounded-full text-white flex items-center justify-center transition-all duration-200 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
-              style={{ backgroundColor: "#002B5B" }}
+              className="w-12 h-12 rounded-full text-white bg-[#002B5B] flex items-center justify-center cursor-pointer transition-all duration-200 transform  hover:scale-105 hover:bg-blue-900 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
             >
-              <IoSend size={20} />
+              <IoSend size={24} className="pl-0.5" />
             </button>
+
+            {/* className={`fixed right-5 z-50 flex justify-center items-center bg-[#002B5B] text-white w-[3rem] h-[3rem] rounded-full shadow-md text-2xl hover:bg-blue-900 cursor-pointer transition-all duration-300 ease-in-out
+        ${isVisible ? "bottom-5 opacity-100" : "bottom-[-60px] opacity-0"}`} */}
           </div>
         </div>
       </div>
