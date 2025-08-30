@@ -130,7 +130,6 @@ function classNames(...classes) {
 export default function AirConFilters() {
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
   const [categories, setCategories] = useState([]);
-  const [brands, setBrands] = useState([]);
 
   useEffect(() => {
     const getCategories = async () => {
@@ -142,17 +141,7 @@ export default function AirConFilters() {
       }
     };
 
-    const getBrands = async () => {
-      try {
-        const res = await axios.get("/api/brands");
-        setBrands(res.data);
-      } catch (err) {
-        console.error(err);
-      }
-    };
-
     getCategories();
-    getBrands();
   }, []);
 
   return (

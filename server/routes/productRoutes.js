@@ -13,14 +13,4 @@ router.get("/categories", async (req, res) => {
   }
 });
 
-router.get("/brands", async (req, res) => {
-  try {
-    const brands = await db.any("SELECT * FROM brands");
-    res.json(brands);
-  } catch (err) {
-    console.error(err);
-    res.status(500).send("Server error");
-  }
-});
-
 export default router;
