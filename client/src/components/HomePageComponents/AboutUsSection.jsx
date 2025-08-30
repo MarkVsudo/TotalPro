@@ -15,7 +15,7 @@ const AboutUsSection = () => {
         {/* Left Text Section */}
         <div className="lg:w-1/2">
           <h2 className="text-4xl font-bold mb-6">
-            Изградихме бизнеса си върху уважението към клиента
+            Изградихме дейността си върху уважението към клиента
           </h2>
           <p className="text-lg text-gray-700 mb-4">
             От първия ден вярваме, че успехът се гради върху коректност, яснота

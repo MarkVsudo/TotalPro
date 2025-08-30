@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import axios from "axios";
 import {
   Dialog,
   DialogBackdrop,
@@ -26,6 +27,7 @@ import { TfiLayoutGrid4 } from "react-icons/tfi";
 import { TfiLayoutGrid3 } from "react-icons/tfi";
 import { TfiLayoutGrid2 } from "react-icons/tfi";
 import AirConPagination from "./AirConPagination";
+import { useEffect } from "react";
 
 const sortOptions = [
   { name: "Най-популярни", href: "#", current: true },
@@ -33,15 +35,7 @@ const sortOptions = [
   { name: "Цена: Възходяща", href: "#", current: false },
   { name: "Цена: Низходяща", href: "#", current: false },
 ];
-const subCategories = [
-  { name: "Инверторни климатици", href: "#" },
-  { name: "Хиперинверторни климатици", href: "#" },
-  { name: "Подови климатици", href: "#" },
-  { name: "Мултисплит системи", href: "#" },
-  { name: "Колонни системи", href: "#" },
-  { name: "Касетъчни климатици", href: "#" },
-  { name: "Аксесоари за монтаж", href: "#" },
-];
+
 const filters = [
   {
     id: "brand",
@@ -135,6 +129,31 @@ function classNames(...classes) {
 
 export default function AirConFilters() {
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
+  const [categories, setCategories] = useState([]);
+  const [brands, setBrands] = useState([]);
+
+  useEffect(() => {
+    const getCategories = async () => {
+      try {
+        const res = await axios.get("/api/categories");
+        setCategories(res.data);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    const getBrands = async () => {
+      try {
+        const res = await axios.get("/api/brands");
+        setBrands(res.data);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    getCategories();
+    getBrands();
+  }, []);
 
   return (
     <div className="bg-white w-full">
@@ -171,11 +190,11 @@ export default function AirConFilters() {
             <form className="mt-4 border-t border-gray-200">
               <h3 className="sr-only">Categories</h3>
               <ul role="list" className="px-2 py-3 font-medium text-gray-900">
-                {subCategories.map((category) => (
-                  <li key={category.name}>
-                    <a href={category.href} className="block px-2 py-3">
-                      {category.name}
-                    </a>
+                {categories.map((category) => (
+                  <li key={category.category_id}>
+                    <button className="block px-2 py-3">
+                      {category.category_name}
+                    </button>
                   </li>
                 ))}
               </ul>
@@ -344,9 +363,9 @@ export default function AirConFilters() {
                 role="list"
                 className="space-y-4 border-b border-gray-200 pb-6 text-sm font-medium text-gray-900"
               >
-                {subCategories.map((category) => (
-                  <li key={category.name}>
-                    <a href={category.href}>{category.name}</a>
+                {categories.map((category) => (
+                  <li key={category.category_id}>
+                    <button>{category.category_name}</button>
                   </li>
                 ))}
               </ul>
