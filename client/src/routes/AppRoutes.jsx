@@ -16,6 +16,8 @@ import AirConProductPage from "../pages/AirConPages/AirConProductPage";
 import AnimatedPage from "../pages/AnimatedPage";
 import AutoScrollToTop from "../components/shared/AutoScrollToTop";
 import Chat from "../components/shared/Chat";
+import DashboardPage from "../pages/AdminPages/DashboardPage";
+import LoginPage from "../pages/AuthPages/LoginPage";
 
 const withAnimation = (component) => (
   <>
@@ -118,6 +120,19 @@ const router = createBrowserRouter([
     children: [
       { index: true, element: withAnimation(<FurnitureServicesPage />) },
     ],
+  },
+  {
+    path: "/dashboard",
+    element: (
+      <CartProvider>
+        <MainLayout />
+      </CartProvider>
+    ),
+    children: [{ index: true, element: withAnimation(<DashboardPage />) }],
+  },
+  {
+    path: "/login",
+    element: withAnimation(<LoginPage />),
   },
   {
     path: "*",

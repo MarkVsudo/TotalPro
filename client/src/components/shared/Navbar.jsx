@@ -99,7 +99,7 @@ export default function Navbar() {
         <div className="flex lg:flex-1">
           <Link to="/" className="-m-1.5 p-1.5">
             <span className="sr-only">TotalPro</span>
-            <img alt="" src={NavLogoImg} className="h-10 w-auto" />
+            <img alt="Nav logo" src={NavLogoImg} className="h-10 w-auto" />
           </Link>
         </div>
         <div className="flex lg:hidden">
