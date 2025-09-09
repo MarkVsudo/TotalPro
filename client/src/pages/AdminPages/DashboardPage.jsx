@@ -1,12 +1,17 @@
+import MainContent from "../../components/DashboardPageComponents/MainContent";
 import Navbar from "../../components/DashboardPageComponents/Navbar";
 import Sidebar from "../../components/DashboardPageComponents/Sidebar";
 
 const DashboardPage = () => {
   return (
     <>
-      <Navbar />
-      <Sidebar />
-      <div className="h-2000">da</div>
+      <div className="flex">
+        <Sidebar />
+        <div className="flex flex-col w-screen">
+          <Navbar />
+          <MainContent />
+        </div>
+      </div>
     </>
   );
 };
