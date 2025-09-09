@@ -123,12 +123,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/dashboard",
-    element: (
-      <CartProvider>
-        <MainLayout />
-      </CartProvider>
-    ),
-    children: [{ index: true, element: withAnimation(<DashboardPage />) }],
+    element: withAnimation(<DashboardPage />),
   },
   {
     path: "/login",
