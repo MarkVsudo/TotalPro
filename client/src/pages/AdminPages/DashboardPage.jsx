@@ -6,6 +6,7 @@ const DashboardPage = () => {
     <>
       <Navbar />
       <Sidebar />
+      <div className="h-2000">da</div>
     </>
   );
 };
