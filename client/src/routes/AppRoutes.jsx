@@ -16,8 +16,11 @@ import AirConProductPage from "../pages/AirConPages/AirConProductPage";
 import AnimatedPage from "../pages/AnimatedPage";
 import AutoScrollToTop from "../components/shared/AutoScrollToTop";
 import Chat from "../components/shared/Chat";
-import DashboardPage from "../pages/AdminPages/DashboardPage";
 import LoginPage from "../pages/AuthPages/LoginPage";
+import DashboardLayout from "../layout/DashboardLayout";
+import AnalyticsPage from "../pages/DashboardPages/AnalyticsPage";
+import ProductManagementPage from "../pages/DashboardPages/ProductManagementPage";
+import OrdersPage from "../pages/DashboardPages/OrdersPage";
 
 const withAnimation = (component) => (
   <>
@@ -123,7 +126,16 @@ const router = createBrowserRouter([
   },
   {
     path: "/dashboard",
-    element: withAnimation(<DashboardPage />),
+    element: <DashboardLayout />,
+    children: [
+      { index: true, element: withAnimation(<AnalyticsPage />) },
+      { path: "analytics", element: withAnimation(<AnalyticsPage />) },
+      {
+        path: "product-management",
+        element: withAnimation(<ProductManagementPage />),
+      },
+      { path: "orders", element: withAnimation(<OrdersPage />) },
+    ],
   },
   {
     path: "/login",
