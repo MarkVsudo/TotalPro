@@ -23,7 +23,7 @@ const withAnimation = (component) => (
   <>
     <AutoScrollToTop />
     <Chat />
-    <AnimatedPage>{component}</AnimatedPage>;
+    <AnimatedPage>{component}</AnimatedPage>
   </>
 );
 
