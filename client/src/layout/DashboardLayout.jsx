@@ -1,13 +1,13 @@
 import { Outlet } from "react-router-dom";
 
 import ScrollToTopButton from "../components/shared/ScrollToTopButton";
-import Navbar from "../components/DashboardPageComponents/Navbar";
+import Sidebar from "../components/DashboardPageComponents/Sidebar";
 
 const DashboardLayout = () => {
   return (
     <>
-      <div className="flex flex-col items-center">
-        <Navbar />
+      <div className="flex items-center h-screen">
+        <Sidebar />
         <Outlet />
         <ScrollToTopButton />
       </div>
