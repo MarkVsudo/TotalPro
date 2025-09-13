@@ -6,7 +6,7 @@ import Sidebar from "../components/DashboardPageComponents/Sidebar";
 const DashboardLayout = () => {
   return (
     <>
-      <div className="flex items-center h-screen">
+      <div className="flex items-center h-screen gap-6">
         <Sidebar />
         <Outlet />
         <ScrollToTopButton />

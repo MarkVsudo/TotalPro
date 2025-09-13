@@ -21,6 +21,7 @@ import DashboardLayout from "../layout/DashboardLayout";
 import AnalyticsPage from "../pages/DashboardPages/AnalyticsPage";
 import ProductManagementPage from "../pages/DashboardPages/ProductManagementPage";
 import OrdersPage from "../pages/DashboardPages/OrdersPage";
+import MainBoardPage from "../pages/DashboardPages/MainBoardPage";
 
 const withAnimation = (component) => (
   <>
@@ -128,10 +129,10 @@ const router = createBrowserRouter([
     path: "/dashboard",
     element: <DashboardLayout />,
     children: [
-      { index: true, element: withAnimation(<AnalyticsPage />) },
+      { index: true, element: withAnimation(<MainBoardPage />) },
       { path: "analytics", element: withAnimation(<AnalyticsPage />) },
       {
-        path: "product-management",
+        path: "products",
         element: withAnimation(<ProductManagementPage />),
       },
       { path: "orders", element: withAnimation(<OrdersPage />) },

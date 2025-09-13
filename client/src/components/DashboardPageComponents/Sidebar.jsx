@@ -10,10 +10,26 @@ const Sidebar = () => {
   const location = useLocation();
 
   const navItems = [
-    { label: "Табло", icon: <MdSpaceDashboard size={20} />, path: "/" },
-    { label: "Статистика", icon: <IoStatsChart size={20} />, path: "/stats" },
-    { label: "Продукти", icon: <FaDatabase size={20} />, path: "/products" },
-    { label: "Поръчки", icon: <RiListOrdered2 size={20} />, path: "/orders" },
+    {
+      label: "Табло",
+      icon: <MdSpaceDashboard size={20} />,
+      path: "/dashboard",
+    },
+    {
+      label: "Статистика",
+      icon: <IoStatsChart size={20} />,
+      path: "/dashboard/analytics",
+    },
+    {
+      label: "Продукти",
+      icon: <FaDatabase size={20} />,
+      path: "/dashboard/products",
+    },
+    {
+      label: "Поръчки",
+      icon: <RiListOrdered2 size={20} />,
+      path: "/dashboard/orders",
+    },
   ];
 
   return (
