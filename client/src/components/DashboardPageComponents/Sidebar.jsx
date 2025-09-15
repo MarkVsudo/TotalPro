@@ -33,7 +33,7 @@ const Sidebar = () => {
   ];
 
   return (
-    <div className="sticky top-0 flex flex-col px-5 py-6 h-[90vh] w-64 bg-white text-gray-800 shadow-xl rounded-r-2xl">
+    <div className="sticky top-0 flex flex-col px-5 py-6 h-[90vh] w-64 bg-white text-gray-800 shadow-xl rounded-r-xl">
       <Link to="/" className="flex items-center gap-3 mb-12 justify-center">
         <img
           alt="Nav logo"
