@@ -1,5 +1,8 @@
 import React from "react";
 import { useState } from "react";
+
+import { CheckIcon } from "@heroicons/react/20/solid";
+import { ChevronUpDownIcon } from "@heroicons/react/16/solid";
 import {
   Label,
   Listbox,
@@ -7,36 +10,50 @@ import {
   ListboxOption,
   ListboxOptions,
 } from "@headlessui/react";
-import { ChevronUpDownIcon } from "@heroicons/react/16/solid";
-import { CheckIcon } from "@heroicons/react/20/solid";
+
+import ColumnSystems from "../../components/DashboardPageComponents/AddProductForms/ColumnSystems";
+import MultiSplitSystems from "../../components/DashboardPageComponents/AddProductForms/MultiSplitSystems";
+import FloorAirConditioners from "../../components/DashboardPageComponents/AddProductForms/FloorAirConditioners";
+import InverterAirConditioners from "../../components/DashboardPageComponents/AddProductForms/InverterAirConditioners";
+import CassetteAirConditioners from "../../components/DashboardPageComponents/AddProductForms/CassetteAirConditioners";
+import InstallationAccessories from "../../components/DashboardPageComponents/AddProductForms/InstallationAccessories";
+import HyperInverterAirConditioners from "../../components/DashboardPageComponents/AddProductForms/HyperInverterAirConditioners";
+
 const productTypes = [
   {
     id: 1,
     name: "Инверторни климатици",
+    form: <InverterAirConditioners />,
   },
   {
     id: 2,
     name: "Хиперинверторни климатици",
+    form: <HyperInverterAirConditioners />,
   },
   {
     id: 3,
     name: "Подови климатици",
+    form: <FloorAirConditioners />,
   },
   {
     id: 4,
     name: "Мултисплит системи",
+    form: <MultiSplitSystems />,
   },
   {
     id: 5,
     name: "Колонни системи",
+    form: <ColumnSystems />,
   },
   {
     id: 6,
     name: "Касетъчни климатици",
+    form: <CassetteAirConditioners />,
   },
   {
     id: 7,
     name: "Аксесоари за монтаж",
+    form: <InstallationAccessories />,
   },
 ];
 const ProductManagementPage = () => {
@@ -88,16 +105,7 @@ const ProductManagementPage = () => {
         </Listbox>
 
         {/* Add product form */}
-        {(() => {
-          switch (selected.id) {
-            case 1:
-              return <>1</>;
-            case 2:
-              return <>2</>;
-            default:
-              return <span>Невалидна селекция</span>;
-          }
-        })()}
+        {selected.form || <span>Невалидна селекция</span>}
       </div>
     </div>
   );
