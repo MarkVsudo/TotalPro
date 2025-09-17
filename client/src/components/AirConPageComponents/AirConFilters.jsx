@@ -350,11 +350,18 @@ export default function AirConFilters() {
               <h3 className="sr-only">Categories</h3>
               <ul
                 role="list"
-                className="space-y-4 border-b border-gray-200 pb-6 text-sm font-medium text-gray-900"
+                className="space-y-4 border-b border-gray-200 pb-6 text-sm font-medium text-gray-600"
               >
                 {categories.map((category) => (
-                  <li key={category.category_id}>
-                    <button>{category.category_name}</button>
+                  <li
+                    key={category.category_id}
+                    className="flex items-center gap-3 transition-all group relative"
+                  >
+                    <div className="w-0.5 h-4 bg-gray-400 scale-y-0 group-hover:scale-y-100 group-hover:bg-gray-900 origin-top transition-transform duration-300" />
+
+                    <button className="transition-all duration-300 group-hover:scale-105 group-hover:text-gray-900 group-hover:font-semibold">
+                      {category.category_name}
+                    </button>
                   </li>
                 ))}
               </ul>
