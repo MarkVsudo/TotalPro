@@ -38,11 +38,20 @@ const sortOptions = [
 
 const filters = [
   {
+    id: "overallClass",
+    name: "Клас",
+    options: [
+      { value: "entryClass", label: "Начален клас", checked: false },
+      { value: "midClass", label: "Междинен клас", checked: false },
+      { value: "highClass", label: "Висок клас", checked: false },
+    ],
+  },
+  {
     id: "brand",
     name: "Производител",
     options: [
-      { value: "gree", label: "Daikin", checked: false },
-      { value: "daikin", label: "Gree", checked: false },
+      { value: "gree", label: "Gree", checked: false },
+      { value: "daikin", label: "Daikin", checked: false },
       { value: "mitsubishi", label: "Mitsubishi", checked: false },
       { value: "fujitsu", label: "Fujitsu", checked: false },
     ],
