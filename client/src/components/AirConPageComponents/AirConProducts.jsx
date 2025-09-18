@@ -5,6 +5,7 @@ import GreeLogo from "../../assets/AirConBrands/gree.png";
 import DaikingLogo from "../../assets/AirConBrands/daikin.png";
 import MitsubishiElLogo from "../../assets/AirConBrands/mitsubishi-electric.png";
 import FujitsuLogo from "../../assets/AirConBrands/fujitsu.png";
+import axios from "axios";
 
 const products = [
   {
@@ -104,11 +105,12 @@ const convert = async (from, to, amount) => {
 
 export default function AirConProducts() {
   const [convertedPrices, setConvertedPrices] = useState({});
+  const [productsNew, setProducts] = useState([]);
 
   useEffect(() => {
     const fetchConversions = async () => {
       const conversions = {};
-      for (const product of products) {
+      for (const product of productsNew) {
         const numericPrice = parseFloat(product.price);
         const converted = await convert("BGN", "EUR", numericPrice);
         conversions[product.id] = converted;
@@ -116,12 +118,23 @@ export default function AirConProducts() {
       setConvertedPrices(conversions);
     };
 
+    const fetchProducts = async () => {
+      try {
+        const res = await axios.get("/api/products");
+        setProducts(res.data);
+        console.log(productsNew);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
     fetchConversions();
+    fetchProducts();
   }, []);
 
   return (
     <div className="bg-white grid gap-x-6 xl:gap-x-8 gap-y-10 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
-      {products.map((product) => (
+      {productsNew.map((product) => (
         <Link to={product.href} key={product.id}>
           <div className="group relative h-full flex flex-col">
             <div className="relative overflow-hidden ">
@@ -137,12 +150,14 @@ export default function AirConProducts() {
                 className="absolute top-0 left-0 h-12 w-12 object-contain"
               />
               <div className="absolute top-0 right-0 bg-green-200 text-green-900 px-2 rounded-md">
-                -5% намаление
+                -{product.discount}% намаление
               </div>
             </div>
             <div className="flex flex-col gap-2 flex-grow">
               <div>
-                <h3 className="text-sm text-gray-700">{product.name}</h3>
+                <h3 className="text-sm text-gray-700">
+                  {product.product_name}
+                </h3>
               </div>
               <div className="flex gap-2 items-center">
                 <p className="text-sm font-medium text-gray-900">
