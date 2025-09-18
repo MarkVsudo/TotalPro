@@ -1,7 +1,10 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { IoBagAddOutline } from "react-icons/io5";
-import GreeImg from "../../assets/gree.png";
+import GreeLogo from "../../assets/AirConBrands/gree.png";
+import DaikingLogo from "../../assets/AirConBrands/daikin.png";
+import MitsubishiElLogo from "../../assets/AirConBrands/mitsubishi-electric.png";
+import FujitsuLogo from "../../assets/AirConBrands/fujitsu.png";
 
 const products = [
   {
@@ -130,7 +133,7 @@ export default function AirConProducts() {
               />
               <img
                 alt="Aircon company"
-                src={GreeImg}
+                src={GreeLogo}
                 className="absolute top-0 left-0 h-12 w-12 object-contain"
               />
               <div className="absolute top-0 right-0 bg-green-200 text-green-900 px-2 rounded-md">
