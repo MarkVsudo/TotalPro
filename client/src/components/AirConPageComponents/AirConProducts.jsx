@@ -134,8 +134,8 @@ export default function AirConProducts() {
 
   return (
     <div className="bg-white grid gap-x-6 xl:gap-x-8 gap-y-10 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
-      {productsNew.map((product) => (
-        <Link to={product.href} key={product.id}>
+      {productsNew.map((product, index) => (
+        <Link to={product.href} key={index}>
           <div className="group relative h-full flex flex-col">
             <div className="relative overflow-hidden ">
               <img
