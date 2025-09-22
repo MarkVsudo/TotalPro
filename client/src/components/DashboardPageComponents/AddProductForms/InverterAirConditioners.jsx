@@ -1,5 +1,5 @@
-import React from "react";
-import { useState, useEffect } from "react";
+import React, { useState } from "react";
+import axios from "axios";
 
 const InverterAirConditioners = () => {
   const [isSuccess, setIsSuccess] = useState(null);
@@ -17,16 +17,52 @@ const InverterAirConditioners = () => {
     color: "",
     coolingEnergyClass: "",
     heatingEnergyClass: "",
-    spec: {},
     discount: null,
+    spec: {
+      coolingVolume: null,
+      heatingVolume: null,
+      coolingPower: "",
+      heatingPower: "",
+      coolingConsumption: "",
+      heatingConsumption: "",
+      voltage: "",
+      seer: "",
+      scop: "",
+      noiseIndoor: "",
+      noiseOutdoor: "",
+      sizeIndoor: "",
+      sizeOutdoor: "",
+      weightIndoor: "",
+      weightOutdoor: "",
+      workingRangeCooling: "",
+      workingRangeHeating: "",
+      refrigerant: "",
+      origin: "",
+      pipeDiameter: "",
+      maxDifference: "",
+      powerSupply: "",
+      maxPipeLength: "",
+    },
   });
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
+
+    if (name.startsWith("spec.")) {
+      const key = name.split(".")[1];
+      setFormData((prev) => ({
+        ...prev,
+        spec: {
+          ...prev.spec,
+          [key]: value,
+        },
+      }));
+    } else {
+      setFormData((prev) => ({
+        ...prev,
+        [name]: value,
+      }));
+    }
   };
 
   const handleSubmit = async (e) => {
@@ -42,13 +78,16 @@ const InverterAirConditioners = () => {
 
   return (
     <section className="">
-      {isSuccess === true && <SucessAlert text="Имейлът е изпратен успешно." />}
+      {isSuccess === true && (
+        <SucessAlert text="Продуктът е добавен успешно." />
+      )}
       {isSuccess === false && (
-        <ErrorAlert text="Имаше грешка при изпращането на имейл." />
+        <ErrorAlert text="Имаше грешка при добавянето." />
       )}
 
       <div className="">
         <div className="space-y-6">
+          {/* --- Основни полета --- */}
           <div>
             <label
               htmlFor="make"
@@ -99,7 +138,7 @@ const InverterAirConditioners = () => {
               min="0.00"
               step="0.1"
               required
-              value={formData.price}
+              value={formData.price || ""}
               onChange={handleInputChange}
               className="w-full px-4 py-3 border border-[#002B5B] rounded-lg focus:border-blue-900 transition-colors"
             />
@@ -122,7 +161,7 @@ const InverterAirConditioners = () => {
                 step="5"
                 max={formData.roomAreaMax}
                 required
-                value={formData.roomAreaMin}
+                value={formData.roomAreaMin || ""}
                 onChange={handleInputChange}
                 className="w-full px-4 py-3 border border-[#002B5B] rounded-lg focus:border-blue-900 transition-colors"
               />
@@ -143,7 +182,7 @@ const InverterAirConditioners = () => {
                 min={formData.roomAreaMin}
                 step="5"
                 required
-                value={formData.roomAreaMax}
+                value={formData.roomAreaMax || ""}
                 onChange={handleInputChange}
                 className="w-full px-4 py-3 border border-[#002B5B] rounded-lg focus:border-blue-900 transition-colors"
               />
@@ -164,7 +203,7 @@ const InverterAirConditioners = () => {
               min="0"
               step="1000"
               required
-              value={formData.btu}
+              value={formData.btu || ""}
               onChange={handleInputChange}
               className="w-full px-4 py-3 border border-[#002B5B] rounded-lg focus:border-blue-900 transition-colors"
             />
@@ -262,7 +301,94 @@ const InverterAirConditioners = () => {
             </select>
           </div>
 
-          {/* Submit Button */}
+          {/* --- Допълнителни характеристики --- */}
+          <h3 className="text-lg font-semibold mt-6">
+            Допълнителни характеристики
+          </h3>
+
+          {[
+            {
+              id: "spec.coolingVolume",
+              label: "Препоръчителен обем (охлаждане) (м³)",
+            },
+            {
+              id: "spec.heatingVolume",
+              label: "Препоръчителен обем (отопление) (м³)",
+            },
+            {
+              id: "spec.coolingPower",
+              label: "Отдавана мощност (охлаждане) (kW)",
+            },
+            {
+              id: "spec.heatingPower",
+              label: "Отдавана мощност (отопление) (kW)",
+            },
+            {
+              id: "spec.coolingConsumption",
+              label: "Консумирана мощност (охлаждане) (kW)",
+            },
+            {
+              id: "spec.heatingConsumption",
+              label: "Консумирана мощност (отопление) (kW)",
+            },
+            { id: "spec.voltage", label: "Захранващо напрежение (V)" },
+            { id: "spec.seer", label: "SEER" },
+            { id: "spec.scop", label: "SCOP" },
+            {
+              id: "spec.noiseIndoor",
+              label: "Ниво на шум (вътрешно тяло) (dB)",
+            },
+            {
+              id: "spec.noiseOutdoor",
+              label: "Ниво на шум (външно тяло) (dB)",
+            },
+            { id: "spec.sizeIndoor", label: "Размери (вътрешно тяло) (мм)" },
+            { id: "spec.sizeOutdoor", label: "Размери (външно тяло) (мм)" },
+            { id: "spec.weightIndoor", label: "Тегло (вътрешно тяло) (кг)" },
+            { id: "spec.weightOutdoor", label: "Тегло (външно тяло) (кг)" },
+            {
+              id: "spec.workingRangeCooling",
+              label: "Работен диапазон при охлаждане (°C)",
+            },
+            {
+              id: "spec.workingRangeHeating",
+              label: "Работен диапазон при отопление (°C)",
+            },
+            { id: "spec.refrigerant", label: "Хладилен агент" },
+            { id: "spec.origin", label: "Произход" },
+            {
+              id: "spec.pipeDiameter",
+              label: "Диаметър на тръбата течност/газ (мм)",
+            },
+            {
+              id: "spec.maxDifference",
+              label: "Денивелация вътрешно/външно тяло (м)",
+            },
+            { id: "spec.powerSupply", label: "Захранване" },
+            {
+              id: "spec.maxPipeLength",
+              label: "Максимална дължина на тръбния път (м)",
+            },
+          ].map((field) => (
+            <div key={field.id}>
+              <label
+                htmlFor={field.id}
+                className="block text-sm font-medium text-gray-700 mb-2"
+              >
+                {field.label}
+              </label>
+              <input
+                id={field.id}
+                name={field.id}
+                type="text"
+                value={formData.spec[field.id.split(".")[1]] || ""}
+                onChange={handleInputChange}
+                className="w-full px-4 py-3 border border-[#002B5B] rounded-lg focus:border-blue-900 transition-colors"
+              />
+            </div>
+          ))}
+
+          {/* --- Submit --- */}
           <button
             type="button"
             onClick={handleSubmit}
