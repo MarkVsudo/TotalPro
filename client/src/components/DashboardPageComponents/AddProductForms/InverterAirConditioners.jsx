@@ -195,15 +195,19 @@ const InverterAirConditioners = () => {
             >
               Общ клас<span className="text-red-500">*</span>
             </label>
-            <input
+            <select
               id="overallClass"
               name="overallClass"
-              type="text"
               required
               value={formData.overallClass}
               onChange={handleInputChange}
               className="w-full px-4 py-3 border border-[#002B5B] rounded-lg focus:border-blue-900 transition-colors"
-            />
+            >
+              <option value="">-- Избери клас --</option>
+              <option value="Начален клас">Начален клас</option>
+              <option value="Междинен клас">Междинен клас</option>
+              <option value="Висок клас">Висок клас</option>
+            </select>
           </div>
 
           <div>
@@ -213,15 +217,23 @@ const InverterAirConditioners = () => {
             >
               Енергиен клас охлаждане<span className="text-red-500">*</span>
             </label>
-            <input
+            <select
               id="coolingEnergyClass"
               name="coolingEnergyClass"
-              type="text"
               required
               value={formData.coolingEnergyClass}
               onChange={handleInputChange}
               className="w-full px-4 py-3 border border-[#002B5B] rounded-lg focus:border-blue-900 transition-colors"
-            />
+            >
+              <option value="">-- Избери клас --</option>
+              <option value="A+++">A+++</option>
+              <option value="A++">A++</option>
+              <option value="A+">A+</option>
+              <option value="A">A</option>
+              <option value="B">B</option>
+              <option value="C">C</option>
+              <option value="D">D</option>
+            </select>
           </div>
 
           <div>
@@ -231,15 +243,23 @@ const InverterAirConditioners = () => {
             >
               Енергиен клас отопление<span className="text-red-500">*</span>
             </label>
-            <input
+            <select
               id="heatingEnergyClass"
               name="heatingEnergyClass"
-              type="text"
               required
               value={formData.heatingEnergyClass}
               onChange={handleInputChange}
               className="w-full px-4 py-3 border border-[#002B5B] rounded-lg focus:border-blue-900 transition-colors"
-            />
+            >
+              <option value="">-- Избери клас --</option>
+              <option value="A+++">A+++</option>
+              <option value="A++">A++</option>
+              <option value="A+">A+</option>
+              <option value="A">A</option>
+              <option value="B">B</option>
+              <option value="C">C</option>
+              <option value="D">D</option>
+            </select>
           </div>
 
           {/* Submit Button */}

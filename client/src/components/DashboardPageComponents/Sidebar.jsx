@@ -33,16 +33,15 @@ const Sidebar = () => {
   ];
 
   return (
-    <div className="sticky top-0 flex flex-col px-5 py-6 h-[90vh] w-64 bg-white text-gray-800 shadow-xl rounded-r-xl">
-      <Link to="/" className="flex items-center gap-3 mb-12 justify-center">
-        <img
-          alt="Nav logo"
-          src={NavLogoImg}
-          className="h-12 w-auto rounded-lg"
-        />
-      </Link>
-
-      <nav className="flex flex-col gap-3 flex-1">
+    <header className="static  top-20 flex flex-col h-screen w-64 text-gray-800 ">
+      <nav className="flex flex-col flex-1 px-5 py-6 gap-3 shadow-xl rounded-r-xl">
+        <Link to="/" className="flex items-center gap-3 mb-12 justify-center">
+          <img
+            alt="Nav logo"
+            src={NavLogoImg}
+            className="h-12 w-auto rounded-lg"
+          />
+        </Link>
         {navItems.map((item, index) => {
           const isActive = location.pathname === item.path;
           return (
@@ -61,18 +60,17 @@ const Sidebar = () => {
             </Link>
           );
         })}
-      </nav>
-
-      <div className="mt-auto flex items-center justify-between bg-gray-100 px-4 py-3 rounded-xl shadow-inner">
-        <div>
-          <p className="text-sm font-semibold text-[#012A4A]">Марк Весков</p>
-          <p className="text-xs text-gray-500">totalproltd@gmail.com</p>
+        <div className="mt-auto flex items-center justify-between bg-gray-100 px-4 py-3 rounded-xl shadow-inner">
+          <div>
+            <p className="text-sm font-semibold text-[#012A4A]">Марк Весков</p>
+            <p className="text-xs text-gray-500">totalproltd@gmail.com</p>
+          </div>
+          <button className="text-gray-500 hover:text-red-500 transition">
+            <TbLogout2 size={22} />
+          </button>
         </div>
-        <button className="text-gray-500 hover:text-red-500 transition">
-          <TbLogout2 size={22} />
-        </button>
-      </div>
-    </div>
+      </nav>
+    </header>
   );
 };
 
