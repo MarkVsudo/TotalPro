@@ -10,7 +10,7 @@
 
 1. **🏗 Download all dependencies**
    ```
-   npm i && cd client && npm i && cd ../server && npm i && ../
+   npm i && cd client && npm i && cd ../server && npm i && cd ../
    ```
 2. **🏁 Run project (root directory)**
    ```
