@@ -30,7 +30,7 @@ const ContanctSection = () => {
             <FaEnvelope className="mb-4 text-white/80" size={48} />
             <h3 className="text-xl font-bold mb-2">Email</h3>
             <p className="text-white/80">
-              <a href="mailto:total.pro@mail.bg">total.pro@mail.bg</a>
+              <a href="mailto:totalproltd@gmail.com">totalproltd@gmail.com</a>
             </p>
           </div>
           <div className="flex flex-col items-center">

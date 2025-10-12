@@ -16,8 +16,8 @@ export default function TopBanner() {
         </div>
         <div className="flex items-center gap-2 text-white">
           <EnvelopeIcon className="w-5 h-5" />
-          <a href="mailto:total.pro@mail.bg" className="font-semibold">
-            total.pro@mail.bg
+          <a href="mailto:totalproltd@gmail.com" className="font-semibold">
+            totalproltd@gmail.com
           </a>
         </div>
       </div>
