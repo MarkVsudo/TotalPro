@@ -1,4 +1,3 @@
-
 - host images on cloudinary
 - add images field in db
 - implement an add product form in admin page
