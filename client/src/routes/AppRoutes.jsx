@@ -22,6 +22,7 @@ import AnalyticsPage from "../pages/DashboardPages/AnalyticsPage";
 import ProductManagementPage from "../pages/DashboardPages/ProductManagementPage";
 import OrdersPage from "../pages/DashboardPages/OrdersPage";
 import MainBoardPage from "../pages/DashboardPages/MainBoardPage";
+import CheckoutPage from "../pages/CheckoutPage";
 
 const withAnimation = (component) => (
   <>
@@ -124,6 +125,15 @@ const router = createBrowserRouter([
     children: [
       { index: true, element: withAnimation(<FurnitureServicesPage />) },
     ],
+  },
+  {
+    path: "/checkout",
+    element: (
+      <CartProvider>
+        <MainLayout />
+      </CartProvider>
+    ),
+    children: [{ index: true, element: withAnimation(<CheckoutPage />) }],
   },
   {
     path: "/dashboard",
