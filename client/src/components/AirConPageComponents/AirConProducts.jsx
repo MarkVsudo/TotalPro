@@ -113,7 +113,7 @@ export default function AirConProducts() {
       for (const product of productsNew) {
         const numericPrice = parseFloat(product.price);
         const converted = await convert("BGN", "EUR", numericPrice);
-        conversions[product.id] = converted;
+        conversions[product.product_id] = converted;
       }
       setConvertedPrices(conversions);
     };
@@ -139,8 +139,8 @@ export default function AirConProducts() {
           <div className="group relative h-full flex flex-col">
             <div className="relative overflow-hidden ">
               <img
-                alt={product.imageAlt}
-                src={product.imageSrc}
+                alt="Product front image"
+                src={product.image_url}
                 className="aspect-square w-full rounded-md object-contain group-hover:brightness-102
                       group-hover:scale-105 lg:aspect-auto lg:h-80 transition-all"
               />
@@ -164,8 +164,8 @@ export default function AirConProducts() {
                   {product.price}лв.
                 </p>
                 <p className="text-sm text-gray-500">
-                  {convertedPrices[product.id]
-                    ? `€${convertedPrices[product.id]}`
+                  {convertedPrices[product.product_id]
+                    ? `€${convertedPrices[product.product_id]}`
                     : "Loading..."}
                 </p>
               </div>
