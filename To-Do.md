@@ -1,5 +1,5 @@
 - host images on cloudinary
-- add images field in db
+- ~~add images field in db~~
 - implement an add product form in admin page
 - display products correctly on all products page
 - display product correctly on individual product page

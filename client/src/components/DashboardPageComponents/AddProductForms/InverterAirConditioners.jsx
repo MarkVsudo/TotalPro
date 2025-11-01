@@ -45,6 +45,8 @@ const InverterAirConditioners = () => {
       powerSupply: "",
       maxPipeLength: "",
     },
+    image_url: "",
+    href: "",
   });
 
   const classes = ["Начален клас", "Междинен клас", "Висок клас"];
@@ -104,6 +106,14 @@ const InverterAirConditioners = () => {
             min: "0.00",
           },
           {
+            id: "btu",
+            label: "BTU",
+            required: true,
+            type: "number",
+            step: "1000",
+            min: "0",
+          },
+          {
             id: "roomAreaMin",
             label: "За помещения мин. (кв.м.)",
             required: true,
@@ -120,15 +130,9 @@ const InverterAirConditioners = () => {
             step: "5",
             min: formData.roomAreaMin || "0", // ✅ dynamic min
           },
-          {
-            id: "btu",
-            label: "BTU",
-            required: true,
-            type: "number",
-            step: "1000",
-            min: "0",
-          },
           { id: "color", label: "Цвят", required: true },
+          { id: "image_url", label: "Изображение", required: true },
+          { id: "href", label: "URL", required: true },
         ].map((field) => (
           <div key={field.id}>
             <label
