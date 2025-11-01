@@ -2,93 +2,10 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { IoBagAddOutline } from "react-icons/io5";
 import GreeLogo from "../../assets/AirConBrands/gree.png";
-import DaikingLogo from "../../assets/AirConBrands/daikin.png";
+import DaikinLogo from "../../assets/AirConBrands/daikin.png";
 import MitsubishiElLogo from "../../assets/AirConBrands/mitsubishi-electric.png";
 import FujitsuLogo from "../../assets/AirConBrands/fujitsu.png";
 import axios from "axios";
-
-const products = [
-  {
-    id: 1,
-    name: "Инверторен климатик GREE GWH12AGB-K6DNA1A",
-    href: "/air-conditioning/1",
-    imageSrc:
-      "https://s13emagst.akamaized.net/products/51341/51340887/images/res_3e66bc9d6cc52e08893e83a35a3a34c6.jpg?width=720&height=720&hash=27943222B1A3109C842327FF1C6C6645",
-    imageAlt: "Вътрешно тяло снимка",
-    price: "1079.00",
-    color: "Бял",
-  },
-  {
-    id: 2,
-    name: "Инверторен климатик GREE GWH12AGB-K6DNA1A",
-    href: "#",
-    imageSrc:
-      "https://s13emagst.akamaized.net/products/51341/51340887/images/res_3e66bc9d6cc52e08893e83a35a3a34c6.jpg?width=720&height=720&hash=27943222B1A3109C842327FF1C6C6645",
-    imageAlt: "Вътрешно тяло снимка",
-    price: "1079.00",
-    color: "Бял",
-  },
-  {
-    id: 3,
-    name: "Инверторен климатик GREE GWH12AGB-K6DNA1A",
-    href: "#",
-    imageSrc:
-      "https://s13emagst.akamaized.net/products/51341/51340887/images/res_3e66bc9d6cc52e08893e83a35a3a34c6.jpg?width=720&height=720&hash=27943222B1A3109C842327FF1C6C6645",
-    imageAlt: "Вътрешно тяло снимка",
-    price: "1079.00",
-    color: "Бял",
-  },
-  {
-    id: 4,
-    name: "Инверторен климатик GREE GWH12AGB-K6DNA1A",
-    href: "#",
-    imageSrc:
-      "https://s13emagst.akamaized.net/products/51341/51340887/images/res_3e66bc9d6cc52e08893e83a35a3a34c6.jpg?width=720&height=720&hash=27943222B1A3109C842327FF1C6C6645",
-    imageAlt: "Вътрешно тяло снимка",
-    price: "1079.00",
-    color: "Бял",
-  },
-  {
-    id: 5,
-    name: "Инверторен климатик GREE GWH12AGB-K6DNA1A",
-    href: "#",
-    imageSrc:
-      "https://s13emagst.akamaized.net/products/51341/51340887/images/res_3e66bc9d6cc52e08893e83a35a3a34c6.jpg?width=720&height=720&hash=27943222B1A3109C842327FF1C6C6645",
-    imageAlt: "Вътрешно тяло снимка",
-    price: "1079.00",
-    color: "Бял",
-  },
-  {
-    id: 6,
-    name: "Инверторен климатик GREE GWH12AGB-K6DNA1A",
-    href: "#",
-    imageSrc:
-      "https://s13emagst.akamaized.net/products/51341/51340887/images/res_3e66bc9d6cc52e08893e83a35a3a34c6.jpg?width=720&height=720&hash=27943222B1A3109C842327FF1C6C6645",
-    imageAlt: "Вътрешно тяло снимка",
-    price: "1079.00",
-    color: "Бял",
-  },
-  {
-    id: 7,
-    name: "Инверторен климатик GREE GWH12AGB-K6DNA1A",
-    href: "#",
-    imageSrc:
-      "https://s13emagst.akamaized.net/products/51341/51340887/images/res_3e66bc9d6cc52e08893e83a35a3a34c6.jpg?width=720&height=720&hash=27943222B1A3109C842327FF1C6C6645",
-    imageAlt: "Вътрешно тяло снимка",
-    price: "1079.00",
-    color: "Бял",
-  },
-  {
-    id: 8,
-    name: "Инверторен климатик GREE GWH12AGB-K6DNA1A",
-    href: "#",
-    imageSrc:
-      "https://s13emagst.akamaized.net/products/51341/51340887/images/res_3e66bc9d6cc52e08893e83a35a3a34c6.jpg?width=720&height=720&hash=27943222B1A3109C842327FF1C6C6645",
-    imageAlt: "Вътрешно тяло снимка",
-    price: "1079.00",
-    color: "Бял",
-  },
-];
 
 const convert = async (from, to, amount) => {
   try {
@@ -100,6 +17,26 @@ const convert = async (from, to, amount) => {
   } catch (error) {
     console.error("Conversion failed:", error);
     return null;
+  }
+};
+
+const decideCompanyLogo = (name) => {
+  switch (name) {
+    case "Gree":
+      return GreeLogo;
+      break;
+    case "Daikin":
+      return DaikinLogo;
+      break;
+    case "Mitsubishi Electric":
+      return MitsubishiElLogo;
+      break;
+    case "Fujitsu":
+      return FujitsuLogo;
+      break;
+
+    default:
+      break;
   }
 };
 
@@ -146,7 +83,7 @@ export default function AirConProducts() {
               />
               <img
                 alt="Aircon company"
-                src={GreeLogo}
+                src={decideCompanyLogo(product.make)}
                 className="absolute top-0 left-0 h-12 w-12 object-contain"
               />
               <div className="absolute top-0 right-0 bg-green-200 text-green-900 px-2 rounded-md">
