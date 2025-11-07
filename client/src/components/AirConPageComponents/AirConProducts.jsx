@@ -45,6 +45,19 @@ export default function AirConProducts() {
   const [productsNew, setProducts] = useState([]);
 
   useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const res = await axios.get("/api/products");
+        setProducts(res.data);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    fetchProducts();
+  }, []);
+
+  useEffect(() => {
+    if (productsNew.length === 0) return;
     const fetchConversions = async () => {
       const conversions = {};
       for (const product of productsNew) {
@@ -54,20 +67,8 @@ export default function AirConProducts() {
       }
       setConvertedPrices(conversions);
     };
-
-    const fetchProducts = async () => {
-      try {
-        const res = await axios.get("/api/products");
-        setProducts(res.data);
-        console.log(productsNew);
-      } catch (err) {
-        console.error(err);
-      }
-    };
-
     fetchConversions();
-    fetchProducts();
-  }, []);
+  }, [productsNew]);
 
   return (
     <div className="bg-white grid gap-x-6 xl:gap-x-8 gap-y-10 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
