@@ -42,7 +42,7 @@ const decideCompanyLogo = (name) => {
 
 export default function AirConProducts() {
   const [convertedPrices, setConvertedPrices] = useState({});
-  const [productsNew, setProducts] = useState([]);
+  const [products, setProducts] = useState([]);
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -57,10 +57,10 @@ export default function AirConProducts() {
   }, []);
 
   useEffect(() => {
-    if (productsNew.length === 0) return;
+    if (products.length === 0) return;
     const fetchConversions = async () => {
       const conversions = {};
-      for (const product of productsNew) {
+      for (const product of products) {
         const numericPrice = parseFloat(product.price);
         const converted = await convert("BGN", "EUR", numericPrice);
         conversions[product.product_id] = converted;
@@ -68,11 +68,11 @@ export default function AirConProducts() {
       setConvertedPrices(conversions);
     };
     fetchConversions();
-  }, [productsNew]);
+  }, [products]);
 
   return (
     <div className="bg-white grid gap-x-6 xl:gap-x-8 gap-y-10 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
-      {productsNew.map((product, index) => (
+      {products.map((product, index) => (
         <Link to={product.href} key={index}>
           <div className="group relative h-full flex flex-col">
             <div className="relative overflow-hidden ">
