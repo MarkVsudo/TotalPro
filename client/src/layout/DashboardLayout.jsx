@@ -8,7 +8,9 @@ const DashboardLayout = () => {
     <>
       <div className="flex h-screen gap-6 py-10">
         <Sidebar />
-        <Outlet />
+        <div className="flex-1 mr-6">
+          <Outlet />
+        </div>
         <ScrollToTopButton />
       </div>
     </>
