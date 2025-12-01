@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { Listbox } from "@headlessui/react";
-import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
+import Dropdown from "../../shared/Dropdown";
 import { MdOutlinePhotoSizeSelectActual } from "react-icons/md";
 
 const InverterAirConditioners = () => {
@@ -98,44 +97,48 @@ const InverterAirConditioners = () => {
           <h3 className="text-lg font-semibold mt-6 mb-3">
             Главни характеристики
           </h3>
-          <div>
+          <div className="mt-1">
             <label
               htmlFor="make"
               className="block text-sm font-medium text-gray-700 mb-2"
             >
-              Марка<span className="text-red-500"> *</span>
+              Марка <span className="text-red-500">*</span>
             </label>
             <input
               id="make"
               name="make"
               type="text"
               required
-              value={formData.make ?? ""}
+              value={formData.make || ""}
               onChange={handleInputChange}
-              className="mt-2 block w-full rounded-md border border-[#002B5B] py-1.5 px-3 text-gray-900 outline-1 outline-gray-300 focus-visible:outline-2 focus-visible:outline-[#002B5B] sm:text-sm"
+              className="mt-2 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 text-gray-900 shadow-sm focus:outline-none focus:ring-1 focus:ring-[#002B5B] focus:border-[#002B5B] sm:text-sm"
             />
+          </div>
 
+          <div className="mt-1">
             <label
               htmlFor="productName"
               className="block text-sm font-medium text-gray-700 mb-2"
             >
-              Модел<span className="text-red-500"> *</span>
+              Модел <span className="text-red-500">*</span>
             </label>
             <input
               id="productName"
               name="productName"
               type="text"
               required
-              value={formData.productName ?? ""}
+              value={formData.productName || ""}
               onChange={handleInputChange}
-              className="mt-2 block w-full rounded-md border border-[#002B5B] py-1.5 px-3 text-gray-900 outline-1 outline-gray-300 focus-visible:outline-2 focus-visible:outline-[#002B5B] sm:text-sm"
+              className="mt-2 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 text-gray-900 shadow-sm focus:outline-none focus:ring-1 focus:ring-[#002B5B] focus:border-[#002B5B] sm:text-sm"
             />
+          </div>
 
+          <div className="mt-1">
             <label
               htmlFor="price"
               className="block text-sm font-medium text-gray-700 mb-2"
             >
-              Цена (лв.)<span className="text-red-500"> *</span>
+              Цена (лв.) <span className="text-red-500">*</span>
             </label>
             <input
               id="price"
@@ -144,16 +147,18 @@ const InverterAirConditioners = () => {
               required
               step="0.1"
               min="0.00"
-              value={formData.price ?? ""}
+              value={formData.price || ""}
               onChange={handleInputChange}
-              className="mt-2 block w-full rounded-md border border-[#002B5B] py-1.5 px-3 text-gray-900 outline-1 outline-gray-300 focus-visible:outline-2 focus-visible:outline-[#002B5B] sm:text-sm"
+              className="mt-2 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 text-gray-900 shadow-sm focus:outline-none focus:ring-1 focus:ring-[#002B5B] focus:border-[#002B5B] sm:text-sm"
             />
+          </div>
 
+          <div className="mt-1">
             <label
               htmlFor="btu"
               className="block text-sm font-medium text-gray-700 mb-2"
             >
-              BTU<span className="text-red-500"> *</span>
+              BTU <span className="text-red-500">*</span>
             </label>
             <input
               id="btu"
@@ -162,16 +167,18 @@ const InverterAirConditioners = () => {
               required
               step="1000"
               min="0"
-              value={formData.btu ?? ""}
+              value={formData.btu || ""}
               onChange={handleInputChange}
-              className="mt-2 block w-full rounded-md border border-[#002B5B] py-1.5 px-3 text-gray-900 outline-1 outline-gray-300 focus-visible:outline-2 focus-visible:outline-[#002B5B] sm:text-sm"
+              className="mt-2 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 text-gray-900 shadow-sm focus:outline-none focus:ring-1 focus:ring-[#002B5B] focus:border-[#002B5B] sm:text-sm"
             />
+          </div>
 
+          <div className="mt-1">
             <label
               htmlFor="roomAreaMin"
               className="block text-sm font-medium text-gray-700 mb-2"
             >
-              За помещения мин. (кв.м.)<span className="text-red-500"> *</span>
+              За помещения мин. (кв.м.) <span className="text-red-500">*</span>
             </label>
             <input
               id="roomAreaMin"
@@ -181,16 +188,18 @@ const InverterAirConditioners = () => {
               step="5"
               min="0"
               max={formData.roomAreaMax || undefined}
-              value={formData.roomAreaMin ?? ""}
+              value={formData.roomAreaMin || ""}
               onChange={handleInputChange}
-              className="mt-2 block w-full rounded-md border border-[#002B5B] py-1.5 px-3 text-gray-900 outline-1 outline-gray-300 focus-visible:outline-2 focus-visible:outline-[#002B5B] sm:text-sm"
+              className="mt-2 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 text-gray-900 shadow-sm focus:outline-none focus:ring-1 focus:ring-[#002B5B] focus:border-[#002B5B] sm:text-sm"
             />
+          </div>
 
+          <div className="mt-1">
             <label
               htmlFor="roomAreaMax"
               className="block text-sm font-medium text-gray-700 mb-2"
             >
-              За помещения макс. (кв.м.)<span className="text-red-500"> *</span>
+              За помещения макс. (кв.м.) <span className="text-red-500">*</span>
             </label>
             <input
               id="roomAreaMax"
@@ -199,41 +208,63 @@ const InverterAirConditioners = () => {
               required
               step="5"
               min={formData.roomAreaMin || "0"}
-              value={formData.roomAreaMax ?? ""}
+              value={formData.roomAreaMax || ""}
               onChange={handleInputChange}
-              className="mt-2 block w-full rounded-md border border-[#002B5B] py-1.5 px-3 text-gray-900 outline-1 outline-gray-300 focus-visible:outline-2 focus-visible:outline-[#002B5B] sm:text-sm"
+              className="mt-2 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 text-gray-900 shadow-sm focus:outline-none focus:ring-1 focus:ring-[#002B5B] focus:border-[#002B5B] sm:text-sm"
             />
+          </div>
 
+          <div className="mt-1">
             <label
               htmlFor="color"
               className="block text-sm font-medium text-gray-700 mb-2"
             >
-              Цвят<span className="text-red-500"> *</span>
+              Цвят <span className="text-red-500">*</span>
             </label>
             <input
               id="color"
               name="color"
               type="text"
               required
-              value={formData.color ?? ""}
+              value={formData.color || ""}
               onChange={handleInputChange}
-              className="mt-2 block w-full rounded-md border border-[#002B5B] py-1.5 px-3 text-gray-900 outline-1 outline-gray-300 focus-visible:outline-2 focus-visible:outline-[#002B5B] sm:text-sm"
+              className="mt-2 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 text-gray-900 shadow-sm focus:outline-none focus:ring-1 focus:ring-[#002B5B] focus:border-[#002B5B] sm:text-sm"
             />
+          </div>
 
+          <div className="mt-1">
+            <label
+              htmlFor="image_url"
+              className="block text-sm font-medium text-gray-700 mb-2"
+            >
+              Изображение <span className="text-red-500">*</span>
+            </label>
+            <input
+              id="image_url"
+              name="image_url"
+              type="text"
+              required
+              value={formData.image_url || ""}
+              onChange={handleInputChange}
+              className="mt-2 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 text-gray-900 shadow-sm focus:outline-none focus:ring-1 focus:ring-[#002B5B] focus:border-[#002B5B] sm:text-sm"
+            />
+          </div>
+
+          <div className="mt-1">
             <label
               htmlFor="href"
               className="block text-sm font-medium text-gray-700 mb-2"
             >
-              URL<span className="text-red-500"> *</span>
+              URL <span className="text-red-500">*</span>
             </label>
             <input
               id="href"
               name="href"
               type="text"
               required
-              value={formData.href ?? ""}
+              value={formData.href || ""}
               onChange={handleInputChange}
-              className="mt-2 block w-full rounded-md border border-[#002B5B] py-1.5 px-3 text-gray-900 outline-1 outline-gray-300 focus-visible:outline-2 focus-visible:outline-[#002B5B] sm:text-sm"
+              className="mt-2 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 text-gray-900 shadow-sm focus:outline-none focus:ring-1 focus:ring-[#002B5B] focus:border-[#002B5B] sm:text-sm"
             />
           </div>
 
@@ -267,12 +298,12 @@ const InverterAirConditioners = () => {
             required
           />
 
-          <div className="col-span-full">
+          <div className="col-span-full mt-1">
             <label
-              htmlFor="cover-photo"
-              className="block text-sm/6 font-medium text-white"
+              htmlFor="image"
+              className="block text-sm font-medium text-gray-700 mb-2"
             >
-              Cover photo
+              Изображение <span className="text-red-500">*</span>
             </label>
             <div className="mt-2 flex justify-center rounded-lg border border-dashed border-[#002B5B] px-6 py-10">
               <div className="text-center">
@@ -283,9 +314,9 @@ const InverterAirConditioners = () => {
                 <div className="mt-4 flex text-sm/6 text-gray-400">
                   <label
                     htmlFor="file-upload"
-                    className="relative cursor-pointer rounded-md bg-transparent font-semibold text-[#002B5B] focus-within:outline-2 focus-within:outline-offset-2 focus-within:outline-blue-900 hover:text-blue-600"
+                    className="relative cursor-pointer rounded-md bg-transparent font-semibold text-[#002B5B] focus-within:outline-2 focus-within:outline-offset-2 focus-within:outline-blue-900 hover:text-blue-900"
                   >
-                    <span>Upload a file</span>
+                    <span>Добавете изображение</span>
                     <input
                       id="file-upload"
                       name="file-upload"
@@ -293,11 +324,9 @@ const InverterAirConditioners = () => {
                       className="sr-only"
                     />
                   </label>
-                  <p className="pl-1">or drag and drop</p>
+                  <p className="pl-1">или дръпнете и пуснете</p>
                 </div>
-                <p className="text-xs/5 text-gray-400">
-                  PNG, JPG, GIF up to 10MB
-                </p>
+                <p className="text-xs/5 text-gray-400">PNG, JPG, GIF</p>
               </div>
             </div>
           </div>
@@ -372,20 +401,21 @@ const InverterAirConditioners = () => {
               label: "Максимална дължина на тръбния път (м)",
             },
           ].map((field) => (
-            <div key={field.id}>
+            <div key={field.id} className="mt-1">
               <label
                 htmlFor={field.id}
                 className="block text-sm font-medium text-gray-700 mb-2"
               >
                 {field.label}
               </label>
+
               <input
                 id={field.id}
                 name={field.id}
                 type="text"
                 value={formData.spec[field.id.split(".")[1]] ?? ""}
                 onChange={handleInputChange}
-                className="mt-2 block w-full rounded-md border border-[#002B5B] py-1.5 px-3  text-gray-900 outline-1 outline-gray-300 focus-visible:outline-2 focus-visible:outline-[#002B5B] sm:text-sm"
+                className="mt-2 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 text-gray-900 shadow-sm focus:outline-none focus:ring-1 focus:ring-[#002B5B] focus:border-[#002B5B] sm:text-sm"
               />
             </div>
           ))}
@@ -404,65 +434,6 @@ const InverterAirConditioners = () => {
         * Задължителни полета.
       </p>
     </section>
-  );
-};
-
-const Dropdown = ({ label, options, value, onChange, required = false }) => {
-  return (
-    <Listbox value={value} onChange={onChange}>
-      <div>
-        <Listbox.Label className="block text-sm/6 font-medium text-gray-900">
-          {label}
-          {required && <span className="text-red-500"> *</span>}
-        </Listbox.Label>
-
-        <div className="relative mt-2">
-          <Listbox.Button className="grid w-full cursor-default grid-cols-1 rounded-md bg-white py-1.5 pr-2 pl-3 text-left text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-[#002B5B] sm:text-sm/6">
-            <span className="col-start-1 row-start-1 flex items-center gap-3 pr-6">
-              <span className="block truncate">
-                {value || `-- Избери ${label.toLowerCase()} --`}
-              </span>
-            </span>
-            <ChevronUpDownIcon
-              aria-hidden="true"
-              className="col-start-1 row-start-1 h-5 w-5 self-center justify-self-end text-gray-500 sm:h-4 sm:w-4"
-            />
-          </Listbox.Button>
-
-          <Listbox.Options className="absolute z-10 mt-1 max-h-56 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg outline-1 outline-black/5 sm:text-sm">
-            {options.map((opt, idx) => (
-              <Listbox.Option
-                key={idx}
-                value={opt}
-                className={({ active }) =>
-                  `relative cursor-default py-2 pr-9 pl-3 text-gray-900 select-none ${
-                    active ? "bg-[#002B5B] text-white" : ""
-                  }`
-                }
-              >
-                {({ selected }) => (
-                  <>
-                    <span
-                      className={`ml-3 block truncate ${
-                        selected ? "font-semibold" : "font-normal"
-                      }`}
-                    >
-                      {opt}
-                    </span>
-
-                    {selected ? (
-                      <span className="absolute inset-y-0 right-0 flex items-center pr-4 text-[#002B5B]">
-                        <CheckIcon aria-hidden="true" className="h-5 w-5" />
-                      </span>
-                    ) : null}
-                  </>
-                )}
-              </Listbox.Option>
-            ))}
-          </Listbox.Options>
-        </div>
-      </div>
-    </Listbox>
   );
 };
 
