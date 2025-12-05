@@ -100,7 +100,6 @@ const convert = async (from, to, amount) => {
 
 const AirConProductPage = () => {
   const [convertedPrices, setConvertedPrices] = useState({});
-  const [selectedImage, setSelectedImage] = useState(0);
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
   const [showSpecs, setShowSpecs] = useState(false);
   const [includeInstallation, setIncludeInstallation] = useState(false);

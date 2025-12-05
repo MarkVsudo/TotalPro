@@ -31,7 +31,6 @@ const ProductManagementPage = () => {
       <div className="flex flex-col px-5 py-6 bg-white shadow-xl rounded-xl">
         <h1 className="text-xl font-semibold">Добавяне на продукт</h1>
 
-        {/* Use your reusable Dropdown */}
         <Dropdown
           label="Вид продукт"
           options={productTypes.map((p) => p.name)}
@@ -43,7 +42,6 @@ const ProductManagementPage = () => {
           required
         />
 
-        {/* Render form */}
         <div className="mt-4">{selected.form}</div>
       </div>
     </div>

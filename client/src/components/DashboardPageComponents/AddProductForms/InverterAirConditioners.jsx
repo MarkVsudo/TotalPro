@@ -2,6 +2,12 @@ import React, { useState } from "react";
 import axios from "axios";
 import Dropdown from "../../shared/Dropdown";
 import { MdOutlinePhotoSizeSelectActual } from "react-icons/md";
+import { IoIosRemoveCircle } from "react-icons/io";
+import testImg from "../../../assets/air-con-product-img-5.png";
+import testImg2 from "../../../assets/air-con-product-img-4.jpeg";
+import testImg3 from "../../../assets/air-con-product-img-3.jpeg";
+
+const uploadedImages = [testImg, testImg2, testImg3];
 
 const InverterAirConditioners = () => {
   const [isSuccess, setIsSuccess] = useState(null);
@@ -329,6 +335,23 @@ const InverterAirConditioners = () => {
                 <p className="text-xs/5 text-gray-400">PNG, JPG, GIF</p>
               </div>
             </div>
+          </div>
+          <div className="mt-2 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2">
+            {uploadedImages.map((img, index) => (
+              <div
+                key={index}
+                className="relative border-2 border-[#002B5B] rounded-md w-full h-24"
+              >
+                <img
+                  src={img}
+                  className="w-full h-full object-contain rounded-lg"
+                />
+                <div className="absolute top-0 left-1 ">{index + 1}</div>
+                <button className="absolute top-0 right-0">
+                  <IoIosRemoveCircle className="text-red-600 text-2xl" />
+                </button>
+              </div>
+            ))}
           </div>
         </div>
 
