@@ -3,13 +3,9 @@ import axios from "axios";
 import Dropdown from "../../shared/Dropdown";
 import { MdOutlinePhotoSizeSelectActual } from "react-icons/md";
 import { IoIosRemoveCircle } from "react-icons/io";
-import testImg from "../../../assets/air-con-product-img-5.png";
-import testImg2 from "../../../assets/air-con-product-img-4.jpeg";
-import testImg3 from "../../../assets/air-con-product-img-3.jpeg";
-
-const uploadedImages = [testImg, testImg2, testImg3];
 
 const InverterAirConditioners = () => {
+  const [uploadedImages, setUploadedImages] = useState([]);
   const [isSuccess, setIsSuccess] = useState(null);
 
   const [formData, setFormData] = useState({
@@ -80,13 +76,62 @@ const InverterAirConditioners = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    const form = new FormData();
+
+    // Attach normal form fields
+    Object.entries(formData).forEach(([key, value]) => {
+      if (typeof value === "object") {
+        form.append(key, JSON.stringify(value));
+      } else {
+        form.append(key, value);
+      }
+    });
+
+    // Attach ordered images
+    uploadedImages.forEach((img, index) => {
+      form.append("images", img.file); // file itself
+      form.append("positions", index + 1); // position from drag sorting
+    });
+
     try {
-      await axios.post("/api/product", formData);
+      await axios.post("/api/product", form, {
+        headers: { "Content-Type": "multipart/form-data" },
+      });
       setIsSuccess(true);
     } catch (err) {
       console.error("Error adding product:", err);
       setIsSuccess(false);
     }
+  };
+
+  const [draggingId, setDraggingId] = useState(null);
+
+  const handleDragStart = (id) => {
+    setDraggingId(id);
+  };
+
+  const handleDragEnter = (id) => {
+    if (id === draggingId) return;
+
+    setUploadedImages((prev) => {
+      const newArray = [...prev];
+      const draggingIndex = newArray.findIndex((i) => i.id === draggingId);
+      const targetIndex = newArray.findIndex((i) => i.id === id);
+
+      const [dragged] = newArray.splice(draggingIndex, 1);
+      newArray.splice(targetIndex, 0, dragged);
+
+      return newArray;
+    });
+  };
+
+  const handleDragEnd = () => {
+    setDraggingId(null);
+  };
+
+  const removeImage = (id) => {
+    setUploadedImages((prev) => prev.filter((i) => i.id !== id));
   };
 
   return (
@@ -327,7 +372,19 @@ const InverterAirConditioners = () => {
                       id="file-upload"
                       name="file-upload"
                       type="file"
+                      multiple
                       className="sr-only"
+                      onChange={(e) => {
+                        const files = Array.from(e.target.files);
+
+                        const mapped = files.map((file) => ({
+                          id: crypto.randomUUID(),
+                          file,
+                          url: URL.createObjectURL(file), // preview URL
+                        }));
+
+                        setUploadedImages((prev) => [...prev, ...mapped]);
+                      }}
                     />
                   </label>
                   <p className="pl-1">или дръпнете и пуснете</p>
@@ -336,18 +393,31 @@ const InverterAirConditioners = () => {
               </div>
             </div>
           </div>
+
           <div className="mt-2 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2">
             {uploadedImages.map((img, index) => (
               <div
-                key={index}
-                className="relative border-2 border-[#002B5B] rounded-md w-full h-24"
+                key={img.id}
+                draggable
+                onDragStart={() => handleDragStart(img.id)}
+                onDragEnter={() => handleDragEnter(img.id)}
+                onDragEnd={handleDragEnd}
+                className="relative border-2 border-[#002B5B] rounded-md w-full h-24 cursor-move bg-white"
               >
                 <img
-                  src={img}
+                  src={img.url}
                   className="w-full h-full object-contain rounded-lg"
                 />
-                <div className="absolute top-0 left-1 ">{index + 1}</div>
-                <button className="absolute top-0 right-0">
+
+                <div className="absolute top-0 left-1 bg-white px-1 rounded text-xs">
+                  {index + 1}
+                </div>
+
+                <button
+                  type="button"
+                  onClick={() => removeImage(img.id)}
+                  className="absolute top-0 right-0"
+                >
                   <IoIosRemoveCircle className="text-red-600 text-2xl" />
                 </button>
               </div>
@@ -444,7 +514,7 @@ const InverterAirConditioners = () => {
           ))}
         </div>
       </div>
-      {/* --- Submit --- */}
+
       <button
         type="button"
         onClick={handleSubmit}
