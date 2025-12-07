@@ -23,4 +23,15 @@ router.get("/products", async (req, res) => {
   }
 });
 
+router.post("/product", async (req, res) => {
+  try {
+    // const products = await db.any("SELECT * FROM products");
+    // res.json(products);
+    console.log(res.data);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Server error");
+  }
+});
+
 export default router;

@@ -4,6 +4,8 @@ import Dropdown from "../../shared/Dropdown";
 import { MdOutlinePhotoSizeSelectActual } from "react-icons/md";
 import { IoIosRemoveCircle } from "react-icons/io";
 
+import { AdvancedImage } from "@cloudinary/react";
+import { Cloudinary } from "@cloudinary/url-gen";
 const InverterAirConditioners = () => {
   const [uploadedImages, setUploadedImages] = useState([]);
   const [isSuccess, setIsSuccess] = useState(null);
@@ -77,27 +79,36 @@ const InverterAirConditioners = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const form = new FormData();
-
-    // Attach normal form fields
-    Object.entries(formData).forEach(([key, value]) => {
-      if (typeof value === "object") {
-        form.append(key, JSON.stringify(value));
-      } else {
-        form.append(key, value);
-      }
-    });
-
-    // Attach ordered images
-    uploadedImages.forEach((img, index) => {
-      form.append("images", img.file); // file itself
-      form.append("positions", index + 1); // position from drag sorting
-    });
-
     try {
-      await axios.post("/api/product", form, {
-        headers: { "Content-Type": "multipart/form-data" },
-      });
+      // 1️⃣ Upload each image to Cloudinary
+      const imageUrls = [];
+
+      for (const img of uploadedImages) {
+        const data = new FormData();
+        data.append("file", img.file);
+        data.append("upload_preset", "TotalPro");
+        data.append("folder", "Products");
+
+        const res = await axios.post(
+          "https://api.cloudinary.com/v1_1/dneyuabzg/image/upload",
+          data
+        );
+
+        imageUrls.push({
+          url: res.data.secure_url,
+          position: imageUrls.length + 1,
+        });
+      }
+
+      // 2️⃣ Prepare your final payload (no files!)
+      const payload = {
+        ...formData,
+        images: imageUrls, // store URLs + positions
+      };
+
+      // 3️⃣ Send payload to your backend
+      await axios.post("/api/product", payload);
+
       setIsSuccess(true);
     } catch (err) {
       console.error("Error adding product:", err);
@@ -105,6 +116,7 @@ const InverterAirConditioners = () => {
     }
   };
 
+  // Dragging functionality
   const [draggingId, setDraggingId] = useState(null);
 
   const handleDragStart = (id) => {
