@@ -23,6 +23,7 @@ import ProductManagementPage from "../pages/DashboardPages/ProductManagementPage
 import OrdersPage from "../pages/DashboardPages/OrdersPage";
 import MainBoardPage from "../pages/DashboardPages/MainBoardPage";
 import CheckoutPage from "../pages/CheckoutPage";
+import AdminRoute from "./AdminRoute";
 
 const withAnimation = (component) => (
   <>
@@ -137,17 +138,23 @@ const router = createBrowserRouter([
   },
   {
     path: "/dashboard",
-    element: <DashboardLayout />,
+    element: <AdminRoute />,
     children: [
-      { index: true, element: withAnimation(<MainBoardPage />) },
-      { path: "analytics", element: withAnimation(<AnalyticsPage />) },
       {
-        path: "products",
-        element: withAnimation(<ProductManagementPage />),
+        element: <DashboardLayout />,
+        children: [
+          { index: true, element: withAnimation(<MainBoardPage />) },
+          { path: "analytics", element: withAnimation(<AnalyticsPage />) },
+          {
+            path: "products",
+            element: withAnimation(<ProductManagementPage />),
+          },
+          { path: "orders", element: withAnimation(<OrdersPage />) },
+        ],
       },
-      { path: "orders", element: withAnimation(<OrdersPage />) },
     ],
   },
+
   {
     path: "/login",
     element: withAnimation(<LoginPage />),
