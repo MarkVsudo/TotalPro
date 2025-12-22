@@ -29,11 +29,27 @@ router.post("/login", async (req, res) => {
       { expiresIn: "15m" }
     );
 
-    res.status(200).json({ message: "Login successful", token });
+    return res
+      .cookie("token", token, {
+        httpOnly: true,
+        sameSite: "strict",
+        secure: process.env.NODE_ENV === "production",
+        maxAge: 15 * 60 * 1000,
+      })
+      .status(200)
+      .json({ message: "Login successful" });
   } catch (err) {
     console.error(err);
     res.status(500).send("Server error");
   }
+});
+
+router.get("/me", authenticate, (req, res) => {
+  res.json({
+    id: req.user.id,
+    email: req.user.email,
+    role: req.user.role,
+  });
 });
 
 router.get("/dashboard", authenticate, requireAdmin, (req, res) => {

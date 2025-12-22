@@ -1,14 +1,17 @@
 import NavLogoImg from "../../assets/nav-logo.png";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import { useState } from "react";
-
+import { useState, useContext } from "react";
+import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../../context/AuthContext";
 import ErrorAlert from "../../components/shared/ErrorAlert";
 import SucessAlert from "../../components/shared/SucessAlert";
 
 const LoginPage = () => {
   const [formData, setFormData] = useState({ email: "", password: "" });
   const [isSuccess, setIsSuccess] = useState(null);
+  const { login } = useContext(AuthContext);
+  let navigate = useNavigate();
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -22,11 +25,24 @@ const LoginPage = () => {
     e.preventDefault();
 
     try {
-      const res = await axios.post("/api/auth/login", formData);
-      console.log(res.data);
-      setIsSuccess(true);
+      await axios.post(
+        "/api/auth/login",
+        {
+          email: formData.email,
+          password: formData.password,
+        },
+        { withCredentials: true }
+      );
+
+      const res = await axios.get("/api/auth/me", {
+        withCredentials: true,
+      });
+
+      login(res.data);
+
+      navigate("/dashboard");
     } catch (err) {
-      console.error("An error occurred:", err);
+      console.error(err);
       setIsSuccess(false);
     }
   };

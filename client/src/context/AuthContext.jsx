@@ -1,25 +1,38 @@
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
+import axios from "axios";
 
 export const AuthContext = createContext(null);
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-  const login = (userData) => {
-    setUser(userData);
-  };
+  useEffect(() => {
+    const loadUser = async () => {
+      try {
+        const res = await axios.get("/api/auth/me", {
+          withCredentials: true,
+        });
+        setUser(res.data);
+      } catch {
+        setUser(null);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-  const logout = () => {
-    setUser(null);
-  };
+    loadUser();
+  }, []);
+
+  if (loading) return null;
 
   return (
     <AuthContext.Provider
       value={{
         user,
         isAuthenticated: !!user,
-        login,
-        logout,
+        login: setUser,
+        logout: () => setUser(null),
       }}
     >
       {children}
