@@ -24,16 +24,12 @@ const decideCompanyLogo = (name) => {
   switch (name) {
     case "Gree":
       return GreeLogo;
-      break;
     case "Daikin":
       return DaikinLogo;
-      break;
     case "Mitsubishi Electric":
       return MitsubishiElLogo;
-      break;
     case "Fujitsu":
       return FujitsuLogo;
-      break;
 
     default:
       break;
