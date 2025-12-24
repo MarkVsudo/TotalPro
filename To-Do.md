@@ -8,6 +8,6 @@
 - add to cart functionality
 - checkout page
 - payments
-- login functionality
+- ~~login functionality~~
 - dashoard
 - responsive design
