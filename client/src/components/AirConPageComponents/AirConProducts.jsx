@@ -43,19 +43,24 @@ export default function AirConProducts() {
 
   // Params
   const [searchParams] = useSearchParams();
-  const sort = searchParams.get("sort") || "Най-популярни";
-
+  // const sort = searchParams.get("sort") || "Най-популярни";
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const res = await axios.get("/api/products");
+        const sort = searchParams.get("sort") || "most_popular";
+
+        const res = await axios.get("/api/products", {
+          params: { sort },
+        });
+
         setProducts(res.data);
       } catch (err) {
         console.error(err);
       }
     };
+
     fetchProducts();
-  }, []);
+  }, [searchParams]);
 
   useEffect(() => {
     if (products.length === 0) return;
@@ -71,32 +76,32 @@ export default function AirConProducts() {
     fetchConversions();
   }, [products]);
 
-  const sortProducts = (products, sortOption) => {
-    switch (sortOption) {
-      case "Най-популярни":
-        return products.sort((a, b) => b.popularity - a.popularity);
-      case "Най-нови":
-        return products.sort(
-          (a, b) => new Date(b.date_added) - new Date(a.date_added)
-        );
-      case "Цена: Възходяща":
-        return products.sort(
-          (a, b) => parseFloat(a.price) - parseFloat(b.price)
-        );
-      case "Цена: Низходяща":
-        return products.sort(
-          (a, b) => parseFloat(b.price) - parseFloat(a.price)
-        );
-      default:
-        return products;
-    }
-  };
+  // const sortProducts = (products, sortOption) => {
+  //   switch (sortOption) {
+  //     case "Най-популярни":
+  //       return products.sort((a, b) => b.popularity - a.popularity);
+  //     case "Най-нови":
+  //       return products.sort(
+  //         (a, b) => new Date(b.date_added) - new Date(a.date_added)
+  //       );
+  //     case "Цена: Възходяща":
+  //       return products.sort(
+  //         (a, b) => parseFloat(a.price) - parseFloat(b.price)
+  //       );
+  //     case "Цена: Низходяща":
+  //       return products.sort(
+  //         (a, b) => parseFloat(b.price) - parseFloat(a.price)
+  //       );
+  //     default:
+  //       return products;
+  //   }
+  // };
 
-  const sortedProducts = sortProducts(products, sort);
+  // const sortedProducts = sortProducts(products, sort);
 
   return (
     <div className="bg-white grid gap-x-6 xl:gap-x-8 gap-y-10 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
-      {sortedProducts.map((product, index) => (
+      {products.map((product, index) => (
         <Link to={product.href} key={index}>
           <div className="group relative h-full flex flex-col">
             <div className="relative overflow-hidden ">

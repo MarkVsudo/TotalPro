@@ -15,7 +15,26 @@ router.get("/categories", async (req, res) => {
 
 router.get("/products", async (req, res) => {
   try {
-    const products = await db.any("SELECT * FROM products");
+    const sortBy = req.query.sort;
+    let sortQuery = "";
+    switch (sortBy) {
+      case "most_popular":
+        sortQuery = "ORDER BY popularity DESC";
+        break;
+      case "newest":
+        sortQuery = "ORDER BY manufactured_date DESC";
+        break;
+      case "price_asc":
+        sortQuery = "ORDER BY price ASC";
+        break;
+      case "price_desc":
+        sortQuery = "ORDER BY price DESC";
+        break;
+      default:
+        sortQuery = "ORDER BY popularity DESC";
+        break;
+    }
+    const products = await db.any(`SELECT * FROM products ${sortQuery}`);
     res.json(products);
   } catch (err) {
     console.error(err);

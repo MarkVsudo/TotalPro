@@ -10,10 +10,10 @@ import { TfiLayoutGrid3 } from "react-icons/tfi";
 import { TfiLayoutGrid2 } from "react-icons/tfi";
 
 const sortOptions = [
-  { name: "Най-популярни", href: "#", current: true },
-  { name: "Най-нови", href: "#", current: false },
-  { name: "Цена: Възходяща", href: "#", current: false },
-  { name: "Цена: Низходяща", href: "#", current: false },
+  { name: "Най-популярни", value: "most_popular", current: true },
+  { name: "Най-нови", value: "newest", current: false },
+  { name: "Цена: Възходяща", value: "price_asc", current: false },
+  { name: "Цена: Низходяща", value: "price_desc", current: false },
 ];
 
 function classNames(...classes) {
@@ -22,8 +22,9 @@ function classNames(...classes) {
 
 const AirConSort = () => {
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
-  const [sortingOption, setSortingOption] = useState("Най-популярни");
   const [searchParams, setSearchParams] = useSearchParams();
+
+  const currentSort = searchParams.get("sort") || "most_popular";
 
   const updateSorting = (sort) => {
     setSearchParams((prev) => {
@@ -31,10 +32,6 @@ const AirConSort = () => {
       return prev;
     });
   };
-
-  useEffect(() => {
-    updateSorting(sortingOption);
-  }, [sortingOption]);
 
   return (
     <div className="flex items-baseline justify-between border-b border-gray-200">
@@ -58,23 +55,20 @@ const AirConSort = () => {
             transition
             className="absolute right-0 z-10 mt-2 w-40 origin-top-right rounded-md bg-white shadow-2xl ring-1 ring-black/5 transition focus:outline-hidden data-closed:scale-95 data-closed:transform data-closed:opacity-0 data-enter:duration-100 data-enter:ease-out data-leave:duration-75 data-leave:ease-in"
           >
-            <div className="py-1">
+            <div>
               {sortOptions.map((option) => (
-                <MenuItem
-                  key={option.name}
-                  onClick={() => updateSorting(option.name)}
-                >
-                  <a
-                    href={option.href}
+                <MenuItem key={option.value}>
+                  <button
+                    onClick={() => updateSorting(option.value)}
                     className={classNames(
-                      option.current
+                      option.value === currentSort
                         ? "font-medium text-gray-900"
                         : "text-gray-500",
-                      "block px-4 py-2 text-sm data-focus:bg-gray-100 data-focus:outline-hidden"
+                      "block w-full px-4 py-2 text-sm"
                     )}
                   >
                     {option.name}
-                  </a>
+                  </button>
                 </MenuItem>
               ))}
             </div>

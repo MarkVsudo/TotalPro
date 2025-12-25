@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import axios from "axios";
+import { useSearchParams } from "react-router-dom";
 import {
   Dialog,
   DialogBackdrop,
@@ -141,6 +142,9 @@ export default function AirConFilters() {
 
     getCategories();
   }, []);
+
+  const [filterOptions, setSortingOption] = useState("Най-популярни");
+  const [searchParams, setSearchParams] = useSearchParams();
 
   return (
     <div className="bg-white w-full">
