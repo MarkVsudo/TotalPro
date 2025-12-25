@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import { useSearchParams } from "react-router-dom";
 import {
@@ -10,25 +10,9 @@ import {
   Disclosure,
   DisclosureButton,
   DisclosurePanel,
-  Menu,
-  MenuButton,
-  MenuItem,
-  MenuItems,
 } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
-import {
-  ChevronDownIcon,
-  FunnelIcon,
-  MinusIcon,
-  PlusIcon,
-} from "@heroicons/react/20/solid";
-import AirConProducts from "./AirConProducts";
-
-import { TfiLayoutGrid4 } from "react-icons/tfi";
-import { TfiLayoutGrid3 } from "react-icons/tfi";
-import { TfiLayoutGrid2 } from "react-icons/tfi";
-import AirConPagination from "./AirConPagination";
-import { useEffect } from "react";
+import { MinusIcon, PlusIcon } from "@heroicons/react/20/solid";
 
 const filters = [
   {
@@ -143,8 +127,28 @@ export default function AirConFilters() {
     getCategories();
   }, []);
 
-  const [filterOptions, setSortingOption] = useState("Най-популярни");
   const [searchParams, setSearchParams] = useSearchParams();
+
+  // const currentFilter = searchParams.get("") || "most_popular";
+
+  const currentFilter = {
+    category: searchParams.get("category"),
+    overallClass: searchParams.get("overall_class"),
+    make: searchParams.get("make"),
+    btu: searchParams.get("btu"),
+    roomAreaMin: searchParams.get("room_area_min"),
+    roomAreaMax: searchParams.get("room_area_max"),
+    color: searchParams.get("color"),
+    coolingEnergyClass: searchParams.get("cooling_energy_class"),
+    heatingEnergyClass: searchParams.get("heating_energy_class"),
+  };
+
+  const updateFilter = (name, value) => {
+    setSearchParams((prev) => {
+      prev.set(name, value);
+      return prev;
+    });
+  };
 
   return (
     <div className="bg-white w-full">

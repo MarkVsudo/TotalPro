@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useSearchParams } from "react-router-dom";
 
 import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
@@ -21,7 +21,7 @@ function classNames(...classes) {
 }
 
 const AirConSort = () => {
-  const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
+  const [setMobileFiltersOpen] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams();
 
   const currentSort = searchParams.get("sort") || "most_popular";
