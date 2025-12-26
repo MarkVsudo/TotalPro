@@ -131,23 +131,30 @@ export default function AirConFilters() {
 
   // const currentFilter = searchParams.get("") || "most_popular";
 
-  const currentFilter = {
+  const [currentFilter, setCurrentFilter] = useState({
     category: searchParams.get("category"),
-    overallClass: searchParams.get("overall_class"),
-    make: searchParams.get("make"),
-    btu: searchParams.get("btu"),
-    roomAreaMin: searchParams.get("room_area_min"),
-    roomAreaMax: searchParams.get("room_area_max"),
-    color: searchParams.get("color"),
-    coolingEnergyClass: searchParams.get("cooling_energy_class"),
-    heatingEnergyClass: searchParams.get("heating_energy_class"),
-  };
+    overallClass: searchParams.get("overall_class") || [],
+    make: searchParams.get("make") || [],
+    btu: searchParams.get("btu") || [],
+    roomAreaMin: searchParams.get("room_area_min") || [],
+    roomAreaMax: searchParams.get("room_area_max") || [],
+    color: searchParams.get("color") || [],
+    coolingEnergyClass: searchParams.get("cooling_energy_class") || [],
+    heatingEnergyClass: searchParams.get("heating_energy_class") || [],
+  });
 
   const updateFilter = (name, value) => {
+    console.log(`Name: ${name} Value ${value}`);
+
+    setCurrentFilter((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
     setSearchParams((prev) => {
       prev.set(name, value);
       return prev;
     });
+    console.log(searchParams.get("btu"));
   };
 
   return (
@@ -326,6 +333,9 @@ export default function AirConFilters() {
                         <div className="flex h-5 shrink-0 items-center">
                           <div className="group grid size-4 grid-cols-1">
                             <input
+                              onClick={() =>
+                                updateFilter(section.id, option.value)
+                              }
                               defaultValue={option.value}
                               defaultChecked={option.checked}
                               id={`filter-${section.id}-${optionIdx}`}
