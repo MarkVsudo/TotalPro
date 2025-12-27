@@ -23,13 +23,13 @@ const convert = async (from, to, amount) => {
 
 const decideCompanyLogo = (name) => {
   switch (name) {
-    case "Gree":
+    case "gree":
       return GreeLogo;
-    case "Daikin":
+    case "daikin":
       return DaikinLogo;
-    case "Mitsubishi Electric":
+    case "mitsubishi electric":
       return MitsubishiElLogo;
-    case "Fujitsu":
+    case "fujitsu":
       return FujitsuLogo;
 
     default:
@@ -48,6 +48,7 @@ export default function AirConProducts() {
     const fetchProducts = async () => {
       try {
         const sort = searchParams.get("sort") || "most_popular";
+        const category = searchParams.get("category");
         const overallClass = searchParams.get("overallClass");
         const brand = searchParams.get("brand");
         const btu = searchParams.get("btu");
@@ -59,6 +60,7 @@ export default function AirConProducts() {
         const res = await axios.get("/api/products", {
           params: {
             sort,
+            category,
             overallClass,
             brand,
             btu,

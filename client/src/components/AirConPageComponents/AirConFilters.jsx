@@ -169,28 +169,6 @@ export default function AirConFilters() {
     });
   };
 
-  // const setRangeFilter = (min, max) => {
-  //   setSearchParams((prev) => {
-  //     if (min) prev.set("roomAreaMin", min);
-  //     else prev.delete("roomAreaMin");
-
-  //     if (max) prev.set("roomAreaMax", max);
-  //     else prev.delete("roomAreaMax");
-
-  //     return prev;
-  //   });
-  // };
-
-  // const toggleRoomVolumeFilter = (value) => {
-  //   // Parse "10-15sqm" -> min: 10, max: 15
-  //   const match = value.match(/(\d+)-(\d+)sqm/);
-  //   if (match) {
-  //     const min = match[1];
-  //     const max = match[2];
-  //     setRangeFilter(min, max);
-  //   }
-  // };
-
   return (
     <div className="bg-white w-full">
       {/* Mobile filter dialog */}

@@ -35,8 +35,7 @@ router.get("/products", async (req, res) => {
       overallClass,
       brand,
       btu,
-      roomAreaMin,
-      roomAreaMax,
+      roomVolume,
       color,
       coolingEnergyClass,
       heatingEnergyClass,
@@ -45,58 +44,59 @@ router.get("/products", async (req, res) => {
     const conditions = [];
     const values = [];
 
-    // // Category (single)
-    // if (category) {
-    //   values.push(category);
-    //   conditions.push(`category = $${values.length}`);
-    // }
+    if (category) {
+      values.push(category);
+      conditions.push(`c.category_name = $${values.length}`);
+    }
 
-    // // Overall class (multi)
-    // if (overallClass) {
-    //   values.push(overallClass.split(","));
-    //   conditions.push(`overall_class = ANY($${values.length})`);
-    // }
+    if (overallClass) {
+      const overallClassArray = overallClass.split(",");
+      values.push(overallClassArray);
+      conditions.push(`overall_class = ANY($${values.length})`);
+      console.log(overallClassArray);
+    }
 
-    // // Brand / Make (multi)
-    // if (brand) {
-    //   values.push(brand.split(","));
-    //   conditions.push(`make = ANY($${values.length})`);
-    // }
+    if (brand) {
+      const brandArray = brand.split(",");
+      values.push(brandArray);
+      conditions.push(`make = ANY($${values.length})`);
+    }
 
-    // // BTU (multi, STRING)
-    // if (btu) {
-    //   values.push(btu.split(",")); // keep as text
-    //   conditions.push(`btu = $${values.length})`);
-    // }
+    if (btu) {
+      const btuArray = btu.split(",").map(Number);
+      values.push(btuArray);
+      conditions.push(`btu = ANY($${values.length})`);
+    }
 
-    // // Room area range
-    // if (roomAreaMin) {
-    //   values.push(Number(roomAreaMin));
-    //   conditions.push(`room_area >= $${values.length}`);
-    // }
+    if (roomVolume) {
+      const [min, max] = roomVolume.split("-").map(Number);
 
-    // if (roomAreaMax) {
-    //   values.push(Number(roomAreaMax));
-    //   conditions.push(`room_area <= $${values.length}`);
-    // }
+      values.push(min);
+      values.push(max);
 
-    // // Color (multi)
-    // if (color) {
-    //   values.push(color.split(","));
-    //   conditions.push(`color = ANY($${values.length})`);
-    // }
+      conditions.push(`
+    p.room_area_min <= $${values.length} AND
+    p.room_area_max >= $${values.length - 1}
+  `);
+    }
 
-    // // Cooling energy class (multi)
-    // if (coolingEnergyClass) {
-    //   values.push(coolingEnergyClass.split(","));
-    //   conditions.push(`cooling_energy_class = ANY($${values.length})`);
-    // }
+    if (color) {
+      const colorArray = color.split(",");
+      values.push(colorArray);
+      conditions.push(`color = ANY($${values.length})`);
+    }
 
-    // // Heating energy class (multi)
-    // if (heatingEnergyClass) {
-    //   values.push(heatingEnergyClass.split(","));
-    //   conditions.push(`heating_energy_class = ANY($${values.length})`);
-    // }
+    if (coolingEnergyClass) {
+      const coolingEnergyClassArray = coolingEnergyClass.split(",");
+      values.push(coolingEnergyClassArray);
+      conditions.push(`cooling_energy_class = ANY($${values.length})`);
+    }
+
+    if (heatingEnergyClass) {
+      const heatingEnergyClassArray = heatingEnergyClass.split(",");
+      values.push(heatingEnergyClassArray);
+      conditions.push(`heating_energy_class = ANY($${values.length})`);
+    }
 
     const whereQuery =
       conditions.length > 0 ? `WHERE ${conditions.join(" AND ")}` : "";
@@ -105,13 +105,21 @@ router.get("/products", async (req, res) => {
 
     const products = await db.any(
       `
-      SELECT *
-      FROM products
-      ${whereQuery}
-      ${sortQuery}
+        SELECT p.*, c.category_name
+        FROM products p
+        JOIN categories c ON p.category_id = c.category_id
+        ${whereQuery}
+        ${sortQuery}
+
       `,
       values
     );
+
+    console.log(`     SELECT p.*, c.category_name
+        FROM products p
+        JOIN categories c ON p.category_id = c.category_id
+        ${whereQuery}
+        ${sortQuery}`);
 
     res.json(products);
   } catch (err) {
