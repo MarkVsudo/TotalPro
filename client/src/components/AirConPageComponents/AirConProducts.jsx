@@ -48,9 +48,25 @@ export default function AirConProducts() {
     const fetchProducts = async () => {
       try {
         const sort = searchParams.get("sort") || "most_popular";
+        const overallClass = searchParams.get("overallClass");
+        const brand = searchParams.get("brand");
+        const btu = searchParams.get("btu");
+        const roomVolume = searchParams.get("roomVolume");
+        const color = searchParams.get("color");
+        const coolingEnergyClass = searchParams.get("coolingEnergyClass");
+        const heatingEnergyClass = searchParams.get("heatingEnergyClass");
 
         const res = await axios.get("/api/products", {
-          params: { sort },
+          params: {
+            sort,
+            overallClass,
+            brand,
+            btu,
+            roomVolume,
+            color,
+            coolingEnergyClass,
+            heatingEnergyClass,
+          },
         });
 
         setProducts(res.data);

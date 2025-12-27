@@ -33,7 +33,7 @@ router.get("/products", async (req, res) => {
       sort = "most_popular",
       category,
       overallClass,
-      make,
+      brand,
       btu,
       roomAreaMin,
       roomAreaMax,
@@ -45,50 +45,58 @@ router.get("/products", async (req, res) => {
     const conditions = [];
     const values = [];
 
-    if (category) {
-      values.push(category);
-      conditions.push(`category = $${values.length}`);
-    }
+    // // Category (single)
+    // if (category) {
+    //   values.push(category);
+    //   conditions.push(`category = $${values.length}`);
+    // }
 
-    if (overallClass) {
-      values.push(overallClass);
-      conditions.push(`overall_class = $${values.length}`);
-    }
+    // // Overall class (multi)
+    // if (overallClass) {
+    //   values.push(overallClass.split(","));
+    //   conditions.push(`overall_class = ANY($${values.length})`);
+    // }
 
-    if (make) {
-      values.push(make.split(","));
-      conditions.push(`make = ANY($${values.length})`);
-    }
+    // // Brand / Make (multi)
+    // if (brand) {
+    //   values.push(brand.split(","));
+    //   conditions.push(`make = ANY($${values.length})`);
+    // }
 
-    if (btu) {
-      values.push(btu.split(",").map(Number));
-      conditions.push(`btu = ANY($${values.length})`);
-    }
+    // // BTU (multi, STRING)
+    // if (btu) {
+    //   values.push(btu.split(",")); // keep as text
+    //   conditions.push(`btu = $${values.length})`);
+    // }
 
-    if (roomAreaMin) {
-      values.push(Number(roomAreaMin));
-      conditions.push(`room_area >= $${values.length}`);
-    }
+    // // Room area range
+    // if (roomAreaMin) {
+    //   values.push(Number(roomAreaMin));
+    //   conditions.push(`room_area >= $${values.length}`);
+    // }
 
-    if (roomAreaMax) {
-      values.push(Number(roomAreaMax));
-      conditions.push(`room_area <= $${values.length}`);
-    }
+    // if (roomAreaMax) {
+    //   values.push(Number(roomAreaMax));
+    //   conditions.push(`room_area <= $${values.length}`);
+    // }
 
-    if (color) {
-      values.push(color.split(","));
-      conditions.push(`color = ANY($${values.length})`);
-    }
+    // // Color (multi)
+    // if (color) {
+    //   values.push(color.split(","));
+    //   conditions.push(`color = ANY($${values.length})`);
+    // }
 
-    if (coolingEnergyClass) {
-      values.push(coolingEnergyClass);
-      conditions.push(`cooling_energy_class = $${values.length}`);
-    }
+    // // Cooling energy class (multi)
+    // if (coolingEnergyClass) {
+    //   values.push(coolingEnergyClass.split(","));
+    //   conditions.push(`cooling_energy_class = ANY($${values.length})`);
+    // }
 
-    if (heatingEnergyClass) {
-      values.push(heatingEnergyClass);
-      conditions.push(`heating_energy_class = $${values.length}`);
-    }
+    // // Heating energy class (multi)
+    // if (heatingEnergyClass) {
+    //   values.push(heatingEnergyClass.split(","));
+    //   conditions.push(`heating_energy_class = ANY($${values.length})`);
+    // }
 
     const whereQuery =
       conditions.length > 0 ? `WHERE ${conditions.join(" AND ")}` : "";
