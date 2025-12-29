@@ -53,7 +53,6 @@ router.get("/products", async (req, res) => {
       const overallClassArray = overallClass.split(",");
       values.push(overallClassArray);
       conditions.push(`overall_class = ANY($${values.length})`);
-      console.log(overallClassArray);
     }
 
     if (brand) {

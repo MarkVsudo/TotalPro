@@ -94,8 +94,22 @@ export default function AirConProducts() {
     fetchConversions();
   }, [products]);
 
+  const gridParam = Number(searchParams.get("grid")) || 4;
+
+  const isMobile = window.matchMedia("(max-width: 640px)").matches;
+
+  const effectiveGrid = isMobile ? Math.min(gridParam, 2) : gridParam;
+
+  const gridClasses = {
+    2: "grid-cols-1 sm:grid-cols-2",
+    3: "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3",
+    4: "grid-cols-1 sm:grid-cols-2 lg:grid-cols-4",
+  };
+
   return (
-    <div className="bg-white grid gap-x-6 xl:gap-x-8 gap-y-10 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
+    <div
+      className={`bg-white grid gap-x-6 xl:gap-x-8 gap-y-10 ${gridClasses[effectiveGrid]}`}
+    >
       {products.map((product, index) => (
         <Link to={product.href} key={index}>
           <div className="group relative h-full flex flex-col">

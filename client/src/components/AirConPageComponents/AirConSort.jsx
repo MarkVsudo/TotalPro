@@ -33,6 +33,13 @@ const AirConSort = () => {
     });
   };
 
+  const updateGrid = (cols) => {
+    setSearchParams((prev) => {
+      prev.set("grid", cols);
+      return prev;
+    });
+  };
+
   return (
     <div className="flex items-baseline justify-between border-b border-gray-200">
       <h1 className="text-4xl font-bold tracking-tight text-gray-900">
@@ -76,26 +83,16 @@ const AirConSort = () => {
         </Menu>
 
         <div className="flex gap-7 ml-5 sm:ml-7 mr-2">
-          <button
-            type="button"
-            className="-m-2 text-gray-400 hover:text-gray-500"
-          >
-            <span className="sr-only">View grid 2x2</span>
-            <TfiLayoutGrid2 aria-hidden="true" className="size-5" />
+          <button onClick={() => updateGrid(2)}>
+            <TfiLayoutGrid2 className="size-5" />
           </button>
-          <button
-            type="button"
-            className="-m-2 text-gray-400 hover:text-gray-500"
-          >
-            <span className="sr-only">View grid 3x3</span>
-            <TfiLayoutGrid3 aria-hidden="true" className="size-5" />
+
+          <button onClick={() => updateGrid(3)}>
+            <TfiLayoutGrid3 className="size-5" />
           </button>
-          <button
-            type="button"
-            className="-m-2 text-gray-400 hover:text-gray-500"
-          >
-            <span className="sr-only">View grid 4x4</span>
-            <TfiLayoutGrid4 aria-hidden="true" className="size-5" />
+
+          <button onClick={() => updateGrid(4)}>
+            <TfiLayoutGrid4 className="size-5" />
           </button>
         </div>
         <button

@@ -21,4 +21,9 @@ const AirConStorePage = () => {
   );
 };
 
+<div>
+  <div className="1" />
+  <div className="2" />
+</div>;
+
 export default AirConStorePage;
