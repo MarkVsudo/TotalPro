@@ -30,7 +30,11 @@ const filters = [
     options: [
       { value: "gree", label: "Gree", checked: false },
       { value: "daikin", label: "Daikin", checked: false },
-      { value: "mitsubishi", label: "Mitsubishi", checked: false },
+      {
+        value: "mitsubishi_electric",
+        label: "Mitsubishi Electric",
+        checked: false,
+      },
       { value: "fujitsu", label: "Fujitsu", checked: false },
     ],
   },
@@ -207,7 +211,7 @@ export default function AirConFilters() {
                 <li key={category.category_id}>
                   <button
                     className="block px-2 py-3"
-                    onClick={() => toggleCategory(category.category_name)}
+                    onClick={() => toggleCategory(category.category_value)}
                   >
                     {category.category_name}
                   </button>
@@ -312,7 +316,7 @@ export default function AirConFilters() {
                 key={category.category_id}
                 className="flex items-center gap-3 transition-all group relative"
               >
-                {currentCategory === category.category_name ? (
+                {currentCategory === category.category_value ? (
                   <div className="w-0.5 h-4 bg-gray-900" />
                 ) : (
                   <div className="w-0.5 h-4 bg-gray-400 scale-y-0 group-hover:scale-y-100 group-hover:bg-gray-900 origin-top transition-transform duration-300" />
@@ -320,11 +324,11 @@ export default function AirConFilters() {
 
                 <button
                   className={
-                    currentCategory === category.category_name
+                    currentCategory === category.category_value
                       ? `scale-105 text-gray-900 font-semibold`
                       : `transition-all duration-300 group-hover:scale-105 group-hover:text-gray-900 group-hover:font-semibold`
                   }
-                  onClick={() => toggleCategory(category.category_name)}
+                  onClick={() => toggleCategory(category.category_value)}
                 >
                   {category.category_name}
                 </button>

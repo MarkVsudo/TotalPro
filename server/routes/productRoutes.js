@@ -46,7 +46,7 @@ router.get("/products", async (req, res) => {
 
     if (category) {
       values.push(category);
-      conditions.push(`c.category_name = $${values.length}`);
+      conditions.push(`c.category_value = $${values.length}`);
     }
 
     if (overallClass) {
@@ -105,7 +105,7 @@ router.get("/products", async (req, res) => {
 
     const products = await db.any(
       `
-        SELECT p.*, c.category_name
+        SELECT p.*, c.category_value
         FROM products p
         JOIN categories c ON p.category_id = c.category_id
         ${whereQuery}
@@ -114,12 +114,6 @@ router.get("/products", async (req, res) => {
       `,
       values
     );
-
-    console.log(`     SELECT p.*, c.category_name
-        FROM products p
-        JOIN categories c ON p.category_id = c.category_id
-        ${whereQuery}
-        ${sortQuery}`);
 
     res.json(products);
   } catch (err) {

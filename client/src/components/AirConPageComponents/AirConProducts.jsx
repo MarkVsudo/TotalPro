@@ -27,7 +27,7 @@ const decideCompanyLogo = (name) => {
       return GreeLogo;
     case "daikin":
       return DaikinLogo;
-    case "mitsubishi electric":
+    case "mitsubishi_electric":
       return MitsubishiElLogo;
     case "fujitsu":
       return FujitsuLogo;
@@ -106,7 +106,6 @@ export default function AirConProducts() {
                 className="aspect-square w-full rounded-md object-contain group-hover:brightness-102
                       group-hover:scale-105 lg:aspect-auto lg:h-80 transition-all"
               />
-
               <img
                 alt="Aircon company"
                 src={decideCompanyLogo(product.make)}

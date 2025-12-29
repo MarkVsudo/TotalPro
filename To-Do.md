@@ -1,9 +1,9 @@
 - host images on cloudinary
 - ~~add images field in db~~
 - implement an add product form in admin page
-- display products correctly on all products page
+- ~~display products correctly on all products page~~
 - display product correctly on individual product page
-- filtering + sorting logic in products page
+- ~~filtering + sorting logic in products page~~
 - pagination functionality in products page
 - add to cart functionality
 - checkout page
