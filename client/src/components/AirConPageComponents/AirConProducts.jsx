@@ -8,19 +8,6 @@ import MitsubishiElLogo from "../../assets/AirConBrands/mitsubishi-electric.png"
 import FujitsuLogo from "../../assets/AirConBrands/fujitsu.png";
 import axios from "axios";
 
-const convert = async (from, to, amount) => {
-  try {
-    const res = await fetch(
-      `https://api.frankfurter.app/latest?base=${from}&symbols=${to}`
-    );
-    const data = await res.json();
-    return (amount * data.rates[to]).toFixed(2);
-  } catch (error) {
-    console.error("Conversion failed:", error);
-    return null;
-  }
-};
-
 const decideCompanyLogo = (name) => {
   switch (name) {
     case "gree":
@@ -38,7 +25,6 @@ const decideCompanyLogo = (name) => {
 };
 
 export default function AirConProducts() {
-  const [convertedPrices, setConvertedPrices] = useState({});
   const [products, setProducts] = useState([]);
 
   // Params
@@ -79,20 +65,6 @@ export default function AirConProducts() {
 
     fetchProducts();
   }, [searchParams]);
-
-  useEffect(() => {
-    if (products.length === 0) return;
-    const fetchConversions = async () => {
-      const conversions = {};
-      for (const product of products) {
-        const numericPrice = parseFloat(product.price);
-        const converted = await convert("BGN", "EUR", numericPrice);
-        conversions[product.product_id] = converted;
-      }
-      setConvertedPrices(conversions);
-    };
-    fetchConversions();
-  }, [products]);
 
   const gridParam = Number(searchParams.get("grid")) || 4;
 
@@ -137,12 +109,21 @@ export default function AirConProducts() {
               </div>
               <div className="flex gap-2 items-center">
                 <p className="text-sm font-medium text-gray-900">
-                  {product.price}лв.
+                  {product.discount
+                    ? (
+                        Number(product.price) *
+                        (1 - Number(product.discount) / 100)
+                      ).toFixed(2)
+                    : product.price}
+                  €
                 </p>
-                <p className="text-sm text-gray-500">
-                  {convertedPrices[product.product_id]
-                    ? `€${convertedPrices[product.product_id]}`
-                    : "Loading..."}
+                {/* <p className="text-sm text-gray-500">{product.price}</p> */}
+                <p
+                  className={`text-sm text-gray-500 ${
+                    product.discount ? "line-through" : "hidden"
+                  }`}
+                >
+                  {product.price}€
                 </p>
               </div>
               <button
