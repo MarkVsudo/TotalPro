@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { IoBagAddOutline } from "react-icons/io5";
@@ -6,7 +5,6 @@ import GreeLogo from "../../assets/AirConBrands/gree.png";
 import DaikinLogo from "../../assets/AirConBrands/daikin.png";
 import MitsubishiElLogo from "../../assets/AirConBrands/mitsubishi-electric.png";
 import FujitsuLogo from "../../assets/AirConBrands/fujitsu.png";
-import axios from "axios";
 
 const decideCompanyLogo = (name) => {
   switch (name) {
@@ -24,47 +22,8 @@ const decideCompanyLogo = (name) => {
   }
 };
 
-export default function AirConProducts() {
-  const [products, setProducts] = useState([]);
-
-  // Params
+export default function AirConProducts({ products }) {
   const [searchParams] = useSearchParams();
-
-  useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        const sort = searchParams.get("sort") || "most_popular";
-        const category = searchParams.get("category");
-        const overallClass = searchParams.get("overallClass");
-        const brand = searchParams.get("brand");
-        const btu = searchParams.get("btu");
-        const roomVolume = searchParams.get("roomVolume");
-        const color = searchParams.get("color");
-        const coolingEnergyClass = searchParams.get("coolingEnergyClass");
-        const heatingEnergyClass = searchParams.get("heatingEnergyClass");
-
-        const res = await axios.get("/api/products", {
-          params: {
-            sort,
-            category,
-            overallClass,
-            brand,
-            btu,
-            roomVolume,
-            color,
-            coolingEnergyClass,
-            heatingEnergyClass,
-          },
-        });
-
-        setProducts(res.data);
-      } catch (err) {
-        console.error(err);
-      }
-    };
-
-    fetchProducts();
-  }, [searchParams]);
 
   const gridParam = Number(searchParams.get("grid")) || 4;
 
@@ -117,7 +76,6 @@ export default function AirConProducts() {
                     : product.price}
                   €
                 </p>
-                {/* <p className="text-sm text-gray-500">{product.price}</p> */}
                 <p
                   className={`text-sm text-gray-500 ${
                     product.discount ? "line-through" : "hidden"

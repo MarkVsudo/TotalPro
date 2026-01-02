@@ -30,6 +30,8 @@ function getSortQuery(sort) {
 router.get("/products", async (req, res) => {
   try {
     const {
+      page,
+      limit,
       sort = "most_popular",
       category,
       overallClass,
@@ -50,50 +52,41 @@ router.get("/products", async (req, res) => {
     }
 
     if (overallClass) {
-      const overallClassArray = overallClass.split(",");
-      values.push(overallClassArray);
+      values.push(overallClass.split(","));
       conditions.push(`overall_class = ANY($${values.length})`);
     }
 
     if (brand) {
-      const brandArray = brand.split(",");
-      values.push(brandArray);
+      values.push(brand.split(","));
       conditions.push(`make = ANY($${values.length})`);
     }
 
     if (btu) {
-      const btuArray = btu.split(",").map(Number);
-      values.push(btuArray);
+      values.push(btu.split(",").map(Number));
       conditions.push(`btu = ANY($${values.length})`);
     }
 
     if (roomVolume) {
       const [min, max] = roomVolume.split("-").map(Number);
-
-      values.push(min);
-      values.push(max);
-
+      values.push(min, max);
       conditions.push(`
-    p.room_area_min <= $${values.length} AND
-    p.room_area_max >= $${values.length - 1}
-  `);
+        p.room_area_min <= $${values.length} AND
+        p.room_area_max >= $${values.length - 1}
+      `);
     }
 
     if (color) {
-      const colorArray = color.split(",");
-      values.push(colorArray);
+      values.push(color.split(","));
       conditions.push(`color = ANY($${values.length})`);
     }
 
     if (coolingEnergyClass) {
-      const coolingEnergyClassArray = coolingEnergyClass.split(",");
-      values.push(coolingEnergyClassArray);
+      values.push(coolingEnergyClass.split(","));
       conditions.push(`cooling_energy_class = ANY($${values.length})`);
     }
 
     if (heatingEnergyClass) {
-      const heatingEnergyClassArray = heatingEnergyClass.split(",");
-      values.push(heatingEnergyClassArray);
+      values.push(heatingEnergyClass.split(","));
       conditions.push(`heating_energy_class = ANY($${values.length})`);
     }
 
@@ -102,6 +95,10 @@ router.get("/products", async (req, res) => {
 
     const sortQuery = getSortQuery(sort);
 
+    const pageNum = Math.max(Number(page) || 1, 1);
+    const limitNum = Math.min(Number(limit) || 12, 50);
+    const offset = (pageNum - 1) * limitNum;
+
     const products = await db.any(
       `
         SELECT p.*, c.category_value
@@ -109,12 +106,28 @@ router.get("/products", async (req, res) => {
         JOIN categories c ON p.category_id = c.category_id
         ${whereQuery}
         ${sortQuery}
+        LIMIT $${values.length + 1}
+        OFFSET $${values.length + 2}
+      `,
+      [...values, limitNum, offset]
+    );
 
+    const totalResult = await db.one(
+      `
+        SELECT COUNT(*) AS total
+        FROM products p
+        JOIN categories c ON p.category_id = c.category_id
+        ${whereQuery}
       `,
       values
     );
 
-    res.json(products);
+    res.json({
+      products,
+      total: Number(totalResult.total),
+      page: pageNum,
+      limit: limitNum,
+    });
   } catch (err) {
     console.error(err);
     res.status(500).send("Server error");
