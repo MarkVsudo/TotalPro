@@ -56,9 +56,11 @@ export default function AirConProducts({ products }) {
                 src={decideCompanyLogo(product.make)}
                 className="absolute top-0 left-0 h-12 w-12 object-contain"
               />
-              <div className="absolute top-0 right-0 bg-green-200 text-green-900 px-2 rounded-md">
-                -{product.discount}% намаление
-              </div>
+              {product.discount && (
+                <div className="absolute top-0 right-0 bg-green-200 text-green-900 px-2 rounded-md">
+                  -{product.discount}% намаление
+                </div>
+              )}
             </div>
             <div className="flex flex-col gap-2 flex-grow">
               <div>

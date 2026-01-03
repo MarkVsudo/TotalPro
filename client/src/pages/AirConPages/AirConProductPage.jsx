@@ -187,7 +187,12 @@ const AirConProductPage = () => {
           {/* Product Images with Swiper */}
           <div className="w-full lg:w-[55%] space-y-3 lg:space-y-4">
             {/* Main Swiper */}
-            <div className="rounded-xl lg:rounded-2xl overflow-hidden bg-white shadow-md border border-gray-200">
+            <div className="relative rounded-xl lg:rounded-2xl overflow-hidden bg-white shadow-md border border-gray-200 ">
+              {product.discount && (
+                <div className="absolute z-10 top-2 right-2 bg-green-200 text-green-900 px-2 rounded-md">
+                  -{product.discount}% намаление
+                </div>
+              )}
               <Swiper
                 className="product-swiper aspect-square lg:aspect-auto lg:h-130"
                 spaceBetween={10}
