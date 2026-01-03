@@ -96,11 +96,32 @@ const AirConProductPage = () => {
 
   const navigate = useNavigate();
 
-  const basePrice = 1249.0;
-  const installationPrice = 400.0;
-  const totalPrice = includeInstallation
-    ? basePrice + installationPrice
-    : basePrice;
+  const fetchProduct = async () => {
+    try {
+      const productId = slugAndId.split("-").pop();
+
+      const res = await axios.get(`/api/products/${productId}`);
+      setProduct(res.data);
+    } catch (err) {
+      // if (err.response?.status === 404) {
+      //   navigate("/404", { replace: true });
+      // } else {
+      //   console.error("Server error:", err);
+      // }
+      console.error("Server error:", err);
+      navigate("/404", { replace: true });
+    }
+  };
+
+  useEffect(() => {
+    fetchProduct();
+  }, [slugAndId]);
+
+  useEffect(() => {
+    if (product) {
+      console.log(product);
+    }
+  }, [product]);
 
   const specifications = [
     ["За помещения (кв.м.)", "от 10 до 15 кв.м."],
@@ -132,33 +153,6 @@ const AirConProductPage = () => {
     ["Захранване", "Външно"],
     ["Максимална дължина на тръбния път", "25 m"],
   ];
-
-  const fetchProduct = async () => {
-    try {
-      const productId = slugAndId.split("-").pop();
-
-      const res = await axios.get(`/api/products/${productId}`);
-      setProduct(res.data);
-    } catch (err) {
-      // if (err.response?.status === 404) {
-      //   navigate("/404", { replace: true });
-      // } else {
-      //   console.error("Server error:", err);
-      // }
-      console.error("Server error:", err);
-      navigate("/404", { replace: true });
-    }
-  };
-
-  useEffect(() => {
-    fetchProduct();
-  }, [slugAndId]);
-
-  useEffect(() => {
-    if (product) {
-      console.log(product);
-    }
-  }, [product]);
 
   if (!product) {
     return (
@@ -274,10 +268,10 @@ const AirConProductPage = () => {
           <div className="w-full lg:w-[45%] space-y-4 lg:space-y-6 ">
             <div>
               <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold text-[#002B5B] mb-2">
-                Инверторен климатик GREE PULAR GWH12AGB-K6DNA1A
+                {product.category_name} {product.product_name}
               </h1>
               <p className="text-base lg:text-lg text-gray-600 mb-4">
-                12000BTU, Клас A+++
+                {product.btu} BTU, Клас {product.cooling_energy_class}
               </p>
 
               <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4 mb-4">
@@ -297,10 +291,20 @@ const AirConProductPage = () => {
               <div className="bg-white rounded-xl p-4 sm:p-6 shadow-md border border-gray-200">
                 <div className="flex flex-col sm:flex-row sm:items-baseline gap-2 sm:gap-3 mb-4">
                   <span className="text-2xl sm:text-3xl lg:text-4xl font-bold text-[#002B5B]">
-                    {totalPrice.toFixed(2)} лв.
+                    {product.discount
+                      ? (
+                          Number(product.price) *
+                          (1 - Number(product.discount) / 100)
+                        ).toFixed(2)
+                      : product.price}
+                    €{" "}
                   </span>
-                  <span className="text-lg sm:text-xl text-gray-500">
-                    €{(totalPrice * 0.51).toFixed(2)}
+                  <span
+                    className={`text-lg sm:text-xl text-gray-500 ${
+                      product.discount ? "line-through" : "hidden"
+                    }`}
+                  >
+                    {product.price}€
                   </span>
                 </div>
 
@@ -308,13 +312,13 @@ const AirConProductPage = () => {
                   <div className="flex flex-col sm:flex-row sm:items-center gap-1">
                     <span>Арт. номер:</span>
                     <span className="font-semibold text-[#002B5B]">
-                      8252192
+                      {product.product_code}
                     </span>
                   </div>
                   <div className="flex flex-col sm:flex-row sm:items-center gap-1">
                     <span>Производител:</span>
                     <span className="font-semibold text-[#002B5B]">
-                      Mitsubishi
+                      {product.make}
                     </span>
                   </div>
                   <div className="flex items-center gap-2">
