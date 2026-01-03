@@ -14,13 +14,26 @@ export default function AirConPagination({ total }) {
     });
   };
 
+  const lastPage = Math.ceil(Number(total) / 12);
+
   return (
     <div className="flex items-center justify-between border-t border-gray-200 bg-white py-3 mt-4">
       <div className="hidden sm:flex sm:flex-1 sm:items-center sm:justify-between">
         <div>
           <p className="text-sm text-gray-700">
-            Показани са <span className="font-medium">1-12</span> от{" "}
-            <span className="font-medium">{total}</span> резултата
+            Показани са
+            {lastPage === page ? (
+              <span className="font-medium">
+                {" "}
+                {(page - 1) * 12 + 1}-{total}
+              </span>
+            ) : (
+              <span className="font-medium">
+                {" "}
+                {(page - 1) * 12 + 1}-{page * 12}
+              </span>
+            )}{" "}
+            от <span className="font-medium">{total}</span> резултата
           </p>
         </div>
         <div>
