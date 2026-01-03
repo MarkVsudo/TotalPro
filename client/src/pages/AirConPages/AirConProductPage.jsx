@@ -11,7 +11,9 @@ import {
   MdOutlineArrowBackIos,
   MdOutlineArrowForwardIos,
 } from "react-icons/md";
-
+import axios from "axios";
+import { useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import productImg5 from "../../assets/air-con-product-img-5.png";
 import productImg1 from "../../assets/air-con-product-img-1.jpeg";
 import productImg2 from "../../assets/air-con-product-img-2.jpeg";
@@ -85,44 +87,20 @@ const accessories = [
   },
 ];
 
-const convert = async (from, to, amount) => {
-  try {
-    const res = await fetch(
-      `https://api.frankfurter.app/latest?base=${from}&symbols=${to}`
-    );
-    const data = await res.json();
-    return (amount * data.rates[to]).toFixed(2);
-  } catch (error) {
-    console.error("Conversion failed:", error);
-    return null;
-  }
-};
-
 const AirConProductPage = () => {
-  const [convertedPrices, setConvertedPrices] = useState({});
+  const { slugAndId } = useParams();
+  const [product, setProduct] = useState(null);
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
   const [showSpecs, setShowSpecs] = useState(false);
   const [includeInstallation, setIncludeInstallation] = useState(false);
+
+  const navigate = useNavigate();
 
   const basePrice = 1249.0;
   const installationPrice = 400.0;
   const totalPrice = includeInstallation
     ? basePrice + installationPrice
     : basePrice;
-
-  useEffect(() => {
-    const fetchConversions = async () => {
-      const conversions = {};
-      for (const accessory of accessories) {
-        const numericPrice = parseFloat(accessory.price);
-        const converted = await convert("BGN", "EUR", numericPrice);
-        conversions[accessory.id] = converted;
-      }
-      setConvertedPrices(conversions);
-    };
-
-    fetchConversions();
-  }, []);
 
   const specifications = [
     ["За помещения (кв.м.)", "от 10 до 15 кв.м."],
@@ -155,6 +133,41 @@ const AirConProductPage = () => {
     ["Максимална дължина на тръбния път", "25 m"],
   ];
 
+  const fetchProduct = async () => {
+    try {
+      const productId = slugAndId.split("-").pop();
+
+      const res = await axios.get(`/api/products/${productId}`);
+      setProduct(res.data);
+    } catch (err) {
+      // if (err.response?.status === 404) {
+      //   navigate("/404", { replace: true });
+      // } else {
+      //   console.error("Server error:", err);
+      // }
+      console.error("Server error:", err);
+      navigate("/404", { replace: true });
+    }
+  };
+
+  useEffect(() => {
+    fetchProduct();
+  }, [slugAndId]);
+
+  useEffect(() => {
+    if (product) {
+      console.log(product);
+    }
+  }, [product]);
+
+  if (!product) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <p>Loading product...</p>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen">
       <div className="w-full mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6 lg:py-8">
@@ -170,7 +183,7 @@ const AirConProductPage = () => {
             </Link>
             <span className="mx-1 sm:mx-2">/</span>
             <span className="text-[#002B5B] break-all">
-              GREE PULAR GWH12AGB-K6DNA1A
+              {product.product_name.toUpperCase()}
             </span>
           </div>
         </nav>
@@ -476,11 +489,11 @@ const AirConProductPage = () => {
                       <p className="text-sm font-medium text-gray-900">
                         {accessory.price}лв.
                       </p>
-                      <p className="text-sm text-gray-500">
+                      {/* <p className="text-sm text-gray-500">
                         {convertedPrices[accessory.id]
                           ? `€${convertedPrices[accessory.id]}`
                           : "Loading..."}
-                      </p>
+                      </p> */}
                     </div>
                     <button
                       type="button"

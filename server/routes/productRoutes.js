@@ -134,14 +134,30 @@ router.get("/products", async (req, res) => {
   }
 });
 
-router.post("/product", async (req, res) => {
+router.get("/products/:id", async (req, res) => {
+  const { id } = req.params;
+
+  if (isNaN(id) || id.trim() === "") {
+    return res.status(404).json({ message: "Invalid product ID" });
+  }
+
   try {
-    // const products = await db.any("SELECT * FROM products");
-    // res.json(products);
-    console.log(res.data);
+    const product = await db.oneOrNone(
+      `SELECT p.*, c.category_name
+       FROM products p
+       JOIN categories c ON p.category_id = c.category_id
+       WHERE product_id = $1`,
+      [id]
+    );
+
+    if (!product) {
+      return res.status(404).json({ message: "Product not found" });
+    }
+
+    res.json(product);
   } catch (err) {
-    console.error(err);
-    res.status(500).send("Server error");
+    console.error("Database error:", err);
+    res.status(500).json({ message: "Server error" });
   }
 });
 

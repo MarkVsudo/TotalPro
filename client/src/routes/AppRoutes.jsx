@@ -53,7 +53,7 @@ const router = createBrowserRouter([
     children: [
       { index: true, element: withAnimation(<AirConStorePage />) },
       { path: "services", element: withAnimation(<AirConServicesPage />) },
-      { path: ":id", element: withAnimation(<AirConProductPage />) },
+      { path: ":slugAndId", element: withAnimation(<AirConProductPage />) },
     ],
   },
   {
@@ -158,6 +158,10 @@ const router = createBrowserRouter([
   {
     path: "/login",
     element: withAnimation(<LoginPage />),
+  },
+  {
+    path: "/404",
+    element: withAnimation(<NotFoundPage />),
   },
   {
     path: "*",
