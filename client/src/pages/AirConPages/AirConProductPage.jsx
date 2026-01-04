@@ -47,43 +47,27 @@ const productImgs = [
 const accessories = [
   {
     id: 1,
-    name: "PVC кондензна вана",
+    name: "PVC кондензна вана + монтаж",
     href: "/air-conditioning/1",
     imageSrc: accessoryImg1,
     imageAlt: "Вътрешно тяло снимка",
-    price: "55.00",
+    price: "54.99",
   },
   {
     id: 2,
-    name: "Комплект PVC кондензна вана + нагревател",
+    name: "Комплект PVC кондензна вана + нагревател + монтаж",
     href: "#",
     imageSrc: accessoryImg3,
     imageAlt: "Вътрешно тяло снимка",
-    price: "100.00",
+    price: "74.99",
   },
   {
     id: 3,
-    name: "Комплект антивибрационни тампони (4 бр.)",
+    name: "Комплект антивибрационни тампони (4 бр.) + монтаж",
     href: "#",
     imageSrc: accessoryImg2,
     imageAlt: "Вътрешно тяло снимка",
-    price: "30.00",
-  },
-  {
-    id: 4,
-    name: "Желязна кондензна вана",
-    href: "#",
-    imageSrc: accessoryImg4,
-    imageAlt: "Вътрешно тяло снимка",
-    price: "70.00",
-  },
-  {
-    id: 5,
-    name: "Комплект желязна кондензна вана + нагревател",
-    href: "#",
-    imageSrc: accessoryImg5,
-    imageAlt: "Вътрешно тяло снимка",
-    price: "115.00",
+    price: "19.99",
   },
 ];
 
@@ -421,6 +405,56 @@ const AirConProductPage = () => {
           </div>
         </div>
 
+        {/* Accessories */}
+        <div className="bg-white rounded-xl lg:rounded-2xl p-4 sm:p-6 lg:p-8 shadow-md border border-gray-200  mb-8 lg:mb-16">
+          <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-6 sm:mb-8">
+            Допълнителни аксесоари
+          </h2>
+          <div className="flex  gap-4 sm:gap-6 ">
+            {accessories.map((accessory) => (
+              <Link to={accessory.href} key={accessory.id} className="flex-1">
+                <div className="group relative h-full flex flex-col">
+                  <div className="relative overflow-hidden ">
+                    <img
+                      alt={accessory.imageAlt}
+                      src={accessory.imageSrc}
+                      className="aspect-square w-full rounded-md object-contain group-hover:brightness-102
+                      group-hover:scale-105 lg:aspect-auto lg:h-50 transition-all"
+                    />
+                    <div className="absolute top-0 right-0 bg-green-200 text-green-900 px-2 rounded-md">
+                      -5% намаление
+                    </div>
+                  </div>
+                  <div className="flex flex-col gap-2 flex-grow">
+                    <div>
+                      <h3 className="text-sm text-gray-700">
+                        {accessory.name}
+                      </h3>
+                    </div>
+                    <div className="flex gap-2 items-center">
+                      <p className="text-sm font-medium text-gray-900">
+                        {accessory.price} €
+                      </p>
+                      {/* <p className="text-sm text-gray-500">
+                        {convertedPrices[accessory.id]
+                          ? `€${convertedPrices[accessory.id]}`
+                          : "Loading..."}
+                      </p> */}
+                    </div>
+                    <button
+                      type="button"
+                      className="flex justify-center items-center gap-x-2 w-full bg-[#002B5B] hover:bg-blue-900 text-white py-2 rounded-lg font-medium shadow-md cursor-pointer transition-colors mt-auto"
+                    >
+                      <IoBagAddOutline className="h-5 w-5" />
+                      Добави
+                    </button>
+                  </div>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
+
         {/* Product Description */}
         <div className="bg-white rounded-xl lg:rounded-2xl p-4 sm:p-6 lg:p-8 shadow-md border border-gray-200 mb-8 lg:mb-16">
           <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-3 sm:mb-4">
@@ -465,56 +499,6 @@ const AirConProductPage = () => {
                   </span>
                 </div>
               ))}
-          </div>
-        </div>
-
-        {/* Accessories */}
-        <div className="bg-white rounded-xl lg:rounded-2xl p-4 sm:p-6 lg:p-8 shadow-md border border-gray-200">
-          <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-6 sm:mb-8">
-            Допълнителни аксесоари
-          </h2>
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 sm:gap-6 ">
-            {accessories.map((accessory) => (
-              <Link to={accessory.href} key={accessory.id}>
-                <div className="group relative h-full flex flex-col ">
-                  <div className="relative overflow-hidden ">
-                    <img
-                      alt={accessory.imageAlt}
-                      src={accessory.imageSrc}
-                      className="aspect-square w-full rounded-md object-contain group-hover:brightness-102
-                      group-hover:scale-105 lg:aspect-auto lg:h-80 transition-all"
-                    />
-                    <div className="absolute top-0 right-0 bg-green-200 text-green-900 px-2 rounded-md">
-                      -5% намаление
-                    </div>
-                  </div>
-                  <div className="flex flex-col gap-2 flex-grow">
-                    <div>
-                      <h3 className="text-sm text-gray-700">
-                        {accessory.name}
-                      </h3>
-                    </div>
-                    <div className="flex gap-2 items-center">
-                      <p className="text-sm font-medium text-gray-900">
-                        {accessory.price}лв.
-                      </p>
-                      {/* <p className="text-sm text-gray-500">
-                        {convertedPrices[accessory.id]
-                          ? `€${convertedPrices[accessory.id]}`
-                          : "Loading..."}
-                      </p> */}
-                    </div>
-                    <button
-                      type="button"
-                      className="flex justify-center items-center gap-x-2 w-full bg-[#002B5B] hover:bg-blue-900 text-white py-2 rounded-lg font-medium shadow-md cursor-pointer transition-colors mt-auto"
-                    >
-                      <IoBagAddOutline className="h-5 w-5" />
-                      Добави
-                    </button>
-                  </div>
-                </div>
-              </Link>
-            ))}
           </div>
         </div>
       </div>
