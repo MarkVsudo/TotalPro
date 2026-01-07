@@ -90,7 +90,7 @@ const InverterAirConditioners = () => {
         data.append("folder", "Products");
 
         const res = await axios.post(
-          "https://api.cloudinary.com/v1_1/dneyuabzg/image/upload",
+          "https://api.cloudinary.com/v1_1/dh1arjjjy/image/upload",
           data
         );
 

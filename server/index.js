@@ -5,6 +5,7 @@ import dotenv from "dotenv";
 import mailerRoutes from "./routes/mailerRoutes.js";
 import productRoutes from "./routes/productRoutes.js";
 import authRoutes from "./routes/authRoutes.js";
+import dashboardRoutes from "./routes/dashboardRoutes.js";
 
 dotenv.config();
 
@@ -20,6 +21,8 @@ app.get("/", (req, res) => {
 app.use("/api/mailer", mailerRoutes);
 
 app.use("/api", productRoutes);
+
+app.use("/api/dashboard", dashboardRoutes);
 
 app.use("/api/auth", authRoutes);
 

@@ -25,8 +25,6 @@ import productImg8 from "../../assets/air-con-product-img-8.jpeg";
 import accessoryImg1 from "../../assets/air-con-accessory-img-1.jpg";
 import accessoryImg2 from "../../assets/air-con-accessory-img-2.jpg";
 import accessoryImg3 from "../../assets/air-con-accessory-img-3.jpg";
-import accessoryImg4 from "../../assets/air-con-accessory-img-4.jpg";
-import accessoryImg5 from "../../assets/air-con-accessory-img-5.jpg";
 
 import "swiper/css";
 import "swiper/css/thumbs";
