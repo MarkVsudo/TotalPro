@@ -42,7 +42,7 @@ export default function AirConProducts({ products }) {
       className={`bg-white grid gap-x-6 xl:gap-x-8 gap-y-10 ${gridClasses[effectiveGrid]}`}
     >
       {products.map((product, index) => (
-        <Link to={product.href} key={index}>
+        <Link to={`/${product.slug}-${product.product_id}`} key={index}>
           <div className="group relative h-full flex flex-col">
             <div className="relative overflow-hidden">
               <img

@@ -50,7 +50,6 @@ const InverterAirConditioners = () => {
       maxPipeLength: "",
     },
     image_url: "",
-    href: "",
   });
 
   const classes = ["Начален клас", "Междинен клас", "Висок клас"];
@@ -308,24 +307,6 @@ const InverterAirConditioners = () => {
               type="text"
               required
               value={formData.image_url || ""}
-              onChange={handleInputChange}
-              className="mt-2 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 text-gray-900 shadow-sm focus:outline-none focus:ring-1 focus:ring-[#002B5B] focus:border-[#002B5B] sm:text-sm"
-            />
-          </div>
-
-          <div className="mt-1">
-            <label
-              htmlFor="href"
-              className="block text-sm font-medium text-gray-700 mb-2"
-            >
-              URL <span className="text-red-500">*</span>
-            </label>
-            <input
-              id="href"
-              name="href"
-              type="text"
-              required
-              value={formData.href || ""}
               onChange={handleInputChange}
               className="mt-2 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 text-gray-900 shadow-sm focus:outline-none focus:ring-1 focus:ring-[#002B5B] focus:border-[#002B5B] sm:text-sm"
             />

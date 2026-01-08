@@ -91,7 +91,9 @@ export default function Cart() {
                               <div>
                                 <div className="flex justify-between text-base font-medium text-gray-900">
                                   <h3>
-                                    <Link to={product.href}>
+                                    <Link
+                                      to={`/${product.slug}-${product.product_id}`}
+                                    >
                                       {product.name}
                                     </Link>
                                   </h3>
