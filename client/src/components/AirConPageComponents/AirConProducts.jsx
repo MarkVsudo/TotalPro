@@ -47,7 +47,7 @@ export default function AirConProducts({ products }) {
             <div className="relative overflow-hidden">
               <img
                 alt="Product front image"
-                src={product.image_url}
+                src="https://res.cloudinary.com/dh1arjjjy/image/upload/v1767629392/ac1_fw4rmi.webp"
                 className="aspect-square w-full rounded-md object-contain group-hover:brightness-102
                       group-hover:scale-105 lg:aspect-auto lg:h-80 transition-all"
               />

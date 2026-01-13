@@ -1,18 +1,21 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import axios from "axios";
 import Dropdown from "../../shared/Dropdown";
 import { MdOutlinePhotoSizeSelectActual } from "react-icons/md";
 import { IoIosRemoveCircle } from "react-icons/io";
-
 import { AdvancedImage } from "@cloudinary/react";
 import { Cloudinary } from "@cloudinary/url-gen";
+
+import ErrorAlert from "./../../shared/ErrorAlert";
+import SucessAlert from "./../../shared/SucessAlert";
+
 const InverterAirConditioners = () => {
   const [uploadedImages, setUploadedImages] = useState([]);
   const [isSuccess, setIsSuccess] = useState(null);
 
   const [formData, setFormData] = useState({
     categoryId: 1,
-    productCode: "",
+    productCode: "blabla",
     productName: "",
     price: null,
     overallClass: "",
@@ -23,7 +26,6 @@ const InverterAirConditioners = () => {
     color: "",
     coolingEnergyClass: "",
     heatingEnergyClass: "",
-    discount: null,
     spec: {
       coolingVolume: null,
       heatingVolume: null,
@@ -49,7 +51,10 @@ const InverterAirConditioners = () => {
       powerSupply: "",
       maxPipeLength: "",
     },
-    image_url: "",
+    discount: null,
+    manufacturedDate: null,
+    popularity: null,
+    slug: "",
   });
 
   const classes = ["Начален клас", "Междинен клас", "Висок клас"];
@@ -79,36 +84,76 @@ const InverterAirConditioners = () => {
     e.preventDefault();
 
     try {
-      // 1️⃣ Upload each image to Cloudinary
-      const imageUrls = [];
+      // 1️⃣ Insert product first
+      setFormData({
+        ...formData,
+        slug: `${formData.make.toLowerCase()}-${formData.btu}btu`,
+      });
 
-      for (const img of uploadedImages) {
+      const payload = {
+        category_id: formData.categoryId,
+        product_code: formData.productCode,
+        product_name: formData.productName,
+        price: formData.price,
+        overall_class: formData.overallClass,
+        make: formData.make,
+        btu: formData.btu,
+        room_area_min: formData.roomAreaMin,
+        room_area_max: formData.roomAreaMax,
+        color: formData.color,
+        cooling_energy_class: formData.coolingEnergyClass,
+        heating_energy_class: formData.heatingEnergyClass,
+        spec: formData.spec,
+        discount: formData.discount,
+        manufactured_date: formData.manufactured_date,
+        popularity: formData.popularity,
+        slug: formData.slug,
+      };
+
+      const productRes = await axios.post(
+        "/api/dashboard/add-product",
+        payload
+      );
+      const productId = productRes.data.id;
+
+      // 2️⃣ Get signed payload for uploads
+      const sigRes = await axios.get(
+        `/api/cloudinary/cloudinary-signature?productId=${productId}`
+      );
+
+      const uploaded = [];
+
+      // 3️⃣ Upload each image directly to Cloudinary
+      for (let i = 0; i < uploadedImages.length; i++) {
+        const img = uploadedImages[i];
         const data = new FormData();
         data.append("file", img.file);
-        data.append("upload_preset", "TotalPro");
-        data.append("folder", "Products");
+        data.append("api_key", sigRes.data.api_key);
+        data.append("timestamp", sigRes.data.timestamp);
+        data.append("signature", sigRes.data.signature);
+        data.append("folder", sigRes.data.folder);
+        data.append("public_id", `${productRes.slug}-${productId}`);
 
-        const res = await axios.post(
-          "https://api.cloudinary.com/v1_1/dh1arjjjy/image/upload",
+        const cloudRes = await axios.post(
+          `https://api.cloudinary.com/v1_1/${sigRes.data.cloud_name}/image/upload`,
           data
         );
 
-        imageUrls.push({
-          url: res.data.secure_url,
-          position: imageUrls.length + 1,
+        uploaded.push({
+          publicId: cloudRes.data.public_id,
+          position: i,
+          isMain: i === 0,
         });
       }
 
-      // 2️⃣ Prepare your final payload (no files!)
-      const payload = {
-        ...formData,
-        images: imageUrls, // store URLs + positions
-      };
-
-      // 3️⃣ Send payload to your backend
-      await axios.post("/api/product", payload);
+      // 4️⃣ Send uploaded image info to backend
+      await axios.post("/api/dashboard/add-product-images", {
+        productId,
+        images: uploaded,
+      });
 
       setIsSuccess(true);
+      setUploadedImages([]); // optionally clear the upload area
     } catch (err) {
       console.error("Error adding product:", err);
       setIsSuccess(false);
@@ -200,7 +245,7 @@ const InverterAirConditioners = () => {
               htmlFor="price"
               className="block text-sm font-medium text-gray-700 mb-2"
             >
-              Цена (лв.) <span className="text-red-500">*</span>
+              Цена (EUR) <span className="text-red-500">*</span>
             </label>
             <input
               id="price"
@@ -210,6 +255,27 @@ const InverterAirConditioners = () => {
               step="0.1"
               min="0.00"
               value={formData.price || ""}
+              onChange={handleInputChange}
+              className="mt-2 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 text-gray-900 shadow-sm focus:outline-none focus:ring-1 focus:ring-[#002B5B] focus:border-[#002B5B] sm:text-sm"
+            />
+          </div>
+
+          <div className="mt-1">
+            <label
+              htmlFor="discount"
+              className="block text-sm font-medium text-gray-700 mb-2"
+            >
+              Намаление (%) <span className="text-red-500">*</span>
+            </label>
+            <input
+              id="discount"
+              name="discount"
+              type="number"
+              required
+              step="1"
+              min="0"
+              max="100"
+              value={formData.discount || ""}
               onChange={handleInputChange}
               className="mt-2 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 text-gray-900 shadow-sm focus:outline-none focus:ring-1 focus:ring-[#002B5B] focus:border-[#002B5B] sm:text-sm"
             />
@@ -296,17 +362,38 @@ const InverterAirConditioners = () => {
 
           <div className="mt-1">
             <label
-              htmlFor="image_url"
+              htmlFor="manufacturedDate"
               className="block text-sm font-medium text-gray-700 mb-2"
             >
-              Изображение <span className="text-red-500">*</span>
+              Дата на производство <span className="text-red-500">*</span>
             </label>
             <input
-              id="image_url"
-              name="image_url"
-              type="text"
+              id="manufacturedDate"
+              name="manufacturedDate"
+              type="date"
               required
-              value={formData.image_url || ""}
+              value={formData.manufacturedDate || ""}
+              onChange={handleInputChange}
+              className="mt-2 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 text-gray-900 shadow-sm focus:outline-none focus:ring-1 focus:ring-[#002B5B] focus:border-[#002B5B] sm:text-sm"
+            />
+          </div>
+
+          <div className="mt-1">
+            <label
+              htmlFor="popularity"
+              className="block text-sm font-medium text-gray-700 mb-2"
+            >
+              Популярност <span className="text-red-500">*</span>
+            </label>
+            <input
+              id="popularity"
+              name="popularity"
+              type="number"
+              min="0"
+              max="5"
+              step="0.1"
+              required
+              value={formData.popularity || ""}
               onChange={handleInputChange}
               className="mt-2 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 text-gray-900 shadow-sm focus:outline-none focus:ring-1 focus:ring-[#002B5B] focus:border-[#002B5B] sm:text-sm"
             />
