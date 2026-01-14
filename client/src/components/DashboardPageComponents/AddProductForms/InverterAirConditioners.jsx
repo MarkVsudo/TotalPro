@@ -85,14 +85,14 @@ const InverterAirConditioners = () => {
 
     try {
       // 1️⃣ Insert product first
-      setFormData({
-        ...formData,
-        slug: `${formData.make.toLowerCase()}-${formData.btu}btu`,
-      });
+      const product_code = `${formData.make.substring(0, 2).toUpperCase()}-${
+        formData.btu
+      }-${formData.productName.replace(/\s+/g, "")}`;
+      const slug = `${formData.make.toLowerCase()}-${formData.btu}btu`;
 
       const payload = {
         category_id: formData.categoryId,
-        product_code: formData.productCode,
+        product_code: product_code,
         product_name: formData.productName,
         price: formData.price,
         overall_class: formData.overallClass,
@@ -105,21 +105,20 @@ const InverterAirConditioners = () => {
         heating_energy_class: formData.heatingEnergyClass,
         spec: formData.spec,
         discount: formData.discount,
-        manufactured_date: formData.manufactured_date,
+        manufactured_date: formData.manufacturedDate,
         popularity: formData.popularity,
-        slug: formData.slug,
+        slug: slug,
       };
 
       const productRes = await axios.post(
         "/api/dashboard/add-product",
         payload
       );
+
       const productId = productRes.data.id;
 
       // 2️⃣ Get signed payload for uploads
-      const sigRes = await axios.get(
-        `/api/cloudinary/cloudinary-signature?productId=${productId}`
-      );
+      const sigRes = await axios.get(`/api/cloudinary/cloudinary-signature`);
 
       const uploaded = [];
 
@@ -132,7 +131,6 @@ const InverterAirConditioners = () => {
         data.append("timestamp", sigRes.data.timestamp);
         data.append("signature", sigRes.data.signature);
         data.append("folder", sigRes.data.folder);
-        data.append("public_id", `${productRes.slug}-${productId}`);
 
         const cloudRes = await axios.post(
           `https://api.cloudinary.com/v1_1/${sigRes.data.cloud_name}/image/upload`,
