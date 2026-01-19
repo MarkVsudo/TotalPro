@@ -35,7 +35,7 @@ const products = [
 ];
 
 export default function Cart() {
-  const { isCartOpen, closeCart } = useCart();
+  const { isCartOpen, closeCart, removeFromCart, cartItems } = useCart();
 
   return (
     <Dialog open={isCartOpen} onClose={closeCart} className="relative z-10">
@@ -110,6 +110,9 @@ export default function Cart() {
                                 <div className="flex">
                                   <button
                                     type="button"
+                                    onClick={() =>
+                                      removeFromCart(product.product_id)
+                                    }
                                     className="font-medium text-[#002B5B] hover:text-blue-900 cursor-pointer"
                                   >
                                     Премахни

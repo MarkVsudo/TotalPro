@@ -5,6 +5,7 @@ import GreeLogo from "../../assets/AirConBrands/gree.png";
 import DaikinLogo from "../../assets/AirConBrands/daikin.png";
 import MitsubishiElLogo from "../../assets/AirConBrands/mitsubishi-electric.png";
 import FujitsuLogo from "../../assets/AirConBrands/fujitsu.png";
+import { useCart } from "../../context/CartContext";
 
 const decideCompanyLogo = (name) => {
   switch (name) {
@@ -37,13 +38,15 @@ export default function AirConProducts({ products }) {
     4: "grid-cols-1 sm:grid-cols-2 lg:grid-cols-4",
   };
 
+  const { addToCart } = useCart();
+
   return (
     <div
       className={`bg-white grid gap-x-6 xl:gap-x-8 gap-y-10 ${gridClasses[effectiveGrid]}`}
     >
       {products.map((product, index) => (
-        <Link to={`/${product.slug}-${product.product_id}`} key={index}>
-          <div className="group relative h-full flex flex-col">
+        <div key={index} className="group relative h-full flex flex-col">
+          <Link to={`/${product.slug}-${product.product_id}`}>
             <div className="relative overflow-hidden">
               <img
                 alt="Product front image"
@@ -62,40 +65,39 @@ export default function AirConProducts({ products }) {
                 </div>
               )}
             </div>
-            <div className="flex flex-col gap-2 flex-grow">
-              <div>
-                <h3 className="text-sm text-gray-700">
-                  {product.product_name}
-                </h3>
-              </div>
-              <div className="flex gap-2 items-center">
-                <p className="text-sm font-medium text-gray-900">
-                  {product.discount
-                    ? (
-                        Number(product.price) *
-                        (1 - Number(product.discount) / 100)
-                      ).toFixed(2)
-                    : product.price}
-                  €
-                </p>
-                <p
-                  className={`text-sm text-gray-500 ${
-                    product.discount ? "line-through" : "hidden"
-                  }`}
-                >
-                  {product.price}€
-                </p>
-              </div>
-              <button
-                type="button"
-                className="flex justify-center items-center gap-x-2 w-full bg-[#002B5B] hover:bg-blue-900 text-white py-2 rounded-lg font-medium shadow-md cursor-pointer transition-colors mt-auto"
-              >
-                <IoBagAddOutline className="h-5 w-5" />
-                Добави
-              </button>
+          </Link>
+          <div className="flex flex-col gap-2 flex-grow">
+            <div>
+              <h3 className="text-sm text-gray-700">{product.product_name}</h3>
             </div>
+            <div className="flex gap-2 items-center">
+              <p className="text-sm font-medium text-gray-900">
+                {product.discount
+                  ? (
+                      Number(product.price) *
+                      (1 - Number(product.discount) / 100)
+                    ).toFixed(2)
+                  : product.price}
+                €
+              </p>
+              <p
+                className={`text-sm text-gray-500 ${
+                  product.discount ? "line-through" : "hidden"
+                }`}
+              >
+                {product.price}€
+              </p>
+            </div>
+            <button
+              type="button"
+              onClick={() => addToCart(product)}
+              className="flex justify-center items-center gap-x-2 w-full bg-[#002B5B] hover:bg-blue-900 text-white py-2 rounded-lg font-medium shadow-md cursor-pointer transition-colors mt-auto"
+            >
+              <IoBagAddOutline className="h-5 w-5" />
+              Добави
+            </button>
           </div>
-        </Link>
+        </div>
       ))}
     </div>
   );
