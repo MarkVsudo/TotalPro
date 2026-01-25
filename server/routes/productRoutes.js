@@ -109,7 +109,7 @@ router.get("/products", async (req, res) => {
         LIMIT $${values.length + 1}
         OFFSET $${values.length + 2}
       `,
-      [...values, limitNum, offset]
+      [...values, limitNum, offset],
     );
 
     const totalResult = await db.one(
@@ -119,12 +119,15 @@ router.get("/products", async (req, res) => {
         JOIN categories c ON p.category_id = c.category_id
         ${whereQuery}
       `,
-      values
+      values,
     );
+
+    const productImgs = await db.any("SELECT * FROM product_images");
 
     res.json({
       products,
       total: Number(totalResult.total),
+      productImgs,
       page: pageNum,
       limit: limitNum,
     });
@@ -147,7 +150,7 @@ router.get("/products/:id", async (req, res) => {
        FROM products p
        JOIN categories c ON p.category_id = c.category_id
        WHERE product_id = $1`,
-      [id]
+      [id],
     );
 
     if (!product) {

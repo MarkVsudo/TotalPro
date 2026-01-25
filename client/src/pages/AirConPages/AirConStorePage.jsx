@@ -9,6 +9,7 @@ import AirConProducts from "../../components/AirConPageComponents/AirConProducts
 import AirConSort from "../../components/AirConPageComponents/AirConSort";
 const AirConStorePage = () => {
   const [products, setProducts] = useState([]);
+  const [productImgs, setProductImgs] = useState([]);
   const [total, setTotal] = useState(0);
   const [searchParams] = useSearchParams();
 
@@ -44,6 +45,7 @@ const AirConStorePage = () => {
         });
         setProducts(res.data.products);
         setTotal(res.data.total);
+        setProductImgs(res.data.productImgs);
       } catch (err) {
         console.error(err);
       }
@@ -51,6 +53,18 @@ const AirConStorePage = () => {
 
     fetchProducts();
   }, [searchParams]);
+
+  const gridParam = Number(searchParams.get("grid")) || 4;
+
+  const isMobile = window.matchMedia("(max-width: 640px)").matches;
+
+  const effectiveGrid = isMobile ? Math.min(gridParam, 2) : gridParam;
+
+  const gridClasses = {
+    2: "grid-cols-1 sm:grid-cols-2",
+    3: "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3",
+    4: "grid-cols-1 sm:grid-cols-2 lg:grid-cols-4",
+  };
 
   return (
     <>
@@ -60,7 +74,11 @@ const AirConStorePage = () => {
         <div className="grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-4">
           <AirConFilters />
           <div className="lg:col-span-3">
-            <AirConProducts products={products} />
+            <div
+              className={`bg-white grid gap-x-6 xl:gap-x-8 gap-y-10 ${gridClasses[effectiveGrid]}`}
+            >
+              <AirConProducts products={products} productImgs={productImgs} />
+            </div>
             <AirConPagination total={total} />
           </div>
         </div>
