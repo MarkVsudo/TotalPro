@@ -9,6 +9,7 @@ import {
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { useCart } from "../../context/CartContext";
 import { useState, useEffect } from "react";
+import ImageNotFound from "../../assets/image-not-found.png";
 
 export default function Cart() {
   const { isCartOpen, closeCart, removeFromCart, cartItems } = useCart();
@@ -65,15 +66,16 @@ export default function Cart() {
                         role="list"
                         className="-my-6 divide-y divide-gray-200"
                       >
-                        {cartItems.map((item) => (
-                          <li
-                            key={item.product.product_id}
-                            className="flex py-6"
-                          >
+                        {cartItems.map((item, index) => (
+                          <li key={index} className="flex py-6">
                             <div className="size-24 shrink-0 overflow-hidden rounded-md border border-gray-200">
                               <img
                                 alt={`${item.product.slug} cover image`}
-                                src={`https://res.cloudinary.com/dh1arjjjy/image/upload/v1768349183/${item.mainImg.public_id}`}
+                                src={
+                                  item.mainImg?.public_id
+                                    ? `https://res.cloudinary.com/dh1arjjjy/image/upload/v1768349183/${item.mainImg.public_id}`
+                                    : ImageNotFound
+                                }
                                 className="size-full object-cover"
                               />
                             </div>
