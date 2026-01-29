@@ -9,30 +9,6 @@ import {
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { useCart } from "../../context/CartContext";
 import { useState, useEffect } from "react";
-const products = [
-  {
-    id: 1,
-    name: "Климатик GREE GWH09AKCXD-K6DNA1A Soyal II",
-    href: "#",
-    color: "Бял",
-    price: "1920.00лв.",
-    quantity: 1,
-    imageSrc:
-      "https://megaelectronics.bg/wp-content/uploads/2021/05/soyal-new-model-1.jpg",
-    imageAlt: "Климатик GREE GWH09AKCXD-K6DNA1A Soyal II.",
-  },
-  {
-    id: 2,
-    name: "Климатик GREE GWH12AGCXB-K6DNA1C Pular ECO +",
-    href: "#",
-    color: "Бял",
-    price: "1449.00лв.",
-    quantity: 1,
-    imageSrc:
-      "https://megaelectronics.bg/wp-content/uploads/2021/09/gree-pular-eco.jpg",
-    imageAlt: "Климатик GREE GWH12AGCXB-K6DNA1C Pular ECO +.",
-  },
-];
 
 export default function Cart() {
   const { isCartOpen, closeCart, removeFromCart, cartItems } = useCart();
@@ -89,52 +65,6 @@ export default function Cart() {
                         role="list"
                         className="-my-6 divide-y divide-gray-200"
                       >
-                        {products.map((product) => (
-                          <li key={product.id} className="flex py-6">
-                            <div className="size-24 shrink-0 overflow-hidden rounded-md border border-gray-200">
-                              <img
-                                alt={product.imageAlt}
-                                src={product.imageSrc}
-                                className="size-full object-cover"
-                              />
-                            </div>
-
-                            <div className="ml-4 flex flex-1 flex-col">
-                              <div>
-                                <div className="flex justify-between text-base font-medium text-gray-900">
-                                  <h3>
-                                    <Link
-                                      to={`/${product.slug}-${product.product_id}`}
-                                    >
-                                      {product.name}
-                                    </Link>
-                                  </h3>
-                                  <p className="ml-4">{product.price}</p>
-                                </div>
-                                <p className="mt-1 text-sm text-gray-500">
-                                  {product.color}
-                                </p>
-                              </div>
-                              <div className="flex flex-1 items-end justify-between text-sm">
-                                <p className="text-gray-500">
-                                  Количество: {product.quantity}
-                                </p>
-
-                                <div className="flex">
-                                  <button
-                                    type="button"
-                                    onClick={() =>
-                                      removeFromCart(product.product_id)
-                                    }
-                                    className="font-medium text-[#002B5B] hover:text-blue-900 cursor-pointer"
-                                  >
-                                    Премахни
-                                  </button>
-                                </div>
-                              </div>
-                            </div>
-                          </li>
-                        ))}
                         {cartItems.map((item) => (
                           <li
                             key={item.product.product_id}
