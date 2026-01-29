@@ -8,7 +8,7 @@ import {
 } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { useCart } from "../../context/CartContext";
-
+import { useState, useEffect } from "react";
 const products = [
   {
     id: 1,
@@ -36,6 +36,19 @@ const products = [
 
 export default function Cart() {
   const { isCartOpen, closeCart, removeFromCart, cartItems } = useCart();
+
+  console.log(cartItems);
+
+  const [totalPrice, setTotalPrice] = useState(0);
+
+  useEffect(() => {
+    setTotalPrice(
+      cartItems.reduce(
+        (acc, curr) => acc + parseFloat(curr.product.price) * curr.quantity,
+        0,
+      ),
+    );
+  }, [cartItems]);
 
   return (
     <Dialog open={isCartOpen} onClose={closeCart} className="relative z-10">
@@ -122,6 +135,55 @@ export default function Cart() {
                             </div>
                           </li>
                         ))}
+                        {cartItems.map((item) => (
+                          <li
+                            key={item.product.product_id}
+                            className="flex py-6"
+                          >
+                            <div className="size-24 shrink-0 overflow-hidden rounded-md border border-gray-200">
+                              <img
+                                alt={`${item.product.slug} cover image`}
+                                src={`https://res.cloudinary.com/dh1arjjjy/image/upload/v1768349183/${item.mainImg.public_id}`}
+                                className="size-full object-cover"
+                              />
+                            </div>
+
+                            <div className="ml-4 flex flex-1 flex-col">
+                              <div>
+                                <div className="flex justify-between text-base font-medium text-gray-900">
+                                  <h3>
+                                    <Link
+                                      to={`/${item.product.slug}-${item.product.product_id}`}
+                                    >
+                                      {item.product.product_name}
+                                    </Link>
+                                  </h3>
+                                  <p className="ml-4">{item.product.price}€</p>
+                                </div>
+                                <p className="mt-1 text-sm text-gray-500">
+                                  {item.product.color}
+                                </p>
+                              </div>
+                              <div className="flex flex-1 items-end justify-between text-sm">
+                                <p className="text-gray-500">
+                                  Количество: {item.quantity}
+                                </p>
+
+                                <div className="flex">
+                                  <button
+                                    type="button"
+                                    onClick={() =>
+                                      removeFromCart(item.product.product_id)
+                                    }
+                                    className="font-medium text-[#002B5B] hover:text-blue-900 cursor-pointer"
+                                  >
+                                    Премахни
+                                  </button>
+                                </div>
+                              </div>
+                            </div>
+                          </li>
+                        ))}
                       </ul>
                     </div>
                   </div>
@@ -130,22 +192,19 @@ export default function Cart() {
                 <div className="border-t border-gray-200 px-4 py-6 sm:px-6">
                   <div className="flex justify-between text-base font-medium text-gray-900">
                     <p>Междинна сума</p>
-                    <p>
-                      3369.00лв.{" "}
-                      <span className="text-sm ext-gray-500">(€1722.57)</span>
-                    </p>
+                    <span>{totalPrice.toFixed(2)}€</span>
                   </div>
                   <p className="mt-0.5 text-sm text-gray-500">
                     Доставката и данъците се изчисляват при финализиране на
                     поръчката.
                   </p>
                   <div className="mt-6">
-                    <a
-                      href="#"
+                    <Link
+                      to={"/checkout"}
                       className="flex items-center justify-center rounded-lg border border-transparent bg-[#002B5B]  px-6 py-3 text-base font-medium text-white shadow-xs hover:bg-blue-900 transition-colors duration-200"
                     >
                       Завърши поръчката
-                    </a>
+                    </Link>
                   </div>
                   <div className="mt-6 flex justify-center text-center text-sm text-gray-500">
                     <p>

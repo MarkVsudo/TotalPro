@@ -25,8 +25,6 @@ const decideCompanyLogo = (name) => {
 export default function AirConProducts({ products, productImgs }) {
   const { addToCart } = useCart();
 
-  console.log(productImgs);
-
   const findMainImg = (product) =>
     productImgs.find(
       (img) => img.product_id === product.product_id && img.is_main,
@@ -97,7 +95,7 @@ export default function AirConProducts({ products, productImgs }) {
 
               <button
                 type="button"
-                onClick={() => addToCart(product)}
+                onClick={() => addToCart(product, mainImg)}
                 className="flex justify-center items-center gap-x-2 w-full bg-[#002B5B] hover:bg-blue-900 text-white py-2 rounded-lg font-medium shadow-md cursor-pointer transition-colors mt-auto"
               >
                 <IoBagAddOutline className="h-5 w-5" />
