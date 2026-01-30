@@ -7,6 +7,7 @@ import productRoutes from "./routes/productRoutes.js";
 import authRoutes from "./routes/authRoutes.js";
 import dashboardRoutes from "./routes/dashboardRoutes.js";
 import cloudinaryRoutes from "./routes/cloudinaryRoutes.js";
+import checkoutRoutes from "./routes/checkoutRoutes.js";
 
 dotenv.config();
 
@@ -28,6 +29,8 @@ app.use("/api/dashboard", dashboardRoutes);
 app.use("/api/auth", authRoutes);
 
 app.use("/api/cloudinary", cloudinaryRoutes);
+
+app.use("/api/checkout", checkoutRoutes);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
