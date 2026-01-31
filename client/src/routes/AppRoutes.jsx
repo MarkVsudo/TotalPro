@@ -24,6 +24,8 @@ import OrdersPage from "../pages/DashboardPages/OrdersPage";
 import MainBoardPage from "../pages/DashboardPages/MainBoardPage";
 import CheckoutPage from "../pages/CheckoutPage";
 import AdminRoute from "./AdminRoute";
+import CheckoutSuccessPage from "../pages/CheckoutSuccessPage";
+import CheckoutCancelPage from "../pages/CheckoutCancelPage";
 
 const withAnimation = (component) => (
   <>
@@ -134,7 +136,11 @@ const router = createBrowserRouter([
         <MainLayout />
       </CartProvider>
     ),
-    children: [{ index: true, element: withAnimation(<CheckoutPage />) }],
+    children: [
+      { index: true, element: withAnimation(<CheckoutPage />) },
+      { path: "success", element: withAnimation(<CheckoutSuccessPage />) },
+      { path: "cancel", element: withAnimation(<CheckoutCancelPage />) },
+    ],
   },
   {
     path: "/dashboard",

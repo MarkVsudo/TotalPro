@@ -244,12 +244,12 @@ const CheckoutPage = () => {
           </div>
 
           {/* Payment information */}
-          <div className="pt-8 border-b border-gray-200">
+          <div className=" border-b border-gray-200">
             <h2 className="text-sm font-semibold tracking-wide text-gray-900">
               Начин на плащане
             </h2>
 
-            <div className="mt-4 flex gap-4">
+            <div className="flex gap-4">
               <button
                 type="button"
                 onClick={() => setPaymentType("on-delivery")}
