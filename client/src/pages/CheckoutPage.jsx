@@ -1,10 +1,10 @@
 import { useMemo, useState } from "react";
 import { useCart } from "../context/CartContext";
-import ImageNotFound from "../assets/image-not-found.png";
-import { Link } from "react-router-dom";
 import TbiBankLogo from "../assets/tbi-bank.png";
+import CartItem from "../components/shared/CartItem";
+
 const CheckoutPage = () => {
-  const { removeFromCart, cartItems } = useCart();
+  const { cartItems } = useCart();
 
   // Примерни стойности (можеш да ги направиш динамични)
   const SHIPPING = 5;
@@ -301,82 +301,9 @@ const CheckoutPage = () => {
 
           <div className="rounded-lg border border-gray-200 bg-white">
             {/* Items */}
-            <ul className="divide-y divide-gray-200">
-              {cartItems.map((item, idx) => (
-                <li key={item?.product?.product_id ?? idx} className="p-5">
-                  <div className="flex gap-4">
-                    <div className="h-16 w-16 rounded-md bg-gray-50 border border-gray-200 overflow-hidden shrink-0">
-                      <img
-                        alt={`${item?.product?.slug ?? "product"} cover`}
-                        src={
-                          item?.mainImg?.public_id
-                            ? `https://res.cloudinary.com/dh1arjjjy/image/upload/v1768349183/${item.mainImg.public_id}`
-                            : ImageNotFound
-                        }
-                        className="h-full w-full object-cover"
-                      />
-                    </div>
-
-                    <div className="flex-1">
-                      <div className="flex items-start justify-between gap-3">
-                        <div>
-                          <Link
-                            to={`/${item.product.slug}-${item.product.product_id}`}
-                            className="text-sm font-semibold text-gray-900 hover:underline"
-                          >
-                            {item.product.product_name}
-                          </Link>
-
-                          <div className="mt-1 text-xs text-gray-500">
-                            <div>{item.product.color}</div>
-                            {/* Ако имаш размер в item/product, покажи го тук */}
-                            {/* <div>Размер: {item.product.size}</div> */}
-                          </div>
-                        </div>
-
-                        <button
-                          type="button"
-                          onClick={() =>
-                            removeFromCart(item.product.product_id)
-                          }
-                          className="text-gray-400 hover:text-gray-600"
-                          aria-label="Премахни"
-                          title="Премахни"
-                        >
-                          {/* минимална иконка кошче */}
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 24 24"
-                            fill="currentColor"
-                            className="h-5 w-5"
-                          >
-                            <path d="M9 3a1 1 0 00-1 1v1H5a1 1 0 100 2h1v14a2 2 0 002 2h8a2 2 0 002-2V7h1a1 1 0 100-2h-3V4a1 1 0 00-1-1H9zm2 2h2v0h-2zM8 7h8v14H8V7z" />
-                          </svg>
-                        </button>
-                      </div>
-
-                      <div className="mt-3 flex items-center justify-between">
-                        <div className="text-sm font-medium text-gray-900">
-                          {Number(item.product.price).toFixed(2)} €
-                        </div>
-
-                        {/* само визия като снимката: dropdown с количество */}
-                        <select
-                          value={item.quantity}
-                          disabled
-                          className="h-9 rounded-md border border-gray-300 bg-white px-2 text-sm text-gray-900"
-                          title="Количество"
-                        >
-                          {[1, 2, 3, 4, 5].map((n) => (
-                            <option key={n} value={n}>
-                              {n}
-                            </option>
-                          ))}
-                        </select>
-                      </div>
-                    </div>
-                  </div>
-                </li>
+            <ul className="divide-y divide-gray-200 px-5">
+              {cartItems.map((item, index) => (
+                <CartItem item={item} index={index} />
               ))}
             </ul>
 

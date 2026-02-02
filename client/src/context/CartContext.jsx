@@ -30,6 +30,22 @@ const cartReducer = (state, action) => {
     case "REMOVE_ITEM":
       return state.filter((item) => item.product.product_id !== action.payload);
 
+    case "INCREASE_ITEM_QTY":
+      return state.map((item) =>
+        item.product.product_id === action.payload
+          ? { ...item, quantity: item.quantity + 1 }
+          : item,
+      );
+
+    case "DECREASE_ITEM_QTY":
+      return state
+        .map((item) =>
+          item.product.product_id === action.payload
+            ? { ...item, quantity: item.quantity - 1 }
+            : item,
+        )
+        .filter((item) => item.quantity > 0);
+
     case "CLEAR_CART":
       return [];
 
@@ -65,6 +81,14 @@ export function CartProvider({ children }) {
     dispatch({ type: "REMOVE_ITEM", payload: id });
   };
 
+  const increaseItemQty = (id) => {
+    dispatch({ type: "INCREASE_ITEM_QTY", payload: id });
+  };
+
+  const decreaseItemQty = (id) => {
+    dispatch({ type: "DECREASE_ITEM_QTY", payload: id });
+  };
+
   const clearCart = () => {
     dispatch({ type: "CLEAR_CART" });
   };
@@ -83,6 +107,8 @@ export function CartProvider({ children }) {
         toggleCart,
         addToCart,
         removeFromCart,
+        increaseItemQty,
+        decreaseItemQty,
         clearCart,
       }}
     >
