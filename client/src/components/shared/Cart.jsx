@@ -10,6 +10,8 @@ import { XMarkIcon } from "@heroicons/react/24/outline";
 import { useCart } from "../../context/CartContext";
 import { useState, useEffect } from "react";
 import CartItem from "./CartItem";
+import { ShoppingCartIcon } from "@heroicons/react/24/outline";
+
 export default function Cart() {
   const { isCartOpen, closeCart, cartItems } = useCart();
 
@@ -61,14 +63,43 @@ export default function Cart() {
 
                   <div className="mt-8">
                     <div className="flow-root">
-                      <ul
-                        role="list"
-                        className="-my-6 divide-y divide-gray-200"
-                      >
-                        {cartItems.map((item, index) => (
-                          <CartItem item={item} index={index} />
-                        ))}
-                      </ul>
+                      {cartItems.length === 0 ? (
+                        <div className="flex flex-col items-center justify-center py-16 text-center">
+                          <div className="flex size-20 items-center justify-center rounded-full bg-gray-100">
+                            <ShoppingCartIcon className="size-10 text-gray-400" />
+                          </div>
+
+                          <h3 className="mt-6 text-sm font-semibold text-gray-900">
+                            Количката ти е празна
+                          </h3>
+
+                          <p className="mt-2 text-sm text-gray-500 max-w-xs">
+                            Изглежда все още не си добавил продукти. Разгледай
+                            каталога и избери нещо за себе си.
+                          </p>
+
+                          <Link
+                            to={"/air-conditioning"}
+                            onClick={closeCart}
+                            className="mt-6 inline-flex items-center rounded-md bg-[#002B5B] px-5 py-2.5 text-sm font-semibold text-white hover:bg-blue-900 transition-colors"
+                          >
+                            Започни пазаруване
+                          </Link>
+                        </div>
+                      ) : (
+                        <ul
+                          role="list"
+                          className="-my-6 divide-y divide-gray-200"
+                        >
+                          {cartItems.map((item, index) => (
+                            <CartItem
+                              key={item.product.product_id}
+                              item={item}
+                              index={index}
+                            />
+                          ))}
+                        </ul>
+                      )}
                     </div>
                   </div>
                 </div>
