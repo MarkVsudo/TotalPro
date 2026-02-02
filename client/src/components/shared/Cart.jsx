@@ -64,12 +64,12 @@ export default function Cart() {
                   <div className="mt-8">
                     <div className="flow-root">
                       {cartItems.length === 0 ? (
-                        <div className="flex flex-col items-center justify-center py-16 text-center">
+                        <div className="flex flex-col items-center justify-center py-48 text-center">
                           <div className="flex size-20 items-center justify-center rounded-full bg-gray-100">
                             <ShoppingCartIcon className="size-10 text-gray-400" />
                           </div>
 
-                          <h3 className="mt-6 text-sm font-semibold text-gray-900">
+                          <h3 className="mt-6 text-md font-semibold text-gray-900">
                             Количката ти е празна
                           </h3>
 
@@ -104,37 +104,39 @@ export default function Cart() {
                   </div>
                 </div>
 
-                <div className="border-t border-gray-200 px-4 py-6 sm:px-6">
-                  <div className="flex justify-between text-base font-medium text-gray-900">
-                    <p>Междинна сума</p>
-                    <span>{totalPrice.toFixed(2)}€</span>
-                  </div>
-                  <p className="mt-0.5 text-sm text-gray-500">
-                    Доставката и данъците се изчисляват при финализиране на
-                    поръчката.
-                  </p>
-                  <div className="mt-6">
-                    <Link
-                      to={"/checkout"}
-                      className="flex items-center justify-center rounded-lg border border-transparent bg-[#002B5B]  px-6 py-3 text-base font-medium text-white shadow-xs hover:bg-blue-900 transition-colors duration-200"
-                    >
-                      Завърши поръчката
-                    </Link>
-                  </div>
-                  <div className="mt-6 flex justify-center text-center text-sm text-gray-500">
-                    <p>
-                      или{" "}
-                      <button
-                        type="button"
-                        onClick={closeCart}
-                        className="font-medium text-[#002B5B] hover:text-blue-900 cursor-pointer"
-                      >
-                        Продължи с пазаруването
-                        <span aria-hidden="true"> &rarr;</span>
-                      </button>
+                {cartItems.length !== 0 && (
+                  <div className="border-t border-gray-200 px-4 py-6 sm:px-6">
+                    <div className="flex justify-between text-base font-medium text-gray-900">
+                      <p>Междинна сума</p>
+                      <span>{totalPrice.toFixed(2)}€</span>
+                    </div>
+                    <p className="mt-0.5 text-sm text-gray-500">
+                      Доставката и данъците се изчисляват при финализиране на
+                      поръчката.
                     </p>
+                    <div className="mt-6">
+                      <Link
+                        to={"/checkout"}
+                        className="flex items-center justify-center rounded-lg border border-transparent bg-[#002B5B]  px-6 py-3 text-base font-medium text-white shadow-xs hover:bg-blue-900 transition-colors duration-200"
+                      >
+                        Завърши поръчката
+                      </Link>
+                    </div>
+                    <div className="mt-6 flex justify-center text-center text-sm text-gray-500">
+                      <p>
+                        или{" "}
+                        <button
+                          type="button"
+                          onClick={closeCart}
+                          className="font-medium text-[#002B5B] hover:text-blue-900 cursor-pointer"
+                        >
+                          Продължи с пазаруването
+                          <span aria-hidden="true"> &rarr;</span>
+                        </button>
+                      </p>
+                    </div>
                   </div>
-                </div>
+                )}
               </div>
             </DialogPanel>
           </div>
