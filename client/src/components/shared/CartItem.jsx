@@ -26,7 +26,7 @@ const CartItem = ({ item, index }) => {
           <div className="flex items-start justify-between gap-3">
             <div>
               <Link
-                to={`/${item.product.slug}-${item.product.product_id}`}
+                to={`/air-conditioning/${item.product.slug}-${item.product.product_id}`}
                 className="text-sm font-semibold text-gray-900 hover:underline"
               >
                 {item.product.product_name}

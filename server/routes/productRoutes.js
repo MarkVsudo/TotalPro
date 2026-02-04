@@ -157,7 +157,12 @@ router.get("/products/:id", async (req, res) => {
       return res.status(404).json({ message: "Product not found" });
     }
 
-    res.json(product);
+    const productImgs = await db.any(
+      "SELECT * FROM product_images WHERE product_id = $1",
+      [id],
+    );
+
+    res.json({ product, productImgs });
   } catch (err) {
     console.error("Database error:", err);
     res.status(500).json({ message: "Server error" });

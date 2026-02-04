@@ -76,7 +76,9 @@ const AirConProductPage = () => {
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
   const [showSpecs, setShowSpecs] = useState(false);
   const [includeInstallation, setIncludeInstallation] = useState(false);
-  const { addToCart } = useCart();
+  const { addToCart, cartItems } = useCart();
+
+  console.log("Cart: ", cartItems);
 
   const navigate = useNavigate();
 
@@ -87,11 +89,6 @@ const AirConProductPage = () => {
       const res = await axios.get(`/api/products/${productId}`);
       setProduct(res.data);
     } catch (err) {
-      // if (err.response?.status === 404) {
-      //   navigate("/404", { replace: true });
-      // } else {
-      //   console.error("Server error:", err);
-      // }
       console.error("Server error:", err);
       navigate("/404", { replace: true });
     }
@@ -108,18 +105,20 @@ const AirConProductPage = () => {
   }, [product]);
 
   const getInstallationPrice = () => {
-    if (product.btu < 14000) {
+    if (product.product.btu < 14000) {
       return 180;
-    } else if (product.btu >= 14000 && product.btu < 18000) {
+    } else if (product.product.btu >= 14000 && product.product.btu < 18000) {
       return 205;
-    } else if (product.btu >= 18000 && product.btu < 24000) {
+    } else if (product.product.btu >= 18000 && product.product.btu < 24000) {
       return 230;
-    } else if (product.btu >= 24000 && product.btu < 30000) {
+    } else if (product.product.btu >= 24000 && product.product.btu < 30000) {
       return 255;
     } else {
       return 280;
     }
   };
+
+  console.log("Product data: ", product);
 
   const specifications = [
     ["За помещения (кв.м.)", "от 10 до 15 кв.м."],
@@ -160,6 +159,10 @@ const AirConProductPage = () => {
     );
   }
 
+  const mainImg = product.productImgs?.find(
+    (img) => img.product_id === product.product.product_id && img.is_main,
+  );
+
   return (
     <div className="min-h-screen">
       <div className="w-full mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6 lg:py-8">
@@ -175,7 +178,7 @@ const AirConProductPage = () => {
             </Link>
             <span className="mx-1 sm:mx-2">/</span>
             <span className="text-[#002B5B] break-all">
-              {product.product_name.toUpperCase()}
+              {product.product.product_name.toUpperCase()}
             </span>
           </div>
         </nav>
@@ -186,9 +189,9 @@ const AirConProductPage = () => {
           <div className="w-full lg:w-[55%] space-y-3 lg:space-y-4">
             {/* Main Swiper */}
             <div className="relative rounded-xl lg:rounded-2xl overflow-hidden bg-white shadow-md border border-gray-200 ">
-              {product.discount && (
+              {product.product.discount && (
                 <div className="absolute z-10 top-2 right-2 bg-green-200 text-green-900 px-2 rounded-md">
-                  -{product.discount}% намаление
+                  -{product.product.discount}% намаление
                 </div>
               )}
               <Swiper
@@ -271,10 +274,11 @@ const AirConProductPage = () => {
           <div className="w-full lg:w-[45%] space-y-4 lg:space-y-6 ">
             <div>
               <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold text-[#002B5B] mb-2">
-                {product.category_name} {product.product_name}
+                {product.product.category_name} {product.product.product_name}
               </h1>
               <p className="text-base lg:text-lg text-gray-600 mb-4">
-                {product.btu} BTU, Клас {product.cooling_energy_class}
+                {product.product.btu} BTU, Клас{" "}
+                {product.product.cooling_energy_class}
               </p>
 
               <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4 mb-4">
@@ -296,27 +300,28 @@ const AirConProductPage = () => {
                   <span className="text-2xl sm:text-3xl lg:text-4xl font-bold text-[#002B5B]">
                     {includeInstallation
                       ? (
-                          (product.discount
-                            ? Number(product.price) *
-                              (1 - Number(product.discount) / 100)
-                            : Number(product.price)) + getInstallationPrice()
+                          (product.product.discount
+                            ? Number(product.product.price) *
+                              (1 - Number(product.product.discount) / 100)
+                            : Number(product.product.price)) +
+                          getInstallationPrice()
                         ).toFixed(2)
-                      : product.discount
+                      : product.product.discount
                         ? (
-                            Number(product.price) *
-                            (1 - Number(product.discount) / 100)
+                            Number(product.product.price) *
+                            (1 - Number(product.product.discount) / 100)
                           ).toFixed(2)
-                        : Number(product.price).toFixed(2)}
+                        : Number(product.product.price).toFixed(2)}
                     €
                   </span>
                   <span
                     className={`text-lg sm:text-xl text-gray-500 ${
-                      product.discount ? "line-through" : "hidden"
+                      product.product.discount ? "line-through" : "hidden"
                     }`}
                   >
                     {includeInstallation
-                      ? Number(product.price) + getInstallationPrice()
-                      : product.price}
+                      ? Number(product.product.price) + getInstallationPrice()
+                      : product.product.price}
                     €
                   </span>
                 </div>
@@ -325,13 +330,13 @@ const AirConProductPage = () => {
                   <div className="flex flex-col sm:flex-row sm:items-center gap-1">
                     <span>Арт. номер:</span>
                     <span className="font-semibold text-[#002B5B]">
-                      {product.product_code}
+                      {product.product.product_code}
                     </span>
                   </div>
                   <div className="flex flex-col sm:flex-row sm:items-center gap-1">
                     <span>Производител:</span>
                     <span className="font-semibold text-[#002B5B]">
-                      {product.make}
+                      {product.product.make}
                     </span>
                   </div>
                   <div className="flex items-center gap-2">
@@ -386,6 +391,7 @@ const AirConProductPage = () => {
                   <div className="flex gap-3">
                     <button
                       type="button"
+                      onClick={() => addToCart(product.product, mainImg)}
                       className="flex justify-center items-center gap-x-2 flex-1 bg-[#002B5B] hover:bg-blue-900 text-white py-2 sm:py-3 px-4 rounded-lg font-medium shadow-md cursor-pointer transition-colors text-sm sm:text-base"
                     >
                       <IoBagAddOutline className="h-4 w-4 sm:h-5 sm:w-5" />
