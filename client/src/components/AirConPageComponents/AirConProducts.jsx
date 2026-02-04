@@ -40,7 +40,9 @@ export default function AirConProducts({ products, productImgs }) {
             key={product.product_id}
             className="group relative h-full flex flex-col"
           >
-            <Link to={`/${product.slug}-${product.product_id}`}>
+            <Link
+              to={`/air-conditioning/${product.slug}-${product.product_id}`}
+            >
               <div className="relative overflow-hidden">
                 <img
                   alt="Product front image"

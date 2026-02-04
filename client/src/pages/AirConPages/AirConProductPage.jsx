@@ -12,6 +12,7 @@ import {
   MdOutlineArrowForwardIos,
 } from "react-icons/md";
 import axios from "axios";
+import { useCart } from "../../context/CartContext";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import productImg5 from "../../assets/air-con-product-img-5.png";
@@ -75,6 +76,7 @@ const AirConProductPage = () => {
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
   const [showSpecs, setShowSpecs] = useState(false);
   const [includeInstallation, setIncludeInstallation] = useState(false);
+  const { addToCart } = useCart();
 
   const navigate = useNavigate();
 
@@ -104,6 +106,20 @@ const AirConProductPage = () => {
       console.log(product);
     }
   }, [product]);
+
+  const getInstallationPrice = () => {
+    if (product.btu < 14000) {
+      return 180;
+    } else if (product.btu >= 14000 && product.btu < 18000) {
+      return 205;
+    } else if (product.btu >= 18000 && product.btu < 24000) {
+      return 230;
+    } else if (product.btu >= 24000 && product.btu < 30000) {
+      return 255;
+    } else {
+      return 280;
+    }
+  };
 
   const specifications = [
     ["За помещения (кв.м.)", "от 10 до 15 кв.м."],
@@ -278,20 +294,30 @@ const AirConProductPage = () => {
               <div className="bg-white rounded-xl p-4 sm:p-6 shadow-md border border-gray-200">
                 <div className="flex flex-col sm:flex-row sm:items-baseline gap-2 sm:gap-3 mb-4">
                   <span className="text-2xl sm:text-3xl lg:text-4xl font-bold text-[#002B5B]">
-                    {product.discount
+                    {includeInstallation
                       ? (
-                          Number(product.price) *
-                          (1 - Number(product.discount) / 100)
+                          (product.discount
+                            ? Number(product.price) *
+                              (1 - Number(product.discount) / 100)
+                            : Number(product.price)) + getInstallationPrice()
                         ).toFixed(2)
-                      : product.price}
-                    €{" "}
+                      : product.discount
+                        ? (
+                            Number(product.price) *
+                            (1 - Number(product.discount) / 100)
+                          ).toFixed(2)
+                        : Number(product.price).toFixed(2)}
+                    €
                   </span>
                   <span
                     className={`text-lg sm:text-xl text-gray-500 ${
                       product.discount ? "line-through" : "hidden"
                     }`}
                   >
-                    {product.price}€
+                    {includeInstallation
+                      ? Number(product.price) + getInstallationPrice()
+                      : product.price}
+                    €
                   </span>
                 </div>
 
@@ -350,10 +376,10 @@ const AirConProductPage = () => {
                     </div>
                     <FaTools className="w-4 h-4 text-gray-600 flex-shrink-0" />
                     <span className="font-medium text-[#002B5B] flex-1">
-                      С монтаж
+                      С монтаж (3 л.м. тръбен път)
                     </span>
                     <span className="text-[#002B5B] font-semibold">
-                      + 400 лв.
+                      +{getInstallationPrice()}€.
                     </span>
                   </label>
 
