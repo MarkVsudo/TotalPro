@@ -1,7 +1,9 @@
 import { useMemo, useState } from "react";
 import { useCart } from "../context/CartContext";
+import { Link } from "react-router-dom";
 import TbiBankLogo from "../assets/tbi-bank.png";
 import CartItem from "../components/shared/CartItem";
+import { ShoppingCartIcon } from "@heroicons/react/24/outline";
 
 const CheckoutPage = () => {
   const { cartItems } = useCart();
@@ -69,6 +71,38 @@ const CheckoutPage = () => {
         );
     }
   };
+
+  // Show empty state if cart is empty
+  if (cartItems.length === 0) {
+    return (
+      <section
+        id="checkout"
+        className="bg-white text-[#002B5B] my-24 px-4 max-w-7xl mx-auto"
+      >
+        <div className="flex flex-col items-center justify-center py-32 text-center">
+          <div className="flex size-24 items-center justify-center rounded-full bg-gray-100">
+            <ShoppingCartIcon className="size-12 text-gray-400" />
+          </div>
+
+          <h1 className="mt-6 text-2xl font-bold text-gray-900">
+            Количката ти е празна
+          </h1>
+
+          <p className="mt-3 text-base text-gray-500 max-w-md">
+            Не можеш да завършиш поръчка без продукти в количката. Разгледай
+            каталога и избери нещо за себе си.
+          </p>
+
+          <Link
+            to="/air-conditioning"
+            className="mt-8 inline-flex items-center rounded-md bg-[#002B5B] px-6 py-3 text-base font-semibold text-white hover:bg-blue-900 transition-colors"
+          >
+            Започни пазаруване
+          </Link>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section
@@ -303,7 +337,11 @@ const CheckoutPage = () => {
             {/* Items */}
             <ul className="divide-y divide-gray-200 px-5">
               {cartItems.map((item, index) => (
-                <CartItem item={item} index={index} />
+                <CartItem
+                  key={item.product.product_id}
+                  item={item}
+                  index={index}
+                />
               ))}
             </ul>
 
