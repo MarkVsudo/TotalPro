@@ -1,7 +1,5 @@
 import { useEffect, useState } from "react";
-
 import { Link } from "react-router-dom";
-
 import { FaTools } from "react-icons/fa";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { FreeMode, Navigation, Thumbs } from "swiper/modules";
@@ -15,33 +13,14 @@ import axios from "axios";
 import { useCart } from "../../context/CartContext";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import productImg5 from "../../assets/air-con-product-img-5.png";
-import productImg1 from "../../assets/air-con-product-img-1.jpeg";
-import productImg2 from "../../assets/air-con-product-img-2.jpeg";
-import productImg3 from "../../assets/air-con-product-img-3.jpeg";
-import productImg4 from "../../assets/air-con-product-img-4.jpeg";
-import productImg6 from "../../assets/air-con-product-img-6.jpeg";
-import productImg7 from "../../assets/air-con-product-img-7.jpeg";
-import productImg8 from "../../assets/air-con-product-img-8.jpeg";
 import accessoryImg1 from "../../assets/air-con-accessory-img-1.jpg";
 import accessoryImg2 from "../../assets/air-con-accessory-img-2.jpg";
 import accessoryImg3 from "../../assets/air-con-accessory-img-3.jpg";
-
+import ImageNotFound from "../../assets/image-not-found.png";
 import "swiper/css";
 import "swiper/css/thumbs";
 import "swiper/css/free-mode";
 import "swiper/css/navigation";
-
-const productImgs = [
-  productImg1,
-  productImg2,
-  productImg3,
-  productImg4,
-  productImg5,
-  productImg6,
-  productImg7,
-  productImg8,
-];
 
 const accessories = [
   {
@@ -76,16 +55,12 @@ const AirConProductPage = () => {
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
   const [showSpecs, setShowSpecs] = useState(false);
   const [includeInstallation, setIncludeInstallation] = useState(false);
-  const { addToCart, cartItems } = useCart();
-
-  console.log("Cart: ", cartItems);
-
+  const { addToCart } = useCart();
   const navigate = useNavigate();
 
   const fetchProduct = async () => {
     try {
       const productId = slugAndId.split("-").pop();
-
       const res = await axios.get(`/api/products/${productId}`);
       setProduct(res.data);
     } catch (err) {
@@ -118,8 +93,6 @@ const AirConProductPage = () => {
     }
   };
 
-  console.log("Product data: ", product);
-
   const specifications = [
     ["За помещения (кв.м.)", "от 10 до 15 кв.м."],
     ["Енергиен клас охлаждане", "A++"],
@@ -150,6 +123,11 @@ const AirConProductPage = () => {
     ["Захранване", "Външно"],
     ["Максимална дължина на тръбния път", "25 m"],
   ];
+
+  const productImgs = product?.productImgs.map(
+    (img) =>
+      `https://res.cloudinary.com/dh1arjjjy/image/upload/v1768349183/${img.public_id}`,
+  );
 
   if (!product) {
     return (
@@ -184,94 +162,107 @@ const AirConProductPage = () => {
         </nav>
 
         {/* Main Product Section */}
-        <div className="w-full flex flex-col lg:flex-row gap-6 lg:gap-12 mb-8 lg:mb-16">
+        <div className="w-full flex flex-col lg:flex-row lg:items-stretch gap-6 lg:gap-12 mb-8 lg:mb-16">
           {/* Product Images with Swiper */}
-          <div className="w-full lg:w-[55%] space-y-3 lg:space-y-4">
+          <div className="w-full lg:w-[55%] flex flex-col space-y-3 lg:space-y-4">
             {/* Main Swiper */}
-            <div className="relative rounded-xl lg:rounded-2xl overflow-hidden bg-white shadow-md border border-gray-200 ">
+            <div className="relative rounded-xl lg:rounded-2xl overflow-hidden bg-white shadow-md border border-gray-200 aspect-square lg:aspect-auto lg:h-auto">
               {product.product.discount && (
                 <div className="absolute z-10 top-2 right-2 bg-green-200 text-green-900 px-2 rounded-md">
                   -{product.product.discount}% намаление
                 </div>
               )}
-              <Swiper
-                className="product-swiper aspect-square lg:aspect-auto lg:h-130"
-                spaceBetween={10}
-                loop={true}
-                navigation={{
-                  prevEl: ".custom-prev",
-                  nextEl: ".custom-next",
-                }}
-                thumbs={{
-                  swiper:
-                    thumbsSwiper && !thumbsSwiper.destroyed
-                      ? thumbsSwiper
-                      : null,
-                }}
-                modules={[FreeMode, Navigation, Thumbs]}
-              >
-                {productImgs.map((img, index) => (
-                  <SwiperSlide
-                    key={index}
-                    className="flex justify-center items-center p-4"
-                  >
-                    <img
-                      src={img}
-                      alt={`Product view ${index + 1}`}
-                      className="w-full h-full object-contain max-h-130"
-                    />
-                  </SwiperSlide>
-                ))}
-
-                {/* Custom Navigation Buttons */}
-                <button className="custom-prev cursor-pointer absolute left-2 top-1/2 -translate-y-1/2 z-10 text-[#002B5B] p-4 rounded-full hover:scale-125 transition-all">
-                  <MdOutlineArrowBackIos size={24} />
-                </button>
-                <button className="custom-next cursor-pointer absolute right-2 top-1/2 -translate-y-1/2 z-10 text-[#002B5B] p-4 rounded-full hover:scale-125 transition-all">
-                  <MdOutlineArrowForwardIos size={24} />
-                </button>
-              </Swiper>
+              {product.productImgs.length > 1 ? (
+                <Swiper
+                  className="product-swiper w-full max-h-[600px]"
+                  spaceBetween={10}
+                  loop={true}
+                  navigation={{
+                    prevEl: ".custom-prev",
+                    nextEl: ".custom-next",
+                  }}
+                  thumbs={{
+                    swiper:
+                      thumbsSwiper && !thumbsSwiper.destroyed
+                        ? thumbsSwiper
+                        : null,
+                  }}
+                  modules={[FreeMode, Navigation, Thumbs]}
+                >
+                  {productImgs.map((img, index) => (
+                    <SwiperSlide
+                      key={index}
+                      className="flex justify-center items-center p-4"
+                    >
+                      <img
+                        src={img}
+                        alt={`Product view ${index + 1}`}
+                        className="w-full max-h-[550px] object-contain"
+                      />
+                    </SwiperSlide>
+                  ))}
+                  {/* Custom Navigation Buttons */}
+                  <button className="custom-prev cursor-pointer absolute left-2 top-1/2 -translate-y-1/2 z-10 text-[#002B5B] p-4 rounded-full hover:scale-125 transition-all">
+                    <MdOutlineArrowBackIos size={24} />
+                  </button>
+                  <button className="custom-next cursor-pointer absolute right-2 top-1/2 -translate-y-1/2 z-10 text-[#002B5B] p-4 rounded-full hover:scale-125 transition-all">
+                    <MdOutlineArrowForwardIos size={24} />
+                  </button>
+                </Swiper>
+              ) : (
+                <img
+                  alt="Product front image"
+                  src={
+                    mainImg
+                      ? `https://res.cloudinary.com/dh1arjjjy/image/upload/v1768349183/${mainImg.public_id}`
+                      : ImageNotFound
+                  }
+                  className="w-full max-h-[600px] object-contain p-4"
+                />
+              )}
             </div>
 
             {/* Thumbnail Swiper */}
-            <div className="px-2">
-              <Swiper
-                className="thumbs-swiper"
-                onSwiper={setThumbsSwiper}
-                spaceBetween={10}
-                slidesPerView={4}
-                freeMode={true}
-                watchSlidesProgress={true}
-                modules={[FreeMode, Navigation, Thumbs]}
-                breakpoints={{
-                  640: {
-                    slidesPerView: 5,
-                  },
-                  768: {
-                    slidesPerView: 6,
-                  },
-                  1024: {
-                    slidesPerView: 8,
-                  },
-                }}
-              >
-                {productImgs.map((img, index) => (
-                  <SwiperSlide key={index}>
-                    <div className="w-full h-16 lg:h-20">
-                      <img
-                        src={img}
-                        alt={`Thumbnail ${index + 1}`}
-                        className="w-full h-full object-contain rounded-lg"
-                      />
-                    </div>
-                  </SwiperSlide>
-                ))}
-              </Swiper>
-            </div>
+            {product.productImgs.length > 1 && (
+              <div className="px-2">
+                <Swiper
+                  className="thumbs-swiper"
+                  onSwiper={setThumbsSwiper}
+                  spaceBetween={10}
+                  slidesPerView={4}
+                  freeMode={true}
+                  watchSlidesProgress={true}
+                  modules={[FreeMode, Navigation, Thumbs]}
+                  breakpoints={{
+                    640: {
+                      slidesPerView: 5,
+                    },
+                    768: {
+                      slidesPerView: 6,
+                    },
+                    1024: {
+                      slidesPerView: 8,
+                    },
+                  }}
+                >
+                  {productImgs.map((img, index) => (
+                    <SwiperSlide key={index}>
+                      <div className="w-full h-16 lg:h-20">
+                        <img
+                          src={img}
+                          alt={`Thumbnail ${index + 1}`}
+                          className="w-full h-full object-contain rounded-lg"
+                        />
+                      </div>
+                    </SwiperSlide>
+                  ))}
+                </Swiper>
+              </div>
+            )}
           </div>
 
           {/* Product Details */}
-          <div className="w-full lg:w-[45%] space-y-4 lg:space-y-6 ">
+          <div className="w-full lg:w-[45%] space-y-4 lg:space-y-6">
             <div>
               <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold text-[#002B5B] mb-2">
                 {product.product.category_name} {product.product.product_name}
@@ -311,7 +302,7 @@ const AirConProductPage = () => {
                             Number(product.product.price) *
                             (1 - Number(product.product.discount) / 100)
                           ).toFixed(2)
-                        : Number(product.product.price).toFixed(2)}
+                        : Number(product.product.price).toFixed(2)}{" "}
                     €
                   </span>
                   <span
@@ -321,7 +312,7 @@ const AirConProductPage = () => {
                   >
                     {includeInstallation
                       ? Number(product.product.price) + getInstallationPrice()
-                      : product.product.price}
+                      : product.product.price}{" "}
                     €
                   </span>
                 </div>
@@ -436,11 +427,11 @@ const AirConProductPage = () => {
         </div>
 
         {/* Accessories */}
-        <div className="bg-white rounded-xl lg:rounded-2xl p-4 sm:p-6 lg:p-8 shadow-md border border-gray-200  mb-8 lg:mb-16">
+        <div className="bg-white rounded-xl lg:rounded-2xl p-4 sm:p-6 lg:p-8 shadow-md border border-gray-200 mb-8 lg:mb-16">
           <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-6 sm:mb-8">
             Допълнителни аксесоари
           </h2>
-          <div className="flex  gap-4 sm:gap-6 ">
+          <div className="flex gap-4 sm:gap-6 ">
             {accessories.map((accessory) => (
               <Link to={accessory.href} key={accessory.id} className="flex-1">
                 <div className="group relative h-full flex flex-col">
@@ -448,8 +439,7 @@ const AirConProductPage = () => {
                     <img
                       alt={accessory.imageAlt}
                       src={accessory.imageSrc}
-                      className="aspect-square w-full rounded-md object-contain group-hover:brightness-102
-                      group-hover:scale-105 lg:aspect-auto lg:h-50 transition-all"
+                      className="aspect-square w-full rounded-md object-contain group-hover:brightness-102 group-hover:scale-105 lg:aspect-auto lg:h-50 transition-all"
                     />
                     <div className="absolute top-0 right-0 bg-green-200 text-green-900 px-2 rounded-md">
                       -5% намаление
@@ -465,11 +455,6 @@ const AirConProductPage = () => {
                       <p className="text-sm font-medium text-gray-900">
                         {accessory.price} €
                       </p>
-                      {/* <p className="text-sm text-gray-500">
-                        {convertedPrices[accessory.id]
-                          ? `€${convertedPrices[accessory.id]}`
-                          : "Loading..."}
-                      </p> */}
                     </div>
                     <button
                       type="button"
@@ -512,7 +497,6 @@ const AirConProductPage = () => {
               {showSpecs ? "Скрий" : "Покажи всички"}
             </button>
           </div>
-
           <div className="grid grid-cols-1 gap-x-4 lg:gap-x-8">
             {specifications
               .slice(0, showSpecs ? specifications.length : 6)

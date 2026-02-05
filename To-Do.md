@@ -5,8 +5,8 @@
 - display product correctly on individual product page
 - ~~filtering + sorting logic in products page~~
 - ~~pagination functionality in products page~~
-- add to cart functionality
-- checkout page
+- ~~add to cart functionality~~
+- ~~checkout page~~
 - payments
 - ~~login functionality~~
 - dashoard

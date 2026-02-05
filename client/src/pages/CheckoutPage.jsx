@@ -7,7 +7,7 @@ const CheckoutPage = () => {
   const { cartItems } = useCart();
 
   // Примерни стойности (можеш да ги направиш динамични)
-  const SHIPPING = 5;
+  const SHIPPING = 0.0;
 
   const subtotal = useMemo(() => {
     return cartItems.reduce((acc, item) => {
@@ -325,7 +325,7 @@ const CheckoutPage = () => {
                 </div>
 
                 <div className="flex justify-between">
-                  <span className="text-gray-600">ДДС</span>
+                  <span className="text-gray-600">ДДС (включено)</span>
                   <span className="font-medium text-gray-900">
                     {vat.toFixed(2)} €
                   </span>
