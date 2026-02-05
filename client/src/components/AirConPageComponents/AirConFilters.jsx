@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import axios from "axios";
 import { useSearchParams } from "react-router-dom";
 import {
   Dialog,
@@ -13,7 +12,7 @@ import {
 } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { MinusIcon, PlusIcon } from "@heroicons/react/20/solid";
-
+import API from "../../api/api";
 const filters = [
   {
     id: "overallClass",
@@ -121,7 +120,7 @@ export default function AirConFilters() {
   useEffect(() => {
     const getCategories = async () => {
       try {
-        const res = await axios.get("/api/categories");
+        const res = await API.get("/api/categories");
         setCategories(res.data);
       } catch (err) {
         console.error(err);
@@ -157,7 +156,7 @@ export default function AirConFilters() {
   };
 
   const [currentCategory, setCurrentCategory] = useState(
-    getArrayParam("category")
+    getArrayParam("category"),
   );
 
   const toggleCategory = (categoryName) => {
@@ -251,7 +250,7 @@ export default function AirConFilters() {
                             <input
                               type="checkbox"
                               checked={getArrayParam(section.id).includes(
-                                option.value
+                                option.value,
                               )}
                               onChange={() =>
                                 toggleFilterValue(section.id, option.value)
@@ -368,7 +367,7 @@ export default function AirConFilters() {
                           <input
                             type="checkbox"
                             checked={getArrayParam(section.id).includes(
-                              option.value
+                              option.value,
                             )}
                             onChange={() =>
                               toggleFilterValue(section.id, option.value)

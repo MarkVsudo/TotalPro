@@ -1,11 +1,11 @@
 import NavLogoImg from "../../assets/nav-logo.png";
 import { Link } from "react-router-dom";
-import axios from "axios";
 import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
 import ErrorAlert from "../../components/shared/ErrorAlert";
 import SucessAlert from "../../components/shared/SucessAlert";
+import API from "../../api/api";
 
 const LoginPage = () => {
   const [formData, setFormData] = useState({ email: "", password: "" });
@@ -25,18 +25,12 @@ const LoginPage = () => {
     e.preventDefault();
 
     try {
-      await axios.post(
-        "/api/auth/login",
-        {
-          email: formData.email,
-          password: formData.password,
-        },
-        { withCredentials: true }
-      );
-
-      const res = await axios.get("/api/auth/me", {
-        withCredentials: true,
+      await API.post("/api/auth/login", {
+        email: formData.email,
+        password: formData.password,
       });
+
+      const res = await API.get("/api/auth/me");
 
       login(res.data);
 

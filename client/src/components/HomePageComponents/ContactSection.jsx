@@ -1,13 +1,12 @@
 import { useState } from "react";
 
-import axios from "axios";
-
 import { FiPhone } from "react-icons/fi";
 import { FiMapPin } from "react-icons/fi";
 import { EnvelopeIcon } from "@heroicons/react/24/outline";
 
 import ErrorAlert from "../shared/ErrorAlert";
 import SucessAlert from "../shared/SucessAlert";
+import API from "../../api/api";
 
 export default function ContactForm() {
   const [isSuccess, setIsSuccess] = useState(null);
@@ -41,7 +40,7 @@ export default function ContactForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("/api/mailer/send", formData);
+      await API.post("/api/mailer/send", formData);
       setIsSuccess(true);
     } catch (err) {
       console.error("Error sending email:", err);

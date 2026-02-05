@@ -9,7 +9,7 @@ import {
   MdOutlineArrowBackIos,
   MdOutlineArrowForwardIos,
 } from "react-icons/md";
-import axios from "axios";
+
 import { useCart } from "../../context/CartContext";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
@@ -21,6 +21,7 @@ import "swiper/css";
 import "swiper/css/thumbs";
 import "swiper/css/free-mode";
 import "swiper/css/navigation";
+import API from "../../api/api";
 
 const accessories = [
   {
@@ -61,7 +62,7 @@ const AirConProductPage = () => {
   const fetchProduct = async () => {
     try {
       const productId = slugAndId.split("-").pop();
-      const res = await axios.get(`/api/products/${productId}`);
+      const res = await API.get(`/api/products/${productId}`);
       setProduct(res.data);
     } catch (err) {
       console.error("Server error:", err);

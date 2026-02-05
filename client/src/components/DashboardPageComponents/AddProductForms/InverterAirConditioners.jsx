@@ -1,13 +1,11 @@
 import { useState } from "react";
-import axios from "axios";
 import Dropdown from "../../shared/Dropdown";
 import { MdOutlinePhotoSizeSelectActual } from "react-icons/md";
 import { IoIosRemoveCircle } from "react-icons/io";
-import { AdvancedImage } from "@cloudinary/react";
-import { Cloudinary } from "@cloudinary/url-gen";
 
 import ErrorAlert from "./../../shared/ErrorAlert";
 import SucessAlert from "./../../shared/SucessAlert";
+import API from "../../../api/api";
 
 const InverterAirConditioners = () => {
   const [uploadedImages, setUploadedImages] = useState([]);
@@ -110,15 +108,12 @@ const InverterAirConditioners = () => {
         slug: slug,
       };
 
-      const productRes = await axios.post(
-        "/api/dashboard/add-product",
-        payload
-      );
+      const productRes = await API.post("/api/dashboard/add-product", payload);
 
       const productId = productRes.data.id;
 
       // 2️⃣ Get signed payload for uploads
-      const sigRes = await axios.get(`/api/cloudinary/cloudinary-signature`);
+      const sigRes = await API.get(`/api/cloudinary/cloudinary-signature`);
 
       const uploaded = [];
 
@@ -132,9 +127,9 @@ const InverterAirConditioners = () => {
         data.append("signature", sigRes.data.signature);
         data.append("folder", sigRes.data.folder);
 
-        const cloudRes = await axios.post(
+        const cloudRes = await API.post(
           `https://api.cloudinary.com/v1_1/${sigRes.data.cloud_name}/image/upload`,
-          data
+          data,
         );
 
         uploaded.push({
@@ -145,7 +140,7 @@ const InverterAirConditioners = () => {
       }
 
       // 4️⃣ Send uploaded image info to backend
-      await axios.post("/api/dashboard/add-product-images", {
+      await API.post("/api/dashboard/add-product-images", {
         productId,
         images: uploaded,
       });

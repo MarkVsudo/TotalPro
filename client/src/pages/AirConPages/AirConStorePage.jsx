@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
-import axios from "axios";
 
 import AirConFilters from "../../components/AirConPageComponents/AirConFilters";
 import AirConHeader from "../../components/AirConPageComponents/AirConHeader";
 import AirConPagination from "../../components/AirConPageComponents/AirConPagination";
 import AirConProducts from "../../components/AirConPageComponents/AirConProducts";
 import AirConSort from "../../components/AirConPageComponents/AirConSort";
+import API from "../../api/api";
 const AirConStorePage = () => {
   const [products, setProducts] = useState([]);
   const [productImgs, setProductImgs] = useState([]);
@@ -28,7 +28,7 @@ const AirConStorePage = () => {
 
         const page = Number(searchParams.get("page")) || 1;
 
-        const res = await axios.get("/api/products", {
+        const res = await API.get("/api/products", {
           params: {
             page,
             limit: 12,
