@@ -46,6 +46,15 @@ app.use("/api/checkout", checkoutRoutes);
 
 app.get("/health", (req, res) => res.status(200).send("OK"));
 
+app.get("/api/db-test", async (req, res) => {
+  try {
+    const row = await db.one("select now() as now");
+    res.json(row);
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+});
+
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`🚀 Server running on port ${PORT}`);
