@@ -8,7 +8,7 @@ import authRoutes from "./routes/authRoutes.js";
 import dashboardRoutes from "./routes/dashboardRoutes.js";
 import cloudinaryRoutes from "./routes/cloudinaryRoutes.js";
 import checkoutRoutes from "./routes/checkoutRoutes.js";
-
+import db from "./config/dbConfig.js";
 dotenv.config();
 
 const app = express();
