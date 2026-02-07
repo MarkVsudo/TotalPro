@@ -74,12 +74,6 @@ const AirConProductPage = () => {
     fetchProduct();
   }, [slugAndId]);
 
-  useEffect(() => {
-    if (product) {
-      console.log(product);
-    }
-  }, [product]);
-
   const getInstallationPrice = () => {
     if (product.product.btu < 14000) {
       return 180;

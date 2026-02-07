@@ -15,8 +15,6 @@ import { ShoppingCartIcon } from "@heroicons/react/24/outline";
 export default function Cart() {
   const { isCartOpen, closeCart, cartItems } = useCart();
 
-  console.log(cartItems);
-
   const [totalPrice, setTotalPrice] = useState(0);
 
   useEffect(() => {
