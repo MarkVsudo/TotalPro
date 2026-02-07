@@ -26,13 +26,13 @@ router.post("/login", async (req, res) => {
     const token = jwt.sign(
       { id: user.id, role: user.role },
       process.env.JWT_SECRET,
-      { expiresIn: "15m" }
+      { expiresIn: "15m" },
     );
 
     return res
       .cookie("token", token, {
         httpOnly: true,
-        sameSite: "strict",
+        sameSite: "none",
         secure: process.env.NODE_ENV === "production",
         maxAge: 15 * 60 * 1000,
       })
@@ -50,6 +50,19 @@ router.get("/me", authenticate, (req, res) => {
     email: req.user.email,
     role: req.user.role,
   });
+});
+
+router.post("/logout", (req, res) => {
+  const isProd = process.env.NODE_ENV === "production";
+
+  res.clearCookie("token", {
+    httpOnly: true,
+    secure: isProd,
+    sameSite: "none",
+    path: "/",
+  });
+
+  res.json({ message: "Logged out" });
 });
 
 router.get("/dashboard", authenticate, requireAdmin, (req, res) => {
