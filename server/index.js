@@ -12,15 +12,26 @@ import db from "./config/dbConfig.js";
 dotenv.config();
 
 const app = express();
+app.set("trust proxy", 1);
 
 const allowedOrigins = [
   process.env.FRONTEND_URL,
+  "https://totalpro.bg",
+  "https://www.totalpro.bg",
   "http://localhost:5173",
 ].filter(Boolean);
 
 app.use(
   cors({
-    origin: allowedOrigins,
+    origin: (origin, callback) => {
+      if (!origin) return callback(null, true);
+
+      if (allowedOrigins.includes(origin)) {
+        return callback(null, true);
+      }
+
+      return callback(new Error(`CORS blocked for origin: ${origin}`));
+    },
     credentials: true,
   }),
 );
