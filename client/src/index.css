@@ -4,10 +4,10 @@
   /* Font Family */
   --font-family: "Nunito", sans-serif;
   /* Colours */
-  --light-beige: #F9F5EB;
-  --dark-beige: #E4DCCF;
-  --red: #EA5455;
-  --blue: #002B5B;
+  --light-beige: #f9f5eb;
+  --dark-beige: #e4dccf;
+  --red: #ea5455;
+  --blue: #002b5b;
   /* Box Shadow */
   /* --box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25); */
 }
@@ -93,27 +93,10 @@ html {
   animation: bounce-arrow 2s infinite;
 }
 
-.arrow-container> :nth-child(2) {
+.arrow-container > :nth-child(2) {
   animation-delay: -0.2s;
 }
 
-.arrow-container> :nth-child(3) {
+.arrow-container > :nth-child(3) {
   animation-delay: -0.4s;
-}
-
-/* Chat bot */
-@keyframes fade-in {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.animate-fade-in {
-  animation: fade-in 0.3s ease-out;
 }

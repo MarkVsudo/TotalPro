@@ -15,7 +15,7 @@ import SecurityAlarmEquipmentPage from "../pages/SecurityAlarmEquipmentPage";
 import AirConProductPage from "../pages/AirConPages/AirConProductPage";
 import AnimatedPage from "../pages/AnimatedPage";
 import AutoScrollToTop from "../components/shared/AutoScrollToTop";
-import Chat from "../components/shared/Chat";
+import ViberButton from "../components/shared/ViberButton";
 import LoginPage from "../pages/AuthPages/LoginPage";
 import DashboardLayout from "../layout/DashboardLayout";
 import AnalyticsPage from "../pages/DashboardPages/AnalyticsPage";
@@ -30,7 +30,7 @@ import CheckoutCancelPage from "../pages/CheckoutCancelPage";
 const withAnimation = (component) => (
   <>
     <AutoScrollToTop />
-    <Chat />
+    <ViberButton />
     <AnimatedPage>{component}</AnimatedPage>
   </>
 );
