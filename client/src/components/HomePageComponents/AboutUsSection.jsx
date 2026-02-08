@@ -4,89 +4,105 @@ import { VscTools } from "react-icons/vsc";
 import { FaRegHandshake } from "react-icons/fa6";
 
 import AboutUsImg from "../../assets/about-us-img.png";
+
 const AboutUsSection = () => {
-  //
   return (
-    <section
-      id="about-us"
-      className="bg-white text-[#002B5B] my-24 px-4 max-w-7xl mx-auto"
-    >
-      <div className="flex flex-col lg:flex-row gap-12 items-center">
-        {/* Left Text Section */}
-        <div className="lg:w-1/2">
-          <h2 className="text-4xl font-bold mb-6">
-            Изградихме дейността си върху уважението към клиента
-          </h2>
-          <p className="text-lg text-gray-700 mb-4">
-            От първия ден вярваме, че успехът се гради върху коректност, яснота
-            и истинско отношение към хората. При нас няма "само да мине номерът"
-            или "няма смисъл да се стараем". Всеки клиент е важен, а всяка
-            услуга е изпълнена така, както бихме я направили и за себе си.
-          </p>
-          <p className="text-lg text-gray-700 mb-4">
-            🎯 За нас няма маловажна поръчка, няма "пренебрежим проблем", и със
-            сигурност няма изрази като:
-            <br />
-            <span className="font-semibold italic text-[#002B5B]">
-              „Защо да се старая – да не би да го правя за нас?“
-            </span>
-          </p>
-          <p className="text-lg font-medium text-[#002B5B]">
-            💡 Ценим всяко доверие. Искаме не просто да свършим работа, а да я
-            свършим така, че да ни препоръчаш с увереност.
-          </p>
-        </div>
+    <section id="about-us" className="relative bg-white">
+      {/* subtle background separation */}
+      <div className="absolute inset-0 -z-10 bg-gradient-to-b from-white via-white to-[#002B5B]/[0.04]" />
 
-        {/* Right Image Section */}
-        <div className="lg:w-1/2 flex justify-center items-center">
-          <img
-            src={AboutUsImg}
-            alt="Our team at work"
-            className="w-full h-auto drop-shadow-[0_10px_20px_rgba(0,0,0,0.3)]"
-          />
-        </div>
-      </div>
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 sm:py-20 lg:py-24 text-[#002B5B]">
+        {/* Top: Text + Image */}
+        <div className="grid items-center gap-10 lg:gap-14 lg:grid-cols-2">
+          {/* Text block */}
+          <div className="order-2 lg:order-1">
+            <h2 className="mt-6 text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight">
+              Изградихме дейността си върху уважението към клиента
+            </h2>
 
-      {/* Bottom Features */}
-      <div className="max-w-7xl mx-auto mt-20 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 text-left">
-        {/* Feature 1 */}
-        <div className="flex flex-col items-start">
-          <div className="bg-[#002B5B] text-white w-14 h-14 flex items-center justify-center rounded-lg">
-            <FaRegHandshake className="w-8 h-8" />
+            <div className="mt-6 space-y-4 text-base sm:text-lg leading-relaxed text-slate-700">
+              <p>
+                От първия ден вярваме, че успехът се гради върху коректност,
+                яснота и истинско отношение към хората. При нас няма{" "}
+                <span className="font-semibold">„само да мине номерът“</span>{" "}
+                или{" "}
+                <span className="font-semibold">
+                  „няма смисъл да се стараем“
+                </span>
+                . Всеки клиент е важен, а всяка услуга е изпълнена така, както
+                бихме я направили и за себе си.
+              </p>
+
+              <p>
+                🎯 За нас няма маловажна поръчка, няма „пренебрежим проблем“, и
+                със сигурност няма изрази като:
+              </p>
+
+              <div className="rounded-2xl bg-[#002B5B]/5 p-4 sm:p-5 ring-1 ring-[#002B5B]/10">
+                <p className="text-[#002B5B] font-semibold italic">
+                  „Защо да се старая – да не би да го правя за нас?“
+                </p>
+              </div>
+
+              <p className="font-semibold text-[#002B5B]">
+                💡 Ценим всяко доверие. Искаме не просто да свършим работа, а да
+                я свършим така, че да ни препоръчаш с увереност.
+              </p>
+            </div>
           </div>
-          <h4 className="mt-4 text-lg font-semibold">
-            Коректност без компромис
-          </h4>
-          <p className="mt-2 text-gray-700">
-            Ясни условия, точни срокове и отношение без излишни обещания – само
-            реални резултати.
-          </p>
+
+          <div className="order-1 lg:order-2">
+            <div className="relative mx-auto w-full max-w-xl overflow-hidden rounded-3xl bg-white">
+              <img
+                src={AboutUsImg}
+                alt="Our team at work"
+                className="w-full h-auto drop-shadow-[0_10px_15px_rgba(0,0,0,0.25)]"
+              />
+            </div>
+          </div>
         </div>
 
-        {/* Feature 2 */}
-        <div className="flex flex-col items-start">
-          <div className="bg-[#002B5B] text-white w-14 h-14 flex items-center justify-center rounded-lg">
-            <VscTools className="w-7 h-7" />
+        {/* Bottom features */}
+        <div className="mt-14 sm:mt-16 lg:mt-20 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+          {/* Feature card */}
+          <div className="group rounded-2xl bg-white p-6 sm:p-7 shadow-sm ring-1 ring-[#002B5B]/10 transition hover:-translate-y-1 hover:shadow-md hover:ring-[#002B5B]/20">
+            <div className="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-[#002B5B] text-white shadow-sm">
+              <FaRegHandshake className="h-6 w-6" />
+            </div>
+            <h4 className="mt-4 text-lg font-bold text-[#002B5B]">
+              Коректност без компромис
+            </h4>
+            <p className="mt-2 text-slate-600 leading-relaxed">
+              Ясни условия, точни срокове и отношение без излишни обещания –
+              само реални резултати.
+            </p>
           </div>
-          <h4 className="mt-4 text-lg font-semibold">
-            Опит и внимание към детайла
-          </h4>
-          <p className="mt-2 text-gray-700">
-            Работим с утвърдени специалисти – от монтаж на климатици до
-            електроинсталации и сухо строителство.
-          </p>
-        </div>
 
-        {/* Feature 3 */}
-        <div className="flex flex-col items-start">
-          <div className="bg-[#002B5B] text-white w-14 h-14 flex items-center justify-center rounded-lg">
-            <FiPhone className="w-7 h-7" />
+          <div className="group rounded-2xl bg-white p-6 sm:p-7 shadow-sm ring-1 ring-[#002B5B]/10 transition hover:-translate-y-1 hover:shadow-md hover:ring-[#002B5B]/20">
+            <div className="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-[#002B5B] text-white shadow-sm">
+              <VscTools className="h-6 w-6" />
+            </div>
+            <h4 className="mt-4 text-lg font-bold text-[#002B5B]">
+              Опит и внимание към детайла
+            </h4>
+            <p className="mt-2 text-slate-600 leading-relaxed">
+              Работим с утвърдени специалисти – от монтаж на климатици до
+              електроинсталации и сухо строителство.
+            </p>
           </div>
-          <h4 className="mt-4 text-lg font-semibold">Винаги отзивчиви</h4>
-          <p className="mt-2 text-gray-700">
-            При нас няма автоматични гласове и „изчакайте на линия“. Реални хора
-            – с истинско отношение.
-          </p>
+
+          <div className="group rounded-2xl bg-white p-6 sm:p-7 shadow-sm ring-1 ring-[#002B5B]/10 transition hover:-translate-y-1 hover:shadow-md hover:ring-[#002B5B]/20">
+            <div className="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-[#002B5B] text-white shadow-sm">
+              <FiPhone className="h-6 w-6" />
+            </div>
+            <h4 className="mt-4 text-lg font-bold text-[#002B5B]">
+              Винаги отзивчиви
+            </h4>
+            <p className="mt-2 text-slate-600 leading-relaxed">
+              При нас няма автоматични гласове и „изчакайте на линия“. Реални
+              хора – с истинско отношение.
+            </p>
+          </div>
         </div>
       </div>
     </section>

@@ -11,24 +11,16 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 
 const media = [
-  "src/assets/projects/project-vid-7.mp4",
-  "src/assets/projects/project-img-6.jpg",
-  "src/assets/projects/project-img-10.jpg",
-  "src/assets/projects/project-vid-8.mp4",
-  "src/assets/projects/project-vid-5.mp4",
   "src/assets/projects/project-img-3.jpg",
+  "src/assets/projects/project-img-10.jpg",
+  "src/assets/projects/project-img-6.jpg",
+  "src/assets/projects/project-img-7.jpg",
+  "src/assets/projects/project-img-24.jpg",
   "src/assets/projects/project-img-40.jpg",
   "src/assets/projects/project-img-37.jpg",
   "src/assets/projects/project-img-36.jpg",
-  "src/assets/projects/project-img-24.jpg",
-  "src/assets/projects/project-vid-1.mp4",
-  "src/assets/projects/project-img-7.jpg",
   "src/assets/projects/project-img-1.jpg",
-  "src/assets/projects/project-vid-3.mp4",
-  "src/assets/projects/project-vid-4.mp4",
-  "src/assets/projects/project-vid-6.mp4",
   "src/assets/projects/project-img-5.jpg",
-  "src/assets/projects/project-vid-2.mp4",
   "src/assets/projects/project-img-8.jpg",
   "src/assets/projects/project-img-9.jpg",
   "src/assets/projects/project-img-12.jpg",
@@ -56,9 +48,6 @@ const media = [
   "src/assets/projects/project-img-35.jpg",
   "src/assets/projects/project-img-38.jpg",
   "src/assets/projects/project-img-39.jpg",
-  "src/assets/projects/project-vid-9.mp4",
-
-  
 ];
 
 export default function ProjectsSection() {
@@ -72,9 +61,7 @@ export default function ProjectsSection() {
       if (e.key === "ArrowRight") {
         setSelectedImgIndx((prev) => (prev + 1) % media.length);
       } else if (e.key === "ArrowLeft") {
-        setSelectedImgIndx(
-          (prev) => (prev - 1 + media.length) % media.length
-        );
+        setSelectedImgIndx((prev) => (prev - 1 + media.length) % media.length);
       }
     };
 
@@ -112,13 +99,22 @@ export default function ProjectsSection() {
                   }}
                   className="relative overflow-hidden rounded-lg shadow-lg h-120"
                 >
-               
-                  {medium.slice(-3) === 'mp4' 
-                    ? (<video src={medium} autoPlay muted loop alt={`Project media ${index + 1}`} className="object-cover w-full h-full transition-transform duration-300 hover:scale-105"  
-                    />) 
-                    : (<img src={medium}
-                        alt={`Project media ${index + 1}`}
-                        className="object-cover w-full h-full transition-transform duration-300 hover:scale-105"/>)}
+                  {medium.slice(-3) === "mp4" ? (
+                    <video
+                      src={medium}
+                      autoPlay
+                      muted
+                      loop
+                      alt={`Project media ${index + 1}`}
+                      className="object-cover w-full h-full transition-transform duration-300 hover:scale-105"
+                    />
+                  ) : (
+                    <img
+                      src={medium}
+                      alt={`Project media ${index + 1}`}
+                      className="object-cover w-full h-full transition-transform duration-300 hover:scale-105"
+                    />
+                  )}
                 </div>
               </SwiperSlide>
             ))}
@@ -142,30 +138,27 @@ export default function ProjectsSection() {
               <div className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
                 <DialogPanel className="relative transform  rounded-lg bg-white text-left shadow-xl sm:my-8 sm:w-full sm:max-w-lg">
                   <div className="relative">
-                  {media[selectedImgIndx].slice(-3) === 'mp4' 
-  ? (
-    <video 
-      src={media[selectedImgIndx]} 
-      autoPlay 
-      muted 
-      loop
-      className="w-full h-auto max-h-170 object-cover rounded-lg"
-    />
-  ) 
-  : (
-    <img
-      src={media[selectedImgIndx]}
-      alt={`Project ${selectedImgIndx + 1}`}
-      className="w-full h-auto rounded-lg"
-    />
-  )
-}
+                    {media[selectedImgIndx].slice(-3) === "mp4" ? (
+                      <video
+                        src={media[selectedImgIndx]}
+                        autoPlay
+                        muted
+                        loop
+                        className="w-full h-auto max-h-170 object-cover rounded-lg"
+                      />
+                    ) : (
+                      <img
+                        src={media[selectedImgIndx]}
+                        alt={`Project ${selectedImgIndx + 1}`}
+                        className="w-full h-auto rounded-lg"
+                      />
+                    )}
 
                     <button
                       onClick={(e) => {
                         e.stopPropagation();
                         setSelectedImgIndx(
-                          (prev) => (prev - 1 + media.length) % media.length
+                          (prev) => (prev - 1 + media.length) % media.length,
                         );
                       }}
                       className="custom-prev cursor-pointer absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-white bg-opacity-50 text-[#002B5B] p-4 rounded-full hover:bg-opacity-75 transition-all -ml-6"
@@ -175,9 +168,7 @@ export default function ProjectsSection() {
                     <button
                       onClick={(e) => {
                         e.stopPropagation();
-                        setSelectedImgIndx(
-                          (prev) => (prev + 1) % media.length
-                        );
+                        setSelectedImgIndx((prev) => (prev + 1) % media.length);
                       }}
                       className="custom-prev cursor-pointer absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-white bg-opacity-50 text-[#002B5B] p-4 rounded-full hover:bg-opacity-75 transition-all -mr-6"
                     >

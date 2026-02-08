@@ -1,4 +1,5 @@
 import { HashLink } from "react-router-hash-link";
+
 const images = [
   {
     src: "https://www.socool.sg/wp-content/uploads/2023/12/aircon-installation-cost-and-services-in-singapore.webp",
@@ -39,86 +40,119 @@ const rightImages = images.slice(4, 8);
 
 const HeroSection = () => {
   return (
-    <div
-      className="overflow-hidden"
+    <section
+      className="relative overflow-hidden"
       style={{
         background:
           "linear-gradient(135deg, #002B5B 0%, #003d7a 50%, #002B5B 100%)",
       }}
     >
-      <div className="relative max-w-7xl mx-auto px-6 lg:px-8 grid grid-cols-1 md:grid-cols-2 items-center gap-12">
-        <div className="py-24">
-          <h1 className="text-4xl sm:text-5xl font-bold text-white">
-            Всички услуги за дома и офиса – на едно място
-          </h1>
-          <p className="mt-6 text-lg text-gray-200 leading-relaxed">
-            При нас ще намерите всичко на едно място – от монтаж на климатици,
-            електро и ВиК услуги, до гипсокартон, хамалски услуги, плочкаджии,
-            мебели, СОТ и още. <br /> Един екип, едно обаждане – и всичко е
-            свършено. <br />
-            Бързо, качествено и без излишно главоболие.
-          </p>
+      {/* Soft decorative blobs */}
+      <div className="pointer-events-none absolute -top-24 -left-24 h-72 w-72 rounded-full bg-white/10 blur-3xl" />
+      <div className="pointer-events-none absolute -bottom-28 -right-28 h-96 w-96 rounded-full bg-white/10 blur-3xl" />
 
-          <div className="mt-8 flex gap-4">
-            <HashLink
-              to="/#services"
-              className="text-[#002B5B] bg-white px-5 py-3 rounded-md font-medium shadow-md cursor-pointer hover:bg-gray-50 transition-colors"
-            >
-              Виж услугите
-            </HashLink>
-          </div>
-        </div>
+      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="grid items-center gap-10 lg:gap-14 lg:grid-cols-2">
+          {/* Left content */}
+          <div className="py-16 sm:py-20 lg:py-28">
+            <h1 className="mt-6 text-3xl font-bold tracking-tight text-white sm:text-5xl lg:text-6xl">
+              Всички услуги за дома и офиса – на едно място
+            </h1>
 
-        {/* Right Image Grid */}
-        <div className="absolute right-0 top-0 h-full overflow-hidden hidden md:block">
-          <div className="flex gap-4 h-full">
-            {/* Left Column (scrolling up) */}
-            <div className="flex flex-col gap-4 h-full">
-              <div className="flex flex-col gap-4 animate-scroll-up">
-                {leftImages.map((img, i) => (
-                  <img
-                    key={`left-1-${i}`}
-                    src={img.src}
-                    alt={img.alt}
-                    className="w-64 h-48 object-cover rounded-xl shadow-md flex-shrink-0"
-                  />
-                ))}
-                {leftImages.map((img, i) => (
-                  <img
-                    key={`left-2-${i}`}
-                    src={img.src}
-                    alt={img.alt}
-                    className="w-64 h-48 object-cover rounded-xl shadow-md flex-shrink-0"
-                  />
-                ))}
-              </div>
+            <p className="mt-6 max-w-xl text-base leading-relaxed text-white/80 sm:text-lg">
+              При нас ще намерите всичко на едно място – от монтаж на климатици,
+              електро и ВиК услуги, до гипсокартон, хамалски услуги, плочкаджии,
+              мебели, СОТ и още. <br className="hidden sm:block" />
+              Един екип, едно обаждане – и всичко е свършено.{" "}
+              <br className="hidden sm:block" />
+              Бързо, качествено и без излишно главоболие.
+            </p>
+
+            <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-4">
+              <HashLink
+                to="/#services"
+                className="inline-flex justify-center rounded-lg bg-white px-5 py-3 font-semibold text-[#002B5B] shadow-lg shadow-black/10 transition hover:bg-white/90 focus:outline-none focus:ring-2 focus:ring-white/60"
+              >
+                Виж услугите
+              </HashLink>
+
+              <HashLink
+                to="/#contact"
+                className="inline-flex justify-center rounded-lg bg-white/10 px-5 py-3 font-semibold text-white ring-1 ring-white/25 backdrop-blur transition hover:bg-white/15 focus:outline-none focus:ring-2 focus:ring-white/60"
+              >
+                Контакт
+              </HashLink>
             </div>
 
-            {/* Right Column (scrolling down) */}
-            <div className="flex flex-col gap-4 h-full">
-              <div className="flex flex-col gap-4 animate-scroll-down">
-                {rightImages.map((img, i) => (
+            {/* Mobile/Tablet image strip (shows when the big grid is hidden) */}
+            <div className="mt-10 grid grid-cols-2 gap-3 sm:mt-12 sm:grid-cols-4 lg:hidden">
+              {images.slice(0, 4).map((img, i) => (
+                <div
+                  key={`m-${i}`}
+                  className="overflow-hidden rounded-2xl ring-1 ring-white/15"
+                >
                   <img
-                    key={`right-1-${i}`}
                     src={img.src}
                     alt={img.alt}
-                    className="w-64 h-48 object-cover rounded-xl shadow-md flex-shrink-0"
+                    className="h-28 w-full object-cover sm:h-32"
+                    loading="lazy"
                   />
-                ))}
-                {rightImages.map((img, i) => (
-                  <img
-                    key={`right-2-${i}`}
-                    src={img.src}
-                    alt={img.alt}
-                    className="w-64 h-48 object-cover rounded-xl shadow-md flex-shrink-0"
-                  />
-                ))}
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Right visual: contained grid (no absolute overlap) */}
+          <div className="relative hidden lg:block">
+            {/* Frame */}
+            <div className="relative ml-auto h-[520px] w-[520px] xl:h-[560px] xl:w-[560px]">
+              {/* Glass panel background */}
+              <div className="absolute inset-0 rounded-[28px] bg-white/5 ring-1 ring-white/15 backdrop-blur" />
+
+              {/* Gradient fade top/bottom */}
+              <div className="pointer-events-none absolute inset-x-0 top-0 z-10 h-16 rounded-t-[28px] bg-gradient-to-b from-[#002B5B]/70 to-transparent" />
+              <div className="pointer-events-none absolute inset-x-0 bottom-0 z-10 h-16 rounded-b-[28px] bg-gradient-to-t from-[#002B5B]/70 to-transparent" />
+
+              {/* Scrolling columns */}
+              <div className="relative z-0 flex h-full gap-4 overflow-hidden p-4">
+                {/* Left column (scroll up) */}
+                <div className="flex w-1/2 flex-col gap-4">
+                  <div className="flex flex-col gap-4 animate-scroll-up motion-reduce:animate-none">
+                    {leftImages.concat(leftImages).map((img, i) => (
+                      <img
+                        key={`left-${i}`}
+                        src={img.src}
+                        alt={img.alt}
+                        className="h-44 w-full rounded-2xl object-cover shadow-lg shadow-black/15 ring-1 ring-white/10"
+                        loading="lazy"
+                      />
+                    ))}
+                  </div>
+                </div>
+
+                {/* Right column (scroll down) */}
+                <div className="flex w-1/2 flex-col gap-4">
+                  <div className="flex flex-col gap-4 animate-scroll-down motion-reduce:animate-none">
+                    {rightImages.concat(rightImages).map((img, i) => (
+                      <img
+                        key={`right-${i}`}
+                        src={img.src}
+                        alt={img.alt}
+                        className="h-44 w-full rounded-2xl object-cover shadow-lg shadow-black/15 ring-1 ring-white/10"
+                        loading="lazy"
+                      />
+                    ))}
+                  </div>
+                </div>
               </div>
+
+              {/* Subtle border highlight */}
+              <div className="pointer-events-none absolute inset-0 rounded-[28px] ring-1 ring-white/10" />
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 

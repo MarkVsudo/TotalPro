@@ -3,87 +3,79 @@ import { HashLink } from "react-router-hash-link";
 import FooterLogo from "../../assets/nav-logo.png";
 
 const services = [
-  {
-    name: "Климатици",
-    href: "/air-conditioning",
-  },
-  {
-    name: "Ел. инсталации",
-    href: "/electric-installations",
-  },
-  {
-    name: "Хамалски услуги",
-    href: "/moving-services",
-  },
-  {
-    name: "Гипсокартон",
-    href: "/drywall",
-  },
-  {
-    name: "СОТ",
-    href: "/security-alarm-equipment",
-  },
-  {
-    name: "ВиК",
-    href: "/plumbing-services",
-  },
-  {
-    name: "Плочкаджии",
-    href: "/tiling-services",
-  },
-  {
-    name: "Мебели",
-    href: "/furniture",
-  },
+  { name: "Климатици", href: "/air-conditioning" },
+  { name: "Ел. инсталации", href: "/electric-installations" },
+  { name: "Хамалски услуги", href: "/moving-services" },
+  { name: "Гипсокартон", href: "/drywall" },
+  { name: "СОТ", href: "/security-alarm-equipment" },
+  { name: "ВиК", href: "/plumbing-services" },
+  { name: "Плочкаджии", href: "/tiling-services" },
+  { name: "Мебели", href: "/furniture" },
 ];
 
 const Footer = () => {
   return (
-    <footer className="py-8 px-4 sm:px-6 lg:px-8">
-      <div className="flex flex-col items-center justify-center max-w-7xl mx-auto gap-6">
-        <Link to="/">
+    <footer className="py-10 sm:py-12 px-4 sm:px-6 lg:px-8">
+      <div className="flex flex-col items-center justify-center max-w-7xl mx-auto gap-6 sm:gap-7">
+        <Link to="/" aria-label="Начало">
           <img alt="Footer logo" src={FooterLogo} className="h-10 w-auto" />
         </Link>
-        <div className="flex flex-wrap justify-center gap-6">
+
+        {/* Links */}
+        <div className="flex flex-wrap justify-center gap-x-5 gap-y-3 sm:gap-x-6 sm:gap-y-3 text-center">
           {services.map((service, index) => (
             <Link
               key={index}
               to={service.href}
-              className="text-gray-600 hover:text-gray-900 text-sm font-medium"
+              className="text-gray-600 hover:text-gray-900 text-sm font-medium transition-colors"
             >
               {service.name}
             </Link>
           ))}
-          <span className="text-gray-400">·</span>
+
+          {/* separator only on larger screens */}
+          <span className="hidden sm:inline text-gray-300">·</span>
+
           <HashLink
             to="/#services"
-            className="text-gray-600 hover:text-gray-900 text-sm font-medium"
+            className="text-gray-600 hover:text-gray-900 text-sm font-medium transition-colors"
           >
             Услуги
           </HashLink>
           <HashLink
             to="/#projects"
-            className="text-gray-600 hover:text-gray-900 text-sm font-medium"
+            className="text-gray-600 hover:text-gray-900 text-sm font-medium transition-colors"
           >
             Проекти
           </HashLink>
           <HashLink
             to="/#about-us"
-            className="text-gray-600 hover:text-gray-900 text-sm font-medium"
+            className="text-gray-600 hover:text-gray-900 text-sm font-medium transition-colors"
           >
             За нас
           </HashLink>
           <HashLink
             to="/#contact"
-            className="text-gray-600 hover:text-gray-900 text-sm font-medium"
+            className="text-gray-600 hover:text-gray-900 text-sm font-medium transition-colors"
           >
             Контакти
           </HashLink>
         </div>
-        <div className="flex flex-col text-center text-gray-500 text-xs gap-2">
-          <p>© 2025 TotalPro ЕООД. Всички права са запазени.</p>
-          <a href="https://github.com/MarkVsudo" target="_blank">
-            Разработено от <span className="text-[#002B5B]">Марк Весков</span>
+
+        {/* Bottom text */}
+        <div className="flex flex-col sm:flex-row items-center justify-center text-center text-gray-500 text-xs gap-2 sm:gap-3">
+          <p>© 2026 TotalPro ЕООД. Всички права са запазени.</p>
+
+          <span className="hidden sm:inline text-gray-300">·</span>
+
+          <a
+            href="https://github.com/MarkVsudo"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:text-gray-700 transition-colors"
+          >
+            Разработено от{" "}
+            <span className="text-[#002B5B] font-medium">Марк Весков</span>
           </a>
         </div>
       </div>
