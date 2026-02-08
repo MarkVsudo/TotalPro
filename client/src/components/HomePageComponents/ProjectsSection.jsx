@@ -11,24 +11,16 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 
 const media = [
-  "/projects/project-vid-7.mp4",
-  "/projects/project-img-6.jpg",
-  "/projects/project-img-10.jpg",
-  "/projects/project-vid-8.mp4",
-  "/projects/project-vid-5.mp4",
   "/projects/project-img-3.jpg",
+  "/projects/project-img-10.jpg",
+  "/projects/project-img-6.jpg",
+  "/projects/project-img-7.jpg",
+  "/projects/project-img-24.jpg",
   "/projects/project-img-40.jpg",
   "/projects/project-img-37.jpg",
   "/projects/project-img-36.jpg",
-  "/projects/project-img-24.jpg",
-  "/projects/project-vid-1.mp4",
-  "/projects/project-img-7.jpg",
   "/projects/project-img-1.jpg",
-  "/projects/project-vid-3.mp4",
-  "/projects/project-vid-4.mp4",
-  "/projects/project-vid-6.mp4",
   "/projects/project-img-5.jpg",
-  "/projects/project-vid-2.mp4",
   "/projects/project-img-8.jpg",
   "/projects/project-img-9.jpg",
   "/projects/project-img-12.jpg",
@@ -56,7 +48,6 @@ const media = [
   "/projects/project-img-35.jpg",
   "/projects/project-img-38.jpg",
   "/projects/project-img-39.jpg",
-  "/projects/project-vid-9.mp4",
 ];
 
 export default function ProjectsSection() {
