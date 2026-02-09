@@ -1,5 +1,6 @@
 import { HashLink } from "react-router-hash-link";
-
+import TbiBankLogo from "../../assets/tbi-bank.png";
+import { Link } from "react-router-dom";
 const images = [
   {
     src: "https://www.socool.sg/wp-content/uploads/2023/12/aircon-installation-cost-and-services-in-singapore.webp",
@@ -68,24 +69,41 @@ const HeroSection = () => {
               Бързо, качествено и без излишно главоболие.
             </p>
 
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-4">
-              <HashLink
-                to="/#services"
-                className="inline-flex justify-center rounded-lg bg-white px-5 py-3 font-semibold text-[#002B5B] shadow-lg shadow-black/10 transition hover:bg-white/90 focus:outline-none focus:ring-2 focus:ring-white/60"
-              >
-                Виж услугите
-              </HashLink>
+            <div className="mt-8 flex flex-col gap-3 sm:gap-4 w-fit">
+              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
+                <HashLink
+                  to="/#services"
+                  className="inline-flex flex-1 justify-center rounded-lg bg-white px-5 py-3 font-semibold text-[#002B5B] shadow-lg shadow-black/10 transition hover:bg-white/90 focus:outline-none focus:ring-2 focus:ring-white/60"
+                >
+                  Виж услугите
+                </HashLink>
 
-              <HashLink
-                to="/#contact"
-                className="inline-flex justify-center rounded-lg bg-white/10 px-5 py-3 font-semibold text-white ring-1 ring-white/25 backdrop-blur transition hover:bg-white/15 focus:outline-none focus:ring-2 focus:ring-white/60"
+                <HashLink
+                  to="/#contact"
+                  className="inline-flex flex-1 justify-center rounded-lg bg-white/10 px-5 py-3 font-semibold text-white ring-1 ring-white/25 backdrop-blur transition hover:bg-white/15 focus:outline-none focus:ring-2 focus:ring-white/60"
+                >
+                  Контакт
+                </HashLink>
+              </div>
+              <Link
+                to="/air-conditioning"
+                className="inline-flex flex-1 justify-center rounded-lg bg-[#FF6600] px-5 py-3 text-white  font-semibold shadow-md hover:brightness-95 transition"
               >
-                Контакт
-              </HashLink>
+                <span>Купи климатик с</span>
+
+                <img
+                  src={TbiBankLogo}
+                  alt="tbi bank"
+                  className="h-6 w-auto mx-2"
+                  loading="lazy"
+                />
+
+                <span>на изплащане</span>
+              </Link>
             </div>
 
             {/* Mobile/Tablet image strip (shows when the big grid is hidden) */}
-            <div className="mt-10 grid grid-cols-2 gap-3 sm:mt-12 sm:grid-cols-4 lg:hidden">
+            {/* <div className="mt-10 grid grid-cols-2 gap-3 sm:mt-12 sm:grid-cols-4 lg:hidden">
               {images.slice(0, 4).map((img, i) => (
                 <div
                   key={`m-${i}`}
@@ -99,7 +117,7 @@ const HeroSection = () => {
                   />
                 </div>
               ))}
-            </div>
+            </div> */}
           </div>
 
           {/* Right visual: contained grid (no absolute overlap) */}

@@ -22,7 +22,7 @@ import HeroSection from "../../components/ServicePagesComponents/HeroSection";
 import ProcessSection from "../../components/ServicePagesComponents/ProcessSection";
 import ServicesSection from "../../components/ServicePagesComponents/ServicesSection";
 import FeaturesSection from "../../components/ServicePagesComponents/FeaturesSection";
-import ContanctSection from "../../components/ServicePagesComponents/ContanctSection";
+import ContactSection from "../../components/ServicePagesComponents/ContactSection";
 import AirConMaintenance from "../../components/AirConPageComponents/AirConMaintenance";
 import AirConInstallation from "../../components/AirConPageComponents/AirConInstallation";
 
@@ -174,7 +174,7 @@ const AirConditioningPage = () => {
         process={process}
       />
       {/* Contact Section */}
-      <ContanctSection />
+      <ContactSection />
     </div>
   );
 };

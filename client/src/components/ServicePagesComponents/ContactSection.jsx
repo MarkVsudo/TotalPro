@@ -1,6 +1,6 @@
 import { FaPhoneAlt, FaEnvelope, FaMapMarkerAlt } from "react-icons/fa";
 import { HashLink } from "react-router-hash-link";
-const ContanctSection = () => {
+const ContactSection = () => {
   return (
     <section
       className="py-16 md:py-20 lg:py-24 text-white"
@@ -57,4 +57,4 @@ const ContanctSection = () => {
   );
 };
 
-export default ContanctSection;
+export default ContactSection;
