@@ -1,5 +1,4 @@
 import { useState } from "react";
-
 import { Link } from "react-router-dom";
 import { HashLink } from "react-router-hash-link";
 
@@ -13,10 +12,12 @@ import { FaPeopleCarry } from "react-icons/fa";
 import { FaCartShopping } from "react-icons/fa6";
 import { RiLayoutGridFill } from "react-icons/ri";
 import { MdOutlinePlumbing } from "react-icons/md";
+
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
-import { ChevronDownIcon, PlayCircleIcon } from "@heroicons/react/20/solid";
+import { ChevronDownIcon } from "@heroicons/react/20/solid";
 import {
   Dialog,
+  DialogBackdrop,
   DialogPanel,
   Disclosure,
   DisclosureButton,
@@ -81,184 +82,250 @@ const services = [
   },
 ];
 
-const callsToAction = [
-  { name: "Watch demo", href: "#", icon: PlayCircleIcon },
-  { name: "Свържете се", href: "#", icon: FiPhone },
-];
-
 export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { openCart } = useCart();
 
   return (
-    <header className="bg-white">
+    <header className="sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-slate-200">
       <nav
         aria-label="Global"
-        className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8"
+        className="relative mx-auto flex h-16 max-w-7xl items-center px-4 sm:px-6 lg:px-8"
       >
-        <div className="flex lg:flex-1">
-          <Link to="/" className="-m-1.5 p-1.5">
+        {/* LEFT — Logo */}
+        <div className="flex items-center">
+          <Link to="/" className="flex items-center -m-1.5 p-1.5">
             <span className="sr-only">TotalPro</span>
-            <img alt="Nav logo" src={NavLogoImg} className="h-10 w-auto" />
+            <img alt="Nav logo" src={NavLogoImg} className="h-9 w-auto" />
           </Link>
         </div>
-        <div className="flex lg:hidden">
-          <button
-            type="button"
-            onClick={() => setMobileMenuOpen(true)}
-            className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700 cursor-pointer"
-          >
-            <span className="sr-only">Open main menu</span>
-            <Bars3Icon aria-hidden="true" className="size-6" />
-          </button>
-        </div>
-        <PopoverGroup className="hidden lg:flex lg:gap-x-12">
+
+        {/* CENTER — Links (centered only on lg+) */}
+        <div className="hidden lg:flex absolute left-1/2 -translate-x-1/2 items-center gap-x-12">
           <Popover className="relative">
-            <PopoverButton className="flex items-center gap-x-1 text-sm/6 font-semibold text-gray-900">
+            <PopoverButton className="flex items-center gap-x-1 text-sm font-semibold text-slate-900 hover:text-[#002B5B] transition">
               Услуги
-              <ChevronDownIcon
-                aria-hidden="true"
-                className="size-5 flex-none text-gray-400"
-              />
+              <ChevronDownIcon className="h-5 w-5 text-slate-400" />
             </PopoverButton>
 
             <PopoverPanel
               transition
-              className="absolute top-full -left-8 z-50 mt-3 w-screen max-w-3xl overflow-hidden rounded-3xl bg-white shadow-lg ring-1 ring-gray-900/5 transition data-closed:translate-y-1 data-closed:opacity-0 data-enter:duration-200 data-enter:ease-out data-leave:duration-150 data-leave:ease-in"
+              className="absolute top-full -left-8 z-50 mt-3 w-screen max-w-3xl rounded-3xl bg-white shadow-lg ring-1 ring-black/5 transition
+  data-closed:translate-y-2 data-closed:opacity-0 data-enter:duration-200 data-enter:ease-out data-leave:duration-150 data-leave:ease-in"
             >
-              <div className="p-4 grid grid-cols-2">
-                {services.map((item) => (
-                  <div
-                    key={item.name}
-                    className="group relative flex items-center gap-x-6 rounded-lg p-4 text-sm/6 hover:bg-gray-50"
-                  >
-                    <div className="flex size-11 flex-none items-center justify-center rounded-lg bg-gray-50 group-hover:bg-white">
-                      <item.icon
-                        aria-hidden="true"
-                        className="size-6 text-gray-600 group-hover:text-[#002B5B] "
-                      />
-                    </div>
-                    <div className="flex-auto">
-                      <a
-                        href={item.href}
-                        className="block font-semibold text-gray-900"
-                      >
-                        {item.name}
-                        <span className="absolute inset-0" />
-                      </a>
-                      <p className="mt-1 text-gray-600">{item.description}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
+              {({ close }) => (
+                <div className="p-4 grid grid-cols-2 gap-1">
+                  {services.map((item) => (
+                    <Link
+                      key={item.name}
+                      to={item.href}
+                      onClick={() => close()}
+                      className="group flex items-center gap-4 rounded-xl p-4 hover:bg-slate-50 transition"
+                    >
+                      <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-slate-50">
+                        <item.icon className="h-5 w-5 text-slate-600 group-hover:text-[#002B5B]" />
+                      </div>
+                      <div>
+                        <div className="font-semibold text-slate-900">
+                          {item.name}
+                        </div>
+                        <p className="text-sm text-slate-600">
+                          {item.description}
+                        </p>
+                      </div>
+                    </Link>
+                  ))}
+                </div>
+              )}
             </PopoverPanel>
           </Popover>
 
           <HashLink
             to="/#projects"
-            className="text-sm/6 font-semibold text-gray-900"
+            className="text-sm font-semibold text-slate-900 hover:text-[#002B5B] transition"
           >
             Проекти
           </HashLink>
+
           <HashLink
             to="/#about-us"
-            className="text-sm/6 font-semibold text-gray-900"
+            className="text-sm font-semibold text-slate-900 hover:text-[#002B5B] transition"
           >
             За нас
           </HashLink>
+
           <HashLink
             to="/#contact"
-            className="text-sm/6 font-semibold text-gray-900 "
+            className="text-sm font-semibold text-slate-900 hover:text-[#002B5B] transition"
           >
             Контакти
           </HashLink>
-        </PopoverGroup>
-        <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-          <button></button>
-          <button onClick={openCart} className="cursor-pointer">
-            <FaCartShopping className="h-6 w-6 text-[#002B5B]" />
+        </div>
+
+        {/* RIGHT — Cart + Mobile menu */}
+        <div className="ml-auto flex items-center gap-2">
+          <button
+            onClick={openCart}
+            className="hidden lg:inline-flex items-center justify-center rounded-lg p-2 text-[#002B5B] hover:bg-slate-100 transition"
+            aria-label="Отвори количка"
+          >
+            <FaCartShopping className="h-6 w-6" />
+          </button>
+
+          <button
+            onClick={openCart}
+            className="lg:hidden inline-flex items-center justify-center rounded-lg p-2 text-[#002B5B] hover:bg-slate-100 transition"
+            aria-label="Отвори количка"
+          >
+            <FaCartShopping className="h-5 w-5" />
+          </button>
+
+          <button
+            type="button"
+            onClick={() => setMobileMenuOpen(true)}
+            className="lg:hidden inline-flex items-center justify-center rounded-lg p-2 text-slate-700 hover:bg-slate-100 transition"
+            aria-label="Отвори меню"
+          >
+            <Bars3Icon className="h-6 w-6" />
           </button>
         </div>
       </nav>
+
+      {/* Mobile menu (slide) */}
       <Dialog
         open={mobileMenuOpen}
         onClose={setMobileMenuOpen}
-        className="lg:hidden"
+        className="relative z-50 lg:hidden"
       >
-        <div className="fixed inset-0 z-50" />
-        <DialogPanel className="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white p-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
-          <div className="flex items-center justify-between">
-            <a to="#" className="-m-1.5 p-1.5">
-              <span className="sr-only">Your Company</span>
-              <img
-                alt=""
-                src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=600"
-                className="h-8 w-auto"
-              />
-            </a>
-            <button
-              type="button"
-              onClick={() => setMobileMenuOpen(false)}
-              className="-m-2.5 rounded-md p-2.5 text-gray-700 cursor-pointer"
-            >
-              <span className="sr-only">Close menu</span>
-              <XMarkIcon aria-hidden="true" className="size-6" />
-            </button>
-          </div>
-          <div className="mt-6 flow-root">
-            <div className="-my-6 divide-y divide-gray-500/10">
-              <div className="space-y-2 py-6">
-                <Disclosure as="div" className="-mx-3">
-                  <DisclosureButton className="group flex w-full items-center justify-between rounded-lg py-2 pr-3.5 pl-3 text-base/7 font-semibold text-gray-900 hover:bg-gray-50">
-                    Услуги
-                    <ChevronDownIcon
-                      aria-hidden="true"
-                      className="size-5 flex-none group-data-open:rotate-180"
-                    />
-                  </DisclosureButton>
-                  <DisclosurePanel className="mt-2 space-y-2">
-                    {[...services, ...callsToAction].map((item) => (
-                      <DisclosureButton
-                        key={item.name}
-                        as="a"
-                        href={item.href}
-                        className="block rounded-lg py-2 pr-3 pl-6 text-sm/7 font-semibold text-gray-900 hover:bg-gray-50"
+        {/* Backdrop — same as Cart */}
+        <DialogBackdrop
+          transition
+          className="fixed inset-0 bg-gray-500/75 transition-opacity duration-500 ease-in-out data-closed:opacity-0"
+        />
+
+        <div className="fixed inset-0 overflow-hidden">
+          <div className="absolute inset-0 overflow-hidden">
+            {/* Right sliding container — same as Cart */}
+            <div className="pointer-events-none fixed inset-y-0 right-0 flex max-w-full pl-10 sm:pl-16">
+              <DialogPanel
+                transition
+                className="pointer-events-auto w-screen max-w-sm transform bg-white shadow-xl
+          transition duration-500 ease-in-out data-closed:translate-x-full sm:duration-700"
+              >
+                {/* PANEL CONTENT */}
+                <div className="flex h-full flex-col overflow-y-auto px-5 py-6">
+                  {/* Header */}
+                  <div className="flex items-center justify-between">
+                    <Link
+                      to="/"
+                      onClick={() => setMobileMenuOpen(false)}
+                      className="flex items-center gap-2"
+                    >
+                      <img
+                        alt="TotalPro"
+                        src={NavLogoImg}
+                        className="h-9 w-auto"
+                      />
+                    </Link>
+
+                    <button
+                      type="button"
+                      onClick={() => setMobileMenuOpen(false)}
+                      className="relative -m-2 p-2 text-slate-500 hover:text-slate-700 cursor-pointer"
+                      aria-label="Затвори меню"
+                    >
+                      <span className="absolute -inset-0.5" />
+                      <XMarkIcon aria-hidden="true" className="h-6 w-6" />
+                    </button>
+                  </div>
+
+                  {/* Body */}
+                  <div className="mt-6 divide-y divide-slate-200">
+                    <div className="py-4">
+                      <Disclosure as="div">
+                        <DisclosureButton className="group flex w-full items-center justify-between rounded-xl px-3 py-3 text-base font-semibold text-slate-900 hover:bg-slate-50 transition">
+                          Услуги
+                          <ChevronDownIcon
+                            aria-hidden="true"
+                            className="h-5 w-5 flex-none text-slate-400 group-data-open:rotate-180 transition"
+                          />
+                        </DisclosureButton>
+
+                        {/* Dropdown: slide like a panel (same timing & easing) */}
+                        <DisclosurePanel
+                          transition
+                          className="mt-2 space-y-1 overflow-hidden
+                    transition duration-500 ease-in-out data-closed:opacity-0 data-closed:-translate-y-2"
+                        >
+                          {services.map((item) => (
+                            <Link
+                              key={item.name}
+                              to={item.href}
+                              onClick={() => setMobileMenuOpen(false)}
+                              className="flex items-center gap-3 rounded-xl px-3 py-2 text-sm font-semibold text-slate-800 hover:bg-slate-50 transition"
+                            >
+                              <item.icon className="h-5 w-5 text-[#002B5B]" />
+                              {item.name}
+                            </Link>
+                          ))}
+                        </DisclosurePanel>
+                      </Disclosure>
+
+                      <div className="mt-3 space-y-1">
+                        <HashLink
+                          to="/#projects"
+                          onClick={() => setMobileMenuOpen(false)}
+                          className="block rounded-xl px-3 py-3 text-base font-semibold text-slate-900 hover:bg-slate-50 transition"
+                        >
+                          Проекти
+                        </HashLink>
+
+                        <HashLink
+                          to="/#about-us"
+                          onClick={() => setMobileMenuOpen(false)}
+                          className="block rounded-xl px-3 py-3 text-base font-semibold text-slate-900 hover:bg-slate-50 transition"
+                        >
+                          За нас
+                        </HashLink>
+
+                        <HashLink
+                          to="/#contact"
+                          onClick={() => setMobileMenuOpen(false)}
+                          className="block rounded-xl px-3 py-3 text-base font-semibold text-slate-900 hover:bg-slate-50 transition"
+                        >
+                          Контакти
+                        </HashLink>
+                      </div>
+                    </div>
+
+                    {/* Bottom actions */}
+                    <div className="py-4">
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setMobileMenuOpen(false);
+                          openCart();
+                        }}
+                        className="w-full inline-flex items-center justify-center gap-2 rounded-xl bg-[#002B5B] px-4 py-3 text-white font-semibold hover:bg-[#003d7a] transition"
                       >
-                        {item.name}
-                      </DisclosureButton>
-                    ))}
-                  </DisclosurePanel>
-                </Disclosure>
-                <a
-                  href="#"
-                  className="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-50"
-                >
-                  За нас
-                </a>
-                <a
-                  href="#"
-                  className="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-50"
-                >
-                  Проекти
-                </a>
-                <a
-                  href="#"
-                  className="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-50"
-                >
-                  Контакти
-                </a>
-              </div>
-              <div className="py-6">
-                <a
-                  href="#"
-                  className="-mx-3 block rounded-lg px-3 py-2.5 text-base/7 font-semibold text-gray-900 hover:bg-gray-50"
-                >
-                  Log in
-                </a>
-              </div>
+                        <FaCartShopping className="h-5 w-5" />
+                        Количка
+                      </button>
+
+                      <a
+                        href="tel:+359889303334"
+                        className="mt-3 w-full inline-flex items-center justify-center gap-2 rounded-xl bg-slate-100 px-4 py-3 text-slate-900 font-semibold hover:bg-slate-200 transition"
+                      >
+                        <FiPhone className="h-5 w-5" />
+                        Обади се
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </DialogPanel>
             </div>
           </div>
-        </DialogPanel>
+        </div>
       </Dialog>
     </header>
   );
