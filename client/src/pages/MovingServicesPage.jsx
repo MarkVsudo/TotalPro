@@ -21,7 +21,7 @@ import HeroSection from "../components/ServicePagesComponents/HeroSection";
 import ServicesSection from "../components/ServicePagesComponents/ServicesSection";
 import FeaturesSection from "../components/ServicePagesComponents/FeaturesSection";
 import ProcessSection from "../components/ServicePagesComponents/ProcessSection";
-import ContanctSection from "../components/ServicePagesComponents/ContanctSection";
+import ContactSection from "../components/ServicePagesComponents/ContactSection";
 
 const MovingServicesPage = () => {
   const services = [
@@ -171,7 +171,7 @@ const MovingServicesPage = () => {
       />
 
       {/* Contact Section */}
-      <ContanctSection />
+      <ContactSection />
     </div>
   );
 };
