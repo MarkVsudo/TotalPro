@@ -27,7 +27,7 @@ export default function Cart() {
   }, [cartItems]);
 
   return (
-    <Dialog open={isCartOpen} onClose={closeCart} className="relative z-10">
+    <Dialog open={isCartOpen} onClose={closeCart} className="relative z-100">
       <DialogBackdrop
         transition
         className="fixed inset-0 bg-gray-500/75 transition-opacity duration-500 ease-in-out data-closed:opacity-0"
