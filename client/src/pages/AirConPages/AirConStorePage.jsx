@@ -7,6 +7,7 @@ import AirConHeader from "../../components/AirConPageComponents/AirConHeader";
 import AirConPagination from "../../components/AirConPageComponents/AirConPagination";
 import AirConProducts from "../../components/AirConPageComponents/AirConProducts";
 import AirConSort from "../../components/AirConPageComponents/AirConSort";
+
 const AirConStorePage = () => {
   const [products, setProducts] = useState([]);
   const [productImgs, setProductImgs] = useState([]);
@@ -54,28 +55,33 @@ const AirConStorePage = () => {
     fetchProducts();
   }, [searchParams]);
 
-  const gridParam = Number(searchParams.get("grid")) || 4;
-
   const isMobile = window.matchMedia("(max-width: 640px)").matches;
+  const gridParam = Number(searchParams.get("grid")) || (isMobile ? 2 : 4);
 
-  const effectiveGrid = isMobile ? Math.min(gridParam, 2) : gridParam;
+  const effectiveGrid = isMobile ? (gridParam === 1 ? 1 : 2) : gridParam;
 
   const gridClasses = {
-    2: "grid-cols-1 sm:grid-cols-2",
-    3: "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3",
-    4: "grid-cols-1 sm:grid-cols-2 lg:grid-cols-4",
+    1: "grid-cols-1",
+    2: "grid-cols-2",
+    3: "grid-cols-2 lg:grid-cols-3",
+    4: "grid-cols-2 lg:grid-cols-4",
   };
 
   return (
-    <>
+    <div className="min-h-screen">
       <AirConHeader />
-      <div className="w-full flex flex-col gap-10 px-4 sm:px-6 lg:px-8 pt-8 sm:pt-12 pb-6">
+      <div className="w-full flex flex-col gap-6 sm:gap-8 lg:gap-10 px-4 sm:px-6 lg:px-8 pt-6 sm:pt-8 lg:pt-12 pb-24 lg:pb-6">
         <AirConSort />
         <div className="grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-4">
-          <AirConFilters />
+          {/* Filters sidebar - hidden on mobile */}
+          <div className="hidden lg:block">
+            <AirConFilters />
+          </div>
+
+          {/* Products section */}
           <div className="lg:col-span-3">
             <div
-              className={`bg-white grid gap-x-6 xl:gap-x-8 gap-y-10 ${gridClasses[effectiveGrid]}`}
+              className={`bg-white grid gap-x-4 sm:gap-x-6 xl:gap-x-8 gap-y-8 sm:gap-y-10 ${gridClasses[effectiveGrid]}`}
             >
               <AirConProducts products={products} productImgs={productImgs} />
             </div>
@@ -83,7 +89,12 @@ const AirConStorePage = () => {
           </div>
         </div>
       </div>
-    </>
+
+      {/* Mobile filters component with fixed button - only visible on mobile */}
+      <div className="lg:hidden">
+        <AirConFilters />
+      </div>
+    </div>
   );
 };
 
