@@ -1,7 +1,5 @@
 import { useState } from "react";
-
 import { useLocation, useNavigate } from "react-router-dom";
-
 import AirConImg from "../../assets/air-con-img.png";
 import AirConServicesImg from "../../assets/air-con-services-img.png";
 
@@ -20,10 +18,10 @@ const AirConHeader = () => {
   };
 
   return (
-    <div className="relative flex w-full overflow-hidden">
-      {/* Animated background shape */}
+    <div className="relative flex flex-col lg:flex-row w-full overflow-hidden">
+      {/* Animated background shape - Desktop only */}
       <div
-        className={`custom-shape-aircon-store absolute top-0 h-full w-1/2 z-0 transition-transform duration-500 ease-in-out ${
+        className={`custom-shape-aircon-store hidden lg:block absolute top-0 h-full w-1/2 z-0 transition-transform duration-500 ease-in-out ${
           isStore ? "translate-x-0" : "-translate-x-full"
         }`}
         style={{
@@ -32,24 +30,30 @@ const AirConHeader = () => {
         }}
       ></div>
 
-      {/* Left content - always visible */}
-      <div className="flex justify-between items-center w-1/2 pl-12 pr-24 z-10">
+      {/* Left content - Store section */}
+      <div
+        className={`flex flex-col-reverse sm:flex-row justify-between items-center w-full lg:w-1/2 px-6 sm:px-8 lg:pl-12 lg:pr-24 py-8 lg:py-0 z-10 transition-colors ${
+          isStore
+            ? "bg-gradient-to-br from-[#002B5B] via-[#003d7a] to-[#002B5B] lg:bg-none"
+            : "bg-white lg:bg-transparent"
+        }`}
+      >
         <img
           alt="Aircon page header store image"
           src={AirConImg}
-          className="w-65"
+          className="w-40 sm:w-48 md:w-56 lg:w-65 mt-6 sm:mt-0"
         />
-        <div className="flex flex-col gap-6">
+        <div className="flex flex-col gap-4 lg:gap-6 text-center sm:text-left">
           <div className="flex flex-col gap-1">
             <h1
-              className={`font-bold text-4xl transition-colors ${
+              className={`font-bold text-3xl sm:text-4xl transition-colors ${
                 isStore ? "text-white" : "text-[#002B5B]"
               }`}
             >
               Магазин
             </h1>
             <p
-              className={`text-lg transition-colors ${
+              className={`text-base sm:text-lg transition-colors ${
                 isStore ? "text-white/85" : "text-[#002B5B]/85"
               }`}
             >
@@ -59,9 +63,9 @@ const AirConHeader = () => {
           <button
             type="button"
             onClick={() => handleNavigate("/air-conditioning")}
-            className={`w-fit ${
+            className={`w-full sm:w-fit ${
               !isStore
-                ? "bg-[#002B5B] hover:bg-blue-900  text-white"
+                ? "bg-[#002B5B] hover:bg-blue-900 text-white"
                 : "bg-white hover:bg-gray-50 text-[#002B5B]"
             } px-5 py-3 rounded-lg font-medium shadow-md cursor-pointer transition-colors`}
           >
@@ -70,9 +74,9 @@ const AirConHeader = () => {
         </div>
       </div>
 
-      {/* Animated background shape */}
+      {/* Animated background shape - Desktop only */}
       <div
-        className={`custom-shape-aircon-services absolute top-0 right-0 h-full w-[calc(50%+6rem)]
+        className={`custom-shape-aircon-services hidden lg:block absolute top-0 right-0 h-full w-[calc(50%+6rem)]
          z-0 transition-transform duration-500 ease-in-out ${
            isStore ? "translate-x-full" : "translate-x-0"
          }`}
@@ -82,12 +86,18 @@ const AirConHeader = () => {
         }}
       ></div>
 
-      {/* Right content - always visible */}
-      <div className="flex justify-between items-center w-1/2 px-12 z-10">
-        <div className="flex flex-col gap-6">
+      {/* Right content - Services section */}
+      <div
+        className={`flex flex-col sm:flex-row justify-between items-center w-full lg:w-1/2 px-6 sm:px-8 lg:px-12 py-8 lg:py-0 z-10 transition-colors ${
+          isStore
+            ? "bg-white lg:bg-transparent"
+            : "bg-gradient-to-br from-[#002B5B] via-[#003d7a] to-[#002B5B] lg:bg-none"
+        }`}
+      >
+        <div className="flex flex-col gap-4 lg:gap-6 text-center sm:text-left">
           <div className="flex flex-col gap-1">
             <h1
-              className={`font-bold text-4xl ${
+              className={`font-bold text-3xl sm:text-4xl ${
                 isStore ? "text-[#002B5B]" : "text-white"
               } transition-colors`}
             >
@@ -96,7 +106,7 @@ const AirConHeader = () => {
             <p
               className={`${
                 isStore ? "text-[#002B5B]/85" : "text-white/85"
-              } text-lg transition-colors`}
+              } text-base sm:text-lg transition-colors`}
             >
               Информационна страница за услугите ни свързани с климатици
             </p>
@@ -104,9 +114,9 @@ const AirConHeader = () => {
           <button
             type="button"
             onClick={() => handleNavigate("/air-conditioning/services")}
-            className={`w-fit ${
+            className={`w-full sm:w-fit ${
               isStore
-                ? "bg-[#002B5B] hover:bg-blue-900  text-white"
+                ? "bg-[#002B5B] hover:bg-blue-900 text-white"
                 : "bg-white hover:bg-gray-50 text-[#002B5B]"
             } py-3 px-5 rounded-lg font-medium shadow-md transition-colors cursor-pointer`}
           >
@@ -116,7 +126,7 @@ const AirConHeader = () => {
         <img
           alt="Aircon page header services image"
           src={AirConServicesImg}
-          className="w-65"
+          className="w-40 sm:w-48 md:w-56 lg:w-65 mt-6 sm:mt-0"
         />
       </div>
     </div>
