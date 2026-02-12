@@ -300,7 +300,7 @@ export default function AirConFilters() {
         <button
           type="button"
           onClick={() => setMobileFiltersOpen(true)}
-          className="w-full flex items-center justify-center gap-2 bg-blue-600 text-white px-4 py-3 rounded-lg font-medium shadow-md hover:bg-blue-700 transition-colors"
+          className="w-full flex items-center justify-center gap-2 bg-[#002B5B] hover:bg-blue-900 text-white px-4 py-3 rounded-lg font-medium shadow-md transition-colors"
         >
           <FunnelIcon className="h-5 w-5" />
           <span>Филтри</span>
@@ -316,7 +316,7 @@ export default function AirConFilters() {
       <Dialog
         open={mobileFiltersOpen}
         onClose={setMobileFiltersOpen}
-        className="relative z-40 lg:hidden"
+        className="relative z-1000 lg:hidden"
       >
         <DialogBackdrop
           transition

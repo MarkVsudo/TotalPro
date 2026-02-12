@@ -81,7 +81,11 @@ const AirConStorePage = () => {
           {/* Products section */}
           <div className="lg:col-span-3">
             <div
-              className={`bg-white grid gap-x-4 sm:gap-x-6 xl:gap-x-8 gap-y-8 sm:gap-y-10 ${gridClasses[effectiveGrid]}`}
+              className={
+                products.length === 0
+                  ? "bg-white flex items-center justify-center min-h-[400px]"
+                  : `bg-white grid gap-x-4 sm:gap-x-6 xl:gap-x-8 gap-y-8 sm:gap-y-10 ${gridClasses[effectiveGrid]}`
+              }
             >
               <AirConProducts products={products} productImgs={productImgs} />
             </div>
