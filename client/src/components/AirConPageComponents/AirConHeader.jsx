@@ -50,7 +50,7 @@ const AirConHeader = () => {
         <img
           alt="Aircon page header store image"
           src={AirConImg}
-          className="w-40 sm:w-48 md:w-56 lg:w-65 mt-6 sm:mt-0"
+          className="hidden lg:block w-40 sm:w-48 md:w-56 lg:w-65 mt-6 sm:mt-0"
         />
 
         <div className="flex flex-col gap-4 lg:gap-6 text-center sm:text-left">
@@ -141,7 +141,7 @@ const AirConHeader = () => {
         <img
           alt="Aircon page header services image"
           src={AirConServicesImg}
-          className="w-40 sm:w-48 md:w-56 lg:w-65 mt-6 sm:mt-0"
+          className="hidden lg:block w-40 sm:w-48 md:w-56 lg:w-65 mt-6 sm:mt-0"
         />
       </div>
     </div>
