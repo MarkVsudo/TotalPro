@@ -12,14 +12,21 @@ const AirConHeader = () => {
 
   const handleNavigate = (path) => {
     setActive(path);
-    setTimeout(() => {
+
+    const isLargeScreen = window.matchMedia("(min-width: 1024px)").matches;
+
+    if (isLargeScreen) {
+      setTimeout(() => {
+        navigate(path);
+      }, 400);
+    } else {
       navigate(path);
-    }, 400); // Wait for the animation
+    }
   };
 
   return (
     <div className="relative flex flex-col lg:flex-row w-full overflow-hidden">
-      {/* Animated background shape - Desktop only */}
+      {/* Desktop background - Store */}
       <div
         className={`custom-shape-aircon-store hidden lg:block absolute top-0 h-full w-1/2 z-0 transition-transform duration-500 ease-in-out ${
           isStore ? "translate-x-0" : "-translate-x-full"
@@ -28,11 +35,13 @@ const AirConHeader = () => {
           background:
             "linear-gradient(135deg, #002B5B 25%, #003d7a 125%, #002B5B 150%)",
         }}
-      ></div>
+      />
 
-      {/* Left content - Store section */}
+      {/* STORE SECTION — completely hidden on mobile when active */}
       <div
-        className={`flex flex-col-reverse sm:flex-row justify-between items-center w-full lg:w-1/2 px-6 sm:px-8 lg:pl-12 lg:pr-24 py-8 lg:py-0 z-10 transition-colors ${
+        className={`${
+          isStore ? "hidden lg:flex" : "flex"
+        } flex-col-reverse sm:flex-row justify-between items-center w-full lg:w-1/2 px-6 sm:px-8 lg:pl-12 lg:pr-24 py-8 lg:py-0 z-10 transition-colors ${
           isStore
             ? "bg-gradient-to-br from-[#002B5B] via-[#003d7a] to-[#002B5B] lg:bg-none"
             : "bg-white lg:bg-transparent"
@@ -43,6 +52,7 @@ const AirConHeader = () => {
           src={AirConImg}
           className="w-40 sm:w-48 md:w-56 lg:w-65 mt-6 sm:mt-0"
         />
+
         <div className="flex flex-col gap-4 lg:gap-6 text-center sm:text-left">
           <div className="flex flex-col gap-1">
             <h1
@@ -60,6 +70,7 @@ const AirConHeader = () => {
               Продажба на различни видове климатици и аксесоари
             </p>
           </div>
+
           <button
             type="button"
             onClick={() => handleNavigate("/air-conditioning")}
@@ -74,7 +85,7 @@ const AirConHeader = () => {
         </div>
       </div>
 
-      {/* Animated background shape - Desktop only */}
+      {/* Desktop background - Services */}
       <div
         className={`custom-shape-aircon-services hidden lg:block absolute top-0 right-0 h-full w-[calc(50%+6rem)]
          z-0 transition-transform duration-500 ease-in-out ${
@@ -84,11 +95,13 @@ const AirConHeader = () => {
           background:
             "linear-gradient(135deg, #002B5B -50%, #003d7a 50%, #002B5B 150%)",
         }}
-      ></div>
+      />
 
-      {/* Right content - Services section */}
+      {/* SERVICES SECTION — completely hidden on mobile when active */}
       <div
-        className={`flex flex-col sm:flex-row justify-between items-center w-full lg:w-1/2 px-6 sm:px-8 lg:px-12 py-8 lg:py-0 z-10 transition-colors ${
+        className={`${
+          !isStore ? "hidden lg:flex" : "flex"
+        } flex-col sm:flex-row justify-between items-center w-full lg:w-1/2 px-6 sm:px-8 lg:px-12 py-8 lg:py-0 z-10 transition-colors ${
           isStore
             ? "bg-white lg:bg-transparent"
             : "bg-gradient-to-br from-[#002B5B] via-[#003d7a] to-[#002B5B] lg:bg-none"
@@ -111,6 +124,7 @@ const AirConHeader = () => {
               Информационна страница за услугите ни свързани с климатици
             </p>
           </div>
+
           <button
             type="button"
             onClick={() => handleNavigate("/air-conditioning/services")}
@@ -123,6 +137,7 @@ const AirConHeader = () => {
             Проучи
           </button>
         </div>
+
         <img
           alt="Aircon page header services image"
           src={AirConServicesImg}
