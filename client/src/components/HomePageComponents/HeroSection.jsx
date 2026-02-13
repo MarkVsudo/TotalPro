@@ -87,18 +87,18 @@ const HeroSection = () => {
               </div>
               <Link
                 to="/air-conditioning"
-                className="inline-flex flex-1 justify-center rounded-lg bg-[#FF6600] px-5 py-3 text-white  font-semibold shadow-md hover:brightness-95 transition"
+                className="inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-lg bg-[#FF6600] px-5 py-3 text-white font-semibold shadow-md hover:brightness-95 transition text-center leading-tight flex-wrap sm:flex-nowrap"
               >
-                <span>Купи климатик с</span>
+                <span className="whitespace-nowrap">Купи климатик с</span>
 
                 <img
                   src={TbiBankLogo}
                   alt="tbi bank"
-                  className="h-6 w-auto mx-2"
                   loading="lazy"
+                  className="h-6 sm:h-6 w-auto shrink-0"
                 />
 
-                <span>на изплащане</span>
+                <span className="whitespace-nowrap">на изплащане</span>
               </Link>
             </div>
 

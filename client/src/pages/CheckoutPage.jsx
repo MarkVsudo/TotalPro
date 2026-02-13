@@ -8,7 +8,7 @@ import { ShoppingCartIcon } from "@heroicons/react/24/outline";
 const CheckoutPage = () => {
   const { cartItems } = useCart();
 
-  // Примерни стойности (можеш да ги направиш динамични)
+  // Доставка: само до адрес
   const SHIPPING = 0.0;
 
   const subtotal = useMemo(() => {
@@ -18,12 +18,28 @@ const CheckoutPage = () => {
     }, 0);
   }, [cartItems]);
 
-  // Ако цените са с включено ДДС, можеш да показваш "ДДС (включено)" без да добавяш към total.
-  // Ако искаш да смяташ ДДС отделно (примерно 20%), ползвай това:
-  const vat = useMemo(() => subtotal * 0.2, [subtotal]); // пример: 20% ДДС
-  const total = useMemo(() => subtotal + SHIPPING + vat, [subtotal, vat]);
+  /**
+   * ДДС логика (Важно):
+   * Ако цените са с включено ДДС (B2C най-често):
+   *  - total НЕ добавя vat
+   *  - vat се показва като "част от" subtotal
+   */
+  const PRICES_INCLUDE_VAT = true;
+  const vatRate = 0.2;
 
-  // Формата е UI-only (за визията като снимката)
+  const vat = useMemo(() => {
+    if (PRICES_INCLUDE_VAT) {
+      // 20% включено ДДС => 20/120 от крайната цена
+      return subtotal * (vatRate / (1 + vatRate));
+    }
+    return subtotal * vatRate;
+  }, [subtotal]);
+
+  const total = useMemo(() => {
+    return PRICES_INCLUDE_VAT ? subtotal + SHIPPING : subtotal + SHIPPING + vat;
+  }, [subtotal, vat]);
+
+  // Form state
   const [form, setForm] = useState({
     email: "",
     firstName: "",
@@ -36,10 +52,42 @@ const CheckoutPage = () => {
     state: "",
     postal: "",
     phone: "",
+
+    // Допълнителни неща:
+    orderNote: "",
+
+    // Фактура:
+    invoiceRequested: false,
+    invoiceType: "person", // "person" | "company"
+    invoiceName: "", // за физическо лице (ако искаш отделно от first/last)
+    invoiceCompanyName: "",
+    invoiceEik: "",
+    invoiceVatNumber: "",
+    invoiceMol: "",
+    invoiceAddressSameAsShipping: true,
+    invoiceAddress: "",
+    invoiceApartment: "",
+    invoiceCity: "",
+    invoiceState: "",
+    invoicePostal: "",
+    invoiceCountry: "България",
+
+    // Съгласия:
+    termsAccepted: false,
+    privacyAccepted: false,
+    marketingOptIn: false,
+
+    // Наложен платеж:
+    needPosTerminal: false,
   });
 
-  const onChange = (e) =>
-    setForm((p) => ({ ...p, [e.target.name]: e.target.value }));
+  const onChange = (e) => {
+    const { name, value, type, checked } = e.target;
+    setForm((p) => ({
+      ...p,
+      [name]: type === "checkbox" ? checked : value,
+    }));
+  };
 
   const [paymentType, setPaymentType] = useState("on-delivery");
 
@@ -47,15 +95,32 @@ const CheckoutPage = () => {
     switch (paymentType) {
       case "on-delivery":
         return (
-          <p className="mt-3 text-sm text-gray-600">
-            Плащане при доставка (наложен платеж).
-          </p>
+          <div className="mt-3 space-y-2 text-sm text-gray-600">
+            <p>Плащане при доставка (наложен платеж).</p>
+            <label className="flex items-center gap-2 select-none">
+              <input
+                type="checkbox"
+                name="needPosTerminal"
+                checked={form.needPosTerminal}
+                onChange={onChange}
+                className="h-4 w-4 rounded border-gray-300"
+              />
+              <span>Желая ПОС терминал при доставка (ако е наличен)</span>
+            </label>
+          </div>
         );
       case "with-card":
-        return <p className="mt-3 text-sm text-gray-600">Плащане с карта.</p>;
+        return (
+          <p className="mt-3 text-sm text-gray-600">
+            Плащане с карта. (Тук по-късно вържи реален payment gateway.)
+          </p>
+        );
       case "bank-transfer":
         return (
-          <p className="mt-3 text-sm text-gray-600">Плащане по банков път.</p>
+          <p className="mt-3 text-sm text-gray-600">
+            Плащане по банков път. (След създаване на поръчка покажи IBAN и
+            основание.)
+          </p>
         );
       case "on-lease":
         return (
@@ -72,7 +137,136 @@ const CheckoutPage = () => {
     }
   };
 
-  // Show empty state if cart is empty
+  // Минимални валидации
+  const errors = useMemo(() => {
+    const e = {};
+    const emailOk =
+      typeof form.email === "string" &&
+      /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email.trim());
+
+    if (!emailOk) e.email = "Моля, въведи валиден имейл.";
+    if (!form.firstName.trim()) e.firstName = "Името е задължително.";
+    if (!form.lastName.trim()) e.lastName = "Фамилията е задължителна.";
+    if (!form.address.trim()) e.address = "Адресът е задължителен.";
+    if (!form.city.trim()) e.city = "Градът е задължителен.";
+    if (!form.postal.trim()) e.postal = "Пощенският код е задължителен.";
+    if (!form.phone.trim()) e.phone = "Телефонът е задължителен.";
+
+    // Фактура (ако е поискана)
+    if (form.invoiceRequested) {
+      if (form.invoiceType === "person") {
+        // по избор — може да ползваш first/last без отделно поле
+        // ако искаш задължително име за фактура:
+        // if (!form.invoiceName.trim()) e.invoiceName = "Име за фактура е задължително.";
+      } else {
+        if (!form.invoiceCompanyName.trim())
+          e.invoiceCompanyName = "Име на фирма е задължително.";
+        if (!form.invoiceEik.trim())
+          e.invoiceEik = "ЕИК/Булстат е задължителен.";
+      }
+
+      if (!form.invoiceAddressSameAsShipping) {
+        if (!form.invoiceAddress.trim())
+          e.invoiceAddress = "Адрес за фактура е задължителен.";
+        if (!form.invoiceCity.trim())
+          e.invoiceCity = "Град за фактура е задължителен.";
+        if (!form.invoicePostal.trim())
+          e.invoicePostal = "Пощенски код за фактура е задължителен.";
+      }
+    }
+
+    // Съгласия
+    if (!form.termsAccepted)
+      e.termsAccepted = "Трябва да приемеш Общите условия.";
+    if (!form.privacyAccepted)
+      e.privacyAccepted = "Трябва да приемеш Политиката за поверителност.";
+
+    return e;
+  }, [form]);
+
+  const canSubmit = useMemo(() => Object.keys(errors).length === 0, [errors]);
+
+  const submitOrder = async () => {
+    // Тук пращаш payload към backend
+    const payload = {
+      contact: { email: form.email },
+      shipping: {
+        firstName: form.firstName,
+        lastName: form.lastName,
+        company: form.company,
+        address: form.address,
+        apartment: form.apartment,
+        city: form.city,
+        country: form.country,
+        state: form.state,
+        postal: form.postal,
+        phone: form.phone,
+      },
+      invoice: form.invoiceRequested
+        ? {
+            type: form.invoiceType,
+            name:
+              form.invoiceType === "person"
+                ? form.invoiceName?.trim() || null
+                : null,
+            companyName:
+              form.invoiceType === "company" ? form.invoiceCompanyName : null,
+            eik: form.invoiceType === "company" ? form.invoiceEik : null,
+            vatNumber:
+              form.invoiceType === "company" ? form.invoiceVatNumber : null,
+            mol: form.invoiceType === "company" ? form.invoiceMol : null,
+            address: form.invoiceAddressSameAsShipping
+              ? {
+                  address: form.address,
+                  apartment: form.apartment,
+                  city: form.city,
+                  state: form.state,
+                  postal: form.postal,
+                  country: form.country,
+                }
+              : {
+                  address: form.invoiceAddress,
+                  apartment: form.invoiceApartment,
+                  city: form.invoiceCity,
+                  state: form.invoiceState,
+                  postal: form.invoicePostal,
+                  country: form.invoiceCountry,
+                },
+          }
+        : null,
+      payment: {
+        type: paymentType,
+        needPosTerminal:
+          paymentType === "on-delivery" ? form.needPosTerminal : false,
+      },
+      note: form.orderNote,
+      totals: {
+        subtotal,
+        shipping: SHIPPING,
+        vat,
+        total,
+        pricesIncludeVat: PRICES_INCLUDE_VAT,
+        vatRate,
+      },
+      items: cartItems.map((ci) => ({
+        product_id: ci?.product?.product_id,
+        qty: ci?.quantity ?? 1,
+        unit_price: parseFloat(ci?.product?.price ?? 0),
+      })),
+      consents: {
+        termsAccepted: form.termsAccepted,
+        privacyAccepted: form.privacyAccepted,
+        marketingOptIn: form.marketingOptIn,
+      },
+    };
+
+    console.log("ORDER PAYLOAD", payload);
+
+    // пример:
+    // await api.post("/orders", payload)
+  };
+
+  // Empty state
   if (cartItems.length === 0) {
     return (
       <section
@@ -110,11 +304,11 @@ const CheckoutPage = () => {
       className="bg-white text-[#002B5B] my-24 px-4 max-w-7xl mx-auto"
     >
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 relative">
-        {/* LEFT: form */}
+        {/* LEFT */}
         <div className="lg:col-span-7">
           <h1 className="text-3xl font-bold mb-8">Завършване на поръчка</h1>
 
-          {/* Contact information */}
+          {/* Contact */}
           <div className="pb-8 border-b border-gray-200">
             <h2 className="text-sm font-semibold tracking-wide text-gray-900">
               Информация за контакт
@@ -130,15 +324,17 @@ const CheckoutPage = () => {
                 onChange={onChange}
                 type="email"
                 className="mt-2 w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm text-gray-900 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200"
-                placeholder=""
               />
+              {errors.email && (
+                <p className="mt-1 text-xs text-red-600">{errors.email}</p>
+              )}
             </div>
           </div>
 
-          {/* Shipping information */}
+          {/* Shipping */}
           <div className="pb-8 border-b border-gray-200">
             <h2 className="text-sm font-semibold tracking-wide text-gray-900">
-              Данни за доставка
+              Данни за доставка (само до адрес)
             </h2>
 
             <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -153,6 +349,11 @@ const CheckoutPage = () => {
                   type="text"
                   className="mt-2 w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm text-gray-900 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200"
                 />
+                {errors.firstName && (
+                  <p className="mt-1 text-xs text-red-600">
+                    {errors.firstName}
+                  </p>
+                )}
               </div>
 
               <div>
@@ -166,6 +367,9 @@ const CheckoutPage = () => {
                   type="text"
                   className="mt-2 w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm text-gray-900 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200"
                 />
+                {errors.lastName && (
+                  <p className="mt-1 text-xs text-red-600">{errors.lastName}</p>
+                )}
               </div>
 
               <div className="sm:col-span-2">
@@ -192,6 +396,9 @@ const CheckoutPage = () => {
                   type="text"
                   className="mt-2 w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm text-gray-900 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200"
                 />
+                {errors.address && (
+                  <p className="mt-1 text-xs text-red-600">{errors.address}</p>
+                )}
               </div>
 
               <div className="sm:col-span-2">
@@ -218,6 +425,9 @@ const CheckoutPage = () => {
                   type="text"
                   className="mt-2 w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm text-gray-900 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200"
                 />
+                {errors.city && (
+                  <p className="mt-1 text-xs text-red-600">{errors.city}</p>
+                )}
               </div>
 
               <div>
@@ -260,6 +470,9 @@ const CheckoutPage = () => {
                   type="text"
                   className="mt-2 w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm text-gray-900 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200"
                 />
+                {errors.postal && (
+                  <p className="mt-1 text-xs text-red-600">{errors.postal}</p>
+                )}
               </div>
 
               <div className="sm:col-span-2">
@@ -273,21 +486,265 @@ const CheckoutPage = () => {
                   type="tel"
                   className="mt-2 w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm text-gray-900 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200"
                 />
+                {errors.phone && (
+                  <p className="mt-1 text-xs text-red-600">{errors.phone}</p>
+                )}
               </div>
             </div>
           </div>
 
-          {/* Payment information */}
-          <div className=" border-b border-gray-200">
+          {/* Invoice */}
+          <div className="py-8 border-b border-gray-200">
+            <h2 className="text-sm font-semibold tracking-wide text-gray-900">
+              Фактура
+            </h2>
+
+            <div className="mt-4">
+              <label className="flex items-center gap-2 select-none">
+                <input
+                  type="checkbox"
+                  name="invoiceRequested"
+                  checked={form.invoiceRequested}
+                  onChange={onChange}
+                  className="h-4 w-4 rounded border-gray-300"
+                />
+                <span className="text-sm text-gray-700">Искам фактура</span>
+              </label>
+            </div>
+
+            {form.invoiceRequested && (
+              <div className="mt-4 space-y-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-xs font-medium text-gray-700">
+                      Тип клиент
+                    </label>
+                    <select
+                      name="invoiceType"
+                      value={form.invoiceType}
+                      onChange={onChange}
+                      className="mt-2 w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm text-gray-900 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200"
+                    >
+                      <option value="person">Физическо лице</option>
+                      <option value="company">Фирма</option>
+                    </select>
+                  </div>
+
+                  {form.invoiceType === "person" ? (
+                    <div>
+                      <label className="block text-xs font-medium text-gray-700">
+                        Име за фактура (по избор)
+                      </label>
+                      <input
+                        name="invoiceName"
+                        value={form.invoiceName}
+                        onChange={onChange}
+                        type="text"
+                        placeholder="Ако е различно от името за доставка"
+                        className="mt-2 w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm text-gray-900 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200"
+                      />
+                      {errors.invoiceName && (
+                        <p className="mt-1 text-xs text-red-600">
+                          {errors.invoiceName}
+                        </p>
+                      )}
+                    </div>
+                  ) : (
+                    <>
+                      <div className="sm:col-span-2">
+                        <label className="block text-xs font-medium text-gray-700">
+                          Име на фирма
+                        </label>
+                        <input
+                          name="invoiceCompanyName"
+                          value={form.invoiceCompanyName}
+                          onChange={onChange}
+                          type="text"
+                          className="mt-2 w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm text-gray-900 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200"
+                        />
+                        {errors.invoiceCompanyName && (
+                          <p className="mt-1 text-xs text-red-600">
+                            {errors.invoiceCompanyName}
+                          </p>
+                        )}
+                      </div>
+
+                      <div>
+                        <label className="block text-xs font-medium text-gray-700">
+                          ЕИК / Булстат
+                        </label>
+                        <input
+                          name="invoiceEik"
+                          value={form.invoiceEik}
+                          onChange={onChange}
+                          type="text"
+                          className="mt-2 w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm text-gray-900 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200"
+                        />
+                        {errors.invoiceEik && (
+                          <p className="mt-1 text-xs text-red-600">
+                            {errors.invoiceEik}
+                          </p>
+                        )}
+                      </div>
+
+                      <div>
+                        <label className="block text-xs font-medium text-gray-700">
+                          ДДС № (по избор)
+                        </label>
+                        <input
+                          name="invoiceVatNumber"
+                          value={form.invoiceVatNumber}
+                          onChange={onChange}
+                          type="text"
+                          className="mt-2 w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm text-gray-900 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200"
+                        />
+                      </div>
+
+                      <div className="sm:col-span-2">
+                        <label className="block text-xs font-medium text-gray-700">
+                          МОЛ (по избор)
+                        </label>
+                        <input
+                          name="invoiceMol"
+                          value={form.invoiceMol}
+                          onChange={onChange}
+                          type="text"
+                          className="mt-2 w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm text-gray-900 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200"
+                        />
+                      </div>
+                    </>
+                  )}
+                </div>
+
+                <div>
+                  <label className="flex items-center gap-2 select-none">
+                    <input
+                      type="checkbox"
+                      name="invoiceAddressSameAsShipping"
+                      checked={form.invoiceAddressSameAsShipping}
+                      onChange={onChange}
+                      className="h-4 w-4 rounded border-gray-300"
+                    />
+                    <span className="text-sm text-gray-700">
+                      Адресът за фактура е същият като за доставка
+                    </span>
+                  </label>
+                </div>
+
+                {!form.invoiceAddressSameAsShipping && (
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div className="sm:col-span-2">
+                      <label className="block text-xs font-medium text-gray-700">
+                        Адрес за фактура
+                      </label>
+                      <input
+                        name="invoiceAddress"
+                        value={form.invoiceAddress}
+                        onChange={onChange}
+                        type="text"
+                        className="mt-2 w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm text-gray-900 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200"
+                      />
+                      {errors.invoiceAddress && (
+                        <p className="mt-1 text-xs text-red-600">
+                          {errors.invoiceAddress}
+                        </p>
+                      )}
+                    </div>
+
+                    <div className="sm:col-span-2">
+                      <label className="block text-xs font-medium text-gray-700">
+                        Допълнение към адрес (по избор)
+                      </label>
+                      <input
+                        name="invoiceApartment"
+                        value={form.invoiceApartment}
+                        onChange={onChange}
+                        type="text"
+                        className="mt-2 w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm text-gray-900 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="block text-xs font-medium text-gray-700">
+                        Град
+                      </label>
+                      <input
+                        name="invoiceCity"
+                        value={form.invoiceCity}
+                        onChange={onChange}
+                        type="text"
+                        className="mt-2 w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm text-gray-900 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200"
+                      />
+                      {errors.invoiceCity && (
+                        <p className="mt-1 text-xs text-red-600">
+                          {errors.invoiceCity}
+                        </p>
+                      )}
+                    </div>
+
+                    <div>
+                      <label className="block text-xs font-medium text-gray-700">
+                        Държава
+                      </label>
+                      <select
+                        name="invoiceCountry"
+                        value={form.invoiceCountry}
+                        onChange={onChange}
+                        className="mt-2 w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm text-gray-900 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200"
+                      >
+                        <option>България</option>
+                        <option>Румъния</option>
+                        <option>Гърция</option>
+                      </select>
+                    </div>
+
+                    <div>
+                      <label className="block text-xs font-medium text-gray-700">
+                        Област
+                      </label>
+                      <input
+                        name="invoiceState"
+                        value={form.invoiceState}
+                        onChange={onChange}
+                        type="text"
+                        className="mt-2 w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm text-gray-900 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="block text-xs font-medium text-gray-700">
+                        Пощенски код
+                      </label>
+                      <input
+                        name="invoicePostal"
+                        value={form.invoicePostal}
+                        onChange={onChange}
+                        type="text"
+                        className="mt-2 w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm text-gray-900 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200"
+                      />
+                      {errors.invoicePostal && (
+                        <p className="mt-1 text-xs text-red-600">
+                          {errors.invoicePostal}
+                        </p>
+                      )}
+                    </div>
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
+
+          {/* Payment */}
+          <div className="py-8 border-b border-gray-200">
             <h2 className="text-sm font-semibold tracking-wide text-gray-900">
               Начин на плащане
             </h2>
 
-            <div className="flex gap-4">
+            <div className="flex gap-4 flex-wrap">
               <button
                 type="button"
                 onClick={() => setPaymentType("on-delivery")}
-                className="mt-5 w-full rounded-md bg-[#002B5B] py-3 text-white text-sm font-semibold hover:bg-blue-900 transition-colors"
+                className="mt-5 flex-1 min-w-[180px] rounded-md bg-[#002B5B] py-3 text-white text-sm font-semibold hover:bg-blue-900 transition-colors"
               >
                 Наложен платеж
               </button>
@@ -295,7 +752,7 @@ const CheckoutPage = () => {
               <button
                 type="button"
                 onClick={() => setPaymentType("with-card")}
-                className="mt-5 w-full rounded-md bg-[#002B5B] py-3 text-white text-sm font-semibold hover:bg-blue-900 transition-colors"
+                className="mt-5 flex-1 min-w-[180px] rounded-md bg-[#002B5B] py-3 text-white text-sm font-semibold hover:bg-blue-900 transition-colors"
               >
                 С карта
               </button>
@@ -303,7 +760,7 @@ const CheckoutPage = () => {
               <button
                 type="button"
                 onClick={() => setPaymentType("bank-transfer")}
-                className="mt-5 w-full rounded-md bg-[#002B5B] py-3 text-white text-sm font-semibold hover:bg-blue-900 transition-colors"
+                className="mt-5 flex-1 min-w-[180px] rounded-md bg-[#002B5B] py-3 text-white text-sm font-semibold hover:bg-blue-900 transition-colors"
               >
                 Банков трансфер
               </button>
@@ -311,7 +768,7 @@ const CheckoutPage = () => {
               <button
                 type="button"
                 onClick={() => setPaymentType("on-lease")}
-                className="mt-5 w-full flex justify-center items-center rounded-md bg-[#FF6600] py-3 text-white text-sm font-semibold hover:brightness-95 transition-colors"
+                className="flex-1 min-w-[180px] flex justify-center items-center rounded-md bg-[#FF6600] py-3 text-white text-sm font-semibold hover:brightness-95 transition-colors"
               >
                 <span>Купи с</span>
                 <img
@@ -325,16 +782,84 @@ const CheckoutPage = () => {
 
             {paymentTypeText(paymentType)}
           </div>
+
+          {/* Note */}
+          <div className="py-8 border-b border-gray-200">
+            <h2 className="text-sm font-semibold tracking-wide text-gray-900">
+              Бележка към поръчката (по избор)
+            </h2>
+            <textarea
+              name="orderNote"
+              value={form.orderNote}
+              onChange={onChange}
+              rows={4}
+              className="mt-3 w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm text-gray-900 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200"
+              placeholder="Напр. доставка след 17:00, звънете преди доставка и т.н."
+            />
+          </div>
+
+          {/* Consents */}
+          <div className="py-8">
+            <h2 className="text-sm font-semibold tracking-wide text-gray-900">
+              Съгласия
+            </h2>
+
+            <div className="mt-4 space-y-3">
+              <label className="flex items-start gap-2 select-none">
+                <input
+                  type="checkbox"
+                  name="termsAccepted"
+                  checked={form.termsAccepted}
+                  onChange={onChange}
+                  className="mt-0.5 h-4 w-4 rounded border-gray-300"
+                />
+                <span className="text-sm text-gray-700">
+                  Съгласен съм с Общите условия
+                </span>
+              </label>
+              {errors.termsAccepted && (
+                <p className="text-xs text-red-600">{errors.termsAccepted}</p>
+              )}
+
+              <label className="flex items-start gap-2 select-none">
+                <input
+                  type="checkbox"
+                  name="privacyAccepted"
+                  checked={form.privacyAccepted}
+                  onChange={onChange}
+                  className="mt-0.5 h-4 w-4 rounded border-gray-300"
+                />
+                <span className="text-sm text-gray-700">
+                  Запознат съм с Политиката за поверителност
+                </span>
+              </label>
+              {errors.privacyAccepted && (
+                <p className="text-xs text-red-600">{errors.privacyAccepted}</p>
+              )}
+
+              <label className="flex items-start gap-2 select-none">
+                <input
+                  type="checkbox"
+                  name="marketingOptIn"
+                  checked={form.marketingOptIn}
+                  onChange={onChange}
+                  className="mt-0.5 h-4 w-4 rounded border-gray-300"
+                />
+                <span className="text-sm text-gray-700">
+                  Искам да получавам промоции и новини (по избор)
+                </span>
+              </label>
+            </div>
+          </div>
         </div>
 
-        {/* RIGHT: Order summary card */}
+        {/* RIGHT */}
         <aside className="lg:col-span-5 sticky top-6 self-start">
           <h2 className="text-sm font-semibold tracking-wide text-gray-900 mb-4">
             Обобщение на поръчката
           </h2>
 
           <div className="rounded-lg border border-gray-200 bg-white">
-            {/* Items */}
             <ul className="divide-y divide-gray-200 px-5">
               {cartItems.map((item, index) => (
                 <CartItem
@@ -345,7 +870,6 @@ const CheckoutPage = () => {
               ))}
             </ul>
 
-            {/* Totals */}
             <div className="p-5 border-t border-gray-200">
               <div className="space-y-3 text-sm">
                 <div className="flex justify-between">
@@ -363,7 +887,9 @@ const CheckoutPage = () => {
                 </div>
 
                 <div className="flex justify-between">
-                  <span className="text-gray-600">ДДС (включено)</span>
+                  <span className="text-gray-600">
+                    ДДС ({PRICES_INCLUDE_VAT ? "включено" : "добавено"})
+                  </span>
                   <span className="font-medium text-gray-900">
                     {vat.toFixed(2)} €
                   </span>
@@ -375,9 +901,28 @@ const CheckoutPage = () => {
                 <span className="text-gray-900">{total.toFixed(2)} €</span>
               </div>
 
+              {!canSubmit && (
+                <div className="mt-3 rounded-md bg-red-50 p-3 text-xs text-red-700">
+                  <p className="font-semibold">Провери формата:</p>
+                  <ul className="mt-1 list-disc pl-5 space-y-1">
+                    {Object.values(errors)
+                      .slice(0, 5)
+                      .map((msg, i) => (
+                        <li key={i}>{msg}</li>
+                      ))}
+                  </ul>
+                </div>
+              )}
+
               <button
                 type="button"
-                className="mt-5 w-full rounded-md bg-[#002B5B] py-3 text-white text-sm font-semibold hover:bg-blue-900 transition-colors"
+                disabled={!canSubmit}
+                onClick={submitOrder}
+                className={`mt-5 w-full rounded-md py-3 text-white text-sm font-semibold transition-colors ${
+                  canSubmit
+                    ? "bg-[#002B5B] hover:bg-blue-900"
+                    : "bg-gray-300 cursor-not-allowed"
+                }`}
               >
                 Потвърди поръчката
               </button>
