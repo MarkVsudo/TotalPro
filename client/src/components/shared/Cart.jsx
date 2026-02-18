@@ -91,7 +91,7 @@ export default function Cart() {
                         >
                           {cartItems.map((item, index) => (
                             <CartItem
-                              key={item.product.product_id}
+                              key={`${item.product.product_id}-${JSON.stringify(item.options ?? {})}`}
                               item={item}
                               index={index}
                             />

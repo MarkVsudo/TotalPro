@@ -13,12 +13,17 @@ const cartReducer = (state, action) => {
   switch (action.type) {
     case "ADD_ITEM": {
       const existing = state.find(
-        (item) => item.product.product_id === action.payload.product.product_id,
+        (item) =>
+          item.product.product_id === action.payload.product.product_id &&
+          JSON.stringify(item.options) ===
+            JSON.stringify(action.payload.options),
       );
 
       if (existing) {
         return state.map((item) =>
-          item.product.product_id === action.payload.product.product_id
+          item.product.product_id === action.payload.product.product_id &&
+          JSON.stringify(item.options) ===
+            JSON.stringify(action.payload.options)
             ? { ...item, quantity: item.quantity + 1 }
             : item,
         );
@@ -69,11 +74,15 @@ export function CartProvider({ children }) {
 
   const [cartItems, dispatch] = useReducer(cartReducer, [], () => {
     const storedCart = localStorage.getItem("cart");
-    return storedCart ? JSON.parse(storedCart) : [];
+    const parsed = storedCart ? JSON.parse(storedCart) : [];
+    return parsed.map((item) => ({
+      ...item,
+      options: item.options ?? { installation: false },
+    }));
   });
 
-  const addToCart = (product, mainImg) => {
-    dispatch({ type: "ADD_ITEM", payload: { product, mainImg } });
+  const addToCart = (product, options, mainImg) => {
+    dispatch({ type: "ADD_ITEM", payload: { product, options, mainImg } });
     openCart();
   };
 
