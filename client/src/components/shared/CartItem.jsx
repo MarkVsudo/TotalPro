@@ -5,7 +5,12 @@ import { useCart } from "../../context/CartContext";
 import { Link } from "react-router";
 
 const CartItem = ({ item, index }) => {
-  const { removeFromCart, increaseItemQty, decreaseItemQty } = useCart();
+  const {
+    removeFromCart,
+    increaseItemQty,
+    decreaseItemQty,
+    getInstallationPrice,
+  } = useCart();
   const hasInstall = Boolean(item?.options?.installation);
 
   return (
@@ -79,7 +84,12 @@ const CartItem = ({ item, index }) => {
             </div>
           </div>
           <div className="text-xs text-gray-500">
-            <span>{`Монтаж: ${hasInstall ? "с монтаж" : "без монтаж"}`}</span>
+            <span>
+              {`Монтаж: ${hasInstall ? "с монтаж" : "без монтаж"}`}
+              {item.options.installation && (
+                <div> + {getInstallationPrice(item.product)}€</div>
+              )}
+            </span>
           </div>
         </div>
       </div>

@@ -69,10 +69,27 @@ const cartReducer = (state, action) => {
   }
 };
 
-const calcDiscountedUnitPrice = (product) => {
+const getInstallationPrice = (product) => {
+  const btu = Number(product.btu);
+
+  if (btu < 14000) return 180;
+  if (btu < 18000) return 205;
+  if (btu < 24000) return 230;
+  if (btu < 30000) return 255;
+  return 280;
+};
+
+const calcUnitPrice = (product, options) => {
   const base = Number(product.price);
   const discount = Number(product.discount ?? 0);
-  return discount ? base * (1 - discount / 100) : base;
+
+  const discounted = discount ? base * (1 - discount / 100) : base;
+
+  const installationPrice = options?.installation
+    ? getInstallationPrice(product)
+    : 0;
+
+  return discounted + installationPrice;
 };
 
 export function CartProvider({ children }) {
@@ -93,8 +110,9 @@ export function CartProvider({ children }) {
     const parsed = storedCart ? JSON.parse(storedCart) : [];
 
     return parsed.map((item) => {
-      const options = item.options ?? { installation: false };
-      const normalizedOptions = { installation: Boolean(options.installation) };
+      const normalizedOptions = {
+        installation: Boolean(item.options?.installation),
+      };
 
       return {
         ...item,
@@ -102,14 +120,17 @@ export function CartProvider({ children }) {
         unitPrice:
           typeof item.unitPrice === "number"
             ? item.unitPrice
-            : calcDiscountedUnitPrice(item.product),
+            : calcUnitPrice(item.product, normalizedOptions),
       };
     });
   });
 
   const addToCart = (product, mainImg, options = { installation: false }) => {
-    const normalizedOptions = { installation: Boolean(options.installation) };
-    const unitPrice = calcDiscountedUnitPrice(product);
+    const normalizedOptions = {
+      installation: Boolean(options.installation),
+    };
+
+    const unitPrice = calcUnitPrice(product, normalizedOptions);
 
     dispatch({
       type: "ADD_ITEM",
@@ -152,6 +173,7 @@ export function CartProvider({ children }) {
         increaseItemQty,
         decreaseItemQty,
         clearCart,
+        getInstallationPrice,
       }}
     >
       {children}
