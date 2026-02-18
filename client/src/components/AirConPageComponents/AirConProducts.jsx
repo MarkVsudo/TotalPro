@@ -117,7 +117,9 @@ export default function AirConProducts({ products, productImgs }) {
 
                 <button
                   type="button"
-                  onClick={() => addToCart(product, mainImg)}
+                  onClick={() =>
+                    addToCart(product, mainImg, { installation: false })
+                  }
                   className="flex justify-center items-center gap-x-2 w-full bg-[#002B5B] hover:bg-blue-900 active:bg-blue-950 text-white py-2.5 sm:py-2 rounded-lg font-medium shadow-md cursor-pointer transition-colors mt-auto text-sm sm:text-base"
                 >
                   <IoBagAddOutline className="h-5 w-5" />

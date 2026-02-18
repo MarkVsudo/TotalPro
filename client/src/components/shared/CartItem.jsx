@@ -54,7 +54,7 @@ const CartItem = ({ item, index }) => {
 
           <div className="mt-3 flex items-center justify-between">
             <div className="text-sm font-medium text-gray-900">
-              {Number(item.product.price).toFixed(2)} €
+              {Number(item.unitPrice).toFixed(2)} €
             </div>
 
             <div className="flex rounded-md border-1 border-gray-300">

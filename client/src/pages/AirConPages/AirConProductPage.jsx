@@ -387,7 +387,9 @@ const AirConProductPage = () => {
                     <button
                       type="button"
                       onClick={() =>
-                        addToCart(product.product, productOptions, mainImg)
+                        addToCart(product.product, mainImg, {
+                          installation: productOptions.installation,
+                        })
                       }
                       className="flex justify-center items-center gap-x-2 flex-1 bg-[#002B5B] hover:bg-blue-900 text-white py-2 sm:py-3 px-4 rounded-lg font-medium shadow-md cursor-pointer transition-colors text-sm sm:text-base"
                     >
