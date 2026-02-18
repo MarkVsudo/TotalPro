@@ -6,6 +6,7 @@ import { Link } from "react-router";
 
 const CartItem = ({ item, index }) => {
   const { removeFromCart, increaseItemQty, decreaseItemQty } = useCart();
+  const hasInstall = Boolean(item?.options?.installation);
 
   return (
     <li key={item?.product?.product_id ?? index} className="py-5">
@@ -70,6 +71,9 @@ const CartItem = ({ item, index }) => {
                 +
               </button>
             </div>
+          </div>
+          <div className="text-xs text-gray-500">
+            <span>{`Монтаж: ${hasInstall ? "с монтаж" : "без монтаж"}`}</span>
           </div>
         </div>
       </div>

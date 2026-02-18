@@ -52,9 +52,9 @@ const accessories = [
 const AirConProductPage = () => {
   const { slugAndId } = useParams();
   const [product, setProduct] = useState(null);
+  const [productOptions, setProductOptions] = useState({ installation: false });
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
   const [showSpecs, setShowSpecs] = useState(false);
-  const [includeInstallation, setIncludeInstallation] = useState(false);
   const { addToCart } = useCart();
   const navigate = useNavigate();
 
@@ -289,7 +289,7 @@ const AirConProductPage = () => {
               <div className="bg-white rounded-xl p-4 sm:p-6 shadow-md border border-gray-200">
                 <div className="flex flex-col sm:flex-row sm:items-baseline gap-2 sm:gap-3 mb-4">
                   <span className="text-2xl sm:text-3xl lg:text-4xl font-bold text-[#002B5B]">
-                    {includeInstallation
+                    {productOptions.installation
                       ? (
                           (product.product.discount
                             ? Number(product.product.price) *
@@ -310,7 +310,7 @@ const AirConProductPage = () => {
                       product.product.discount ? "line-through" : "hidden"
                     }`}
                   >
-                    {includeInstallation
+                    {productOptions.installation
                       ? Number(product.product.price) + getInstallationPrice()
                       : product.product.price}{" "}
                     €
@@ -343,10 +343,14 @@ const AirConProductPage = () => {
                     <div className="group grid size-4 grid-cols-1 flex-shrink-0">
                       <input
                         type="checkbox"
-                        checked={includeInstallation}
-                        onChange={(e) =>
-                          setIncludeInstallation(e.target.checked)
-                        }
+                        checked={productOptions.installation}
+                        onChange={(e) => {
+                          const checked = e.target.checked;
+                          setProductOptions((prev) => ({
+                            ...prev,
+                            installation: checked,
+                          }));
+                        }}
                         className="col-start-1 row-start-1 appearance-none rounded-sm border border-[#002B5B] bg-white checked:border-[#002B5B] checked:bg-[#002B5B] indeterminate:border-[#002B5B] indeterminate:bg-[#002B5B] focus:ring-[#002B5B] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#002B5B] disabled:border-gray-300 disabled:bg-gray-100 disabled:checked:bg-gray-100 forced-colors:appearance-auto"
                       />
                       <svg
@@ -382,7 +386,9 @@ const AirConProductPage = () => {
                   <div className="flex gap-3">
                     <button
                       type="button"
-                      onClick={() => addToCart(product.product, mainImg)}
+                      onClick={() =>
+                        addToCart(product.product, productOptions, mainImg)
+                      }
                       className="flex justify-center items-center gap-x-2 flex-1 bg-[#002B5B] hover:bg-blue-900 text-white py-2 sm:py-3 px-4 rounded-lg font-medium shadow-md cursor-pointer transition-colors text-sm sm:text-base"
                     >
                       <IoBagAddOutline className="h-4 w-4 sm:h-5 sm:w-5" />
