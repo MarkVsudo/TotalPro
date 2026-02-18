@@ -20,7 +20,7 @@ export default function Cart() {
   useEffect(() => {
     setTotalPrice(
       cartItems.reduce(
-        (acc, curr) => acc + parseFloat(curr.product.price) * curr.quantity,
+        (acc, curr) => acc + Number(curr.unitPrice) * curr.quantity,
         0,
       ),
     );

@@ -69,6 +69,12 @@ const cartReducer = (state, action) => {
   }
 };
 
+const calcDiscountedUnitPrice = (product) => {
+  const base = Number(product.price);
+  const discount = Number(product.discount ?? 0);
+  return discount ? base * (1 - discount / 100) : base;
+};
+
 export function CartProvider({ children }) {
   const [isCartOpen, setIsCartOpen] = useState(false);
 
@@ -85,14 +91,31 @@ export function CartProvider({ children }) {
   const [cartItems, dispatch] = useReducer(cartReducer, [], () => {
     const storedCart = localStorage.getItem("cart");
     const parsed = storedCart ? JSON.parse(storedCart) : [];
-    return parsed.map((item) => ({
-      ...item,
-      options: item.options ?? { installation: false },
-    }));
+
+    return parsed.map((item) => {
+      const options = item.options ?? { installation: false };
+      const normalizedOptions = { installation: Boolean(options.installation) };
+
+      return {
+        ...item,
+        options: normalizedOptions,
+        unitPrice:
+          typeof item.unitPrice === "number"
+            ? item.unitPrice
+            : calcDiscountedUnitPrice(item.product),
+      };
+    });
   });
 
-  const addToCart = (product, options, mainImg) => {
-    dispatch({ type: "ADD_ITEM", payload: { product, options, mainImg } });
+  const addToCart = (product, mainImg, options = { installation: false }) => {
+    const normalizedOptions = { installation: Boolean(options.installation) };
+    const unitPrice = calcDiscountedUnitPrice(product);
+
+    dispatch({
+      type: "ADD_ITEM",
+      payload: { product, options: normalizedOptions, mainImg, unitPrice },
+    });
+
     openCart();
   };
 
