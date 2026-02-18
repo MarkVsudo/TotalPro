@@ -40,7 +40,9 @@ const CartItem = ({ item, index }) => {
 
             <button
               type="button"
-              onClick={() => removeFromCart(item.product.product_id)}
+              onClick={() =>
+                removeFromCart(item.product.product_id, item.options)
+              }
               className="text-gray-400 hover:text-gray-600"
               aria-label="Премахни"
               title="Премахни"
@@ -58,7 +60,9 @@ const CartItem = ({ item, index }) => {
             <div className="flex rounded-md border-1 border-gray-300">
               <button
                 className="w-6 text-lg cursor-pointer"
-                onClick={() => decreaseItemQty(item.product.product_id)}
+                onClick={() =>
+                  decreaseItemQty(item.product.product_id, item.options)
+                }
               >
                 -
               </button>
@@ -66,7 +70,9 @@ const CartItem = ({ item, index }) => {
               <button
                 className={`w-6 text-lg ${item.quantity === 10 ? "cursor-not-allowed" : "cursor-pointer"}`}
                 disabled={item.quantity === 10}
-                onClick={() => increaseItemQty(item.product.product_id)}
+                onClick={() =>
+                  increaseItemQty(item.product.product_id, item.options)
+                }
               >
                 +
               </button>
