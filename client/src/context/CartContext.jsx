@@ -33,11 +33,19 @@ const cartReducer = (state, action) => {
     }
 
     case "REMOVE_ITEM":
-      return state.filter((item) => item.product.product_id !== action.payload);
+      return state.filter(
+        (item) =>
+          !(
+            item.product.product_id === action.payload.id &&
+            JSON.stringify(item.options) ===
+              JSON.stringify(action.payload.options)
+          ),
+      );
 
     case "INCREASE_ITEM_QTY":
       return state.map((item) =>
-        item.product.product_id === action.payload
+        item.product.product_id === action.payload.id &&
+        JSON.stringify(item.options) === JSON.stringify(action.payload.options)
           ? { ...item, quantity: item.quantity + 1 }
           : item,
       );
@@ -45,7 +53,9 @@ const cartReducer = (state, action) => {
     case "DECREASE_ITEM_QTY":
       return state
         .map((item) =>
-          item.product.product_id === action.payload
+          item.product.product_id === action.payload.id &&
+          JSON.stringify(item.options) ===
+            JSON.stringify(action.payload.options)
             ? { ...item, quantity: item.quantity - 1 }
             : item,
         )
@@ -86,16 +96,16 @@ export function CartProvider({ children }) {
     openCart();
   };
 
-  const removeFromCart = (id) => {
-    dispatch({ type: "REMOVE_ITEM", payload: id });
+  const removeFromCart = (id, options) => {
+    dispatch({ type: "REMOVE_ITEM", payload: { id, options } });
   };
 
-  const increaseItemQty = (id) => {
-    dispatch({ type: "INCREASE_ITEM_QTY", payload: id });
+  const increaseItemQty = (id, options) => {
+    dispatch({ type: "INCREASE_ITEM_QTY", payload: { id, options } });
   };
 
-  const decreaseItemQty = (id) => {
-    dispatch({ type: "DECREASE_ITEM_QTY", payload: id });
+  const decreaseItemQty = (id, options) => {
+    dispatch({ type: "DECREASE_ITEM_QTY", payload: { id, options } });
   };
 
   const clearCart = () => {
