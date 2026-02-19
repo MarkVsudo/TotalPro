@@ -26,6 +26,9 @@ import CheckoutPage from "../pages/CheckoutPage";
 import AdminRoute from "./AdminRoute";
 import CheckoutSuccessPage from "../pages/CheckoutSuccessPage";
 import CheckoutCancelPage from "../pages/CheckoutCancelPage";
+import TermsPage from "../pages/LegalPages/TermsPage";
+import CookiesPage from "../pages/LegalPages/CookiesPage";
+import PrivacyPage from "../pages/LegalPages/PrivacyPage";
 
 const withAnimation = (component) => (
   <>
@@ -159,6 +162,33 @@ const router = createBrowserRouter([
         ],
       },
     ],
+  },
+  {
+    path: "/terms",
+    element: (
+      <CartProvider>
+        <MainLayout />
+      </CartProvider>
+    ),
+    children: [{ index: true, element: withAnimation(<TermsPage />) }],
+  },
+  {
+    path: "/privacy",
+    element: (
+      <CartProvider>
+        <MainLayout />
+      </CartProvider>
+    ),
+    children: [{ index: true, element: withAnimation(<PrivacyPage />) }],
+  },
+  {
+    path: "/cookies",
+    element: (
+      <CartProvider>
+        <MainLayout />
+      </CartProvider>
+    ),
+    children: [{ index: true, element: withAnimation(<CookiesPage />) }],
   },
 
   {
