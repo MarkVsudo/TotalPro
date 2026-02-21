@@ -92,10 +92,14 @@ router.get("/products", async (req, res) => {
       conditions.push(`heating_energy_class = ANY($${values.length})`);
     }
 
-    if (priceMin) {
-    }
+    if (priceMin != null && priceMax != null) {
+      const minIndex = values.length + 1;
+      values.push(Number(priceMin));
 
-    if (priceMax) {
+      const maxIndex = values.length + 1;
+      values.push(Number(priceMax));
+
+      conditions.push(`p.price >= $${minIndex} AND p.price <= $${maxIndex}`);
     }
 
     const whereQuery =
