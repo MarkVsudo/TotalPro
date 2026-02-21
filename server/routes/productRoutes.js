@@ -41,6 +41,8 @@ router.get("/products", async (req, res) => {
       color,
       coolingEnergyClass,
       heatingEnergyClass,
+      priceMin,
+      priceMax,
     } = req.query;
 
     const conditions = [];
@@ -88,6 +90,12 @@ router.get("/products", async (req, res) => {
     if (heatingEnergyClass) {
       values.push(heatingEnergyClass.split(","));
       conditions.push(`heating_energy_class = ANY($${values.length})`);
+    }
+
+    if (priceMin) {
+    }
+
+    if (priceMax) {
     }
 
     const whereQuery =
