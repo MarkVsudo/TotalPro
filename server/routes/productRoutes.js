@@ -43,6 +43,7 @@ router.get("/products", async (req, res) => {
       heatingEnergyClass,
       priceMin,
       priceMax,
+      search,
     } = req.query;
 
     const conditions = [];
@@ -100,6 +101,20 @@ router.get("/products", async (req, res) => {
       values.push(Number(priceMax));
 
       conditions.push(`p.price >= $${minIndex} AND p.price <= $${maxIndex}`);
+    }
+
+    if (search) {
+      const terms = search
+        .split(",")
+        .map((s) => s.trim())
+        .filter(Boolean);
+
+      const likeConditions = terms.map((term) => {
+        values.push(`%${term}%`);
+        return `product_name ILIKE $${values.length}`;
+      });
+
+      conditions.push(`(${likeConditions.join(" OR ")})`);
     }
 
     const whereQuery =

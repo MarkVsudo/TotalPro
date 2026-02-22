@@ -27,6 +27,7 @@ const AirConStorePage = () => {
         const heatingEnergyClass = searchParams.get("heatingEnergyClass");
         const priceMin = searchParams.get("priceMin");
         const priceMax = searchParams.get("priceMax");
+        const search = searchParams.get("search");
 
         const page = Number(searchParams.get("page")) || 1;
 
@@ -45,6 +46,7 @@ const AirConStorePage = () => {
             heatingEnergyClass,
             priceMin,
             priceMax,
+            search,
           },
         });
         setProducts(res.data.products);
