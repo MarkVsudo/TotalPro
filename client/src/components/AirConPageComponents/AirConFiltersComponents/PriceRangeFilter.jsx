@@ -1,17 +1,32 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useSearchParams } from "react-router-dom";
 
 const PriceRangeFilter = ({ mode }) => {
   const [searchParams, setSearchParams] = useSearchParams();
-  const [priceMin, setPriceMin] = useState(100);
-  const [priceMax, setPriceMax] = useState(10000);
-  const [minDraft, setMinDraft] = useState(null);
-  const [maxDraft, setMaxDraft] = useState(null);
   const PRICE_MIN = 100;
   const PRICE_MAX = 10000;
   const GAP = 100;
 
+  const [priceMin, setPriceMin] = useState(() => {
+    const raw = searchParams.get("priceMin");
+    if (raw === null) return PRICE_MIN;
+    const parsed = Number(raw);
+    return !isNaN(parsed) && parsed >= PRICE_MIN ? parsed : PRICE_MIN;
+  });
+  const [priceMax, setPriceMax] = useState(() => {
+    const raw = searchParams.get("priceMax");
+    if (raw === null) return PRICE_MAX;
+    const parsed = Number(raw);
+    return !isNaN(parsed) && parsed <= PRICE_MAX ? parsed : PRICE_MAX;
+  });
+
+  const [minDraft, setMinDraft] = useState(null);
+  const [maxDraft, setMaxDraft] = useState(null);
+
+  const hasInteracted = useRef(false);
+
   const setMin = (val) => {
+    hasInteracted.current = true;
     const v = Math.max(
       PRICE_MIN,
       Math.min(Number(val) || PRICE_MIN, priceMax - GAP),
@@ -20,6 +35,7 @@ const PriceRangeFilter = ({ mode }) => {
   };
 
   const setMax = (val) => {
+    hasInteracted.current = true;
     const v = Math.min(
       PRICE_MAX,
       Math.max(Number(val) || PRICE_MAX, priceMin + GAP),
@@ -28,38 +44,29 @@ const PriceRangeFilter = ({ mode }) => {
   };
 
   useEffect(() => {
+    if (!hasInteracted.current) return;
+
     const t = setTimeout(() => {
       setSearchParams((prev) => {
-        prev.set("priceMin", String(priceMin));
-        prev.set("priceMax", String(priceMax));
-        return prev;
+        const next = new URLSearchParams(prev);
+
+        if (priceMin === PRICE_MIN && priceMax === PRICE_MAX) {
+          next.delete("priceMin");
+          next.delete("priceMax");
+        } else {
+          next.set("priceMin", String(priceMin));
+          next.set("priceMax", String(priceMax));
+        }
+
+        next.delete("page");
+
+        return next;
       });
     }, 250);
 
     return () => clearTimeout(t);
   }, [priceMin, priceMax, setSearchParams]);
 
-  useEffect(() => {
-    const rawMin = searchParams.get("priceMin");
-    const rawMax = searchParams.get("priceMax");
-
-    if (rawMin === null && rawMax === null) return;
-
-    const pMin = Number(rawMin);
-    const pMax = Number(rawMax);
-
-    let nextMin = Number.isNaN(pMin)
-      ? PRICE_MIN
-      : Math.max(PRICE_MIN, Math.min(pMin, PRICE_MAX));
-    let nextMax = Number.isNaN(pMax)
-      ? PRICE_MAX
-      : Math.max(PRICE_MIN, Math.min(pMax, PRICE_MAX));
-
-    if (nextMax - nextMin < GAP) nextMax = Math.min(PRICE_MAX, nextMin + GAP);
-
-    setPriceMin(nextMin);
-    setPriceMax(nextMax);
-  }, [searchParams]);
   return (
     <div
       className={

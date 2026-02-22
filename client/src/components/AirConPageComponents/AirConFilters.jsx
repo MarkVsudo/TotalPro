@@ -12,6 +12,7 @@ import { XMarkIcon, FunnelIcon } from "@heroicons/react/24/outline";
 import { MinusIcon, PlusIcon } from "@heroicons/react/20/solid";
 import API from "../../api/api";
 import PriceRangeFilter from "./AirConFiltersComponents/PriceRangeFilter";
+import SearchInput from "./AirConFiltersComponents/SearchInput";
 
 const filters = [
   {
@@ -371,6 +372,8 @@ export default function AirConFilters() {
                 </ul>
               </div>
 
+              <SearchInput mode="mobile" />
+
               <PriceRangeFilter mode="mobile" />
 
               <FilterSections mode="mobile" />
@@ -421,6 +424,8 @@ export default function AirConFilters() {
                 );
               })}
             </ul>
+
+            <SearchInput mode="desktop" />
 
             <PriceRangeFilter mode="desktop" />
 
