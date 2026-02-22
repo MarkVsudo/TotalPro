@@ -36,12 +36,12 @@ const AirConHeader = () => {
   return (
     <div className="relative w-full overflow-hidden">
       <div className="lg:hidden px-4 pt-4">
-        <div className="flex rounded-xl p-1 bg-white border border-gray-200 shadow-sm">
+        <div className="flex rounded-xl  p-1 bg-white border border-gray-200 shadow-sm">
           <NavLink
             to={STORE}
             end
             className={({ isActive }) =>
-              `flex-1 text-center py-2 rounded-lg text-sm font-semibold transition
+              `flex-1 flex justify-center items-center text-center py-2 rounded-lg text-sm font-semibold transition
          ${isActive ? "bg-[#002B5B] text-white shadow" : "bg-white text-[#002B5B]"}`
             }
           >
