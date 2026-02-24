@@ -83,14 +83,16 @@ const CartItem = ({ item, index }) => {
               </button>
             </div>
           </div>
-          <div className="text-xs text-gray-500">
-            <span>
-              {`Монтаж: ${hasInstall ? "с монтаж" : "без монтаж"}`}
-              {item.options.installation && (
-                <div> + {getInstallationPrice(item.product)}€</div>
-              )}
-            </span>
-          </div>
+          {item.product.category_value !== "aksesoari_za_montazh" && (
+            <div className="text-xs text-gray-500">
+              <span>
+                {`Монтаж: ${hasInstall ? "с монтаж" : "без монтаж"}`}
+                {item.options.installation && (
+                  <div> + {getInstallationPrice(item.product)}€</div>
+                )}
+              </span>
+            </div>
+          )}
         </div>
       </div>
     </li>

@@ -13,42 +13,13 @@ import {
 import { useCart } from "../../context/CartContext";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import accessoryImg1 from "../../assets/air-con-accessory-img-1.jpg";
-import accessoryImg2 from "../../assets/air-con-accessory-img-2.jpg";
-import accessoryImg3 from "../../assets/air-con-accessory-img-3.jpg";
+
 import ImageNotFound from "../../assets/image-not-found.png";
 import "swiper/css";
 import "swiper/css/thumbs";
 import "swiper/css/free-mode";
 import "swiper/css/navigation";
 import API from "../../api/api";
-
-const accessories = [
-  {
-    id: 1,
-    name: "PVC кондензна вана + монтаж",
-    href: "/air-conditioning/1",
-    imageSrc: accessoryImg1,
-    imageAlt: "Вътрешно тяло снимка",
-    price: "54.99",
-  },
-  {
-    id: 2,
-    name: "Комплект PVC кондензна вана + нагревател + монтаж",
-    href: "#",
-    imageSrc: accessoryImg3,
-    imageAlt: "Вътрешно тяло снимка",
-    price: "74.99",
-  },
-  {
-    id: 3,
-    name: "Комплект антивибрационни тампони (4 бр.) + монтаж",
-    href: "#",
-    imageSrc: accessoryImg2,
-    imageAlt: "Вътрешно тяло снимка",
-    price: "19.99",
-  },
-];
 
 const AirConProductPage = () => {
   const { slugAndId } = useParams();
@@ -124,6 +95,21 @@ const AirConProductPage = () => {
       `https://res.cloudinary.com/dh1arjjjy/image/upload/v1768349183/${img.public_id}`,
   );
 
+  const [accessories, setAccessories] = useState([]);
+  const [accessoryImgs, setAccessoryImgs] = useState([]);
+
+  useEffect(() => {
+    const fetchAccessories = async () => {
+      const res = await axios.get("/api/accessories");
+      setAccessories(res.data.accessories);
+      setAccessoryImgs(res.data.accessoryImgs);
+    };
+    fetchAccessories();
+  }, []);
+
+  const getMainAccessoryImg = (productId) =>
+    accessoryImgs.find((img) => img.product_id === productId && img.is_main);
+
   if (!product) {
     return (
       <div className="min-h-screen flex items-center justify-center">
@@ -135,6 +121,15 @@ const AirConProductPage = () => {
   const mainImg = product.productImgs?.find(
     (img) => img.product_id === product.product.product_id && img.is_main,
   );
+
+  const currentProductId = product?.product?.product_id;
+
+  const filteredAccessories = (accessories ?? [])
+    .filter((a) => a?.product_id !== currentProductId)
+    .filter(
+      (a, idx, arr) =>
+        idx === arr.findIndex((x) => x.product_id === a.product_id),
+    );
 
   return (
     <div className="min-h-screen">
@@ -262,20 +257,14 @@ const AirConProductPage = () => {
               <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold text-[#002B5B] mb-2">
                 {product.product.category_name} {product.product.product_name}
               </h1>
-              <p className="text-base lg:text-lg text-gray-600 mb-4">
-                {product.product.btu} BTU, Клас{" "}
-                {product.product.cooling_energy_class}
-              </p>
+              {product.product.category_value !== "aksesoari_za_montazh" && (
+                <p className="text-base lg:text-lg text-gray-600 mb-4">
+                  {product.product.btu} BTU, Клас{" "}
+                  {product.product.cooling_energy_class}
+                </p>
+              )}
 
               <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4 mb-4">
-                <div className="flex items-center gap-1">
-                  {[...Array(5)].map((_, i) => (
-                    <FaStar key={i} className="w-4 h-4 text-yellow-400" />
-                  ))}
-                  <span className="text-sm text-gray-600 ml-2">
-                    (24 отзива)
-                  </span>
-                </div>
                 <div className="flex items-center gap-2 text-green-600 font-medium">
                   <FaCheckCircle className="w-4 h-4" />В наличност
                 </div>
@@ -319,12 +308,15 @@ const AirConProductPage = () => {
                       {product.product.product_code}
                     </span>
                   </div>
-                  <div className="flex flex-col sm:flex-row sm:items-center gap-1">
-                    <span>Производител:</span>
-                    <span className="font-semibold text-[#002B5B]">
-                      {product.product.make}
-                    </span>
-                  </div>
+                  {product.product.make && (
+                    <div className="flex flex-col sm:flex-row sm:items-center gap-1">
+                      <span>Производител:</span>
+                      <span className="font-semibold text-[#002B5B]">
+                        {product.product.make}
+                      </span>
+                    </div>
+                  )}
+
                   <div className="flex items-center gap-2">
                     <FaShieldAlt className="w-4 h-4 text-[#002B5B]" />
                     <span className="text-[#002B5B] font-medium">
@@ -334,49 +326,52 @@ const AirConProductPage = () => {
                 </div>
 
                 <div className="space-y-4">
-                  <label className="flex items-center gap-3 p-3 rounded-lg border border-gray-200 hover:border-[#002B5B] transition-colors cursor-pointer">
-                    <div className="group grid size-4 grid-cols-1 flex-shrink-0">
-                      <input
-                        type="checkbox"
-                        checked={productOptions.installation}
-                        onChange={(e) => {
-                          const checked = e.target.checked;
-                          setProductOptions((prev) => ({
-                            ...prev,
-                            installation: checked,
-                          }));
-                        }}
-                        className="col-start-1 row-start-1 appearance-none rounded-sm border border-[#002B5B] bg-white checked:border-[#002B5B] checked:bg-[#002B5B] indeterminate:border-[#002B5B] indeterminate:bg-[#002B5B] focus:ring-[#002B5B] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#002B5B] disabled:border-gray-300 disabled:bg-gray-100 disabled:checked:bg-gray-100 forced-colors:appearance-auto"
-                      />
-                      <svg
-                        fill="none"
-                        viewBox="0 0 14 14"
-                        className="pointer-events-none col-start-1 row-start-1 size-3.5 self-center justify-self-center stroke-white group-has-disabled:stroke-gray-950/25"
-                      >
-                        <path
-                          d="M3 8L6 11L11 3.5"
-                          strokeWidth={2}
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          className="opacity-0 group-has-checked:opacity-100"
+                  {product.product.category_value !==
+                    "aksesoari_za_montazh" && (
+                    <label className="flex items-center gap-3 p-3 rounded-lg border border-gray-200 hover:border-[#002B5B] transition-colors cursor-pointer">
+                      <div className="group grid size-4 grid-cols-1 flex-shrink-0">
+                        <input
+                          type="checkbox"
+                          checked={productOptions.installation}
+                          onChange={(e) => {
+                            const checked = e.target.checked;
+                            setProductOptions((prev) => ({
+                              ...prev,
+                              installation: checked,
+                            }));
+                          }}
+                          className="col-start-1 row-start-1 appearance-none rounded-sm border border-[#002B5B] bg-white checked:border-[#002B5B] checked:bg-[#002B5B] indeterminate:border-[#002B5B] indeterminate:bg-[#002B5B] focus:ring-[#002B5B] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#002B5B] disabled:border-gray-300 disabled:bg-gray-100 disabled:checked:bg-gray-100 forced-colors:appearance-auto"
                         />
-                        <path
-                          d="M3 7H11"
-                          strokeWidth={2}
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          className="opacity-0 group-has-indeterminate:opacity-100"
-                        />
-                      </svg>
-                    </div>
-                    <FaTools className="w-4 h-4 text-gray-600 flex-shrink-0" />
-                    <span className="font-medium text-[#002B5B] flex-1">
-                      С монтаж (3 л.м. тръбен път)
-                    </span>
-                    <span className="text-[#002B5B] font-semibold">
-                      +{getInstallationPrice()}€.
-                    </span>
-                  </label>
+                        <svg
+                          fill="none"
+                          viewBox="0 0 14 14"
+                          className="pointer-events-none col-start-1 row-start-1 size-3.5 self-center justify-self-center stroke-white group-has-disabled:stroke-gray-950/25"
+                        >
+                          <path
+                            d="M3 8L6 11L11 3.5"
+                            strokeWidth={2}
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            className="opacity-0 group-has-checked:opacity-100"
+                          />
+                          <path
+                            d="M3 7H11"
+                            strokeWidth={2}
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            className="opacity-0 group-has-indeterminate:opacity-100"
+                          />
+                        </svg>
+                      </div>
+                      <FaTools className="w-4 h-4 text-gray-600 flex-shrink-0" />
+                      <span className="font-medium text-[#002B5B] flex-1">
+                        С монтаж (3 л.м. тръбен път)
+                      </span>
+                      <span className="text-[#002B5B] font-semibold">
+                        +{getInstallationPrice()}€.
+                      </span>
+                    </label>
+                  )}
 
                   <div className="flex gap-3">
                     <button
@@ -403,7 +398,8 @@ const AirConProductPage = () => {
             </div>
 
             {/* Features */}
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
+            <div className="grid grid-cols-3 gap-2 sm:gap-4">
+              {" "}
               <div className="bg-white p-3 sm:p-4 rounded-xl shadow-md border border-gray-200 text-center">
                 <FaTruck className="w-6 h-6 sm:w-8 sm:h-8 text-[#002B5B] mx-auto mb-2" />
                 <div className="text-xs sm:text-sm font-medium text-gray-900">
@@ -434,42 +430,81 @@ const AirConProductPage = () => {
           <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-6 sm:mb-8">
             Допълнителни аксесоари
           </h2>
-          <div className="flex gap-4 sm:gap-6 ">
-            {accessories.map((accessory) => (
-              <Link to={accessory.href} key={accessory.id} className="flex-1">
-                <div className="group relative h-full flex flex-col">
-                  <div className="relative overflow-hidden ">
-                    <img
-                      alt={accessory.imageAlt}
-                      src={accessory.imageSrc}
-                      className="aspect-square w-full rounded-md object-contain group-hover:brightness-102 group-hover:scale-105 lg:aspect-auto lg:h-50 transition-all"
-                    />
-                    <div className="absolute top-0 right-0 bg-green-200 text-green-900 px-2 rounded-md">
-                      -5% намаление
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
+            {filteredAccessories.map((accessory) => {
+              const mainAccessoryImg = getMainAccessoryImg(
+                accessory.product_id,
+              );
+
+              return (
+                <div
+                  key={accessory.product_id}
+                  className="group relative h-full flex flex-col bg-white rounded-lg sm:rounded-none sm:bg-transparent"
+                >
+                  <Link
+                    to={`/air-conditioning/${accessory.slug}-${accessory.product_id}`}
+                    className="block"
+                  >
+                    <div className="relative overflow-hidden rounded-lg sm:rounded-md">
+                      <img
+                        alt={accessory.product_name}
+                        src={
+                          mainAccessoryImg?.public_id
+                            ? `https://res.cloudinary.com/dh1arjjjy/image/upload/v1768349183/${mainAccessoryImg.public_id}`
+                            : ImageNotFound
+                        }
+                        className="aspect-square w-full object-contain lg:h-72 object-contain group-hover:brightness-102 group-hover:scale-105 transition-all"
+                      />
+
+                      {accessory.discount && (
+                        <div className="absolute top-1 right-1 sm:top-2 sm:right-2 bg-green-200 text-green-900 px-2 py-1 rounded-md text-xs sm:text-sm font-medium shadow-sm">
+                          -{accessory.discount}%
+                        </div>
+                      )}
                     </div>
-                  </div>
-                  <div className="flex flex-col gap-2 flex-grow">
+                  </Link>
+
+                  <div className="flex flex-col gap-2 sm:gap-2.5 flex-grow pt-3 sm:pt-4">
                     <div>
-                      <h3 className="text-sm text-gray-700">
-                        {accessory.name}
+                      <h3 className="text-sm sm:text-base text-gray-700 line-clamp-2 group-hover:text-gray-900 transition-colors">
+                        {accessory.product_name}
                       </h3>
                     </div>
-                    <div className="flex gap-2 items-center">
-                      <p className="text-sm font-medium text-gray-900">
-                        {accessory.price} €
+
+                    <div className="flex gap-2 items-center flex-wrap">
+                      <p className="text-base sm:text-lg font-semibold text-gray-900">
+                        {accessory.discount
+                          ? (
+                              Number(accessory.price) *
+                              (1 - Number(accessory.discount) / 100)
+                            ).toFixed(2)
+                          : Number(accessory.price).toFixed(2)}
+                        €
                       </p>
+
+                      {accessory.discount && (
+                        <p className="text-sm text-gray-500 line-through">
+                          {Number(accessory.price).toFixed(2)}€
+                        </p>
+                      )}
                     </div>
+
                     <button
                       type="button"
-                      className="flex justify-center items-center gap-x-2 w-full bg-[#002B5B] hover:bg-blue-900 text-white py-2 rounded-lg font-medium shadow-md cursor-pointer transition-colors mt-auto"
+                      onClick={() =>
+                        addToCart(accessory, mainAccessoryImg, {
+                          installation: false,
+                        })
+                      }
+                      className="flex justify-center items-center gap-x-2 w-full bg-[#002B5B] hover:bg-blue-900 active:bg-blue-950 text-white py-2.5 sm:py-2 rounded-lg font-medium shadow-md cursor-pointer transition-colors mt-auto text-sm sm:text-base"
                     >
                       <IoBagAddOutline className="h-5 w-5" />
-                      Добави
+                      <span>Добави</span>
                     </button>
                   </div>
                 </div>
-              </Link>
-            ))}
+              );
+            })}
           </div>
         </div>
 
@@ -488,36 +523,38 @@ const AirConProductPage = () => {
         </div>
 
         {/* Specifications */}
-        <div className="bg-white rounded-xl lg:rounded-2xl p-4 sm:p-6 lg:p-8 shadow-md border border-gray-200 mb-8 lg:mb-16">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 sm:gap-0 mb-4 sm:mb-6">
-            <h2 className="text-xl sm:text-2xl font-bold text-gray-900">
-              Технически характеристики
-            </h2>
-            <button
-              onClick={() => setShowSpecs(!showSpecs)}
-              className="px-4 py-2 text-[#002B5B] hover:text-blue-900 font-medium text-sm sm:text-base self-start sm:self-auto"
-            >
-              {showSpecs ? "Скрий" : "Покажи всички"}
-            </button>
+        {product.product.category_value !== "aksesoari_za_montazh" && (
+          <div className="bg-white rounded-xl lg:rounded-2xl p-4 sm:p-6 lg:p-8 shadow-md border border-gray-200 mb-8 lg:mb-16">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 sm:gap-0 mb-4 sm:mb-6">
+              <h2 className="text-xl sm:text-2xl font-bold text-gray-900">
+                Технически характеристики
+              </h2>
+              <button
+                onClick={() => setShowSpecs(!showSpecs)}
+                className="px-4 py-2 text-[#002B5B] hover:text-blue-900 font-medium text-sm sm:text-base self-start sm:self-auto"
+              >
+                {showSpecs ? "Скрий" : "Покажи всички"}
+              </button>
+            </div>
+            <div className="grid grid-cols-1 gap-x-4 lg:gap-x-8">
+              {specifications
+                .slice(0, showSpecs ? specifications.length : 6)
+                .map(([label, value], i) => (
+                  <div
+                    key={i}
+                    className="flex flex-col sm:flex-row sm:justify-between gap-1 sm:gap-4 py-3 border-b border-gray-100 last:border-b-0"
+                  >
+                    <span className="text-gray-600 text-sm sm:text-base">
+                      {label}
+                    </span>
+                    <span className="font-medium text-gray-900 text-sm sm:text-base sm:text-right">
+                      {value}
+                    </span>
+                  </div>
+                ))}
+            </div>
           </div>
-          <div className="grid grid-cols-1 gap-x-4 lg:gap-x-8">
-            {specifications
-              .slice(0, showSpecs ? specifications.length : 6)
-              .map(([label, value], i) => (
-                <div
-                  key={i}
-                  className="flex flex-col sm:flex-row sm:justify-between gap-1 sm:gap-4 py-3 border-b border-gray-100 last:border-b-0"
-                >
-                  <span className="text-gray-600 text-sm sm:text-base">
-                    {label}
-                  </span>
-                  <span className="font-medium text-gray-900 text-sm sm:text-base sm:text-right">
-                    {value}
-                  </span>
-                </div>
-              ))}
-          </div>
-        </div>
+        )}
       </div>
     </div>
   );

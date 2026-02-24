@@ -164,6 +164,40 @@ router.get("/products", async (req, res) => {
   }
 });
 
+router.get("/accessories", async (req, res) => {
+  try {
+    const accessories = await db.any(`
+      SELECT
+        p.*,
+        c.category_value,
+        c.category_name
+      FROM products p
+      JOIN categories c ON p.category_id = c.category_id
+      WHERE c.category_value = 'aksesoari_za_montazh'
+      ORDER BY p.popularity DESC NULLS LAST, p.product_id DESC
+    `);
+
+    const ids = accessories.map((a) => a.product_id);
+
+    const accessoryImgs =
+      ids.length === 0
+        ? []
+        : await db.any(
+            `
+              SELECT *
+              FROM product_images
+              WHERE product_id = ANY($1::int[])
+            `,
+            [ids],
+          );
+
+    res.json({ accessories, accessoryImgs });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Server error");
+  }
+});
+
 router.get("/products/:id", async (req, res) => {
   const { id } = req.params;
 
@@ -173,7 +207,7 @@ router.get("/products/:id", async (req, res) => {
 
   try {
     const product = await db.oneOrNone(
-      `SELECT p.*, c.category_name
+      `SELECT p.*, c.category_name, c.category_value
        FROM products p
        JOIN categories c ON p.category_id = c.category_id
        WHERE product_id = $1`,
