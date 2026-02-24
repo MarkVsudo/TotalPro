@@ -100,7 +100,7 @@ const AirConProductPage = () => {
 
   useEffect(() => {
     const fetchAccessories = async () => {
-      const res = await axios.get("/api/accessories");
+      const res = await API.get("/api/accessories");
       setAccessories(res.data.accessories);
       setAccessoryImgs(res.data.accessoryImgs);
     };
