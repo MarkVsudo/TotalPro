@@ -76,11 +76,13 @@ export default function AirConProducts({ products, productImgs }) {
                     className="aspect-square w-full object-contain group-hover:brightness-102 group-hover:scale-105 lg:aspect-auto lg:h-80 transition-all"
                   />
 
-                  <img
-                    alt="Aircon company"
-                    src={decideCompanyLogo(product.make)}
-                    className="absolute top-1 left-1 sm:top-2 sm:left-2 h-10 w-10 sm:h-12 sm:w-12 object-contain"
-                  />
+                  {product.category_value !== "aksesoari_za_montazh" && (
+                    <img
+                      alt="Aircon company"
+                      src={decideCompanyLogo(product.make)}
+                      className="absolute top-1 left-1 sm:top-2 sm:left-2 h-10 w-10 sm:h-12 sm:w-12 object-contain"
+                    />
+                  )}
 
                   {product.discount && (
                     <div className="absolute top-1 right-1 sm:top-2 sm:right-2 bg-green-200 text-green-900 px-2 py-1 rounded-md text-xs sm:text-sm font-medium shadow-sm">
