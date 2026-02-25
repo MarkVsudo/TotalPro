@@ -157,7 +157,7 @@ const AirConProductPage = () => {
           <div className="w-full lg:w-[55%] flex flex-col space-y-3 lg:space-y-4">
             {/* Main Swiper */}
             <div className="relative rounded-xl lg:rounded-2xl overflow-hidden bg-white shadow-md border border-gray-200 aspect-square lg:aspect-auto lg:h-auto">
-              {product.product.discount && (
+              {product.product.discount != null && (
                 <div className="absolute z-10 top-2 right-2 bg-green-200 text-green-900 px-2 rounded-md">
                   -{product.product.discount}% намаление
                 </div>
@@ -275,13 +275,13 @@ const AirConProductPage = () => {
                   <span className="text-2xl sm:text-3xl lg:text-4xl font-bold text-[#002B5B]">
                     {productOptions.installation
                       ? (
-                          (product.product.discount
+                          (product.product.discount != null
                             ? Number(product.product.price) *
                               (1 - Number(product.product.discount) / 100)
                             : Number(product.product.price)) +
                           getInstallationPrice()
                         ).toFixed(2)
-                      : product.product.discount
+                      : product.product.discount != null
                         ? (
                             Number(product.product.price) *
                             (1 - Number(product.product.discount) / 100)
@@ -291,7 +291,9 @@ const AirConProductPage = () => {
                   </span>
                   <span
                     className={`text-lg sm:text-xl text-gray-500 ${
-                      product.product.discount ? "line-through" : "hidden"
+                      product.product.discount != null
+                        ? "line-through"
+                        : "hidden"
                     }`}
                   >
                     {productOptions.installation
@@ -456,7 +458,7 @@ const AirConProductPage = () => {
                         className="aspect-square w-full object-contain lg:h-72 object-contain group-hover:brightness-102 group-hover:scale-105 transition-all"
                       />
 
-                      {accessory.discount && (
+                      {accessory.discount != null && (
                         <div className="absolute top-1 right-1 sm:top-2 sm:right-2 bg-green-200 text-green-900 px-2 py-1 rounded-md text-xs sm:text-sm font-medium shadow-sm">
                           -{accessory.discount}%
                         </div>
@@ -473,7 +475,7 @@ const AirConProductPage = () => {
 
                     <div className="flex gap-2 items-center flex-wrap">
                       <p className="text-base sm:text-lg font-semibold text-gray-900">
-                        {accessory.discount
+                        {accessory.discount != null
                           ? (
                               Number(accessory.price) *
                               (1 - Number(accessory.discount) / 100)
@@ -482,7 +484,7 @@ const AirConProductPage = () => {
                         €
                       </p>
 
-                      {accessory.discount && (
+                      {accessory.discount != null && (
                         <p className="text-sm text-gray-500 line-through">
                           {Number(accessory.price).toFixed(2)}€
                         </p>

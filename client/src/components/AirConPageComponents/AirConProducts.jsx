@@ -84,7 +84,7 @@ export default function AirConProducts({ products, productImgs }) {
                     />
                   )}
 
-                  {product.discount && (
+                  {product.discount != null && (
                     <div className="absolute top-1 right-1 sm:top-2 sm:right-2 bg-green-200 text-green-900 px-2 py-1 rounded-md text-xs sm:text-sm font-medium shadow-sm">
                       -{product.discount}%
                     </div>
@@ -101,16 +101,15 @@ export default function AirConProducts({ products, productImgs }) {
 
                 <div className="flex gap-2 items-center flex-wrap">
                   <p className="text-base sm:text-lg font-semibold text-gray-900">
-                    {product.discount
-                      ? (
-                          Number(product.price) *
-                          (1 - Number(product.discount) / 100)
-                        ).toFixed(2)
-                      : product.price}
+                    {product.discount != null
+                      ? (product.price * (1 - product.discount / 100)).toFixed(
+                          2,
+                        )
+                      : product.price.toFixed(2)}
                     €
                   </p>
 
-                  {product.discount && (
+                  {product.discount != null && (
                     <p className="text-sm text-gray-500 line-through">
                       {product.price}€
                     </p>
