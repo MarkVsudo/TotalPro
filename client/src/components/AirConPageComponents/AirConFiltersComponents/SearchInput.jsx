@@ -11,19 +11,29 @@ const SearchInput = ({ mode }) => {
   }, [urlSearch]);
 
   useEffect(() => {
+    const trimmed = searchValue.trim();
+
     const t = setTimeout(() => {
       setSearchParams((prev) => {
+        const currentSearch = prev.get("search") || "";
+
+        if (currentSearch === trimmed) return prev;
+
         const next = new URLSearchParams(prev);
-        if (searchValue.trim()) next.set("search", searchValue.trim());
-        else next.delete("search");
-        next.delete("page");
+
+        if (trimmed) {
+          next.set("search", trimmed);
+          next.delete("page");
+        } else {
+          next.delete("search");
+        }
+
         return next;
       });
     }, 250);
 
     return () => clearTimeout(t);
   }, [searchValue, setSearchParams]);
-
   return (
     <div
       className={
