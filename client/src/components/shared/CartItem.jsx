@@ -37,10 +37,6 @@ const CartItem = ({ item, index }) => {
               >
                 {item.product.product_name}
               </Link>
-
-              <div className="mt-1 text-xs text-gray-500">
-                <div>{item.product.color}</div>
-              </div>
             </div>
 
             <button
