@@ -23,10 +23,10 @@ const SearchInput = ({ mode }) => {
 
         if (trimmed) {
           next.set("search", trimmed);
-          next.delete("page");
         } else {
           next.delete("search");
         }
+        next.delete("page");
 
         return next;
       });
