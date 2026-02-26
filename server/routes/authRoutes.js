@@ -52,6 +52,17 @@ router.get("/me", authenticate, (req, res) => {
   });
 });
 
+router.post("/logout", (req, res) => {
+  res.clearCookie("token", {
+    httpOnly: true,
+    sameSite: "none",
+    secure: true,
+    path: "/",
+  });
+
+  res.json({ message: "Logged out" });
+});
+
 router.get("/dashboard", authenticate, requireAdmin, (req, res) => {
   res.json({ message: "Welcome Admin" });
 });
