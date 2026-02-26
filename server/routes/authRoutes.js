@@ -33,7 +33,7 @@ router.post("/login", async (req, res) => {
       .cookie("token", token, {
         httpOnly: true,
         sameSite: "none",
-        secure: process.env.NODE_ENV === "production",
+        secure: true,
         maxAge: 15 * 60 * 1000,
       })
       .status(200)
@@ -53,12 +53,10 @@ router.get("/me", authenticate, (req, res) => {
 });
 
 router.post("/logout", (req, res) => {
-  const isProd = process.env.NODE_ENV === "production";
-
   res.clearCookie("token", {
     httpOnly: true,
-    secure: isProd,
     sameSite: "none",
+    secure: true,
     path: "/",
   });
 
