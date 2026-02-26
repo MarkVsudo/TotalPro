@@ -1,7 +1,6 @@
 import NavLogoImg from "../../assets/nav-logo.png";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState, useContext } from "react";
-import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
 import ErrorAlert from "../../components/shared/ErrorAlert";
 import SucessAlert from "../../components/shared/SucessAlert";
@@ -11,14 +10,11 @@ const LoginPage = () => {
   const [formData, setFormData] = useState({ email: "", password: "" });
   const [isSuccess, setIsSuccess] = useState(null);
   const { login } = useContext(AuthContext);
-  let navigate = useNavigate();
+  const navigate = useNavigate();
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleSubmit = async (e) => {
@@ -34,6 +30,7 @@ const LoginPage = () => {
 
       login(res.data);
 
+      setIsSuccess(true);
       navigate("/dashboard");
     } catch (err) {
       console.error(err);
@@ -41,11 +38,14 @@ const LoginPage = () => {
     }
   };
 
+  const inputClass =
+    "mt-2 w-full rounded-xl border border-[#002B5B]/25 bg-white px-4 py-3 text-slate-900 shadow-sm outline-none transition focus:border-[#002B5B] focus:ring-2 focus:ring-[#002B5B]/20";
+
   return (
     <div className="flex max-h-screen flex-col">
-      {isSuccess === true && <SucessAlert text="Uspeh." />}
-      {isSuccess === false && <ErrorAlert text="Greshka." />}
-      {/* Top nav */}
+      {isSuccess === true && <SucessAlert text="Успешен вход." />}
+      {isSuccess === false && <ErrorAlert text="Грешка при вход." />}
+
       <div className="flex w-full justify-center items-center bg-white py-6">
         <Link to="/">
           <span className="sr-only">TotalPro</span>
@@ -53,65 +53,64 @@ const LoginPage = () => {
         </Link>
       </div>
 
-      {/* Main content  */}
-      <div className="flex flex-1 flex-col items-center py-12 ">
-        <h2 className="text-center text-2xl font-bold tracking-tight text-[#002B5B] mb-8">
+      <div className="flex flex-1 flex-col items-center py-12">
+        <h2 className="text-center text-2xl font-bold tracking-tight text-[#002B5B] mb-6">
           Влезте в профила си
         </h2>
 
-        <div className="w-full max-w-sm">
-          <form action="#" method="POST" className="space-y-6">
-            <div>
-              <label
-                htmlFor="email"
-                className="block text-sm font-medium text-[#002B5B]"
-              >
-                Имейл адрес
-              </label>
-              <div className="mt-2">
-                <input
-                  id="email"
-                  name="email"
-                  type="email"
-                  required
-                  autoComplete="email"
-                  className="block w-full rounded-md bg-white/5 px-3 py-2 text-base text-[#002B5B] outline outline-2 outline-[#002B5B] placeholder:text-gray-500 focus:outline-2 focus:outline-indigo-500 sm:text-sm"
-                  onChange={handleInputChange}
-                />
-              </div>
-            </div>
+        <form
+          onSubmit={handleSubmit}
+          className="space-y-6 w-full max-w-sm p-6 sm:p-8"
+        >
+          <div>
+            <label
+              htmlFor="email"
+              className="block text-sm font-semibold text-slate-700"
+            >
+              Имейл адрес <span className="text-red-500">*</span>
+            </label>
 
-            <div>
-              <label
-                htmlFor="password"
-                className="block text-sm font-medium text-[#002B5B]"
-              >
-                Парола
-              </label>
-              <div className="mt-2">
-                <input
-                  id="password"
-                  name="password"
-                  type="password"
-                  required
-                  autoComplete="current-password"
-                  className="block w-full rounded-md bg-white/5 px-3 py-2 text-base text-[#002B5B] outline outline-2 outline-[#002B5B]placeholder:text-gray-500 focus:outline-2 focus:outline-indigo-500 sm:text-sm"
-                  onChange={handleInputChange}
-                />
-              </div>
-            </div>
+            <input
+              id="email"
+              name="email"
+              type="email"
+              required
+              autoComplete="email"
+              value={formData.email}
+              onChange={handleInputChange}
+              className={inputClass}
+              placeholder="your.email@example.com"
+            />
+          </div>
 
-            <div>
-              <button
-                type="submit"
-                className="w-full bg-[#002B5B] text-white py-3 px-6 rounded-lg font-medium hover:bg-blue-900 focus:ring-2 focus:ring-[#002B5B] focus:ring-offset-2 transition-colors duration-200 cursor-pointer"
-                onClick={handleSubmit}
-              >
-                Вход
-              </button>
-            </div>
-          </form>
-        </div>
+          <div>
+            <label
+              htmlFor="password"
+              className="block text-sm font-semibold text-slate-700"
+            >
+              Парола <span className="text-red-500">*</span>
+            </label>
+
+            <input
+              id="password"
+              name="password"
+              type="password"
+              required
+              autoComplete="current-password"
+              value={formData.password}
+              onChange={handleInputChange}
+              className={inputClass}
+              placeholder="••••••••"
+            />
+          </div>
+
+          <button
+            type="submit"
+            className="w-full rounded-xl bg-[#002B5B] px-6 py-3 font-semibold text-white shadow-sm transition hover:bg-[#003d7a] focus:outline-none focus:ring-2 focus:ring-[#002B5B]/50 focus:ring-offset-2"
+          >
+            Вход
+          </button>
+        </form>
       </div>
     </div>
   );
