@@ -16,12 +16,13 @@ const services = [
 const Footer = () => {
   return (
     <footer className="py-10 sm:py-12 px-4 sm:px-6 lg:px-8">
-      <div className="flex flex-col items-center justify-center max-w-7xl mx-auto gap-6 sm:gap-7">
+      <div className="flex flex-col items-center justify-center max-w-7xl mx-auto gap-3 sm:gap-4">
+        {/* Logo */}
         <Link to="/" aria-label="Начало">
           <img alt="Footer logo" src={FooterLogo} className="h-10 w-auto" />
         </Link>
 
-        {/* Links */}
+        {/* Services + Navigation */}
         <div className="flex flex-wrap justify-center gap-x-5 gap-y-3 sm:gap-x-6 sm:gap-y-3 text-center">
           {services.map((service, index) => (
             <Link
@@ -33,7 +34,6 @@ const Footer = () => {
             </Link>
           ))}
 
-          {/* separator only on larger screens */}
           <span className="hidden sm:inline text-gray-300">·</span>
 
           <HashLink
@@ -60,6 +60,25 @@ const Footer = () => {
           >
             Контакти
           </HashLink>
+        </div>
+
+        {/* Legal links */}
+        <div className="flex flex-wrap justify-center items-center gap-x-5 gap-y-3 sm:gap-x-6 sm:gap-y-3 text-xs text-gray-500">
+          <Link to="/terms" className="hover:text-gray-700 transition-colors">
+            Общи условия
+          </Link>
+
+          <span className="text-gray-300">·</span>
+
+          <Link to="/privacy" className="hover:text-gray-700 transition-colors">
+            Политика за поверителност
+          </Link>
+
+          <span className="text-gray-300">·</span>
+
+          <Link to="/cookies" className="hover:text-gray-700 transition-colors">
+            Политика за бисквитки
+          </Link>
         </div>
 
         {/* Bottom text */}

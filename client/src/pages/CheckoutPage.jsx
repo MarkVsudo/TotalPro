@@ -76,9 +76,6 @@ const CheckoutPage = () => {
     termsAccepted: false,
     privacyAccepted: false,
     marketingOptIn: false,
-
-    // Наложен платеж:
-    needPosTerminal: false,
   });
 
   const onChange = (e) => {
@@ -97,16 +94,6 @@ const CheckoutPage = () => {
         return (
           <div className="mt-3 space-y-2 text-sm text-gray-600">
             <p>Плащане при доставка (наложен платеж).</p>
-            <label className="flex items-center gap-2 select-none">
-              <input
-                type="checkbox"
-                name="needPosTerminal"
-                checked={form.needPosTerminal}
-                onChange={onChange}
-                className="h-4 w-4 rounded border-gray-300"
-              />
-              <span>Желая ПОС терминал при доставка (ако е наличен)</span>
-            </label>
           </div>
         );
       case "with-card":
@@ -236,8 +223,6 @@ const CheckoutPage = () => {
         : null,
       payment: {
         type: paymentType,
-        needPosTerminal:
-          paymentType === "on-delivery" ? form.needPosTerminal : false,
       },
       note: form.orderNote,
       totals: {
@@ -740,11 +725,11 @@ const CheckoutPage = () => {
               Начин на плащане
             </h2>
 
-            <div className="flex gap-4 flex-wrap">
+            <div className="flex gap-4 mt-4 flex-wrap">
               <button
                 type="button"
                 onClick={() => setPaymentType("on-delivery")}
-                className="mt-5 flex-1 min-w-[180px] rounded-md bg-[#002B5B] py-3 text-white text-sm font-semibold hover:bg-blue-900 transition-colors"
+                className="flex-1 min-w-[180px] rounded-md bg-[#002B5B] py-3 text-white text-sm font-semibold hover:bg-blue-900 transition-colors"
               >
                 Наложен платеж
               </button>
@@ -752,7 +737,7 @@ const CheckoutPage = () => {
               <button
                 type="button"
                 onClick={() => setPaymentType("with-card")}
-                className="mt-5 flex-1 min-w-[180px] rounded-md bg-[#002B5B] py-3 text-white text-sm font-semibold hover:bg-blue-900 transition-colors"
+                className="flex-1 min-w-[180px] rounded-md bg-[#002B5B] py-3 text-white text-sm font-semibold hover:bg-blue-900 transition-colors"
               >
                 С карта
               </button>
@@ -760,7 +745,7 @@ const CheckoutPage = () => {
               <button
                 type="button"
                 onClick={() => setPaymentType("bank-transfer")}
-                className="mt-5 flex-1 min-w-[180px] rounded-md bg-[#002B5B] py-3 text-white text-sm font-semibold hover:bg-blue-900 transition-colors"
+                className="flex-1 min-w-[180px] rounded-md bg-[#002B5B] py-3 text-white text-sm font-semibold hover:bg-blue-900 transition-colors"
               >
                 Банков трансфер
               </button>
@@ -814,7 +799,13 @@ const CheckoutPage = () => {
                   className="mt-0.5 h-4 w-4 rounded border-gray-300"
                 />
                 <span className="text-sm text-gray-700">
-                  Съгласен съм с Общите условия
+                  Съгласен съм с{" "}
+                  <Link
+                    to="/terms"
+                    className="text-[#002b5b] font-semibold underline"
+                  >
+                    Общите условия
+                  </Link>
                 </span>
               </label>
               {errors.termsAccepted && (
@@ -830,7 +821,13 @@ const CheckoutPage = () => {
                   className="mt-0.5 h-4 w-4 rounded border-gray-300"
                 />
                 <span className="text-sm text-gray-700">
-                  Запознат съм с Политиката за поверителност
+                  Запознат съм с{" "}
+                  <Link
+                    to="/privacy"
+                    className="text-[#002b5b] font-semibold underline"
+                  >
+                    Политиката за поверителност
+                  </Link>
                 </span>
               </label>
               {errors.privacyAccepted && (
