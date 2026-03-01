@@ -8,12 +8,9 @@ import { ShoppingCartIcon } from "@heroicons/react/24/outline";
 const CheckoutPage = () => {
   const { cartItems } = useCart();
 
-  // Доставка: само до адрес
-  const SHIPPING = 0.0;
-
   const subtotal = useMemo(() => {
     return cartItems.reduce((acc, item) => {
-      const price = parseFloat(item?.product?.price ?? 0);
+      const price = parseFloat(item?.unitPrice ?? 0);
       return acc + price * (item?.quantity ?? 1);
     }, 0);
   }, [cartItems]);
@@ -36,7 +33,7 @@ const CheckoutPage = () => {
   }, [subtotal]);
 
   const total = useMemo(() => {
-    return PRICES_INCLUDE_VAT ? subtotal + SHIPPING : subtotal + SHIPPING + vat;
+    return PRICES_INCLUDE_VAT ? subtotal : subtotal + vat;
   }, [subtotal, vat]);
 
   // Form state
@@ -227,7 +224,6 @@ const CheckoutPage = () => {
       note: form.orderNote,
       totals: {
         subtotal,
-        shipping: SHIPPING,
         vat,
         total,
         pricesIncludeVat: PRICES_INCLUDE_VAT,
@@ -878,9 +874,7 @@ const CheckoutPage = () => {
 
                 <div className="flex justify-between">
                   <span className="text-gray-600">Доставка</span>
-                  <span className="font-medium text-gray-900">
-                    {SHIPPING.toFixed(2)} €
-                  </span>
+                  <span className="font-medium text-gray-900">Безплатна</span>
                 </div>
 
                 <div className="flex justify-between">

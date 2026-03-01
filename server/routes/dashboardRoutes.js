@@ -85,7 +85,7 @@ router.post("/add-product", async (req, res) => {
         manufactured_date: manufactured_date ?? null,
         popularity: popularity ?? 0,
         slug: slug ?? null,
-      }
+      },
     );
 
     res.json({ id: product.product_id });
@@ -104,7 +104,7 @@ router.post("/add-product-images", async (req, res) => {
     const values = images
       .map(
         (img, index) =>
-          `($<productId>, $<publicId${index}>, $<position${index}>, $<isMain${index}>)`
+          `($<productId>, $<publicId${index}>, $<position${index}>, $<isMain${index}>)`,
       )
       .join(", ");
 
