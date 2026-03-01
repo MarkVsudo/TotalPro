@@ -45,7 +45,16 @@ const AddProductForm = ({ categoryValue }) => {
     aksesoari_za_montazh: {
       name: "Аксесоари за монтаж",
       defaults: { categoryId: 7 },
-      hiddenFields: [],
+      hiddenFields: [
+        "btu",
+        "spec",
+        "color",
+        "roomAreaMin",
+        "roomAreaMax",
+        "overallClass",
+        "coolingEnergyClass",
+        "heatingEnergyClass",
+      ],
     },
   };
 

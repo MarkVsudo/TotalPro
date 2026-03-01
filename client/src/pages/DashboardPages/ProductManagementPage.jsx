@@ -6,13 +6,13 @@ const productTypes = [
   { name: "Инверторни климатици", value: "invertorni_klimatici" },
   {
     name: "Хиперинверторни климатици",
-    value: "invertorni_klimatici",
+    value: "hiperinvertorni_klimatici",
   },
-  { name: "Подови климатици", value: "invertorni_klimatici" },
-  { name: "Мултисплит системи", value: "invertorni_klimatici" },
-  { name: "Колонни системи", value: "invertorni_klimatici" },
-  { name: "Касетъчни климатици", value: "invertorni_klimatici" },
-  { name: "Аксесоари за монтаж", value: "invertorni_klimatici" },
+  { name: "Подови климатици", value: "podovi_klimatici" },
+  { name: "Мултисплит системи", value: "multisplit_klimatici" },
+  { name: "Колонни системи", value: "kolonni_sistemi" },
+  { name: "Касетъчни климатици", value: "kasetachni_klimatici" },
+  { name: "Аксесоари за монтаж", value: "aksesoari_za_montazh" },
 ];
 
 const ProductManagementPage = () => {
