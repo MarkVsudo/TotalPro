@@ -1,26 +1,18 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import Dropdown from "../../components/shared/Dropdown";
-
-import ColumnSystems from "../../components/DashboardPageComponents/AddProductForms/ColumnSystems";
-import MultiSplitSystems from "../../components/DashboardPageComponents/AddProductForms/MultiSplitSystems";
-import FloorAirConditioners from "../../components/DashboardPageComponents/AddProductForms/FloorAirConditioners";
-import InverterAirConditioners from "../../components/DashboardPageComponents/AddProductForms/InverterAirConditioners";
-import CassetteAirConditioners from "../../components/DashboardPageComponents/AddProductForms/CassetteAirConditioners";
-import InstallationAccessories from "../../components/DashboardPageComponents/AddProductForms/InstallationAccessories";
-import HyperInverterAirConditioners from "../../components/DashboardPageComponents/AddProductForms/HyperInverterAirConditioners";
+import AddProductForm from "../../components/DashboardPageComponents/AddProductForm";
 
 const productTypes = [
-  { id: 1, name: "Инверторни климатици", form: <InverterAirConditioners /> },
+  { name: "Инверторни климатици", value: "invertorni_klimatici" },
   {
-    id: 2,
     name: "Хиперинверторни климатици",
-    form: <HyperInverterAirConditioners />,
+    value: "invertorni_klimatici",
   },
-  { id: 3, name: "Подови климатици", form: <FloorAirConditioners /> },
-  { id: 4, name: "Мултисплит системи", form: <MultiSplitSystems /> },
-  { id: 5, name: "Колонни системи", form: <ColumnSystems /> },
-  { id: 6, name: "Касетъчни климатици", form: <CassetteAirConditioners /> },
-  { id: 7, name: "Аксесоари за монтаж", form: <InstallationAccessories /> },
+  { name: "Подови климатици", value: "invertorni_klimatici" },
+  { name: "Мултисплит системи", value: "invertorni_klimatici" },
+  { name: "Колонни системи", value: "invertorni_klimatici" },
+  { name: "Касетъчни климатици", value: "invertorni_klimatici" },
+  { name: "Аксесоари за монтаж", value: "invertorni_klimatici" },
 ];
 
 const ProductManagementPage = () => {
@@ -42,7 +34,9 @@ const ProductManagementPage = () => {
           required
         />
 
-        <div className="mt-4">{selected.form}</div>
+        <div className="mt-4">
+          <AddProductForm categoryValue={selected.value} />
+        </div>
       </div>
     </div>
   );
