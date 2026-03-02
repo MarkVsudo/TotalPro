@@ -455,7 +455,7 @@ const AirConProductPage = () => {
                             ? `https://res.cloudinary.com/dh1arjjjy/image/upload/v1768349183/${mainAccessoryImg.public_id}`
                             : ImageNotFound
                         }
-                        className="aspect-square w-full object-contain lg:h-72 object-contain group-hover:brightness-102 group-hover:scale-105 transition-all"
+                        className="aspect-square w-full object-contain h-36 lg:h-56 object-contain group-hover:brightness-102 group-hover:scale-105 transition-all"
                       />
 
                       {accessory.discount != null && (
@@ -511,18 +511,16 @@ const AirConProductPage = () => {
         </div>
 
         {/* Product Description */}
-        <div className="bg-white rounded-xl lg:rounded-2xl p-4 sm:p-6 lg:p-8 shadow-md border border-gray-200 mb-8 lg:mb-16">
-          <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-3 sm:mb-4">
-            Описание на продукта
-          </h2>
-          <p className="text-gray-700 leading-relaxed text-sm sm:text-base lg:text-lg">
-            Насладете се на висока енергийна ефективност и комфорт през всички
-            сезони с инверторния климатик GREE. С модерен дизайн, ниски нива на
-            шум и икономичен режим, той е перфектен избор за дома или офиса.
-            Благодарение на своята A+++ енергийна класа, този климатик осигурява
-            максимална ефективност при минимална консумация на електроенергия.
-          </p>
-        </div>
+        {product.product.description !== null && (
+          <div className="bg-white rounded-xl lg:rounded-2xl p-4 sm:p-6 lg:p-8 shadow-md border border-gray-200 mb-8 lg:mb-16">
+            <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-3 sm:mb-4">
+              Описание на продукта
+            </h2>
+            <p className="text-gray-700 leading-relaxed text-sm sm:text-base lg:text-lg">
+              {product.product.description}
+            </p>
+          </div>
+        )}
 
         {/* Specifications */}
         {product.product.category_value !== "aksesoari_za_montazh" && (

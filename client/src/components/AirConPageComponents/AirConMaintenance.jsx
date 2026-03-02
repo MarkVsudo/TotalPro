@@ -5,7 +5,7 @@ const AirConMaintenance = () => {
         <h1 className="text-4xl font-bold text-[#002B5B] mb-4">
           Профилактика на климатици
         </h1>
-        <p className="text-xl text-gray-600 max-w-5xl mx-auto">
+        <p className="text-base sm:text-lg md:text-xl text-gray-600 max-w-5xl mx-auto">
           Поддържайте климатика си в оптимално състояние с нашата професионална
           профилактика. Редовната грижа подобрява ефективността, удължава живота
           на уреда и гарантира по-чист въздух у дома.

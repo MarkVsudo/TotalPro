@@ -5,7 +5,7 @@ const AirConInstallation = () => {
         <h1 className="text-4xl font-bold text-[#002B5B] mb-4">
           Монтаж на климатици
         </h1>
-        <p className="text-xl text-gray-600 max-w-5xl mx-auto">
+        <p className="text-base sm:text-lg md:text-xl text-gray-600 max-w-5xl mx-auto">
           Предлагаме професионален монтаж на климатици на конкурентни цени, в
           зависимост от мощността на уреда (BTU). Всеки монтаж включва
           необходимите стандартни услуги и консумативи.
