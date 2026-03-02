@@ -22,6 +22,7 @@ router.post("/add-product", async (req, res) => {
     manufactured_date,
     popularity,
     slug,
+    description,
   } = req.body;
 
   try {
@@ -44,7 +45,8 @@ router.post("/add-product", async (req, res) => {
     discount,
     manufactured_date,
     popularity,
-    slug
+    slug,
+    description
   )
   VALUES (
     $(category_id),
@@ -63,7 +65,8 @@ router.post("/add-product", async (req, res) => {
     $(discount),
     $(manufactured_date),
     $(popularity),
-    $(slug)
+    $(slug),
+    $(description)
   )
   RETURNING product_id
   `,
@@ -85,6 +88,7 @@ router.post("/add-product", async (req, res) => {
         manufactured_date: manufactured_date ?? null,
         popularity: popularity ?? 0,
         slug: slug ?? null,
+        description,
       },
     );
 

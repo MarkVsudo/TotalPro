@@ -99,6 +99,7 @@ const AddProductForm = ({ categoryValue }) => {
     manufacturedDate: null,
     popularity: null,
     slug: "",
+    description: null,
   };
 
   const cfg = productTypeConfig[categoryValue] ?? {
@@ -173,6 +174,7 @@ const AddProductForm = ({ categoryValue }) => {
         manufactured_date: formData.manufacturedDate,
         popularity: formData.popularity,
         slug: slug,
+        description: formData.description,
       };
 
       const productRes = await axios.post(
@@ -519,6 +521,26 @@ const AddProductForm = ({ categoryValue }) => {
               }
               required
             />
+          )}
+
+          {!isHidden("description") && (
+            <div className="mt-1">
+              <label
+                htmlFor="description"
+                className="block text-sm font-medium text-gray-700 mb-2"
+              >
+                Описание <span className="text-red-500">*</span>
+              </label>
+              <textarea
+                id="description"
+                name="description"
+                type="text"
+                required
+                value={formData.description || ""}
+                onChange={handleInputChange}
+                className="mt-2 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 text-gray-900 shadow-sm focus:outline-none focus:ring-1 focus:ring-[#002B5B] focus:border-[#002B5B] sm:text-sm"
+              />
+            </div>
           )}
 
           {!isHidden("image") && (
