@@ -480,16 +480,37 @@ const CheckoutPage = () => {
               Фактура
             </h2>
 
-            <div className="mt-4">
-              <label className="flex items-center gap-2 select-none">
-                <input
-                  type="checkbox"
-                  name="invoiceRequested"
-                  checked={form.invoiceRequested}
-                  onChange={onChange}
-                  className="h-4 w-4 rounded border-gray-300"
-                />
-                <span className="text-sm text-gray-700">Искам фактура</span>
+            <div className="flex gap-2 mt-4">
+              <div className="flex h-5 shrink-0 items-center">
+                <div className="group grid size-4 grid-cols-1">
+                  <input
+                    type="checkbox"
+                    id="invoiceRequested"
+                    name="invoiceRequested"
+                    checked={form.invoiceRequested}
+                    onChange={onChange}
+                    className="col-start-1 row-start-1 appearance-none rounded-sm border border-gray-300 bg-white checked:border-[#002b5b] checked:bg-[#002b5b] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#002b5b] forced-colors:appearance-auto"
+                  />
+                  <svg
+                    fill="none"
+                    viewBox="0 0 14 14"
+                    className="pointer-events-none col-start-1 row-start-1 size-3.5 self-center justify-self-center stroke-white"
+                  >
+                    <path
+                      d="M3 8L6 11L11 3.5"
+                      strokeWidth={2}
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      className="opacity-0 group-has-checked:opacity-100"
+                    />
+                  </svg>
+                </div>
+              </div>
+              <label
+                htmlFor="invoiceRequested"
+                className="min-w-0 flex-1 text-sm text-gray-600"
+              >
+                Искам фактура
               </label>
             </div>
 
@@ -597,18 +618,37 @@ const CheckoutPage = () => {
                   )}
                 </div>
 
-                <div>
-                  <label className="flex items-center gap-2 select-none">
-                    <input
-                      type="checkbox"
-                      name="invoiceAddressSameAsShipping"
-                      checked={form.invoiceAddressSameAsShipping}
-                      onChange={onChange}
-                      className="h-4 w-4 rounded border-gray-300"
-                    />
-                    <span className="text-sm text-gray-700">
-                      Адресът за фактура е същият като за доставка
-                    </span>
+                <div className="flex gap-2 mt-4">
+                  <div className="flex h-5 shrink-0 items-center">
+                    <div className="group grid size-4 grid-cols-1">
+                      <input
+                        type="checkbox"
+                        id="invoiceAddressSameAsShipping"
+                        name="invoiceAddressSameAsShipping"
+                        checked={form.invoiceAddressSameAsShipping}
+                        onChange={onChange}
+                        className="col-start-1 row-start-1 appearance-none rounded-sm border border-gray-300 bg-white checked:border-[#002b5b] checked:bg-[#002b5b] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#002b5b] forced-colors:appearance-auto"
+                      />
+                      <svg
+                        fill="none"
+                        viewBox="0 0 14 14"
+                        className="pointer-events-none col-start-1 row-start-1 size-3.5 self-center justify-self-center stroke-white"
+                      >
+                        <path
+                          d="M3 8L6 11L11 3.5"
+                          strokeWidth={2}
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          className="opacity-0 group-has-checked:opacity-100"
+                        />
+                      </svg>
+                    </div>
+                  </div>
+                  <label
+                    htmlFor="invoiceAddressSameAsShipping"
+                    className="min-w-0 flex-1 text-sm text-gray-600"
+                  >
+                    Адресът за фактура е същият като за доставка
                   </label>
                 </div>
 
