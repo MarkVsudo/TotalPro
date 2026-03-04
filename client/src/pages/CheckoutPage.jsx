@@ -826,15 +826,36 @@ const CheckoutPage = () => {
             </h2>
 
             <div className="mt-4 space-y-3">
-              <label className="flex items-start gap-2 select-none">
-                <input
-                  type="checkbox"
-                  name="termsAccepted"
-                  checked={form.termsAccepted}
-                  onChange={onChange}
-                  className="mt-0.5 h-4 w-4 rounded border-gray-300"
-                />
-                <span className="text-sm text-gray-700">
+              <div className="flex gap-2">
+                <div className="flex h-5 shrink-0 items-center">
+                  <div className="group grid size-4 grid-cols-1">
+                    <input
+                      type="checkbox"
+                      id="termsAccepted"
+                      name="termsAccepted"
+                      checked={form.termsAccepted}
+                      onChange={onChange}
+                      className="col-start-1 row-start-1 appearance-none rounded-sm border border-gray-300 bg-white checked:border-[#002b5b] checked:bg-[#002b5b] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#002b5b] forced-colors:appearance-auto"
+                    />
+                    <svg
+                      fill="none"
+                      viewBox="0 0 14 14"
+                      className="pointer-events-none col-start-1 row-start-1 size-3.5 self-center justify-self-center stroke-white"
+                    >
+                      <path
+                        d="M3 8L6 11L11 3.5"
+                        strokeWidth={2}
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        className="opacity-0 group-has-checked:opacity-100"
+                      />
+                    </svg>
+                  </div>
+                </div>
+                <label
+                  htmlFor="termsAccepted"
+                  className="min-w-0 flex-1 text-sm text-gray-600"
+                >
                   Съгласен съм с{" "}
                   <Link
                     to="/terms"
@@ -842,21 +863,41 @@ const CheckoutPage = () => {
                   >
                     Общите условия
                   </Link>
-                </span>
-              </label>
+                </label>
+              </div>
               {errors.termsAccepted && (
                 <p className="text-xs text-red-600">{errors.termsAccepted}</p>
               )}
-
-              <label className="flex items-start gap-2 select-none">
-                <input
-                  type="checkbox"
-                  name="privacyAccepted"
-                  checked={form.privacyAccepted}
-                  onChange={onChange}
-                  className="mt-0.5 h-4 w-4 rounded border-gray-300"
-                />
-                <span className="text-sm text-gray-700">
+              <div className="flex gap-2">
+                <div className="flex h-5 shrink-0 items-center">
+                  <div className="group grid size-4 grid-cols-1">
+                    <input
+                      type="checkbox"
+                      id="privacyAccepted"
+                      name="privacyAccepted"
+                      checked={form.privacyAccepted}
+                      onChange={onChange}
+                      className="col-start-1 row-start-1 appearance-none rounded-sm border border-gray-300 bg-white checked:border-[#002b5b] checked:bg-[#002b5b] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#002b5b] forced-colors:appearance-auto"
+                    />
+                    <svg
+                      fill="none"
+                      viewBox="0 0 14 14"
+                      className="pointer-events-none col-start-1 row-start-1 size-3.5 self-center justify-self-center stroke-white"
+                    >
+                      <path
+                        d="M3 8L6 11L11 3.5"
+                        strokeWidth={2}
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        className="opacity-0 group-has-checked:opacity-100"
+                      />
+                    </svg>
+                  </div>
+                </div>
+                <label
+                  htmlFor="privacyAccepted"
+                  className="min-w-0 flex-1 text-sm text-gray-600"
+                >
                   Запознат съм с{" "}
                   <Link
                     to="/privacy"
@@ -864,24 +905,45 @@ const CheckoutPage = () => {
                   >
                     Политиката за поверителност
                   </Link>
-                </span>
-              </label>
+                </label>
+              </div>
               {errors.privacyAccepted && (
                 <p className="text-xs text-red-600">{errors.privacyAccepted}</p>
               )}
 
-              <label className="flex items-start gap-2 select-none">
-                <input
-                  type="checkbox"
-                  name="marketingOptIn"
-                  checked={form.marketingOptIn}
-                  onChange={onChange}
-                  className="mt-0.5 h-4 w-4 rounded border-gray-300"
-                />
-                <span className="text-sm text-gray-700">
-                  Искам да получавам промоции и новини (по избор)
-                </span>
-              </label>
+              <div className="flex gap-2">
+                <div className="flex h-5 shrink-0 items-center">
+                  <div className="group grid size-4 grid-cols-1">
+                    <input
+                      type="checkbox"
+                      id="marketingOptIn"
+                      name="marketingOptIn"
+                      checked={form.marketingOptIn}
+                      onChange={onChange}
+                      className="col-start-1 row-start-1 appearance-none rounded-sm border border-gray-300 bg-white checked:border-[#002b5b] checked:bg-[#002b5b] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#002b5b] forced-colors:appearance-auto"
+                    />
+                    <svg
+                      fill="none"
+                      viewBox="0 0 14 14"
+                      className="pointer-events-none col-start-1 row-start-1 size-3.5 self-center justify-self-center stroke-white"
+                    >
+                      <path
+                        d="M3 8L6 11L11 3.5"
+                        strokeWidth={2}
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        className="opacity-0 group-has-checked:opacity-100"
+                      />
+                    </svg>
+                  </div>
+                </div>
+                <label
+                  htmlFor="marketingOptIn"
+                  className="min-w-0 flex-1 text-sm text-gray-600"
+                >
+                  Искам да получавам промоции и новини
+                </label>
+              </div>
             </div>
           </div>
         </div>
