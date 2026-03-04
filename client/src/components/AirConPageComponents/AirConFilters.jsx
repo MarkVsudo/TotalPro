@@ -120,7 +120,7 @@ function CheckboxRow({ id, label, checked, onChange }) {
             type="checkbox"
             checked={checked}
             onChange={onChange}
-            className="col-start-1 row-start-1 appearance-none rounded-sm border border-gray-300 bg-white checked:border-blue-600 checked:bg-blue-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 forced-colors:appearance-auto"
+            className="col-start-1 row-start-1 appearance-none rounded-sm border border-gray-300 bg-white checked:border-[#002b5b] checked:bg-[#002b5b] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#002b5b] forced-colors:appearance-auto"
           />
           <svg
             fill="none"
@@ -246,7 +246,7 @@ export default function AirConFilters() {
               >
                 {section.name}
                 {getArrayParam(section.id).length > 0 && (
-                  <span className="ml-2 text-xs text-blue-600 font-semibold">
+                  <span className="ml-2 text-xs text-[#002b5b] font-semibold">
                     ({getArrayParam(section.id).length})
                   </span>
                 )}
@@ -307,7 +307,7 @@ export default function AirConFilters() {
           <FunnelIcon className="h-5 w-5" />
           <span>Филтри</span>
           {activeFiltersCount > 0 && (
-            <span className="ml-1 bg-white text-blue-600 px-2 py-0.5 rounded-full text-xs font-bold">
+            <span className="ml-1 bg-white text-[#002b5b] px-2 py-0.5 rounded-full text-xs font-bold">
               {activeFiltersCount}
             </span>
           )}
