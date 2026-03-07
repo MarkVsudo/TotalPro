@@ -41,12 +41,10 @@ const CheckoutPage = () => {
     email: "",
     firstName: "",
     lastName: "",
-    company: "",
     address: "",
     apartment: "",
     city: "",
     country: "България",
-    state: "",
     postal: "",
     phone: "",
 
@@ -63,9 +61,7 @@ const CheckoutPage = () => {
     invoiceMol: "",
     invoiceAddressSameAsShipping: true,
     invoiceAddress: "",
-    invoiceApartment: "",
     invoiceCity: "",
-    invoiceState: "",
     invoicePostal: "",
     invoiceCountry: "България",
 
@@ -177,12 +173,10 @@ const CheckoutPage = () => {
       shipping: {
         firstName: form.firstName,
         lastName: form.lastName,
-        company: form.company,
         address: form.address,
         apartment: form.apartment,
         city: form.city,
         country: form.country,
-        state: form.state,
         postal: form.postal,
         phone: form.phone,
       },
@@ -204,15 +198,12 @@ const CheckoutPage = () => {
                   address: form.address,
                   apartment: form.apartment,
                   city: form.city,
-                  state: form.state,
                   postal: form.postal,
                   country: form.country,
                 }
               : {
                   address: form.invoiceAddress,
-                  apartment: form.invoiceApartment,
                   city: form.invoiceCity,
-                  state: form.invoiceState,
                   postal: form.invoicePostal,
                   country: form.invoiceCountry,
                 },
@@ -355,19 +346,6 @@ const CheckoutPage = () => {
 
               <div className="sm:col-span-2">
                 <label className="block text-xs font-medium text-gray-700">
-                  Фирма (по избор)
-                </label>
-                <input
-                  name="company"
-                  value={form.company}
-                  onChange={onChange}
-                  type="text"
-                  className="mt-2 w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm text-gray-900 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200"
-                />
-              </div>
-
-              <div className="sm:col-span-2">
-                <label className="block text-xs font-medium text-gray-700">
                   Адрес
                 </label>
                 <input
@@ -425,19 +403,6 @@ const CheckoutPage = () => {
                   <option>Румъния</option>
                   <option>Гърция</option>
                 </select>
-              </div>
-
-              <div>
-                <label className="block text-xs font-medium text-gray-700">
-                  Област
-                </label>
-                <input
-                  name="state"
-                  value={form.state}
-                  onChange={onChange}
-                  type="text"
-                  className="mt-2 w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm text-gray-900 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200"
-                />
               </div>
 
               <div>
@@ -672,19 +637,6 @@ const CheckoutPage = () => {
                       )}
                     </div>
 
-                    <div className="sm:col-span-2">
-                      <label className="block text-xs font-medium text-gray-700">
-                        Допълнение към адрес (по избор)
-                      </label>
-                      <input
-                        name="invoiceApartment"
-                        value={form.invoiceApartment}
-                        onChange={onChange}
-                        type="text"
-                        className="mt-2 w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm text-gray-900 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200"
-                      />
-                    </div>
-
                     <div>
                       <label className="block text-xs font-medium text-gray-700">
                         Град
@@ -717,19 +669,6 @@ const CheckoutPage = () => {
                         <option>Румъния</option>
                         <option>Гърция</option>
                       </select>
-                    </div>
-
-                    <div>
-                      <label className="block text-xs font-medium text-gray-700">
-                        Област
-                      </label>
-                      <input
-                        name="invoiceState"
-                        value={form.invoiceState}
-                        onChange={onChange}
-                        type="text"
-                        className="mt-2 w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm text-gray-900 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200"
-                      />
                     </div>
 
                     <div>
