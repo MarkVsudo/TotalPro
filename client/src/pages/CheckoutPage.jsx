@@ -90,17 +90,10 @@ const CheckoutPage = () => {
           </div>
         );
       case "with-card":
-        return (
-          <p className="mt-3 text-sm text-gray-600">
-            Плащане с карта. (Тук по-късно вържи реален payment gateway.)
-          </p>
-        );
+        return <p className="mt-3 text-sm text-gray-600">Плащане с карта.</p>;
       case "bank-transfer":
         return (
-          <p className="mt-3 text-sm text-gray-600">
-            Плащане по банков път. (След създаване на поръчка покажи IBAN и
-            основание.)
-          </p>
+          <p className="mt-3 text-sm text-gray-600">Плащане по банков път.</p>
         );
       case "on-lease":
         return (
@@ -700,44 +693,55 @@ const CheckoutPage = () => {
               Начин на плащане
             </h2>
 
-            <div className="flex gap-4 mt-4 flex-wrap">
-              <button
-                type="button"
-                onClick={() => setPaymentType("on-delivery")}
-                className="flex-1 min-w-[180px] rounded-md bg-[#002B5B] py-3 text-white text-sm font-semibold hover:bg-blue-900 transition-colors"
-              >
-                Наложен платеж
-              </button>
-
-              <button
-                type="button"
-                onClick={() => setPaymentType("with-card")}
-                className="flex-1 min-w-[180px] rounded-md bg-[#002B5B] py-3 text-white text-sm font-semibold hover:bg-blue-900 transition-colors"
-              >
-                С карта
-              </button>
-
-              <button
-                type="button"
-                onClick={() => setPaymentType("bank-transfer")}
-                className="flex-1 min-w-[180px] rounded-md bg-[#002B5B] py-3 text-white text-sm font-semibold hover:bg-blue-900 transition-colors"
-              >
-                Банков трансфер
-              </button>
-
-              <button
-                type="button"
-                onClick={() => setPaymentType("on-lease")}
-                className="flex-1 min-w-[180px] flex justify-center items-center rounded-md bg-[#FF6600] py-3 text-white text-sm font-semibold hover:brightness-95 transition-colors"
-              >
-                <span>Купи с</span>
-                <img
-                  alt="TbiBank Logo"
-                  src={TbiBankLogo}
-                  className="size-8 rounded-lg mx-1.5"
+            <div className="mt-4 space-y-3">
+              <label className="flex items-center gap-3 p-4 border rounded-md cursor-pointer hover:border-blue-600">
+                <input
+                  type="radio"
+                  name="payment"
+                  value="on-delivery"
+                  checked={paymentType === "on-delivery"}
+                  onChange={() => setPaymentType("on-delivery")}
                 />
-                <span>bank</span>
-              </button>
+                <span className="font-medium">Наложен платеж</span>
+              </label>
+
+              <label className="flex items-center gap-3 p-4 border rounded-md cursor-pointer hover:border-blue-600">
+                <input
+                  type="radio"
+                  name="payment"
+                  value="with-card"
+                  checked={paymentType === "with-card"}
+                  onChange={() => setPaymentType("with-card")}
+                />
+                <span className="font-medium">С карта</span>
+              </label>
+
+              <label className="flex items-center gap-3 p-4 border rounded-md cursor-pointer hover:border-blue-600">
+                <input
+                  type="radio"
+                  name="payment"
+                  value="bank-transfer"
+                  checked={paymentType === "bank-transfer"}
+                  onChange={() => setPaymentType("bank-transfer")}
+                />
+                <span className="font-medium">Банков трансфер</span>
+              </label>
+
+              <label className="flex items-center gap-3 p-4 border rounded-md cursor-pointer hover:border-orange-500">
+                <input
+                  type="radio"
+                  name="payment"
+                  value="on-lease"
+                  checked={paymentType === "on-lease"}
+                  onChange={() => setPaymentType("on-lease")}
+                />
+
+                <span className="flex items-center">
+                  Купи с
+                  <img src={TbiBankLogo} className="size-8 mx-2 rounded" />
+                  bank
+                </span>
+              </label>
             </div>
 
             {paymentTypeText(paymentType)}
