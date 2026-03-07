@@ -668,7 +668,7 @@ const CheckoutPage = () => {
                 <span className="font-medium">Наложен платеж</span>
               </label>
 
-              <label className="flex items-center gap-3 p-4 border  rounded-md cursor-pointer hover:border-blue-600">
+              <label className="flex items-center gap-3 p-4 border rounded-md cursor-pointer hover:border-blue-600">
                 <input
                   type="radio"
                   name="payment"
