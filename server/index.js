@@ -4,6 +4,7 @@ import cookieParser from "cookie-parser";
 import dotenv from "dotenv";
 import mailerRoutes from "./routes/mailerRoutes.js";
 import productRoutes from "./routes/productRoutes.js";
+import orderRoutes from "./routes/orderRoutes.js";
 import authRoutes from "./routes/authRoutes.js";
 import dashboardRoutes from "./routes/dashboardRoutes.js";
 import cloudinaryRoutes from "./routes/cloudinaryRoutes.js";
@@ -46,6 +47,8 @@ app.get("/", (req, res) => {
 app.use("/api/mailer", mailerRoutes);
 
 app.use("/api", productRoutes);
+
+app.use("/api", orderRoutes);
 
 app.use("/api/dashboard", dashboardRoutes);
 
