@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import TbiBankLogo from "../assets/tbi-bank.png";
 import CartItem from "../components/shared/CartItem";
 import { ShoppingCartIcon } from "@heroicons/react/24/outline";
+import axios from "axios";
 
 const CheckoutPage = () => {
   const { cartItems } = useCart();
@@ -15,18 +16,11 @@ const CheckoutPage = () => {
     }, 0);
   }, [cartItems]);
 
-  /**
-   * ДДС логика (Важно):
-   * Ако цените са с включено ДДС (B2C най-често):
-   *  - total НЕ добавя vat
-   *  - vat се показва като "част от" subtotal
-   */
   const PRICES_INCLUDE_VAT = true;
   const vatRate = 0.2;
 
   const vat = useMemo(() => {
     if (PRICES_INCLUDE_VAT) {
-      // 20% включено ДДС => 20/120 от крайната цена
       return subtotal * (vatRate / (1 + vatRate));
     }
     return subtotal * vatRate;
@@ -42,22 +36,18 @@ const CheckoutPage = () => {
     firstName: "",
     lastName: "",
     address: "",
-    apartment: "",
     city: "",
     country: "България",
     postal: "",
     phone: "",
 
-    // Допълнителни неща:
     orderNote: "",
 
-    // Фактура:
     invoiceRequested: false,
     invoiceType: "person", // "person" | "company"
-    invoiceName: "", // за физическо лице (ако искаш отделно от first/last)
+    invoiceName: "", // за физическо лице
     invoiceCompanyName: "",
     invoiceEik: "",
-    invoiceVatNumber: "",
     invoiceMol: "",
     invoiceAddressSameAsShipping: true,
     invoiceAddress: "",
@@ -65,7 +55,6 @@ const CheckoutPage = () => {
     invoicePostal: "",
     invoiceCountry: "България",
 
-    // Съгласия:
     termsAccepted: false,
     privacyAccepted: false,
     marketingOptIn: false,
@@ -128,8 +117,7 @@ const CheckoutPage = () => {
     // Фактура (ако е поискана)
     if (form.invoiceRequested) {
       if (form.invoiceType === "person") {
-        // по избор — може да ползваш first/last без отделно поле
-        // ако искаш задължително име за фактура:
+        // ако искаме задължително име за фактура:
         // if (!form.invoiceName.trim()) e.invoiceName = "Име за фактура е задължително.";
       } else {
         if (!form.invoiceCompanyName.trim())
@@ -160,14 +148,12 @@ const CheckoutPage = () => {
   const canSubmit = useMemo(() => Object.keys(errors).length === 0, [errors]);
 
   const submitOrder = async () => {
-    // Тук пращаш payload към backend
     const payload = {
       contact: { email: form.email },
       shipping: {
         firstName: form.firstName,
         lastName: form.lastName,
         address: form.address,
-        apartment: form.apartment,
         city: form.city,
         country: form.country,
         postal: form.postal,
@@ -183,13 +169,10 @@ const CheckoutPage = () => {
             companyName:
               form.invoiceType === "company" ? form.invoiceCompanyName : null,
             eik: form.invoiceType === "company" ? form.invoiceEik : null,
-            vatNumber:
-              form.invoiceType === "company" ? form.invoiceVatNumber : null,
             mol: form.invoiceType === "company" ? form.invoiceMol : null,
             address: form.invoiceAddressSameAsShipping
               ? {
                   address: form.address,
-                  apartment: form.apartment,
                   city: form.city,
                   postal: form.postal,
                   country: form.country,
@@ -202,19 +185,12 @@ const CheckoutPage = () => {
                 },
           }
         : null,
-      payment: {
-        type: paymentType,
-      },
+      paymentType,
       note: form.orderNote,
-      totals: {
-        subtotal,
-        vat,
-        total,
-        pricesIncludeVat: PRICES_INCLUDE_VAT,
-        vatRate,
-      },
+      total,
       items: cartItems.map((ci) => ({
         product_id: ci?.product?.product_id,
+        options: ci?.options,
         qty: ci?.quantity ?? 1,
         unit_price: parseFloat(ci?.product?.price ?? 0),
       })),
@@ -228,7 +204,7 @@ const CheckoutPage = () => {
     console.log("ORDER PAYLOAD", payload);
 
     // пример:
-    // await api.post("/orders", payload)
+    await axios.post("/api/order", payload);
   };
 
   // Empty state
@@ -297,7 +273,7 @@ const CheckoutPage = () => {
           </div>
 
           {/* Shipping */}
-          <div className="pb-8 border-b border-gray-200">
+          <div className="py-8 border-b border-gray-200">
             <h2 className="text-sm font-semibold tracking-wide text-gray-900">
               Данни за доставка (само до адрес)
             </h2>
@@ -337,7 +313,23 @@ const CheckoutPage = () => {
                 )}
               </div>
 
-              <div className="sm:col-span-2">
+              <div>
+                <label className="block text-xs font-medium text-gray-700">
+                  Държава
+                </label>
+                <select
+                  name="country"
+                  value={form.country}
+                  onChange={onChange}
+                  className="mt-2 w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm text-gray-900 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200"
+                >
+                  <option>България</option>
+                  <option>Румъния</option>
+                  <option>Гърция</option>
+                </select>
+              </div>
+
+              <div>
                 <label className="block text-xs font-medium text-gray-700">
                   Адрес
                 </label>
@@ -351,19 +343,6 @@ const CheckoutPage = () => {
                 {errors.address && (
                   <p className="mt-1 text-xs text-red-600">{errors.address}</p>
                 )}
-              </div>
-
-              <div className="sm:col-span-2">
-                <label className="block text-xs font-medium text-gray-700">
-                  Апартамент, вход, етаж и др. (по избор)
-                </label>
-                <input
-                  name="apartment"
-                  value={form.apartment}
-                  onChange={onChange}
-                  type="text"
-                  className="mt-2 w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm text-gray-900 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200"
-                />
               </div>
 
               <div>
@@ -380,22 +359,6 @@ const CheckoutPage = () => {
                 {errors.city && (
                   <p className="mt-1 text-xs text-red-600">{errors.city}</p>
                 )}
-              </div>
-
-              <div>
-                <label className="block text-xs font-medium text-gray-700">
-                  Държава
-                </label>
-                <select
-                  name="country"
-                  value={form.country}
-                  onChange={onChange}
-                  className="mt-2 w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm text-gray-900 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200"
-                >
-                  <option>България</option>
-                  <option>Румъния</option>
-                  <option>Гърция</option>
-                </select>
               </div>
 
               <div>
@@ -549,19 +512,6 @@ const CheckoutPage = () => {
 
                       <div>
                         <label className="block text-xs font-medium text-gray-700">
-                          ДДС № (по избор)
-                        </label>
-                        <input
-                          name="invoiceVatNumber"
-                          value={form.invoiceVatNumber}
-                          onChange={onChange}
-                          type="text"
-                          className="mt-2 w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm text-gray-900 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200"
-                        />
-                      </div>
-
-                      <div className="sm:col-span-2">
-                        <label className="block text-xs font-medium text-gray-700">
                           МОЛ (по избор)
                         </label>
                         <input
@@ -612,7 +562,23 @@ const CheckoutPage = () => {
 
                 {!form.invoiceAddressSameAsShipping && (
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div className="sm:col-span-2">
+                    <div>
+                      <label className="block text-xs font-medium text-gray-700">
+                        Държава
+                      </label>
+                      <select
+                        name="invoiceCountry"
+                        value={form.invoiceCountry}
+                        onChange={onChange}
+                        className="mt-2 w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm text-gray-900 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200"
+                      >
+                        <option>България</option>
+                        <option>Румъния</option>
+                        <option>Гърция</option>
+                      </select>
+                    </div>
+
+                    <div>
                       <label className="block text-xs font-medium text-gray-700">
                         Адрес за фактура
                       </label>
@@ -646,22 +612,6 @@ const CheckoutPage = () => {
                           {errors.invoiceCity}
                         </p>
                       )}
-                    </div>
-
-                    <div>
-                      <label className="block text-xs font-medium text-gray-700">
-                        Държава
-                      </label>
-                      <select
-                        name="invoiceCountry"
-                        value={form.invoiceCountry}
-                        onChange={onChange}
-                        className="mt-2 w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm text-gray-900 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200"
-                      >
-                        <option>България</option>
-                        <option>Румъния</option>
-                        <option>Гърция</option>
-                      </select>
                     </div>
 
                     <div>
@@ -705,7 +655,7 @@ const CheckoutPage = () => {
                 <span className="font-medium">Наложен платеж</span>
               </label>
 
-              <label className="flex items-center gap-3 p-4 border rounded-md cursor-pointer hover:border-blue-600">
+              <label className="flex items-center gap-3 p-4 border  rounded-md cursor-pointer hover:border-blue-600">
                 <input
                   type="radio"
                   name="payment"
