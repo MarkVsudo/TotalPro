@@ -17,9 +17,8 @@ const decideCompanyLogo = (name) => {
       return MitsubishiElLogo;
     case "fujitsu":
       return FujitsuLogo;
-
     default:
-      break;
+      return null;
   }
 };
 
@@ -31,107 +30,128 @@ export default function AirConProducts({ products, productImgs }) {
       (img) => img.product_id === product.product_id && img.is_main,
     );
 
-  return (
-    <>
-      {products.length === 0 ? (
-        <div className="w-full h-full min-h-[300px] flex flex-col items-center justify-center text-center py-16">
-          <h2 className="text-xl sm:text-2xl font-semibold text-gray-800">
+  if (products.length === 0) {
+    return (
+      <div className="col-span-full flex min-h-[400px] flex-col items-center justify-center gap-4 text-center">
+        <div className="flex h-20 w-20 items-center justify-center rounded-2xl bg-gray-100 text-4xl">
+          🌬️
+        </div>
+        <div>
+          <h2 className="text-xl font-bold text-gray-800">
             Няма намерени продукти
           </h2>
-
-          <p className="text-gray-500 mt-2 max-w-md">
+          <p className="mt-1.5 max-w-sm text-sm text-gray-400">
             Нито един продукт не отговаря на избраните критерии. Опитайте да
-            промените филтрите или разгледайте всички продукти.
+            промените филтрите.
           </p>
-
-          <Link
-            to="/air-conditioning"
-            type="button"
-            className="mt-6 px-6 py-2.5 bg-[#002B5B] hover:bg-blue-900 text-white rounded-lg font-medium shadow-md transition-colors"
-          >
-            Изчисти филтрите
-          </Link>
         </div>
-      ) : (
-        products.map((product) => {
-          const mainImg = findMainImg(product);
+        <Link
+          to="/air-conditioning"
+          className="mt-2 rounded-xl bg-[#002B5B] px-6 py-2.5 text-sm font-semibold text-white shadow-md transition hover:bg-[#003a7a] active:scale-95"
+        >
+          Изчисти филтрите
+        </Link>
+      </div>
+    );
+  }
 
-          return (
-            <div
-              key={product.product_id}
-              className="group relative h-full flex flex-col bg-white rounded-lg sm:rounded-none sm:bg-transparent"
+  return (
+    <>
+      {products.map((product) => {
+        const mainImg = findMainImg(product);
+        const imgSrc = mainImg
+          ? `https://res.cloudinary.com/dh1arjjjy/image/upload/v1768349183/${mainImg.public_id}`
+          : ImageNotFound;
+        const logo = decideCompanyLogo(product.make);
+
+        const discountedPrice =
+          product.discount != null
+            ? (
+                Number(product.price) *
+                (1 - Number(product.discount) / 100)
+              ).toFixed(2)
+            : null;
+
+        return (
+          <article
+            key={product.product_id}
+            className="group relative flex flex-col overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm transition-all duration-300 hover:-trangray-y-1 hover:shadow-xl hover:shadow-gray-200/80"
+          >
+            {/* Image area */}
+            <Link
+              to={`/air-conditioning/${product.slug}-${product.product_id}`}
+              className="relative block overflow-hidden "
+              style={{ aspectRatio: "4/3" }}
             >
+              <img
+                alt={product.product_name}
+                src={imgSrc}
+                className="relative z-10 h-full w-full object-contain transition-transform duration-500 group-hover:scale-[1.06]"
+              />
+
+              {/* Brand logo */}
+              {logo && product.category_value !== "aksesoari_za_montazh" && (
+                <div className="absolute left-3 top-3 z-20 flex h-9 w-9 items-center justify-center rounded-xl bg-white/90 p-1.5 shadow-sm backdrop-blur-sm">
+                  <img
+                    alt={product.make}
+                    src={logo}
+                    className="h-full w-full object-contain"
+                  />
+                </div>
+              )}
+
+              {/* Discount badge */}
+              {product.discount && (
+                <div className="absolute right-3 top-3 z-20 rounded-xl bg-emerald-500 px-2.5 py-1 text-xs font-bold text-white shadow-sm">
+                  −{product.discount}%
+                </div>
+              )}
+
+              {/* Hover shimmer overlay */}
+              <div className="absolute inset-0 z-10 bg-gradient-to-t from-white/10 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+            </Link>
+
+            {/* Thin accent line */}
+            <div className="h-[2px] w-full bg-gradient-to-r from-transparent via-[#002B5B]/20 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+
+            {/* Content */}
+            <div className="flex flex-1 flex-col gap-3 p-4">
               <Link
                 to={`/air-conditioning/${product.slug}-${product.product_id}`}
                 className="block"
               >
-                <div className="relative overflow-hidden rounded-lg sm:rounded-md">
-                  <img
-                    alt="Product front image"
-                    src={
-                      mainImg
-                        ? `https://res.cloudinary.com/dh1arjjjy/image/upload/v1768349183/${mainImg.public_id}`
-                        : ImageNotFound
-                    }
-                    className="aspect-square w-full object-contain group-hover:brightness-102 group-hover:scale-105 lg:aspect-auto lg:h-80 transition-all"
-                  />
-
-                  {product.category_value !== "aksesoari_za_montazh" && (
-                    <img
-                      alt="Aircon company"
-                      src={decideCompanyLogo(product.make)}
-                      className="absolute top-1 left-1 sm:top-2 sm:left-2 h-10 w-10 sm:h-12 sm:w-12 object-contain"
-                    />
-                  )}
-
-                  {product.discount && (
-                    <div className="absolute top-1 right-1 sm:top-2 sm:right-2 bg-green-200 text-green-900 px-2 py-1 rounded-md text-xs sm:text-sm font-medium shadow-sm">
-                      -{product.discount}%
-                    </div>
-                  )}
-                </div>
+                <h3 className="line-clamp-2 text-sm font-medium leading-snug text-gray-700 transition-colors group-hover:text-[#002B5B]">
+                  {product.product_name}
+                </h3>
               </Link>
 
-              <div className="flex flex-col gap-2 sm:gap-2.5 flex-grow pt-3 sm:pt-4">
-                <div>
-                  <h3 className="text-sm sm:text-base text-gray-700 line-clamp-2 group-hover:text-gray-900 transition-colors">
-                    {product.product_name}
-                  </h3>
-                </div>
-
-                <div className="flex gap-2 items-center flex-wrap">
-                  <p className="text-base sm:text-lg font-semibold text-gray-900">
-                    {product.discount != null
-                      ? (
-                          Number(product.price) *
-                          (1 - Number(product.discount) / 100)
-                        ).toFixed(2)
-                      : product.price}
-                    €
-                  </p>
-
-                  {product.discount && (
-                    <p className="text-sm text-gray-500 line-through">
-                      {product.price}€
-                    </p>
-                  )}
-                </div>
-
-                <button
-                  type="button"
-                  onClick={() =>
-                    addToCart(product, mainImg, { installation: false })
-                  }
-                  className="flex justify-center items-center gap-x-2 w-full bg-[#002B5B] hover:bg-blue-900 active:bg-blue-950 text-white py-2.5 sm:py-2 rounded-lg font-medium shadow-md cursor-pointer transition-colors mt-auto text-sm sm:text-base"
-                >
-                  <IoBagAddOutline className="h-5 w-5" />
-                  <span>Добави</span>
-                </button>
+              {/* Price row */}
+              <div className="flex items-baseline gap-2">
+                <span className="text-xl font-bold tracking-tight text-[#002B5B]">
+                  {discountedPrice ?? product.price}€
+                </span>
+                {product.discount && (
+                  <span className="text-xs font-medium text-gray-400 line-through">
+                    {product.price}€
+                  </span>
+                )}
               </div>
+
+              {/* Add to cart */}
+              <button
+                type="button"
+                onClick={() =>
+                  addToCart(product, mainImg, { installation: false })
+                }
+                className="mt-auto flex w-full cursor-pointer items-center justify-center gap-2 rounded-xl border border-[#002B5B] bg-[#002B5B] py-2.5 text-sm font-semibold text-white shadow-sm transition-all duration-200 hover:bg-[#003a7a] active:scale-[0.97]"
+              >
+                <IoBagAddOutline className="h-4 w-4" />
+                Добави в количката
+              </button>
             </div>
-          );
-        })
-      )}
+          </article>
+        );
+      })}
     </>
   );
 }
