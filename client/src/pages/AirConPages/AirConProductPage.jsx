@@ -191,10 +191,10 @@ const AirConProductPage = () => {
                     </SwiperSlide>
                   ))}
                   {/* Custom Navigation Buttons */}
-                  <button className="custom-prev cursor-pointer absolute left-2 top-1/2 -translate-y-1/2 z-10 text-[#002B5B] p-4 rounded-full hover:scale-125 transition-all">
+                  <button className="custom-prev cursor-pointer absolute left-2 top-1/2 -trangray-y-1/2 z-10 text-[#002B5B] p-4 rounded-full hover:scale-125 transition-all">
                     <MdOutlineArrowBackIos size={24} />
                   </button>
-                  <button className="custom-next cursor-pointer absolute right-2 top-1/2 -translate-y-1/2 z-10 text-[#002B5B] p-4 rounded-full hover:scale-125 transition-all">
+                  <button className="custom-next cursor-pointer absolute right-2 top-1/2 -trangray-y-1/2 z-10 text-[#002B5B] p-4 rounded-full hover:scale-125 transition-all">
                     <MdOutlineArrowForwardIos size={24} />
                   </button>
                 </Swiper>
@@ -431,65 +431,78 @@ const AirConProductPage = () => {
           <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-6 sm:mb-8">
             Допълнителни аксесоари
           </h2>
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-5">
             {filteredAccessories.map((accessory) => {
               const mainAccessoryImg = getMainAccessoryImg(
                 accessory.product_id,
               );
+              const imgSrc = mainAccessoryImg?.public_id
+                ? `https://res.cloudinary.com/dh1arjjjy/image/upload/v1768349183/${mainAccessoryImg.public_id}`
+                : ImageNotFound;
+
+              const discountedPrice =
+                accessory.discount != null
+                  ? (
+                      Number(accessory.price) *
+                      (1 - Number(accessory.discount) / 100)
+                    ).toFixed(2)
+                  : null;
 
               return (
-                <div
+                <article
                   key={accessory.product_id}
-                  className="group relative h-full flex flex-col bg-white rounded-lg sm:rounded-none sm:bg-transparent"
+                  className="group relative flex flex-col overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm transition-all duration-300 hover:-trangray-y-1 hover:shadow-xl hover:shadow-gray-200/80"
                 >
+                  {/* Image area */}
                   <Link
                     to={`/air-conditioning/${accessory.slug}-${accessory.product_id}`}
-                    className="block"
+                    className="relative block overflow-hidden h-50"
+                    style={{ aspectRatio: "4/3" }}
                   >
-                    <div className="relative overflow-hidden rounded-lg sm:rounded-md">
-                      <img
-                        alt={accessory.product_name}
-                        src={
-                          mainAccessoryImg?.public_id
-                            ? `https://res.cloudinary.com/dh1arjjjy/image/upload/v1768349183/${mainAccessoryImg.public_id}`
-                            : ImageNotFound
-                        }
-                        className="aspect-square w-full object-contain h-36 lg:h-56 object-contain group-hover:brightness-102 group-hover:scale-105 transition-all"
-                      />
+                    <img
+                      alt={accessory.product_name}
+                      src={imgSrc}
+                      className="relative z-10 h-full w-full object-contain transition-transform duration-500 group-hover:scale-[1.06]"
+                    />
 
-                      {accessory.discount != null && (
-                        <div className="absolute top-1 right-1 sm:top-2 sm:right-2 bg-green-200 text-green-900 px-2 py-1 rounded-md text-xs sm:text-sm font-medium shadow-sm">
-                          -{accessory.discount}%
-                        </div>
-                      )}
-                    </div>
+                    {/* Discount badge */}
+                    {accessory.discount != null && (
+                      <div className="absolute right-3 top-3 z-20 rounded-xl bg-emerald-500 px-2.5 py-1 text-xs font-bold text-white shadow-sm">
+                        −{accessory.discount}%
+                      </div>
+                    )}
+
+                    {/* Hover shimmer */}
+                    <div className="absolute inset-0 z-10 bg-gradient-to-t from-white/10 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
                   </Link>
 
-                  <div className="flex flex-col gap-2 sm:gap-2.5 flex-grow pt-3 sm:pt-4">
-                    <div>
-                      <h3 className="text-sm sm:text-base text-gray-700 line-clamp-2 group-hover:text-gray-900 transition-colors">
+                  {/* Accent line */}
+                  <div className="h-[2px] w-full bg-gradient-to-r from-transparent via-[#002B5B]/20 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+
+                  {/* Content */}
+                  <div className="flex flex-1 flex-col gap-3 p-4">
+                    <Link
+                      to={`/air-conditioning/${accessory.slug}-${accessory.product_id}`}
+                      className="block"
+                    >
+                      <h3 className="line-clamp-2 text-sm font-medium leading-snug text-gray-700 transition-colors group-hover:text-[#002B5B]">
                         {accessory.product_name}
                       </h3>
-                    </div>
+                    </Link>
 
-                    <div className="flex gap-2 items-center flex-wrap">
-                      <p className="text-base sm:text-lg font-semibold text-gray-900">
-                        {accessory.discount != null
-                          ? (
-                              Number(accessory.price) *
-                              (1 - Number(accessory.discount) / 100)
-                            ).toFixed(2)
-                          : Number(accessory.price).toFixed(2)}
-                        €
-                      </p>
-
+                    {/* Price */}
+                    <div className="flex items-baseline gap-2">
+                      <span className="text-xl font-bold tracking-tight text-[#002B5B]">
+                        {discountedPrice ?? Number(accessory.price).toFixed(2)}€
+                      </span>
                       {accessory.discount != null && (
-                        <p className="text-sm text-gray-500 line-through">
+                        <span className="text-xs font-medium text-gray-400 line-through">
                           {Number(accessory.price).toFixed(2)}€
-                        </p>
+                        </span>
                       )}
                     </div>
 
+                    {/* Add to cart */}
                     <button
                       type="button"
                       onClick={() =>
@@ -497,13 +510,13 @@ const AirConProductPage = () => {
                           installation: false,
                         })
                       }
-                      className="flex justify-center items-center gap-x-2 w-full bg-[#002B5B] hover:bg-blue-900 active:bg-blue-950 text-white py-2.5 sm:py-2 rounded-lg font-medium shadow-md cursor-pointer transition-colors mt-auto text-sm sm:text-base"
+                      className="mt-auto flex w-full cursor-pointer items-center justify-center gap-2 rounded-xl border border-[#002B5B] bg-[#002B5B] py-2.5 text-sm font-semibold text-white shadow-sm transition-all duration-200 hover:bg-[#003a7a] active:scale-[0.97]"
                     >
-                      <IoBagAddOutline className="h-5 w-5" />
-                      <span>Добави</span>
+                      <IoBagAddOutline className="h-4 w-4" />
+                      Добави в количката
                     </button>
                   </div>
-                </div>
+                </article>
               );
             })}
           </div>
