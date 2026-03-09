@@ -146,7 +146,8 @@ export default function AirConProducts({ products, productImgs }) {
                 className="mt-auto flex w-full cursor-pointer items-center justify-center gap-2 rounded-xl border border-[#002B5B] bg-[#002B5B] py-2.5 text-sm font-semibold text-white shadow-sm transition-all duration-200 hover:bg-[#003a7a] active:scale-[0.97]"
               >
                 <IoBagAddOutline className="h-4 w-4" />
-                Добави в количката
+                <span className="block md:hidden">Добави</span>
+                <span className="hidden md:block">Добави в количката</span>
               </button>
             </div>
           </article>
