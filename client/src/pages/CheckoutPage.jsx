@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 import TbiBankLogo from "../assets/tbi-bank.png";
 import CartItem from "../components/shared/CartItem";
 import { ShoppingCartIcon } from "@heroicons/react/24/outline";
-import axios from "axios";
 import API from "../api/api";
 
 const CheckoutPage = () => {
@@ -188,9 +187,9 @@ const CheckoutPage = () => {
         : null,
       paymentType,
       note: form.orderNote,
-      total,
+      total: Math.round(total * 100) / 100,
       items: cartItems.map((ci) => ({
-        product_id: ci?.product?.product_id,
+        product_id: parseInt(ci?.product?.product_id, 10),
         options: ci?.options,
         qty: ci?.quantity ?? 1,
         unit_price: parseFloat(ci?.product?.price ?? 0),

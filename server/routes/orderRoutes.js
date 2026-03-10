@@ -86,7 +86,6 @@ router.post("/order", async (req, res) => {
     const termsAccepted = consents.termsAccepted;
     const privacyAccepted = consents.privacyAccepted;
     const marketingOptIn = consents.marketingOptIn ?? false;
-    const roundedTotal = Math.round(total * 100) / 100;
 
     const createdOrder = await db.tx(async (t) => {
       const order = await t.one(

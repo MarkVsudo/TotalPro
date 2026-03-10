@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
 import Dropdown from "../shared/Dropdown";
 import { MdOutlinePhotoSizeSelectActual } from "react-icons/md";
 import { IoIosRemoveCircle } from "react-icons/io";
