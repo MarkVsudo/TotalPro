@@ -185,8 +185,10 @@ router.post("/order", async (req, res) => {
       order: createdOrder,
     });
   } catch (err) {
-    console.error("An error occurred while creating an order:", err);
-    res.status(500).json({ error: "Server error" });
+    console.error("Order error:", err.message, err.detail, err.code);
+    res
+      .status(500)
+      .json({ error: err.message, detail: err.detail, code: err.code });
   }
 });
 
