@@ -5,6 +5,7 @@ import TbiBankLogo from "../assets/tbi-bank.png";
 import CartItem from "../components/shared/CartItem";
 import { ShoppingCartIcon } from "@heroicons/react/24/outline";
 import axios from "axios";
+import API from "../api/api";
 
 const CheckoutPage = () => {
   const { cartItems } = useCart();
@@ -203,8 +204,7 @@ const CheckoutPage = () => {
 
     console.log("ORDER PAYLOAD", payload);
 
-    // пример:
-    await axios.post("/api/order", payload);
+    await API.post("/api/order", payload);
   };
 
   // Empty state

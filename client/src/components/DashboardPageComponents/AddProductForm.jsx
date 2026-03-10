@@ -5,6 +5,7 @@ import { MdOutlinePhotoSizeSelectActual } from "react-icons/md";
 import { IoIosRemoveCircle } from "react-icons/io";
 import ErrorAlert from "../shared/ErrorAlert";
 import SucessAlert from "../shared/SucessAlert";
+import API from "../../api/api";
 
 const productTypeConfig = {
   invertorni_klimatici: {
@@ -236,12 +237,9 @@ const AddProductForm = () => {
         slug,
         description: formData.description,
       };
-      const productRes = await axios.post(
-        "/api/dashboard/add-product",
-        payload,
-      );
+      const productRes = await API.post("/api/dashboard/add-product", payload);
       const productId = productRes.data.id;
-      const sigRes = await axios.get(`/api/cloudinary/cloudinary-signature`);
+      const sigRes = await API.get(`/api/cloudinary/cloudinary-signature`);
       const uploaded = [];
       for (let i = 0; i < uploadedImages.length; i++) {
         const img = uploadedImages[i];
@@ -251,7 +249,7 @@ const AddProductForm = () => {
         data.append("timestamp", sigRes.data.timestamp);
         data.append("signature", sigRes.data.signature);
         data.append("folder", sigRes.data.folder);
-        const cloudRes = await axios.post(
+        const cloudRes = await API.post(
           `https://api.cloudinary.com/v1_1/${sigRes.data.cloud_name}/image/upload`,
           data,
         );
@@ -261,7 +259,7 @@ const AddProductForm = () => {
           isMain: i === 0,
         });
       }
-      await axios.post("/api/dashboard/add-product-images", {
+      await API.post("/api/dashboard/add-product-images", {
         productId,
         images: uploaded,
       });

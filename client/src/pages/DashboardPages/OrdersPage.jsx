@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
+import API from "./../../api/api";
 
 const statusMap = {
   pending: { badge: "bg-orange-50 text-orange-700", dot: "bg-orange-400" },
@@ -71,7 +71,7 @@ const OrdersPage = () => {
   useEffect(() => {
     const fetchOrders = async () => {
       try {
-        const res = await axios.get("/api/orders");
+        const res = await API.get("/api/orders");
         setOrders(res.data);
       } catch (error) {
         console.error("Error fetching orders:", error);
