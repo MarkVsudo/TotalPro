@@ -19,16 +19,16 @@ import ViberButton from "../components/shared/ViberButton";
 import LoginPage from "../pages/AuthPages/LoginPage";
 import DashboardLayout from "../layout/DashboardLayout";
 import AnalyticsPage from "../pages/DashboardPages/AnalyticsPage";
-import ProductManagementPage from "../pages/DashboardPages/ProductManagementPage";
 import OrdersPage from "../pages/DashboardPages/OrdersPage";
 import MainBoardPage from "../pages/DashboardPages/MainBoardPage";
 import CheckoutPage from "../pages/CheckoutPage";
 import AdminRoute from "./AdminRoute";
 import CheckoutSuccessPage from "../pages/CheckoutSuccessPage";
 import CheckoutCancelPage from "../pages/CheckoutCancelPage";
-import TermsPage from "./../pages/LegalPages/TermsPage";
-import PrivacyPage from "./../pages/LegalPages/PrivacyPage";
-import CookiesPage from "./../pages/LegalPages/CookiesPage";
+import TermsPage from "../pages/LegalPages/TermsPage";
+import CookiesPage from "../pages/LegalPages/CookiesPage";
+import PrivacyPage from "../pages/LegalPages/PrivacyPage";
+import AddProductForm from "../components/DashboardPageComponents/AddProductForm";
 
 const withAnimation = (component) => (
   <>
@@ -156,7 +156,7 @@ const router = createBrowserRouter([
           { path: "analytics", element: withAnimation(<AnalyticsPage />) },
           {
             path: "products",
-            element: withAnimation(<ProductManagementPage />),
+            element: withAnimation(<AddProductForm />),
           },
           { path: "orders", element: withAnimation(<OrdersPage />) },
         ],

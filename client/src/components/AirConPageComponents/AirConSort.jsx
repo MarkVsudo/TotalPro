@@ -59,7 +59,7 @@ const AirConSort = () => {
 
             <MenuItems
               transition
-              className="absolute left-0 sm:left-auto sm:right-0 z-10 mt-2 w-44 origin-top-left sm:origin-top-right
+              className="absolute left-0 sm:left-auto sm:right-0 z-100 mt-2 w-44 origin-top-left sm:origin-top-right
              rounded-md bg-white shadow-2xl ring-1 ring-black/5 focus:outline-hidden
              data-closed:scale-95 data-closed:transform data-closed:opacity-0
              data-enter:duration-100 data-enter:ease-out data-leave:duration-75 data-leave:ease-in"
