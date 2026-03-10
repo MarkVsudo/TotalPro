@@ -190,4 +190,16 @@ router.post("/order", async (req, res) => {
   }
 });
 
+router.get("/orders", async (req, res) => {
+  try {
+    const orders = await db.any(
+      "SELECT * FROM orders ORDER BY created_at DESC",
+    );
+    res.json(orders);
+  } catch (err) {
+    console.error("An error occurred while fetching orders:", err);
+    res.status(500).json({ error: "Server error" });
+  }
+});
+
 export default router;
