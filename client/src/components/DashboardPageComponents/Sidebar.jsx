@@ -1,3 +1,4 @@
+import { useContext } from "react";
 import { MdSpaceDashboard } from "react-icons/md";
 import { IoStatsChart } from "react-icons/io5";
 import { FaDatabase } from "react-icons/fa6";
@@ -5,9 +6,11 @@ import { RiListOrdered2 } from "react-icons/ri";
 import { TbLogout2 } from "react-icons/tb";
 import { Link, useLocation } from "react-router-dom";
 import NavLogoImg from "../../assets/nav-logo.png";
+import { AuthContext } from "../../context/AuthContext";
 
 const Sidebar = () => {
   const location = useLocation();
+  const { user } = useContext(AuthContext);
 
   const navItems = [
     {
@@ -33,8 +36,8 @@ const Sidebar = () => {
   ];
 
   return (
-    <header className="static  top-20 flex flex-col h-screen w-64 text-gray-800 ">
-      <nav className="flex flex-col flex-1 px-5 py-6 gap-3 shadow-xl rounded-r-xl">
+    <header className="sticky top-0 h-screen w-64 flex-shrink-0 z-40">
+      <nav className="flex flex-col h-full px-5 py-6 gap-3 shadow-xl">
         <Link to="/" className="flex items-center gap-3 mb-12 justify-center">
           <img
             alt="Nav logo"
@@ -62,8 +65,8 @@ const Sidebar = () => {
         })}
         <div className="mt-auto flex items-center justify-between bg-gray-100 px-4 py-3 rounded-xl shadow-inner">
           <div>
-            <p className="text-sm font-semibold text-[#012A4A]">Марк Весков</p>
-            <p className="text-xs text-gray-500">totalproltd@gmail.com</p>
+            <p className="text-sm font-semibold text-[#012A4A]">Admin</p>
+            <p className="text-xs text-gray-500">{user.email}</p>
           </div>
           <button className="text-gray-500 hover:text-red-500 transition">
             <TbLogout2 size={22} />
