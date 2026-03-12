@@ -1,12 +1,13 @@
 import { useMemo, useState } from "react";
 import { useCart } from "../context/CartContext";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import TbiBankLogo from "../assets/tbi-bank.png";
 import CartItem from "../components/shared/CartItem";
 import { ShoppingCartIcon } from "@heroicons/react/24/outline";
 import axios from "axios";
 
 const CheckoutPage = () => {
+  let navigate = useNavigate();
   const { cartItems } = useCart();
 
   const subtotal = useMemo(() => {
@@ -201,10 +202,18 @@ const CheckoutPage = () => {
       },
     };
 
-    console.log("ORDER PAYLOAD", payload);
+    try {
+      const response = await axios.post("/api/order", payload);
+      const { order } = response.data;
 
-    // пример:
-    await axios.post("/api/order", payload);
+      if (paymentType === "with-card") {
+        window.location.href = `/api/order/${order.id}/pay`;
+      } else {
+        navigate(`/checkout/success?order=${order.order_number}`);
+      }
+    } catch (err) {
+      console.error("Submit error:", err);
+    }
   };
 
   // Empty state
