@@ -1,12 +1,13 @@
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 const CheckoutSuccessPage = () => {
+  const { orderNumber } = useParams();
+
   return (
     <section className="bg-white text-[#002B5B] my-24 px-4 max-w-4xl mx-auto">
       <div className="rounded-lg border border-gray-200 bg-white p-8">
         <div className="flex items-start gap-4">
           <div className="shrink-0 rounded-full bg-green-50 border border-green-200 p-3">
-            {/* check icon */}
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
@@ -25,6 +26,13 @@ const CheckoutSuccessPage = () => {
             <h1 className="text-2xl font-bold text-gray-900">
               Плащането е успешно
             </h1>
+
+            {orderNumber && (
+              <p className="mt-1 text-sm font-medium text-gray-500">
+                Поръчка №{orderNumber}
+              </p>
+            )}
+
             <p className="mt-2 text-sm text-gray-600">
               Благодарим ти! Получихме потвърждение за плащането ти. Ако имаш
               имейл, би трябвало да получиш и потвърждение на поръчката.
@@ -37,14 +45,6 @@ const CheckoutSuccessPage = () => {
               >
                 Към началото
               </Link>
-            </div>
-
-            <div className="mt-6 rounded-md border border-gray-200 bg-gray-50 p-4">
-              <p className="text-xs text-gray-600">
-                *Важно:* само redirect към тази страница не е 100% доказателство
-                за плащане. Реалното потвърждение идва от myPOS notification /
-                webhook към твоя backend.
-              </p>
             </div>
           </div>
         </div>

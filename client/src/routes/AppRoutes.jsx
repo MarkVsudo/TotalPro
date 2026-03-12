@@ -141,8 +141,14 @@ const router = createBrowserRouter([
     ),
     children: [
       { index: true, element: withAnimation(<CheckoutPage />) },
-      { path: "success", element: withAnimation(<CheckoutSuccessPage />) },
-      { path: "cancel", element: withAnimation(<CheckoutCancelPage />) },
+      {
+        path: "success/:orderNumber",
+        element: withAnimation(<CheckoutSuccessPage />),
+      },
+      {
+        path: "cancel/:orderNumber",
+        element: withAnimation(<CheckoutCancelPage />),
+      },
     ],
   },
   {
