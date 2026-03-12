@@ -1,12 +1,13 @@
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 const CheckoutCancelPage = () => {
+  const { orderNumber } = useParams();
+
   return (
     <section className="bg-white text-[#002B5B] my-24 px-4 max-w-4xl mx-auto">
       <div className="rounded-lg border border-gray-200 bg-white p-8">
         <div className="flex items-start gap-4">
           <div className="shrink-0 rounded-full bg-red-50 border border-red-200 p-3">
-            {/* x icon */}
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
@@ -25,6 +26,13 @@ const CheckoutCancelPage = () => {
             <h1 className="text-2xl font-bold text-gray-900">
               Плащането е отказано или прекъснато
             </h1>
+
+            {orderNumber && (
+              <p className="mt-1 text-sm font-medium text-gray-500">
+                Поръчка №{orderNumber}
+              </p>
+            )}
+
             <p className="mt-2 text-sm text-gray-600">
               Изглежда плащането не беше завършено. Можеш да опиташ отново или
               да избереш друг начин на плащане.
@@ -49,7 +57,7 @@ const CheckoutCancelPage = () => {
             <div className="mt-6 rounded-md border border-gray-200 bg-gray-50 p-4">
               <p className="text-xs text-gray-600">
                 Ако виждаш този екран, не означава задължително проблем с
-                картата — често е просто затворен прозорец или натиснат “Back”.
+                картата — често е просто затворен прозорец или натиснат "Back".
               </p>
             </div>
           </div>
