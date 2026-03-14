@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-
+import ImageNotFound from "../../assets/image-not-found.png";
 const statusMap = {
   pending: { badge: "bg-orange-50 text-orange-700", dot: "bg-orange-400" },
   processing: { badge: "bg-blue-50 text-blue-700", dot: "bg-blue-400" },
@@ -372,6 +372,38 @@ const OrdersPage = () => {
                         label="Обновена"
                         value={formatDate(order.updated_at)}
                       />
+
+                      <Divider />
+                      <SectionLabel>🛒 Продукти</SectionLabel>
+                      <div className="col-span-full flex flex-col w-full gap-3">
+                        {order.items.map((item, indx) => (
+                          <div
+                            key={indx}
+                            className="grid grid-cols-[80px_1fr] gap-4 rounded-xl"
+                          >
+                            <div className="size-20 rounded-md bg-white border border-gray-200 overflow-hidden shrink-0 self-center">
+                              <img
+                                alt={`${item?.product_name ?? "product"} cover`}
+                                src={
+                                  item?.public_id
+                                    ? `https://res.cloudinary.com/dh1arjjjy/image/upload/v1768349183/${item.public_id}`
+                                    : ImageNotFound
+                                }
+                                className="h-full w-full object-cover"
+                              />
+                            </div>
+                            <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
+                              <Field label="ID" value={item.product_id} mono />
+                              <Field label="Име" value={item.product_name} />
+                              <Field label="Количество" value={item.qty} />
+                              <Field
+                                label="Ед. цена"
+                                value={`${item.price} €`}
+                              />
+                            </div>
+                          </div>
+                        ))}
+                      </div>
                     </div>
                   )}
                 </div>

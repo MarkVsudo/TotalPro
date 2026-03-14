@@ -228,8 +228,6 @@ GROUP BY o.id`,
     const cartItems = order.cart_items;
     const cartParams = {};
     cartItems.forEach((item, i) => {
-      console.log("order item ", item);
-
       const n = i + 1;
       cartParams[`Article_${n}`] = item.name;
       cartParams[`Quantity_${n}`] = String(item.qty);
@@ -343,6 +341,38 @@ router.post("/order/success/:orderNumber", (req, res) => {
 router.post("/order/cancel/:orderNumber", (req, res) => {
   const { orderNumber } = req.params;
   res.redirect(`${FRONTEND_URL}/checkout/cancel/${orderNumber}`);
+});
+
+router.get("/orders", async (req, res) => {
+  try {
+    const orders = await db.any(
+      `SELECT o.*,
+        json_agg(
+          json_build_object(
+            'product_id', oi.product_id,
+            'qty', oi.qty,
+            'options', oi.options,
+            'product_name', p.product_name,
+            'price', p.price,
+            'public_id', pi.public_id
+          )
+        ) AS items
+       FROM orders o 
+       JOIN order_items oi ON o.id = oi.order_id 
+       JOIN products p ON oi.product_id = p.product_id
+       JOIN LATERAL (
+         SELECT public_id FROM product_images
+         WHERE product_id = oi.product_id
+         LIMIT 1
+       ) pi ON true
+       GROUP BY o.id
+       ORDER BY o.created_at DESC`,
+    );
+    res.status(200).json(orders);
+  } catch (err) {
+    console.error("An error occurred while fetching orders:", err);
+    res.status(500).json({ error: "Server error" });
+  }
 });
 
 export default router;
