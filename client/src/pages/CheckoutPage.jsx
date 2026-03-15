@@ -61,6 +61,19 @@ const CheckoutPage = () => {
     marketingOptIn: false,
   });
 
+  const handlePhoneChange = (e) => {
+    const digitsOnly = e.target.value.replace(/\D/g, "").slice(0, 9);
+    setForm((prev) => ({ ...prev, phone: digitsOnly }));
+  };
+
+  const phoneDisplay = (digits) => {
+    const d = digits || "";
+    const a = d.slice(0, 2);
+    const b = d.slice(2, 5);
+    const c = d.slice(5, 9);
+    return [a, b, c].filter(Boolean).join(" ");
+  };
+
   const onChange = (e) => {
     const { name, value, type, checked } = e.target;
     setForm((p) => ({
@@ -390,13 +403,26 @@ const CheckoutPage = () => {
                 <label className="block text-xs font-medium text-gray-700">
                   Телефон
                 </label>
-                <input
-                  name="phone"
-                  value={form.phone}
-                  onChange={onChange}
-                  type="tel"
-                  className="mt-2 w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm text-gray-900 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200"
-                />
+                <div className="relative mt-2">
+                  <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-4">
+                    <span className="text-slate-700 font-semibold text-sm">
+                      +359
+                    </span>
+                  </div>
+                  <input
+                    name="phone"
+                    value={phoneDisplay(form.phone)}
+                    onChange={handlePhoneChange}
+                    type="tel"
+                    className="w-full rounded-md border border-gray-300 bg-white pl-16 pr-4 py-2 text-sm text-gray-900 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200"
+                    inputMode="numeric"
+                    placeholder="88 123 4567"
+                    autoComplete="tel"
+                  />
+                </div>
+                <p className="mt-1 text-xs text-slate-500">
+                  Въведете 9-цифрен номер без кода +359.
+                </p>
                 {errors.phone && (
                   <p className="mt-1 text-xs text-red-600">{errors.phone}</p>
                 )}
