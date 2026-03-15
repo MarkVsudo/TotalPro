@@ -400,6 +400,14 @@ const OrdersPage = () => {
                                 label="Ед. цена"
                                 value={`${item.price} €`}
                               />
+                              <div className="flex flex-col gap-1">
+                                <span className="text-[10px] font-bold uppercase tracking-widest text-gray-400">
+                                  С монтаж
+                                </span>
+                                <BoolBadge
+                                  value={!!item.options.installation}
+                                />
+                              </div>
                             </div>
                           </div>
                         ))}
