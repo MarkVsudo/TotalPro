@@ -1,11 +1,18 @@
-import transporter from '../config/mailerConfig.js';
+import transporter from "../config/mailerConfig.js";
 
-export const sendContactFormEmail = async ({ email, firstName, lastName, phone, message }) => {
+export const sendContactFormEmail = async ({
+  email,
+  firstName,
+  lastName,
+  phone,
+  message,
+}) => {
   try {
     const mailOptions = {
-      from: email,
+      from: process.env.SMTP_USER,
+      replyTo: email,
       to: process.env.SMTP_USER,
-      subject: 'Ново съобщение от контактна форма',
+      subject: "Ново съобщение от контактна форма",
       html: `
         <!DOCTYPE html>
         <html lang="bg">
@@ -225,26 +232,19 @@ export const sendContactFormEmail = async ({ email, firstName, lastName, phone, 
                 Това съобщение е изпратено автоматично от контактната форма на вашия уебсайт.
               </p>
               <div class="timestamp">
-                Получено на: ${new Date().toLocaleString('bg-BG')}
+                Получено на: ${new Date().toLocaleString("bg-BG")}
               </div>
             </div>
           </div>
         </body>
         </html>
       `,
-      attachments: [
-        {
-          filename: 'nav-logo-2.png',
-          path: '../client/src/assets/nav-logo-2.png', // adjust path as needed
-          cid: 'navlogo'
-        }
-      ]
     };
 
     const info = await transporter.sendMail(mailOptions);
     return info;
   } catch (error) {
-    console.error('Transporter error:', error);
+    console.error("Transporter error:", error);
     throw error;
   }
 };

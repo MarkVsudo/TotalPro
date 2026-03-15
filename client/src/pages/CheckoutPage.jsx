@@ -93,16 +93,63 @@ const CheckoutPage = () => {
           </div>
         );
       case "with-card":
-        return <p className="mt-3 text-sm text-gray-600">Плащане с карта.</p>;
+        return (
+          <div className="mt-3 space-y-2 text-sm text-gray-600">
+            <p>
+              Плащането с карта се извършва сигурно чрез <strong>myPos</strong>.
+            </p>
+            <p>
+              Приемаме всички основни дебитни и кредитни карти (Visa,
+              Mastercard).
+            </p>
+          </div>
+        );
       case "bank-transfer":
         return (
-          <p className="mt-3 text-sm text-gray-600">Плащане по банков път.</p>
+          <div className="mt-3 space-y-2 text-sm text-gray-600">
+            <p className="font-semibold text-gray-800">
+              Моля, преведете цялата сума по следната банкова сметка:
+            </p>
+            <div className="mt-2 space-y-1">
+              <p>
+                <span className="font-medium">Получател:</span> ТОТАЛ ПРО ЕООД
+              </p>
+              <p>
+                <span className="font-medium">Банка:</span> Пощенска банка АД
+              </p>
+              <p>
+                <span className="font-medium">IBAN:</span>{" "}
+                BG00BPBI00000000000000
+              </p>
+              <p>
+                <span className="font-medium">BIC:</span> BPBIBGSF
+              </p>
+              <p>За основание напишете номера на поръчката.</p>
+            </div>
+            <p className="mt-2">
+              След като потвърдите поръчката ще получите имейл, който може да
+              принтирате и използвате като проформа фактура.
+            </p>
+            <p>
+              Банковите такси (включително на изпращача и получателя) трябва да
+              се заплатят от клиента.
+            </p>
+            <p className="font-medium">
+              Поръчката Ви ще бъде изпратена само при получено плащане.
+            </p>
+          </div>
         );
       case "on-lease":
         return (
-          <p className="mt-3 text-sm text-gray-600">
-            Покупка на изплащане чрез tbi bank.
-          </p>
+          <div className="mt-3 space-y-2 text-sm text-gray-600">
+            <p>
+              Покупка на изплащане чрез <strong>tbi bank</strong>.
+            </p>
+            <p>
+              След потвърждение на поръчката ще получите линк за кандидатстване.
+              Одобрението отнема до няколко минути.
+            </p>
+          </div>
         );
       default:
         return (

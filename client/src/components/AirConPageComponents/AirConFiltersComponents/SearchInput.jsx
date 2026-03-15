@@ -48,7 +48,7 @@ const SearchInput = ({ mode }) => {
       <input
         value={searchValue}
         onChange={(e) => setSearchValue(e.target.value)}
-        className="w-full rounded-xl border border-[#002B5B]/25 bg-white px-4 py-3 text-slate-900 shadow-sm outline-none transition focus:border-[#002B5B] focus:ring-2 focus:ring-[#002B5B]/20"
+        className="w-full rounded-lg border border-[#002B5B]/25 bg-white px-4 py-2 text-slate-900 shadow-sm outline-none transition focus:border-[#002B5B] focus:ring-2 focus:ring-[#002B5B]/20"
         placeholder="Име продукт"
       />
     </div>
