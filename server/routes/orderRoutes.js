@@ -338,6 +338,25 @@ router.post("/order/success/:orderNumber", (req, res) => {
   res.redirect(`${FRONTEND_URL}/checkout/success/${orderNumber}`);
 });
 
+router.get("/order/success/:orderNumber", async (req, res) => {
+  try {
+    const { orderNumber } = req.params;
+    const order = await db.oneOrNone(
+      "SELECT payment_type FROM orders WHERE order_number = $1",
+      [orderNumber],
+    );
+
+    if (!order) {
+      return res.status(404).json({ error: "Order not found" });
+    }
+
+    res.json(order.payment_type);
+  } catch (err) {
+    console.error("An error occurred: ", err);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
 router.post("/order/cancel/:orderNumber", (req, res) => {
   const { orderNumber } = req.params;
   res.redirect(`${FRONTEND_URL}/checkout/cancel/${orderNumber}`);
