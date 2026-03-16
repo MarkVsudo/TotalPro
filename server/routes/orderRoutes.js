@@ -1,6 +1,7 @@
 import { Router } from "express";
 import crypto from "crypto";
 import db from "../config/dbConfig.js";
+import { sendOrderConfirmationEmail } from "../services/mailerService.js";
 
 const router = Router();
 
@@ -178,6 +179,20 @@ router.post("/order", async (req, res) => {
         ),
       );
       await t.batch(itemQueries);
+
+      await sendOrderConfirmationEmail({
+        email: contact.email,
+        orderNumber: order.order_number,
+        firstName: shipping.firstName,
+        lastName: shipping.lastName,
+        paymentType,
+        total,
+        items, // масив от order_items JOIN products
+        address: shipping.address,
+        city: shipping.city,
+        postal: shipping.postal,
+        country: shipping.country,
+      });
 
       return order;
     });
