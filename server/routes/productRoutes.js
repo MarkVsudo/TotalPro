@@ -20,7 +20,7 @@ function getSortQuery(sort) {
     case "price_desc":
       return "ORDER BY price DESC";
     case "newest":
-      return "ORDER BY manufactured_date DESC";
+      return "ORDER BY manufactured_year DESC";
     case "most_popular":
     default:
       return "ORDER BY popularity DESC";

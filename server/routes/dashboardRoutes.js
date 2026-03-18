@@ -19,7 +19,7 @@ router.post("/add-product", async (req, res) => {
     heating_energy_class,
     spec,
     discount,
-    manufactured_date,
+    manufactured_year,
     popularity,
     slug,
     description,
@@ -43,7 +43,7 @@ router.post("/add-product", async (req, res) => {
     heating_energy_class,
     spec,
     discount,
-    manufactured_date,
+    manufactured_year,
     popularity,
     slug,
     description
@@ -63,7 +63,7 @@ router.post("/add-product", async (req, res) => {
     $(heating_energy_class),
     $(spec),
     $(discount),
-    $(manufactured_date),
+    $(manufactured_year),
     $(popularity),
     $(slug),
     $(description)
@@ -85,7 +85,7 @@ router.post("/add-product", async (req, res) => {
         heating_energy_class,
         spec: JSON.stringify(spec), // stringify JSON
         discount: discount ?? 0,
-        manufactured_date: manufactured_date ?? null,
+        manufactured_year: manufactured_year ?? null,
         popularity: popularity ?? 0,
         slug: slug ?? null,
         description,

@@ -8,7 +8,11 @@ import { useCart } from "../../context/CartContext";
 import ImageNotFound from "../../assets/image-not-found.png";
 
 const decideCompanyLogo = (name) => {
-  switch (name) {
+  if (!name || typeof name !== "string") return null;
+
+  const normalizedName = name.trim().replace(/\s+/g, "_").toLowerCase();
+
+  switch (normalizedName) {
     case "gree":
       return GreeLogo;
     case "daikin":
