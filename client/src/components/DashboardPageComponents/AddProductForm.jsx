@@ -91,12 +91,13 @@ const baseFormData = {
     maxPipeLength: "",
   },
   discount: null,
-  manufacturedDate: null,
+  manufacturedYear: null,
   popularity: null,
   slug: "",
   description: null,
 };
 
+const makes = ["Gree", "Daikin", "Mitsubishi Electric", "Fujitsu"];
 const classes = ["Начален клас", "Междинен клас", "Висок клас"];
 const energyClasses = ["A+++", "A++", "A+", "A", "B", "C", "D"];
 
@@ -231,7 +232,7 @@ const AddProductForm = () => {
         heating_energy_class: formData.heatingEnergyClass,
         spec: formData.spec,
         discount: formData.discount,
-        manufactured_date: formData.manufacturedDate,
+        manufactured_year: formData.manufacturedYear,
         popularity: formData.popularity,
         slug,
         description: formData.description,
@@ -338,21 +339,29 @@ const AddProductForm = () => {
               />
               <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                 {!isHidden("make") && (
-                  <FormField id="make" label="Марка" required>
-                    <input
-                      id="make"
-                      name="make"
-                      type="text"
+                  <div className="flex flex-col gap-1.5">
+                    <Dropdown
+                      label="Марка"
+                      options={makes}
+                      value={formData.make}
+                      onChange={(value) =>
+                        setFormData((prev) => ({
+                          ...prev,
+                          make: value,
+                        }))
+                      }
                       required
-                      value={formData.make || ""}
-                      onChange={handleInputChange}
-                      placeholder="напр. Mitsubishi"
-                      className={inputCls}
                     />
-                  </FormField>
+                  </div>
                 )}
                 {!isHidden("productName") && (
-                  <FormField id="productName" label="Модел" required>
+                  <div className="flex flex-col gap-1.5">
+                    <label
+                      htmlFor="productName"
+                      className="block text-sm font-medium text-gray-700 mb-1"
+                    >
+                      Модел <span className="text-red-500">*</span>
+                    </label>
                     <input
                       id="productName"
                       name="productName"
@@ -363,7 +372,7 @@ const AddProductForm = () => {
                       placeholder="напр. MSZ-HR25VF"
                       className={inputCls}
                     />
-                  </FormField>
+                  </div>
                 )}
                 {!isHidden("color") && (
                   <FormField id="color" label="Цвят" required>
@@ -379,18 +388,21 @@ const AddProductForm = () => {
                     />
                   </FormField>
                 )}
-                {!isHidden("manufacturedDate") && (
+                {!isHidden("manufacturedYear") && (
                   <FormField
-                    id="manufacturedDate"
-                    label="Дата на производство"
+                    id="manufacturedYear"
+                    label="Година на производство"
                     required
                   >
                     <input
-                      id="manufacturedDate"
-                      name="manufacturedDate"
-                      type="date"
+                      id="manufacturedYear"
+                      name="manufacturedYear"
+                      type="number"
                       required
-                      value={formData.manufacturedDate || ""}
+                      min="1980"
+                      max={new Date().getFullYear()}
+                      step="1"
+                      value={formData.manufacturedYear || ""}
                       onChange={handleInputChange}
                       className={inputCls}
                     />
