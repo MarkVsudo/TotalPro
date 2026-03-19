@@ -254,7 +254,7 @@ const AirConProductPage = () => {
           <div className="w-full lg:w-[45%] space-y-4 lg:space-y-6">
             <div>
               <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold text-[#002B5B] mb-2">
-                {product.product.category_name} {product.product.product_name}
+                {product.product.product_name}
               </h1>
               {product.product.category_value !== "aksesoari_za_montazh" && (
                 <p className="text-base lg:text-lg text-gray-600 mb-4">
