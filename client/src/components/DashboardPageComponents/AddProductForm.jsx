@@ -22,13 +22,13 @@ const productTypeConfig = {
     defaults: { categoryId: 3 },
     hiddenFields: [],
   },
-  multisplit_klimatici: {
-    name: "Мултисплит климатици",
+  multisplit_sistemi: {
+    name: "Мултисплит системи",
     defaults: { categoryId: 4 },
     hiddenFields: [],
   },
-  kolonni_sistemi: {
-    name: "Колонни системи",
+  kolonni_klimatici: {
+    name: "Колонни климатици",
     defaults: { categoryId: 5 },
     hiddenFields: [],
   },
@@ -55,7 +55,7 @@ const productTypeConfig = {
 
 const baseFormData = {
   productCode: "",
-  productName: "",
+  productModel: "",
   price: null,
   overallClass: "",
   make: "",
@@ -164,16 +164,48 @@ const Card = ({ children, className = "" }) => (
 );
 
 const productTypes = [
-  { name: "Инверторни климатици", value: "invertorni_klimatici" },
+  {
+    name: "Инверторни климатици",
+    value: "invertorni_klimatici",
+    singularName: "Инверторен климатик",
+    singularNameEn: "invertoren klimatik",
+  },
   {
     name: "Хиперинверторни климатици",
     value: "hiperinvertorni_klimatici",
+    singularName: "Хиперинверторен климатик",
+    singularNameEn: "hiperinvertoren klimatik",
   },
-  { name: "Подови климатици", value: "podovi_klimatici" },
-  { name: "Мултисплит системи", value: "multisplit_klimatici" },
-  { name: "Колонни системи", value: "kolonni_sistemi" },
-  { name: "Касетъчни климатици", value: "kasetachni_klimatici" },
-  { name: "Аксесоари за монтаж", value: "aksesoari_za_montazh" },
+  {
+    name: "Подови климатици",
+    value: "podovi_klimatici",
+    singularName: "Подов климатик",
+    singularNameEn: "podov klimatik",
+  },
+  {
+    name: "Мултисплит системи",
+    value: "multisplit_sistemi",
+    singularName: "Мултисплит система",
+    singularNameEn: "multisplit sistema",
+  },
+  {
+    name: "Колонни климатици",
+    value: "kolonni_klimatici",
+    singularName: "Колонен климатик",
+    singularNameEn: "kolonen klimatik",
+  },
+  {
+    name: "Касетъчни климатици",
+    value: "kasetachni_klimatici",
+    singularName: "Касетъчен климатик",
+    singularValue: "kasetachen klimatik",
+  },
+  {
+    name: "Аксесоари за монтаж",
+    value: "aksesoari_za_montazh",
+    singularName: "",
+    singularNameEn: "",
+  },
 ];
 const AddProductForm = () => {
   const [selected, setSelected] = useState(productTypes[0]);
@@ -215,12 +247,13 @@ const AddProductForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const product_code = `${formData.make.substring(0, 2).toUpperCase()}-${formData.btu}-${formData.productName.replace(/\s+/g, "")}`;
-      const slug = `${formData.make.toLowerCase()}-${formData.btu}btu`;
+      const finalizedProductName = `${productTypes[formData.categoryId].singularName} ${formData.make} ${formData.productModel} ${formData.btu} BTU`;
+      const product_code = `${formData.make.substring(0, 2).toUpperCase()}-${formData.btu}-${formData.productModel.replace(/\s+/g, "")}`;
+      const slug = `${productTypes[formData.categoryId].singularNameEn.split(" ").join("-")}-${formData.make.toLowerCase()}-${formData.productModel.toLowerCase()}-${formData.btu}btu`;
       const payload = {
         category_id: formData.categoryId,
         product_code,
-        product_name: formData.productName,
+        product_name: finalizedProductName,
         price: formData.price,
         overall_class: formData.overallClass,
         make: formData.make,
@@ -354,20 +387,20 @@ const AddProductForm = () => {
                     />
                   </div>
                 )}
-                {!isHidden("productName") && (
+                {!isHidden("productModel") && (
                   <div className="flex flex-col gap-1.5">
                     <label
-                      htmlFor="productName"
+                      htmlFor="productModel"
                       className="block text-sm font-medium text-gray-700 mb-1"
                     >
                       Модел <span className="text-red-500">*</span>
                     </label>
                     <input
-                      id="productName"
-                      name="productName"
+                      id="productModel"
+                      name="productModel"
                       type="text"
                       required
-                      value={formData.productName || ""}
+                      value={formData.productModel || ""}
                       onChange={handleInputChange}
                       placeholder="напр. MSZ-HR25VF"
                       className={inputCls}
