@@ -6,6 +6,7 @@ import MitsubishiElLogo from "../../assets/AirConBrands/mitsubishi-electric.png"
 import FujitsuLogo from "../../assets/AirConBrands/fujitsu.png";
 import { useCart } from "../../context/CartContext";
 import ImageNotFound from "../../assets/image-not-found.png";
+import { FaMagnifyingGlass } from "react-icons/fa6";
 
 const decideCompanyLogo = (name) => {
   if (!name || typeof name !== "string") return null;
@@ -36,29 +37,29 @@ export default function AirConProducts({ products, productImgs }) {
 
   if (products.length === 0) {
     return (
-      <div className="col-span-full flex min-h-[400px] flex-col items-center justify-center gap-4 text-center">
-        <div className="flex h-20 w-20 items-center justify-center rounded-2xl bg-gray-100 text-4xl">
-          🌬️
+      <div className="col-span-full flex min-h-[400px] flex-col items-center justify-center py-48 text-center">
+        <div className="flex size-20 items-center justify-center rounded-full bg-gray-100">
+          <FaMagnifyingGlass className="size-10 text-gray-400" />
         </div>
-        <div>
-          <h2 className="text-xl font-bold text-gray-800">
-            Няма намерени продукти
-          </h2>
-          <p className="mt-1.5 max-w-sm text-sm text-gray-400">
-            Нито един продукт не отговаря на избраните критерии. Опитайте да
-            промените филтрите.
-          </p>
-        </div>
+
+        <h3 className="mt-6 text-md font-semibold text-gray-900">
+          Няма намерени продукти
+        </h3>
+
+        <p className="mt-2 max-w-xs text-sm text-gray-500">
+          Нито един продукт не отговаря на избраните критерии. Опитайте да
+          промените филтрите.
+        </p>
+
         <Link
           to="/air-conditioning"
-          className="mt-2 rounded-xl bg-[#002B5B] px-6 py-2.5 text-sm font-semibold text-white shadow-md transition hover:bg-[#003a7a] active:scale-95"
+          className="mt-6 inline-flex items-center rounded-md bg-[#002B5B] px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-blue-900"
         >
           Изчисти филтрите
         </Link>
       </div>
     );
   }
-
   return (
     <>
       {products.map((product) => {
