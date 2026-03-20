@@ -198,7 +198,7 @@ const productTypes = [
     name: "Касетъчни климатици",
     value: "kasetachni_klimatici",
     singularName: "Касетъчен климатик",
-    singularValue: "kasetachen klimatik",
+    singularNameEn: "kasetachen klimatik",
   },
   {
     name: "Аксесоари за монтаж",
