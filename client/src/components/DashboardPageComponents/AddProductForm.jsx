@@ -210,8 +210,9 @@ const productTypes = [
 const AddProductForm = () => {
   const [selected, setSelected] = useState(productTypes[0]);
   const [uploadedImages, setUploadedImages] = useState([]);
-  const [isSuccess, setIsSuccess] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState(null);
+  const [submitCount, setSubmitCount] = useState(0);
   const [draggingId, setDraggingId] = useState(null);
 
   const cfg = productTypeConfig[selected.value] ?? {
@@ -249,7 +250,7 @@ const AddProductForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
-    setIsSuccess(null);
+    setSubmitStatus(null);
     try {
       const finalizedProductName = `${productTypes[formData.categoryId - 1].singularName} ${formData.make} ${formData.productModel} ${formData.btu} BTU`;
       const product_code = `${formData.make.substring(0, 2).toUpperCase()}-${formData.btu}-${formData.productModel.replace(/\s+/g, "")}`;
@@ -303,12 +304,14 @@ const AddProductForm = () => {
         productId,
         images: uploaded,
       });
-      setIsSuccess(true);
+      setSubmitStatus("success");
+      setSubmitCount((c) => c + 1);
       setUploadedImages([]);
       setFormData(buildInitialFormData(cfg));
     } catch (err) {
       console.error("Error adding product:", err);
-      setIsSuccess(false);
+      setSubmitStatus("error");
+      setSubmitCount((c) => c + 1);
     } finally {
       setIsLoading(false);
     }
@@ -347,16 +350,11 @@ const AddProductForm = () => {
       </div>
 
       <div className="mx-auto max-w-6xl px-6 py-8 sm:px-8">
-        {/* Alerts */}
-        {isSuccess === true && (
-          <div className="mb-4">
-            <SucessAlert text="Продуктът е добавен успешно." />
-          </div>
+        {submitStatus === "success" && (
+          <SucessAlert key={submitCount} text="Продуктът е добавен успешно." />
         )}
-        {isSuccess === false && (
-          <div className="mb-4">
-            <ErrorAlert text="Имаше грешка при добавянето." />
-          </div>
+        {submitStatus === "error" && (
+          <ErrorAlert key={submitCount} text="Имаше грешка при добавянето." />
         )}
 
         <Dropdown

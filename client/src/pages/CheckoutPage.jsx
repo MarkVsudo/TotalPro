@@ -5,8 +5,14 @@ import TbiBankLogo from "../assets/tbi-bank.png";
 import CartItem from "../components/shared/CartItem";
 import { ShoppingCartIcon } from "@heroicons/react/24/outline";
 import axios from "axios";
+import SucessAlert from "../components/shared/SucessAlert";
+import ErrorAlert from "../components/shared/ErrorAlert";
 
 const CheckoutPage = () => {
+  const [isLoading, setIsLoading] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState(null);
+  const [submitCount, setSubmitCount] = useState(0);
+
   let navigate = useNavigate();
   const { cartItems } = useCart();
 
@@ -209,6 +215,9 @@ const CheckoutPage = () => {
   const canSubmit = useMemo(() => Object.keys(errors).length === 0, [errors]);
 
   const submitOrder = async () => {
+    setIsLoading(true);
+    setSubmitStatus(null);
+
     const payload = {
       contact: { email: form.email },
       shipping: {
@@ -218,7 +227,7 @@ const CheckoutPage = () => {
         city: form.city,
         country: form.country,
         postal: form.postal,
-        phone: form.phone,
+        phone: `+359${form.phone}`,
       },
       invoice: form.invoiceRequested
         ? {
@@ -271,8 +280,14 @@ const CheckoutPage = () => {
       } else {
         navigate(`/checkout/success?order=${order.order_number}`);
       }
+      setSubmitStatus("success");
+      setSubmitCount((c) => c + 1);
     } catch (err) {
       console.error("Submit error:", err);
+      setSubmitStatus("error");
+      setSubmitCount((c) => c + 1);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -984,20 +999,58 @@ const CheckoutPage = () => {
 
               <button
                 type="button"
-                disabled={!canSubmit}
+                disabled={!canSubmit || isLoading}
                 onClick={submitOrder}
                 className={`mt-5 w-full rounded-md py-3 text-white text-sm font-semibold transition-colors ${
-                  canSubmit
+                  canSubmit && !isLoading
                     ? "bg-[#002B5B] hover:bg-blue-900"
                     : "bg-gray-300 cursor-not-allowed"
                 }`}
               >
-                Потвърди поръчката
+                {isLoading ? (
+                  <span className="flex items-center justify-center gap-2">
+                    <svg
+                      className="animate-spin h-4 w-4 text-white"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                    >
+                      <circle
+                        className="opacity-25"
+                        cx="12"
+                        cy="12"
+                        r="10"
+                        stroke="currentColor"
+                        strokeWidth="4"
+                      />
+                      <path
+                        className="opacity-75"
+                        fill="currentColor"
+                        d="M4 12a8 8 0 018-8v8z"
+                      />
+                    </svg>
+                    Изпращане...
+                  </span>
+                ) : (
+                  "Потвърди поръчката"
+                )}
               </button>
             </div>
           </div>
         </aside>
       </div>
+      {submitStatus === "success" && (
+        <SucessAlert
+          key={submitCount}
+          text="Поръчката е изпратена за обработване!"
+        />
+      )}
+      {submitStatus === "error" && (
+        <ErrorAlert
+          key={submitCount}
+          text="Имаше грешка при изпращането на поръчката. Опитайте отново."
+        />
+      )}
     </section>
   );
 };
