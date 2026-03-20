@@ -11,8 +11,8 @@ const MYPOS_URL = "https://www.mypos.com/vmp/checkout-test"; // → /checkout з
 const SID = "000000000000010";
 const WALLET = "61938166610";
 const KEY_INDEX = "1";
-const BASE_URL = "https://swelteringly-efficacious-marva.ngrok-free.dev"; // или ngrok URL при тестване
-const FRONTEND_URL = "http://localhost:5173"; // за redirect на клиента
+const BASE_URL = "https://totalpro.onrender.com"; // или ngrok URL при тестване
+const FRONTEND_URL = process.env.FRONTEND_URL || "http://localhost:5173"; // за redirect на клиента
 
 // ─── Помощна функция за подписване ────────────────────────────────────────────
 function signParams(params) {
