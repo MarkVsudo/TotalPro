@@ -27,6 +27,32 @@ function getSortQuery(sort) {
   }
 }
 
+const BRAND_MAP = {
+  gree: "Gree",
+  daikin: "Daikin",
+  mitsubishi_electric: "Mitsubishi Electric",
+  fujitsu: "Fujitsu",
+};
+
+const OVERALL_CLASS_MAP = {
+  entryClass: "Начален клас",
+  midClass: "Междинен клас",
+  highClass: "Висок клас",
+};
+
+const COLOR_MAP = {
+  white: "Бял",
+  black: "Черен",
+  silver: "Сребрист",
+};
+
+const ENERGY_CLASS_MAP = {
+  a: "A",
+  "a+": "A+",
+  "a++": "A++",
+  "a+++": "A+++",
+};
+
 router.get("/products", async (req, res) => {
   try {
     const {
@@ -55,12 +81,16 @@ router.get("/products", async (req, res) => {
     }
 
     if (overallClass) {
-      values.push(overallClass.split(","));
+      const mapped = overallClass
+        .split(",")
+        .map((v) => OVERALL_CLASS_MAP[v] ?? v);
+      values.push(mapped);
       conditions.push(`overall_class = ANY($${values.length})`);
     }
 
     if (brand) {
-      values.push(brand.split(","));
+      const mapped = brand.split(",").map((v) => BRAND_MAP[v] ?? v);
+      values.push(mapped);
       conditions.push(`make = ANY($${values.length})`);
     }
 
@@ -70,26 +100,34 @@ router.get("/products", async (req, res) => {
     }
 
     if (roomVolume) {
-      const [min, max] = roomVolume.split("-").map(Number);
-      values.push(min, max);
-      conditions.push(`
-        p.room_area_min <= $${values.length} AND
-        p.room_area_max >= $${values.length - 1}
-      `);
+      const parts = roomVolume.split(",");
+      const orConditions = parts.map((range) => {
+        const [min, max] = range.split("-").map(Number);
+        values.push(min, max);
+        return `(p.room_area_min <= $${values.length - 1} AND p.room_area_max >= $${values.length})`;
+      });
+      conditions.push(`(${orConditions.join(" OR ")})`);
     }
 
     if (color) {
-      values.push(color.split(","));
+      const mapped = color.split(",").map((v) => COLOR_MAP[v] ?? v);
+      values.push(mapped);
       conditions.push(`color = ANY($${values.length})`);
     }
 
     if (coolingEnergyClass) {
-      values.push(coolingEnergyClass.split(","));
+      const mapped = coolingEnergyClass
+        .split(",")
+        .map((v) => ENERGY_CLASS_MAP[v] ?? v);
+      values.push(mapped);
       conditions.push(`cooling_energy_class = ANY($${values.length})`);
     }
 
     if (heatingEnergyClass) {
-      values.push(heatingEnergyClass.split(","));
+      const mapped = heatingEnergyClass
+        .split(",")
+        .map((v) => ENERGY_CLASS_MAP[v] ?? v);
+      values.push(mapped);
       conditions.push(`heating_energy_class = ANY($${values.length})`);
     }
 

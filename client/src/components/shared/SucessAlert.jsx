@@ -1,12 +1,11 @@
 import React, { useState } from "react";
 
-const SucessAlert = () => {
+const SucessAlert = ({ text }) => {
   const [isVisible, setIsVisible] = useState(true);
   const [isRemoving, setIsRemoving] = useState(false);
 
   const handleDismiss = () => {
     setIsRemoving(true);
-    // Wait for animation to complete before hiding
     setTimeout(() => {
       setIsVisible(false);
     }, 300);
@@ -40,7 +39,7 @@ const SucessAlert = () => {
           </svg>
         </div>
         <div className="ml-2">
-          <h3 className="text-sm font-medium">Имейлът е изпратен успешно.</h3>
+          <h3 className="text-sm font-medium">{text}</h3>
         </div>
         <div className="pl-3 ml-auto">
           <div className="-mx-1.5 -my-1.5">

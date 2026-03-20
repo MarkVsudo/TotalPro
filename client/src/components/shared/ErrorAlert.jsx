@@ -6,7 +6,6 @@ const ErrorAlert = ({ text }) => {
 
   const handleDismiss = () => {
     setIsRemoving(true);
-    // Wait for animation to complete before hiding
     setTimeout(() => {
       setIsVisible(false);
     }, 300);

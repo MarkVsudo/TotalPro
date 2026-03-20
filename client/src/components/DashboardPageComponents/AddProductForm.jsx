@@ -211,12 +211,14 @@ const AddProductForm = () => {
   const [selected, setSelected] = useState(productTypes[0]);
   const [uploadedImages, setUploadedImages] = useState([]);
   const [isSuccess, setIsSuccess] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
   const [draggingId, setDraggingId] = useState(null);
 
   const cfg = productTypeConfig[selected.value] ?? {
     defaults: {},
     hiddenFields: [],
   };
+
   const isHidden = (field) => cfg.hiddenFields.includes(field);
 
   const buildInitialFormData = (cfg) => ({
@@ -246,10 +248,12 @@ const AddProductForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
+    setIsSuccess(null);
     try {
-      const finalizedProductName = `${productTypes[formData.categoryId].singularName} ${formData.make} ${formData.productModel} ${formData.btu} BTU`;
+      const finalizedProductName = `${productTypes[formData.categoryId - 1].singularName} ${formData.make} ${formData.productModel} ${formData.btu} BTU`;
       const product_code = `${formData.make.substring(0, 2).toUpperCase()}-${formData.btu}-${formData.productModel.replace(/\s+/g, "")}`;
-      const slug = `${productTypes[formData.categoryId].singularNameEn.split(" ").join("-")}-${formData.make.toLowerCase()}-${formData.productModel.toLowerCase()}-${formData.btu}btu`;
+      const slug = `${productTypes[formData.categoryId - 1].singularNameEn.split(" ").join("-")}-${formData.make.toLowerCase()}-${formData.productModel.toLowerCase()}-${formData.btu}btu`;
       const payload = {
         category_id: formData.categoryId,
         product_code,
@@ -301,9 +305,12 @@ const AddProductForm = () => {
       });
       setIsSuccess(true);
       setUploadedImages([]);
+      setFormData(buildInitialFormData(cfg));
     } catch (err) {
       console.error("Error adding product:", err);
       setIsSuccess(false);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -496,11 +503,11 @@ const AddProductForm = () => {
                       type="number"
                       min="0"
                       max="5"
-                      step="0.1"
+                      step="1"
                       required
                       value={formData.popularity || ""}
                       onChange={handleInputChange}
-                      placeholder="0.0"
+                      placeholder="0"
                       className={inputCls}
                     />
                   </FormField>
@@ -802,14 +809,14 @@ const AddProductForm = () => {
           )}
         </div>
 
-        {/* Submit */}
         <div className="mt-6 flex flex-col items-center gap-2">
           <button
             type="button"
             onClick={handleSubmit}
-            className="w-full max-w-md rounded-xl bg-[#002B5B] px-8 py-3.5 text-sm font-bold text-white shadow-md transition hover:bg-[#003a7a] focus:outline-none focus:ring-2 focus:ring-[#002B5B] focus:ring-offset-2 active:scale-[0.98] lg:w-auto"
+            disabled={isLoading}
+            className="w-full max-w-md rounded-xl bg-[#002B5B] px-8 py-3.5 text-sm font-bold text-white shadow-md transition hover:bg-[#003a7a] focus:outline-none focus:ring-2 focus:ring-[#002B5B] focus:ring-offset-2 active:scale-[0.98] disabled:opacity-60 disabled:cursor-not-allowed disabled:active:scale-100 lg:w-auto"
           >
-            Добави продукт
+            {isLoading ? "Добавяне..." : "Добави продукт"}
           </button>
           <p className="text-xs text-gray-400">
             <span className="text-red-400">*</span> Задължителни полета
