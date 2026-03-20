@@ -5,6 +5,7 @@ import { IoIosRemoveCircle } from "react-icons/io";
 import ErrorAlert from "../shared/ErrorAlert";
 import SucessAlert from "../shared/SucessAlert";
 import API from "../../api/api";
+import axios from "axios";
 
 const productTypeConfig = {
   invertorni_klimatici: {
@@ -287,7 +288,7 @@ const AddProductForm = () => {
         data.append("timestamp", sigRes.data.timestamp);
         data.append("signature", sigRes.data.signature);
         data.append("folder", sigRes.data.folder);
-        const cloudRes = await API.post(
+        const cloudRes = await axios.post(
           `https://api.cloudinary.com/v1_1/${sigRes.data.cloud_name}/image/upload`,
           data,
         );
