@@ -276,7 +276,7 @@ const CheckoutPage = () => {
       const { order } = response.data;
 
       if (paymentType === "with-card") {
-        window.location.href = `/api/order/${order.id}/pay`;
+        window.location.href = `${import.meta.env.VITE_API_URL}/api/order/${order.id}/pay`;
       } else {
         navigate(`/checkout/success/${order.order_number}`);
       }
