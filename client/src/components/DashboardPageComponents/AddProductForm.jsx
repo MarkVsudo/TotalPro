@@ -253,8 +253,17 @@ const AddProductForm = () => {
     setSubmitStatus(null);
     try {
       const finalizedProductName = `${productTypes[formData.categoryId - 1].singularName} ${formData.make} ${formData.productModel} ${formData.btu} BTU`;
-      const product_code = `${formData.make.substring(0, 2).toUpperCase()}-${formData.btu}-${formData.productModel.replace(/\s+/g, "")}`;
-      const slug = `${productTypes[formData.categoryId - 1].singularNameEn.split(" ").join("-")}-${formData.make.toLowerCase()}-${formData.productModel.toLowerCase()}-${formData.btu}btu`;
+      const slugify = (str) =>
+        str
+          .toLowerCase()
+          .replace(/\//g, "-")
+          .replace(/\s+/g, "-")
+          .replace(/[^a-z0-9-]/g, "")
+          .replace(/-+/g, "-")
+          .replace(/^-|-$/g, "");
+
+      const product_code = `${formData.make.substring(0, 2).toUpperCase()}-${formData.btu}-${formData.productModel.replace(/[\s/]+/g, "")}`;
+      const slug = `${slugify(productTypes[formData.categoryId - 1].singularNameEn)}-${slugify(formData.make)}-${slugify(formData.productModel)}-${formData.btu}btu`;
       const payload = {
         category_id: formData.categoryId,
         product_code,
