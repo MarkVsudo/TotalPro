@@ -811,7 +811,33 @@ const AddProductForm = () => {
             disabled={isLoading}
             className="w-full max-w-md rounded-xl bg-[#002B5B] px-8 py-3.5 text-sm font-bold text-white shadow-md transition hover:bg-[#003a7a] focus:outline-none focus:ring-2 focus:ring-[#002B5B] focus:ring-offset-2 active:scale-[0.98] disabled:opacity-60 disabled:cursor-not-allowed disabled:active:scale-100 lg:w-auto"
           >
-            {isLoading ? "Добавяне..." : "Добави продукт"}
+            {isLoading ? (
+              <span className="flex items-center justify-center gap-2">
+                <svg
+                  className="animate-spin h-4 w-4 text-white"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                >
+                  <circle
+                    className="opacity-25"
+                    cx="12"
+                    cy="12"
+                    r="10"
+                    stroke="currentColor"
+                    strokeWidth="4"
+                  />
+                  <path
+                    className="opacity-75"
+                    fill="currentColor"
+                    d="M4 12a8 8 0 018-8v8z"
+                  />
+                </svg>
+                Добавяне...
+              </span>
+            ) : (
+              "Добави продукт"
+            )}
           </button>
           <p className="text-xs text-gray-400">
             <span className="text-red-400">*</span> Задължителни полета
