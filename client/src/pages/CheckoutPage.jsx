@@ -278,7 +278,7 @@ const CheckoutPage = () => {
       if (paymentType === "with-card") {
         window.location.href = `/api/order/${order.id}/pay`;
       } else {
-        navigate(`/checkout/success?order=${order.order_number}`);
+        navigate(`/checkout/success/${order.order_number}`);
       }
       setSubmitStatus("success");
       setSubmitCount((c) => c + 1);
