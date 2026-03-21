@@ -260,6 +260,7 @@ const CheckoutPage = () => {
       total: Math.round(total * 100) / 100,
       items: cartItems.map((ci) => ({
         product_id: parseInt(ci?.product?.product_id, 10),
+        product_name: ci?.product?.product_name,
         options: ci?.options,
         qty: ci?.quantity ?? 1,
         unit_price: parseFloat(ci?.product?.price ?? 0),
