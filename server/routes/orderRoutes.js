@@ -180,19 +180,21 @@ router.post("/order", async (req, res) => {
       );
       await t.batch(itemQueries);
 
-      await sendOrderConfirmationEmail({
-        email: contact.email,
-        orderNumber: order.order_number,
-        firstName: shipping.firstName,
-        lastName: shipping.lastName,
-        paymentType,
-        total,
-        items, // масив от order_items JOIN products
-        address: shipping.address,
-        city: shipping.city,
-        postal: shipping.postal,
-        country: shipping.country,
-      });
+      if (paymentType !== "with-card") {
+        await sendOrderConfirmationEmail({
+          email: contact.email,
+          orderNumber: order.order_number,
+          firstName: shipping.firstName,
+          lastName: shipping.lastName,
+          paymentType,
+          total,
+          items,
+          address: shipping.address,
+          city: shipping.city,
+          postal: shipping.postal,
+          country: shipping.country,
+        });
+      }
 
       return order;
     });
@@ -227,9 +229,8 @@ GROUP BY o.id`,
     if (!order) return res.status(404).send("Order not found");
     if (order.status === "paid")
       return res.redirect(
-        `${BASE_URL}/checkout/success?order=${order.order_number}`,
+        `${FRONTEND_URL}/checkout/success?order=${order.order_number}`,
       );
-
     // Уникален OrderID — комбинираме order_number + timestamp за сигурност
     const myposOrderId = `${order.order_number}-${Date.now()}`;
 
@@ -287,8 +288,6 @@ GROUP BY o.id`,
       ...cartParams,
     };
 
-    console.log("URL_Notify:", `${BASE_URL}/api/order/notify`);
-
     params.Signature = signParams(params);
 
     // Auto-submit HTML форма
@@ -330,16 +329,35 @@ router.post("/order/notify", async (req, res) => {
 
     const { OrderID, Amount, Currency, IPC_Trnref } = params;
 
-    await db.none(
+    const order = await db.one(
       `UPDATE orders 
        SET status = 'paid', paid_at = NOW(), mypos_trnref = $1
-       WHERE mypos_order_id = $2`,
+       WHERE mypos_order_id = $2
+       RETURNING *`,
       [IPC_Trnref, OrderID],
     );
 
-    console.log(
-      `✅ Order ${OrderID} платена — ${Amount} ${Currency}, Trnref: ${IPC_Trnref}`,
+    const items = await db.any(
+      `SELECT oi.*, p.product_name, p.price
+       FROM order_items oi
+       JOIN products p ON p.product_id = oi.product_id
+       WHERE oi.order_id = $1`,
+      [order.id],
     );
+
+    await sendOrderConfirmationEmail({
+      email: order.email,
+      orderNumber: order.order_number,
+      firstName: order.first_name,
+      lastName: order.last_name,
+      paymentType: order.payment_type,
+      total: order.total,
+      items,
+      address: order.address,
+      city: order.city,
+      postal: order.postal,
+      country: order.country,
+    });
 
     res.status(200).send("OK");
   } catch (err) {
