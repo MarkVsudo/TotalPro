@@ -70,7 +70,7 @@ export default function AirConProducts({ products, productImgs }) {
         const logo = decideCompanyLogo(product.make);
 
         const discountedPrice =
-          product.discount != null
+          product.discount != null && Number(product.discount) > 0
             ? (
                 Number(product.price) *
                 (1 - Number(product.discount) / 100)

@@ -156,11 +156,12 @@ const AirConProductPage = () => {
           <div className="w-full lg:w-[55%] flex flex-col space-y-3 lg:space-y-4">
             {/* Main Swiper */}
             <div className="relative rounded-xl lg:rounded-2xl overflow-hidden bg-white shadow-md border border-gray-200 aspect-square lg:aspect-auto lg:h-auto">
-              {product.product.discount != null && (
-                <div className="absolute z-10 top-2 right-2 bg-green-200 text-green-900 px-2 rounded-md">
-                  -{product.product.discount}% намаление
-                </div>
-              )}
+              {product.product.discount != null &&
+                Number(product.product.discount) > 0 && (
+                  <div className="absolute z-10 top-2 right-2 bg-green-200 text-green-900 px-2 rounded-md">
+                    -{product.product.discount}% намаление
+                  </div>
+                )}
               {product.productImgs.length > 1 ? (
                 <Swiper
                   className="product-swiper w-full max-h-[600px]"
@@ -274,13 +275,15 @@ const AirConProductPage = () => {
                   <span className="text-2xl sm:text-3xl lg:text-4xl font-bold text-[#002B5B]">
                     {productOptions.installation
                       ? (
-                          (product.product.discount != null
+                          (product.product.discount != null &&
+                          Number(product.product.discount) > 0
                             ? Number(product.product.price) *
                               (1 - Number(product.product.discount) / 100)
                             : Number(product.product.price)) +
                           getInstallationPrice()
                         ).toFixed(2)
-                      : product.product.discount != null
+                      : product.product.discount != null &&
+                          Number(product.product.discount) > 0
                         ? (
                             Number(product.product.price) *
                             (1 - Number(product.product.discount) / 100)
@@ -290,7 +293,8 @@ const AirConProductPage = () => {
                   </span>
                   <span
                     className={`text-lg sm:text-xl text-gray-500 ${
-                      product.product.discount != null
+                      product.product.discount != null &&
+                      Number(product.product.discount) > 0
                         ? "line-through"
                         : "hidden"
                     }`}
@@ -441,7 +445,7 @@ const AirConProductPage = () => {
                 : ImageNotFound;
 
               const discountedPrice =
-                accessory.discount != null
+                accessory.discount != null && Number(accessory.discount) > 0
                   ? (
                       Number(accessory.price) *
                       (1 - Number(accessory.discount) / 100)
@@ -466,11 +470,12 @@ const AirConProductPage = () => {
                     />
 
                     {/* Discount badge */}
-                    {accessory.discount != null && (
-                      <div className="absolute right-3 top-3 z-20 rounded-xl bg-emerald-500 px-2.5 py-1 text-xs font-bold text-white shadow-sm">
-                        −{accessory.discount}%
-                      </div>
-                    )}
+                    {accessory.discount != null &&
+                      Number(accessory.discount) > 0 && (
+                        <div className="absolute right-3 top-3 z-20 rounded-xl bg-emerald-500 px-2.5 py-1 text-xs font-bold text-white shadow-sm">
+                          −{accessory.discount}%
+                        </div>
+                      )}
 
                     {/* Hover shimmer */}
                     <div className="absolute inset-0 z-10 bg-gradient-to-t from-white/10 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
@@ -495,11 +500,12 @@ const AirConProductPage = () => {
                       <span className="text-xl font-bold tracking-tight text-[#002B5B]">
                         {discountedPrice ?? Number(accessory.price).toFixed(2)}€
                       </span>
-                      {accessory.discount != null && (
-                        <span className="text-xs font-medium text-gray-400 line-through">
-                          {Number(accessory.price).toFixed(2)}€
-                        </span>
-                      )}
+                      {accessory.discount != null &&
+                        Number(accessory.discount) > 0 && (
+                          <span className="text-xs font-medium text-gray-400 line-through">
+                            {Number(accessory.price).toFixed(2)}€
+                          </span>
+                        )}
                     </div>
 
                     {/* Add to cart */}
