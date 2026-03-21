@@ -229,7 +229,7 @@ GROUP BY o.id`,
     if (!order) return res.status(404).send("Order not found");
     if (order.status === "paid")
       return res.redirect(
-        `${FRONTEND_URL}/checkout/success?order=${order.order_number}`,
+        `${BASE_URL}/checkout/success?order=${order.order_number}`,
       );
     // Уникален OrderID — комбинираме order_number + timestamp за сигурност
     const myposOrderId = `${order.order_number}-${Date.now()}`;
