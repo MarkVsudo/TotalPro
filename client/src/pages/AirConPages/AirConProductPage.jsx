@@ -89,6 +89,11 @@ const AirConProductPage = () => {
     ["Максимална дължина на тръбния път", "25 m"],
   ];
 
+  const FIXED_INSTALLATION_CATEGORIES = [
+    "invertorni_klimatici",
+    "hiperinvertorni_klimatici",
+  ];
+
   const productImgs = product?.productImgs.map(
     (img) =>
       `https://res.cloudinary.com/dh1arjjjy/image/upload/v1768349183/${img.public_id}`,
@@ -331,52 +336,56 @@ const AirConProductPage = () => {
                 </div>
 
                 <div className="space-y-4">
-                  {product.product.category_value !==
-                    "aksesoari_za_montazh" && (
-                    <label className="flex items-center gap-3 p-3 rounded-lg border border-gray-200 hover:border-[#002B5B] transition-colors cursor-pointer">
-                      <div className="group grid size-4 grid-cols-1 flex-shrink-0">
-                        <input
-                          type="checkbox"
-                          checked={productOptions.installation}
-                          onChange={(e) => {
-                            const checked = e.target.checked;
-                            setProductOptions((prev) => ({
-                              ...prev,
-                              installation: checked,
-                            }));
-                          }}
-                          className="col-start-1 row-start-1 appearance-none rounded-sm border border-[#002B5B] bg-white checked:border-[#002B5B] checked:bg-[#002B5B] indeterminate:border-[#002B5B] indeterminate:bg-[#002B5B] focus:ring-[#002B5B] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#002B5B] disabled:border-gray-300 disabled:bg-gray-100 disabled:checked:bg-gray-100 forced-colors:appearance-auto"
-                        />
-                        <svg
-                          fill="none"
-                          viewBox="0 0 14 14"
-                          className="pointer-events-none col-start-1 row-start-1 size-3.5 self-center justify-self-center stroke-white group-has-disabled:stroke-gray-950/25"
-                        >
-                          <path
-                            d="M3 8L6 11L11 3.5"
-                            strokeWidth={2}
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            className="opacity-0 group-has-checked:opacity-100"
+                  {product.product.category_value !== "aksesoari_za_montazh" &&
+                    (FIXED_INSTALLATION_CATEGORIES.includes(
+                      product.product.category_value,
+                    ) ? (
+                      <label className="flex items-center gap-3 p-3 rounded-lg border border-gray-200 hover:border-[#002B5B] transition-colors cursor-pointer">
+                        <div className="group grid size-4 grid-cols-1 flex-shrink-0">
+                          <input
+                            type="checkbox"
+                            checked={productOptions.installation}
+                            onChange={(e) =>
+                              setProductOptions((prev) => ({
+                                ...prev,
+                                installation: e.target.checked,
+                              }))
+                            }
+                            className="col-start-1 row-start-1 appearance-none rounded-sm border border-[#002B5B] bg-white checked:border-[#002B5B] checked:bg-[#002B5B] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#002B5B] forced-colors:appearance-auto"
                           />
-                          <path
-                            d="M3 7H11"
-                            strokeWidth={2}
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            className="opacity-0 group-has-indeterminate:opacity-100"
-                          />
-                        </svg>
+                          <svg
+                            fill="none"
+                            viewBox="0 0 14 14"
+                            className="pointer-events-none col-start-1 row-start-1 size-3.5 self-center justify-self-center stroke-white"
+                          >
+                            <path
+                              d="M3 8L6 11L11 3.5"
+                              strokeWidth={2}
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              className="opacity-0 group-has-checked:opacity-100"
+                            />
+                          </svg>
+                        </div>
+                        <FaTools className="w-4 h-4 text-gray-600 flex-shrink-0" />
+                        <span className="font-medium text-[#002B5B] flex-1">
+                          С монтаж (3 л.м. тръбен път)
+                        </span>
+                        <span className="text-[#002B5B] font-semibold">
+                          +{getInstallationPrice()}€
+                        </span>
+                      </label>
+                    ) : (
+                      <div className="flex items-center gap-3 p-3 rounded-lg border border-gray-200">
+                        <FaTools className="w-4 h-4 text-gray-600 flex-shrink-0" />
+                        <span className="font-medium text-[#002B5B] flex-1">
+                          С монтаж (3 л.м. тръбен път)
+                        </span>
+                        <span className="text-gray-500 text-sm">
+                          по договаряне
+                        </span>
                       </div>
-                      <FaTools className="w-4 h-4 text-gray-600 flex-shrink-0" />
-                      <span className="font-medium text-[#002B5B] flex-1">
-                        С монтаж (3 л.м. тръбен път)
-                      </span>
-                      <span className="text-[#002B5B] font-semibold">
-                        +{getInstallationPrice()}€.
-                      </span>
-                    </label>
-                  )}
+                    ))}
 
                   <div className="flex gap-3">
                     <button
