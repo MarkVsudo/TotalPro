@@ -5,7 +5,9 @@ const router = Router();
 
 router.get("/categories", async (req, res) => {
   try {
-    const categories = await db.any("SELECT * FROM categories");
+    const categories = await db.any(
+      "SELECT * FROM categories ORDER BY category_id ASC",
+    );
     res.json(categories);
   } catch (err) {
     console.error(err);

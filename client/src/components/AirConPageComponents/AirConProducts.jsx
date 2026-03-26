@@ -125,7 +125,7 @@ export default function AirConProducts({ products, productImgs }) {
                 to={`/air-conditioning/${product.slug}-${product.product_id}`}
                 className="block"
               >
-                <h3 className="line-clamp-2 text-sm font-medium leading-snug text-gray-700 transition-colors group-hover:text-[#002B5B]">
+                <h3 className="text-sm font-medium leading-snug text-gray-700 transition-colors group-hover:text-[#002B5B]">
                   {product.product_name}
                 </h3>
               </Link>

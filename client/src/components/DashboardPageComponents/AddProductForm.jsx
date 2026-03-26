@@ -207,6 +207,13 @@ const productTypes = [
     singularNameEn: "",
   },
 ];
+
+const COLOR_SLUG_MAP = {
+  Бял: "white",
+  Черен: "black",
+  Сребрист: "silver",
+};
+
 const AddProductForm = () => {
   const [selected, setSelected] = useState(productTypes[0]);
   const [uploadedImages, setUploadedImages] = useState([]);
@@ -262,8 +269,11 @@ const AddProductForm = () => {
           .replace(/-+/g, "-")
           .replace(/^-|-$/g, "");
 
-      const product_code = `${formData.make.substring(0, 2).toUpperCase()}-${formData.btu}-${formData.productModel.replace(/[\s/]+/g, "")}`;
-      const slug = `${slugify(productTypes[formData.categoryId - 1].singularNameEn)}-${slugify(formData.make)}-${slugify(formData.productModel)}-${formData.btu}btu`;
+      const colorSlug =
+        COLOR_SLUG_MAP[formData.color] ?? slugify(formData.color);
+
+      const product_code = `${formData.make.substring(0, 2).toUpperCase()}-${formData.btu}-${formData.productModel.replace(/[\s/]+/g, "")}-${colorSlug.toUpperCase()}`;
+      const slug = `${slugify(productTypes[formData.categoryId - 1].singularNameEn)}-${slugify(formData.make)}-${slugify(formData.productModel)}-${formData.btu}btu-${colorSlug}`;
       const payload = {
         category_id: formData.categoryId,
         product_code,
@@ -493,11 +503,11 @@ const AddProductForm = () => {
                       type="number"
                       required
                       step="1"
-                      min="0"
+                      min="1"
                       max="100"
                       value={formData.discount || ""}
                       onChange={handleInputChange}
-                      placeholder="0"
+                      placeholder="1"
                       className={inputCls}
                     />
                   </FormField>
