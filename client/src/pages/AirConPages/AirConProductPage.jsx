@@ -59,37 +59,6 @@ const AirConProductPage = () => {
     }
   };
 
-  const specifications = [
-    ["За помещения (кв.м.)", "от 10 до 15 кв.м."],
-    ["Енергиен клас охлаждане", "A++"],
-    ["Енергиен клас отопление", "A+"],
-    ["Мощност BTU", "9 000 BTU"],
-    ["Препоръчителен обем (охлаждане)", "40 куб. м."],
-    ["Препоръчителен обем (отопление)", "35 куб. м."],
-    ["Отдавана мощност (охлаждане)", "0.90-2.60-3.40 kW"],
-    ["Отдавана мощност (отопление)", "0.80-2.90-3.40 kW"],
-    ["Консумирана мощност (охлаждане)", "0.10-0.732-1.24 kW"],
-    ["Консумирана мощност (отопление)", "0.120-0.733-1.20 kW"],
-    ["Захранващо напрежение", "220-240 V"],
-    ["SEER (ефективност при охлаждане)", "6.20 - клас A++"],
-    ["SCOP (ефективност при отопление)", "4.00 - клас A+"],
-    ["Ниво на шум (вътрешно тяло)", "25/32/38.5 dB"],
-    ["Ниво на шум (външно тяло)", "55.5 dB"],
-    ["Размери вътрешно тяло (ШxВxД)", "805 x 285 x 194 mm"],
-    ["Размери външно тяло (ШxВxД)", "720 x 495 x 270 mm"],
-    ["Тегло (вътрешно тяло)", "7.6 кг"],
-    ["Тегло (външно тяло)", "23.2 кг"],
-    ["Работен диапазон при охлаждане", "-15 до +50 °C"],
-    ["Работен диапазон при отопление", "-15 до +30 °C"],
-    ["Хладилен агент", "R32"],
-    ["Цвят", "Бял"],
-    ["Произход", "Китай"],
-    ["Диаметър на тръбата течност/газ", "6.35/9.52 mm"],
-    ["Денивелация вътрешно/външно тяло", "10 m"],
-    ["Захранване", "Външно"],
-    ["Максимална дължина на тръбния път", "25 m"],
-  ];
-
   const FIXED_INSTALLATION_CATEGORIES = [
     "invertorni_klimatici",
     "hiperinvertorni_klimatici",
@@ -122,6 +91,57 @@ const AirConProductPage = () => {
       </div>
     );
   }
+
+  const specLabelMap = [
+    {
+      key: "coolingVolume",
+      label: "Препоръчителен обем охлаждане",
+      unit: "м³",
+    },
+    {
+      key: "heatingVolume",
+      label: "Препоръчителен обем отопление",
+      unit: "м³",
+    },
+    { key: "coolingPower", label: "Мощност охлаждане", unit: "kW" },
+    { key: "heatingPower", label: "Мощност отопление", unit: "kW" },
+    { key: "coolingConsumption", label: "Консумация охлаждане", unit: "kW" },
+    { key: "heatingConsumption", label: "Консумация отопление", unit: "kW" },
+    { key: "voltage", label: "Захранващо напрежение", unit: "V" },
+    { key: "seer", label: "SEER" },
+    { key: "scop", label: "SCOP" },
+    { key: "noiseIndoor", label: "Шум вътрешно тяло", unit: "dB" },
+    { key: "noiseOutdoor", label: "Шум външно тяло", unit: "dB" },
+    { key: "sizeIndoor", label: "Размери вътрешно тяло", unit: "мм" },
+    { key: "sizeOutdoor", label: "Размери външно тяло", unit: "мм" },
+    { key: "weightIndoor", label: "Тегло вътрешно тяло", unit: "кг" },
+    { key: "weightOutdoor", label: "Тегло външно тяло", unit: "кг" },
+    {
+      key: "workingRangeCooling",
+      label: "Работен диапазон охлаждане",
+      unit: "°C",
+    },
+    {
+      key: "workingRangeHeating",
+      label: "Работен диапазон отопление",
+      unit: "°C",
+    },
+    { key: "refrigerant", label: "Хладилен агент" },
+    { key: "origin", label: "Произход" },
+    { key: "pipeDiameter", label: "Диаметър тръба", unit: "мм" },
+    { key: "maxDifference", label: "Денивелация", unit: "м" },
+    { key: "powerSupply", label: "Захранване" },
+    { key: "maxPipeLength", label: "Макс. дължина тръбен път", unit: "м" },
+  ];
+
+  const spec = product.product.spec ?? {};
+
+  const specifications = specLabelMap
+    .filter(({ key }) => spec[key] != null && spec[key] !== "")
+    .map(({ key, label, unit }) => [
+      unit ? `${label} (${unit})` : label,
+      String(spec[key]),
+    ]);
 
   const mainImg = product.productImgs?.find(
     (img) => img.product_id === product.product.product_id && img.is_main,
