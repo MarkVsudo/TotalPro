@@ -6,38 +6,7 @@
   </a>
 </p>
 
-#### **For running the project, execute these two commands:**
-
-1. **🏗 Download all dependencies**
-   ```
-   npm i && cd client && npm i && cd ../server && npm i && cd ../
-   ```
-2. **🏁 Run project (root directory)**
-   ```
-   npm run dev
-   ```
-
----
-
-**⚙ `.env` variables**
-
-**Server side .env**
-
-```
-# Server
-PORT=5000
-
-# Nodemailer
-SMTP_USER=
-SMTP_PASS=
-
-# PostgreSQL
-DB_HOST=
-DB_PORT=
-DB_NAME=
-DB_USER=
-DB_PASSWORD=
-```
+#### **The project project is live on : [totalpro.bg](https://totalpro.bg/)**
 
 ---
 
@@ -60,6 +29,7 @@ The platform will feature multiple service categories including climate control 
 ---
 
 #### Some project snapshots
+
 <img width="1920" height="5602" alt="1" src="https://github.com/user-attachments/assets/aa6ae240-b3bc-4eb9-9645-ce4f09363231" />
 <img width="1920" height="5716" alt="2" src="https://github.com/user-attachments/assets/f7c12788-cfb2-4b17-999b-21cfd624b82f" />
 <img width="1920" height="1831" alt="3" src="https://github.com/user-attachments/assets/2fcc3d26-c9e9-4574-8b40-930045f03cee" />
