@@ -17,19 +17,30 @@ const AirConMaintenance = () => {
         </p>
       </div>
 
-      <div className="max-w-2xl rounded-2xl border border-[#002B5B] shadow-xl overflow-hidden bg-white w-full">
-        <div className="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-white bg-[#002B5B] text-white">
+      <div className="max-w-3xl rounded-2xl border border-[#002B5B] shadow-xl overflow-hidden bg-white w-full">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 divide-y md:divide-y-0 md:divide-x divide-white bg-[#002B5B] text-white">
           <div className="px-8 py-6 hover:bg-blue-900 transition-colors">
-            <h2 className="text-xl font-semibold mb-2">до 12 000 BTU</h2>
-            <p className="text-3xl font-bold">60 лв.</p>
+            <h2 className="text-lg font-semibold mb-2">Вътрешно тяло</h2>
+            <p className="text-3xl font-bold">40 €</p>
+            <p className="text-sm mt-2 opacity-80">9 000 – 12 000 BTU</p>
           </div>
+
           <div className="px-8 py-6 hover:bg-blue-900 transition-colors">
-            <h2 className="text-xl font-semibold mb-2">12 000 – 24 000 BTU</h2>
-            <p className="text-3xl font-bold">90 лв.</p>
+            <h2 className="text-lg font-semibold mb-2">Вътрешно тяло</h2>
+            <p className="text-3xl font-bold">50 €</p>
+            <p className="text-sm mt-2 opacity-80">18 000 BTU</p>
           </div>
+
           <div className="px-8 py-6 hover:bg-blue-900 transition-colors">
-            <h2 className="text-xl font-semibold mb-2">30 000 – 55 000 BTU</h2>
-            <p className="text-3xl font-bold">120 лв.</p>
+            <h2 className="text-lg font-semibold mb-2">Вътрешно тяло</h2>
+            <p className="text-3xl font-bold">60 €</p>
+            <p className="text-sm mt-2 opacity-80">24 000 BTU</p>
+          </div>
+
+          <div className="px-8 py-6 hover:bg-blue-900 transition-colors">
+            <h2 className="text-lg font-semibold mb-2">Външно тяло</h2>
+            <p className="text-3xl font-bold">30 €</p>
+            <p className="text-sm mt-2 opacity-80">9 000 – 24 000 BTU</p>
           </div>
         </div>
 
@@ -38,6 +49,7 @@ const AirConMaintenance = () => {
             <li>✔ Почистване и измиване на филтри на вътрешно тяло</li>
             <li>✔ Обработка на топлообменника с антибактериален препарат</li>
             <li>✔ Почистване на турбината и дренажната система</li>
+            <li>✔ Почистване на външно тяло (при избрана услуга)</li>
             <li>✔ Проверка на хладилен агент (фреон) и налягане</li>
             <li>✔ Проверка на електрическите връзки</li>
             <li>✔ Тестване за нормална работа в различни режими</li>
