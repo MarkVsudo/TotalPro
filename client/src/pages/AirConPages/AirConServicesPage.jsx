@@ -151,16 +151,17 @@ const AirConditioningPage = () => {
           "Професионален екип",
         ]}
       />
+
+      {/* Aircon maintenance */}
+      <AirConMaintenance />
+      {/* Aircon installation */}
+      <AirConInstallation />
       {/* Services Section */}
       <ServicesSection
         description="Предлагаме пълен спектър от услуги за климатични системи, адаптирани
         към вашите потребности"
         services={services}
       />
-      {/* Aircon maintenance */}
-      <AirConMaintenance />
-      {/* Aircon installation */}
-      <AirConInstallation />
       {/* Features Section */}
       <FeaturesSection
         description="Нашите предимства, които ни правят най-добрия избор за климатични

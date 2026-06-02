@@ -19,16 +19,16 @@ const AirConInstallation = () => {
       <div className="max-w-2xl rounded-2xl border border-[#002B5B] shadow-xl overflow-hidden bg-white w-full">
         <div className="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-white bg-[#002B5B] text-white">
           <div className="px-8 py-6 hover:bg-blue-900 transition-colors">
-            <h2 className="text-xl font-semibold mb-2">7 000 - 14 000 BTU</h2>
-            <p className="text-3xl font-bold">от 360 лв.</p>
+            <h2 className="text-xl font-semibold mb-2">9 000 - 12 000 BTU</h2>
+            <p className="text-3xl font-bold">190 €</p>
           </div>
           <div className="px-8 py-6 hover:bg-blue-900 transition-colors">
-            <h2 className="text-xl font-semibold mb-2">15 000 - 24 000 BTU</h2>
-            <p className="text-3xl font-bold">от 400 лв.</p>
+            <h2 className="text-xl font-semibold mb-2">18 000 - 24 000 BTU</h2>
+            <p className="text-3xl font-bold">210 €</p>
           </div>
           <div className="px-8 py-6 hover:bg-blue-900 transition-colors">
             <h2 className="text-xl font-semibold mb-2">30 000 - 55 000 BTU</h2>
-            <p className="text-3xl font-bold">от 440 лв.</p>
+            <p className="text-3xl font-bold">250 €</p>
           </div>
         </div>
 
@@ -39,9 +39,8 @@ const AirConInstallation = () => {
             <li>✔ Технологичен отвор в стената – 1 бр.</li>
             <li>✔ Медни тръби с термо изолация – до 3 л. м.</li>
             <li>✔ Отводняваща гофрирана тръба – до 3 л. м.</li>
-            <li>✔ Комуникационен кабел – до 5 л.м.</li>
+            <li>✔ Комуникационен кабел – до 4 л.м.</li>
             <li>✔ Щепсел и захранващ кабел – до 4 л.м.</li>
-            <li>✔ Поставяне на PVC канал – до 1 л. м.</li>
             <li>✔ Стойки за монтиране на външно тяло</li>
             <li>✔ Свързване на двете климатични тела</li>
             <li>✔ Вакуумиране</li>
